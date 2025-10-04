@@ -1,0 +1,21 @@
+@use "sass:math";
+@use "../../base/settings" as *;
+@use "../../utilities/hidden" as *;
+@use "primary-nav" as *;
+
+///
+/// プライマリCTA
+///
+
+.primary-cta {
+    margin-inline-start: auto;
+}
+
+.primary-cta > .navigation {
+    @extend %primary-nav__navigation;
+}
+
+// HACK: ポリランの言語メニューにはCSSクラスを設定できないため、プライマリCTAの言語メニューに関してだけ外部CSSで非表示を制御する
+.primary-cta .dropdown-menu .pll-parent-menu-item {
+    @extend %sm\:hidden-yes;
+}

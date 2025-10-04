@@ -1,0 +1,221 @@
+{
+   "domain": "wordpressfoundation",
+   "locale_data": {
+      "wordpressfoundation": {
+         "": {
+            "domain": "wordpressfoundation",
+            "lang": "en_US"
+         },
+         "投稿": [
+            "Post"
+         ],
+         "ホーム": [
+            "Home"
+         ],
+         "ニュース": [
+            "News"
+         ],
+         "検索": [
+            "Search"
+         ],
+         "目次": [
+            "Table Of Contents"
+         ],
+         "検索する:": [
+            "Search for:"
+         ],
+         "%sの検索結果": [
+            "Search result for %s"
+         ],
+         "前へ": [
+            "Prev"
+         ],
+         "次へ": [
+            "Next"
+         ],
+         "ページ": [
+            "Page"
+         ],
+         "未分類": [
+            "Uncategorized"
+         ],
+         "すべて": [
+            "All"
+         ],
+         "パンくずリスト": [
+            "breadcrumbs"
+         ],
+         "この記事を書いた人": [
+            "Written by"
+         ],
+         "この著者の記事一覧": [
+            "See all articles"
+         ],
+         "関連記事": [
+            "Related articles"
+         ],
+         "%s一覧": [
+            "View all %s"
+         ],
+         "一覧へ": [
+            "View all"
+         ],
+         "%s一覧に戻る": [
+            "Back to archives"
+         ],
+         "最終更新日: %s": [
+            "Last updated: %s"
+         ],
+         "カテゴリー": [
+            "Category"
+         ],
+         "タグ": [
+            "Tag"
+         ],
+         "日付": [
+            "Date"
+         ],
+         "%sナビゲーション": [
+            "%s navigation"
+         ],
+         "日付ナビゲーション": [
+            "Date navigation"
+         ],
+         "お探しのページは見つかりませんでした。": [
+            "The page you are looking for was not found."
+         ],
+         "投稿が見つかりませんでした。": [
+            "Oops, looks like I haven't posted yet."
+         ],
+         "以下の可能性があります。": [
+            "The following possibilities exist."
+         ],
+         "コメント": [
+            "Comment"
+         ],
+         "コメントする": [
+            "Leave a comment"
+         ],
+         "コメントは閉じています。": [
+            "Comment is closed."
+         ],
+         "ご覧になっていたページからのリンクが無効になっている": [
+            "The link from the page you were looking at is no longer valid."
+         ],
+         "アドレス（URL）のタイプミスがある": [
+            "There is a typo in the address (URL)."
+         ],
+         "当該ページの公開が終了している": [
+            "The page has been closed to the public."
+         ],
+         "上部（または下部）のメニューから目的のページをお探しいただくか、検索をお試しください。": [
+            "Please use the menu at the top (or bottom) to find the page you are looking for, or try searching."
+         ],
+         "プライマリ": [
+            "Primary"
+         ],
+         "プライマリ（モバイル）": [
+            "Primary (Mobile)"
+         ],
+         "グローバルプライマリ": [
+            "Global Primary"
+         ],
+         "グローバルセカンダリ": [
+            "Global Secondary"
+         ],
+         "フッタープライマリ": [
+            "Footer Primary"
+         ],
+         "フッターセカンダリ": [
+            "Footer Secondary"
+         ],
+         "ソーシャルリンク": [
+            "Social links"
+         ],
+         "Googleタグマネージャー": [
+            "Google Tag Manager"
+         ],
+         "ダークモード": [
+            "Dark mode"
+         ],
+         "「GTM-」から始まるIDを入力します（例, GTM-PQPQ54K）。": [
+            "Enter an ID starting with \"GTM-\" (e.g., GTM-PQPQ54K)."
+         ],
+         "入力内容に不備があります。": [
+            "Incomplete entry details."
+         ],
+         "「%1$s」に関する記事を%2$s件掲載しています。": [
+            "%2$s articles about \"%1$s\" are available."
+         ],
+         "%1$sに公開した記事を%2$s件掲載しています。": [
+            "%1$s articles published in %2$s."
+         ],
+         "すべての投稿を見る": [
+            "View all posts"
+         ],
+         "%sのプロフィールを見る": [
+            "View %s's profile"
+         ],
+         "氏名を入力してください。": [
+            "Enter your name."
+         ],
+         "姓を入力してください。": [
+            "Enter last name."
+         ],
+         "名を入力してください。": [
+            "Enter first name."
+         ],
+         "会社名を入力してください。": [
+            "Enter company name."
+         ],
+         "メールアドレスを入力してください。": [
+            "Enter your email address."
+         ],
+         "メールアドレスの形式が正しくありません。": [
+            "The format of the email address is incorrect."
+         ],
+         "電話番号を入力してください。": [
+            "Enter your telephone number."
+         ],
+         "電話番号の入力形式が正しくありません。": [
+            "Incorrect format for entering telephone numbers."
+         ],
+         "件名を選択してください。": [
+            "Please select a subject."
+         ],
+         "お問い合わせ内容を入力してください。": [
+            "Enter your enquiry details."
+         ],
+         "個人情報保護方針の同意が必要です。": [
+            "Privacy policy consent is required."
+         ],
+         "Googleのシステムにより、ボットとして判定されました。あなたがボットではない場合、しばらく経ってからお試しください。": [
+            "You have been identified as a bot by Google's system. If you are not a bot, please try again after some time."
+         ],
+         "terms\u0004ターム": [
+            "Terms"
+         ],
+         "authors\u0004著者": [
+            "Authors"
+         ],
+         "cta text to date archive\u0004%sのすべての投稿を見る": [
+            "View all posts in %s"
+         ],
+         "cta text to tax archive\u0004%sのすべての投稿を見る": [
+            "View all posts in %s"
+         ],
+         "yearly archives date format\u0004Y年": [
+            "Y"
+         ],
+         "monthly archives date format\u0004Y年n月": [
+            "F Y"
+         ],
+         "year date format\u0004Y年": [
+            "Y"
+         ],
+         "month date format\u0004n月": [
+            "F"
+         ]
+      }
+   }
+}

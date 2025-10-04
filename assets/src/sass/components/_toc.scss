@@ -1,0 +1,70 @@
+@use "../base/settings" as *;
+
+.toc > ul {
+    font: var(--font-text--sm);
+    counter-reset: toc-item;
+}
+
+.toc ul {
+    --flow-space: 0;
+
+    padding-inline-start: 0;
+    list-style: none;
+}
+
+.toc ul ul {
+    padding-inline-start: 0;
+    margin-block: 0;
+    list-style: none;
+}
+
+.toc > ul > li ul {
+    flex-basis: 100%;
+}
+
+.toc ul:first-of-type {
+    --flow-space: var(--space-s3);
+}
+
+.toc ul li {
+    margin-block: 0;
+    font-weight: var(--font-weight-sign);
+}
+
+.toc > ul > li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-block-end: rem(8px);
+}
+
+.toc ul ul li {
+    padding-inline-start: 1em;
+}
+
+.toc > ul > li:last-child {
+    margin-block-end: 0;
+}
+
+.toc ul a {
+    display: block;
+    padding-block: 0.35rem;
+}
+
+.toc > ul > li > a {
+    flex-basis: calc(100% - 1.85rem);
+}
+
+.toc ul a:not(:hover) {
+    text-decoration: none;
+}
+
+.toc ul a:link:not(a:hover, a:active),
+.toc ul a:visited:not(a:hover, a:active) {
+    color: inherit;
+}
+
+.toc ul a.is-active:link:not(a:hover, a:active),
+.toc ul a.is-active:visited:not(a:hover, a:active) {
+    color: var(--color-content-link);
+}

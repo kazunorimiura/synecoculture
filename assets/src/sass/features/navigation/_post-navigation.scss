@@ -1,0 +1,21 @@
+///
+/// 投稿ナビゲーション
+///
+
+.post-navigation .nav-previous,
+.post-navigation .nav-next {
+    padding-block-end: 1em;
+    border-block-end: 1px solid var(--color-border-opaque);
+}
+
+.post-navigation .nav-next {
+    text-align: right;
+}
+
+.post-navigation .nav-links {
+    --switcher-vertical-align: stretch;
+}
+
+.post-navigation .eyebrow {
+    margin-block-end: var(--space-s-1);
+}

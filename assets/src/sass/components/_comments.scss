@@ -1,0 +1,69 @@
+@use "../utilities/cluster";
+@use "../utilities/flow";
+@use "../utilities/switcher";
+
+.comment-form > * {
+    --flow-space: var(--space-s-1em);
+}
+
+.comments__header {
+    font-size: var(--font-size-headline-4);
+    font-weight: var(--font-weight-bold);
+}
+
+.comment-list,
+.comment-list .children {
+    list-style: none;
+}
+
+.comment-list {
+    --flow-space: var(--space-s-1em);
+
+    padding: 0;
+}
+
+.comment-list li {
+    @extend %flow;
+
+    --flow-space: var(--space-s-1em);
+}
+
+.comment-list > li,
+.comment-list .children > li {
+    padding-block-start: var(--space-s-1em);
+}
+
+.comment-author {
+    display: flex;
+    align-items: center;
+}
+
+.comment-author .avatar {
+    margin-inline-end: 0.75em;
+}
+
+.comment-body {
+    @extend %flow;
+
+    --flow-space: var(--space-s-1em);
+}
+
+.comment-meta {
+    @extend %switcher;
+
+    --switcher-gap: 1rem;
+}
+
+.comment-metadata {
+    @extend %cluster;
+
+    --cluster-space: 0.5em;
+    --switcher-basis: auto;
+    --switcher-grow: 0;
+
+    font: var(--font-text--sm);
+}
+
+.comment-form .form-submit {
+    --flow-space: var(--space-s0em);
+}

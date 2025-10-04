@@ -1,0 +1,37 @@
+@use "../base/settings" as *;
+
+%hidden-yes {
+    display: none;
+}
+
+.hidden-yes {
+    @extend %hidden-yes;
+}
+
+%hidden-no {
+    display: revert;
+}
+
+.hidden-no {
+    @extend %hidden-no;
+}
+
+@each $key, $value in $breakpoints {
+    @media screen and (max-width: em($value)) {
+        %#{$key}\:hidden-yes {
+            display: none;
+        }
+
+        .#{$key}\:hidden-yes {
+            @extend %#{$key}\:hidden-yes;
+        }
+
+        %#{$key}\:hidden-no {
+            display: revert;
+        }
+
+        .#{$key}\:hidden-no {
+            @extend %#{$key}\:hidden-no;
+        }
+    }
+}

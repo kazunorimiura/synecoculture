@@ -1,0 +1,292 @@
+@use "sass:map";
+@use "../config";
+@use "../base/settings" as *;
+@use "../utilities/wrapper";
+@use "../utilities/grid";
+
+.our-approach__cover {
+    position: sticky;
+    top: 0;
+    z-index: -1;
+    height: 100vh;
+}
+
+.our-approach__cover-inner {
+    width: 100%;
+    height: 100%;
+    padding: var(--site-gutter-slat);
+    overflow: hidden;
+}
+
+.our-approach__cover-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    font: var(--font-headline-1);
+    line-height: calc(var(--font-size-headline-1) * 2);
+    color: var(--color-content-on-color);
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: fd(8, 16);
+    transform: translate(-50%, -50%);
+}
+
+.our-approach__cover-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+}
+
+.our-approach__cover-image::before {
+    position: absolute;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    content: "";
+    background-color: rgb(0 0 0 / 54%);
+}
+
+.our-approach__cover-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.our-approach__main {
+    position: relative;
+    padding-block: fd(48, 96);
+    padding-inline: var(--site-gutter);
+    margin-inline: auto;
+    background-color: var(--color-background-primary);
+}
+
+.our-approach__main::before,
+.our-approach__main::after {
+    position: absolute;
+    top: calc(var(--radius-lg) * -1);
+    display: block;
+    width: var(--radius-lg);
+    height: var(--radius-lg);
+    content: "";
+    background-repeat: no-repeat;
+}
+
+.our-approach__main::before {
+    left: var(--site-gutter-slat);
+    background-image: escape-svg(get-data-url("radius-reverse-left", config.$color-background-primary));
+}
+
+[data-site-theme="dark"] .our-approach__main::before {
+    background-image: escape-svg(get-data-url("radius-reverse-left", config.$color-background-primary-dark));
+}
+
+@media (prefers-color-scheme: dark) {
+    .our-approach__main::before {
+        left: var(--site-gutter-slat);
+        background-image: escape-svg(get-data-url("radius-reverse-left", config.$color-background-primary-dark));
+    }
+
+    [data-site-theme="light"] .our-approach__main::before {
+        background-image: escape-svg(get-data-url("radius-reverse-left", config.$color-background-primary));
+    }
+}
+
+.our-approach__main::after {
+    right: var(--site-gutter-slat);
+    background-image: escape-svg(get-data-url("radius-reverse-right", config.$color-background-primary));
+}
+
+[data-site-theme="dark"] .our-approach__main::after {
+    background-image: escape-svg(get-data-url("radius-reverse-right", config.$color-background-primary-dark));
+}
+
+@media (prefers-color-scheme: dark) {
+    .our-approach__main::after {
+        right: var(--site-gutter-slat);
+        background-image: escape-svg(get-data-url("radius-reverse-right", config.$color-background-primary-dark));
+    }
+
+    [data-site-theme="light"] .our-approach__main::after {
+        background-image: escape-svg(get-data-url("radius-reverse-right", config.$color-background-primary));
+    }
+}
+
+.our-approach__main > * + * {
+    margin-block-start: fd(64, 96);
+}
+
+.our-approach__header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: fd(64, 128);
+    align-items: flex-start;
+}
+
+// 1. サイドバーの理想的な幅
+// 2. 長いテキストが折り返されるようにする
+// 3. flex-basisのサイズによって要素が画面をはみ出さないようにする
+.our-approach__header__overline {
+    flex-basis: rem(362); // 1
+    flex-grow: 1; // 1
+    min-width: 0; // 2
+    max-width: 100%; // 3
+}
+
+// 1. 最低幅
+// 2. 最大幅
+// 3. 長いテキストが折り返されるようにする
+.our-approach__header__main {
+    display: flex;
+    flex-basis: rem(800); // 1
+    flex-grow: 999; // 1
+    flex-wrap: wrap;
+    gap: fd(32, 96);
+    align-items: flex-start;
+    max-inline-size: rem(1083); // 2
+    min-width: 0; // 3
+}
+
+// 1. --switcher-threshold = 折り返しを発生させるコンテナの幅
+// 2. 長いテキストが折り返されるようにする
+.our-approach__header__heading,
+.our-approach__header__body {
+    flex-basis: calc((#{rem(720)} - 100%) * 999); // 1
+    flex-grow: 1; // 1
+    min-width: 0; // 2
+}
+
+.our-approach-benefit > * + * {
+    margin-block-start: fd(32, 64);
+}
+
+.our-approach-benefit__main {
+    @extend %grid-max-cols;
+
+    --grid-gap: #{fd(36, 96)};
+    --grid-max-column-count: 4;
+    --grid-column-min-width: 280px;
+}
+
+.our-approach-benefit-item {
+    display: flex;
+    flex-direction: column;
+    gap: fd(18, 24);
+}
+
+.our-approach-benefit-item__icon {
+    display: flex;
+    align-items: center;
+    height: rem(119);
+}
+
+.our-approach-benefit-item__icon > svg {
+    display: block;
+}
+
+.our-approach-strategies {
+    padding-inline: var(--site-gutter-slat);
+    margin-inline: auto;
+    background-color: var(--color-background-primary);
+}
+
+.our-approach-strategies > * + * {
+    margin-block-start: fd(18, 24);
+}
+
+.our-approach-strategies-item {
+    position: relative;
+    display: flex;
+    padding-block: fd(96, 197);
+    padding-inline: fd(18, 96);
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+}
+
+// 具体的な戦略 - 奇数番目のアイテムのメインコンテンツの位置
+.our-approach-strategies-item:nth-of-type(odd) {
+    justify-content: flex-start;
+}
+
+// 具体的な戦略 - 偶数番目のアイテムのメインコンテンツの位置
+.our-approach-strategies-item:nth-of-type(even) {
+    justify-content: flex-end;
+}
+
+.our-approach-strategies-item__main {
+    position: relative;
+    z-index: 2;
+    max-width: rem(696);
+    color: var(--color-content-on-color);
+}
+
+.our-approach-strategies-item__heading {
+    font: var(--font-headline-1);
+    color: var(--color-content-on-color);
+}
+
+.our-approach-strategies-item__body {
+    margin-block-start: fd(24, 32);
+}
+
+.our-approach-strategies-item__cta {
+    margin-block-start: fd(32, 48);
+}
+
+.our-approach-strategies-item__bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.our-approach-strategies-item__bg-image::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    content: "";
+}
+
+// 具体的な戦略 - 奇数番目のアイテムの背景グラデーション
+.our-approach-strategies-item:nth-of-type(odd) .our-approach-strategies-item__bg-image::before {
+    background-image: linear-gradient(270deg, rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 54%) 50%, rgb(0 0 0 / 54%) 100%);
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        background-color: rgb(0 0 0 / 54%);
+        background-image: none;
+    }
+}
+
+// 具体的な戦略 - 偶数番目のアイテムの背景グラデーション
+.our-approach-strategies-item:nth-of-type(even) .our-approach-strategies-item__bg-image::before {
+    background-image: linear-gradient(270deg, rgb(0 0 0 / 54%) 0%, rgb(0 0 0 / 54%) 50%, rgb(0 0 0 / 0%) 100%);
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        background-color: rgb(0 0 0 / 54%);
+        background-image: none;
+    }
+}
+
+.our-approach-strategies-item__bg-image > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+// 具体的な戦略 - 奇数番目のアイテムの背景画像の位置調整
+.our-approach-strategies-item:nth-of-type(odd) .our-approach-strategies-item__bg-image > img {
+    object-position: 60% 50%;
+}
+
+// 具体的な戦略 - 偶数番目のアイテムの背景画像の位置調整
+.our-approach-strategies-item:nth-of-type(even) .our-approach-strategies-item__bg-image > img {
+    object-position: 40% 50%;
+}

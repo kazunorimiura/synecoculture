@@ -1,0 +1,18 @@
+%link-muted {
+    text-decoration: none;
+
+    &:link,
+    &:visited,
+    &:hover {
+        color: var(--link-color, inherit);
+    }
+
+    &:hover {
+        text-decoration: underline;
+        background-color: transparent;
+    }
+}
+
+.link-muted {
+    @extend %link-muted;
+}

@@ -1,0 +1,12 @@
+@use "../../config";
+@use "../../base/element";
+@use "../../base/settings" as *;
+
+.wp-block-quote {
+    @extend %blockquote;
+}
+
+// cite 要素のバーティカルリズムを調整
+.wp-block-quote.is-layout-flow > * + * {
+    --flow-space: var(--space-s-5em);
+}

@@ -1,0 +1,130 @@
+@use "sass:map";
+@use "../base/settings" as *;
+
+/// カラム幅が閾値（--grid-column-width）を下回るときに折り返すグリッド。
+///
+/// カラム幅が基準になるため、コンテナ幅が広くなればなるほどカラム数も増える。
+///
+/// @link https://every-layout.dev/layouts/grid/
+%grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-column-width, 250px), 100%), 1fr));
+    grid-gap: var(--grid-gap, var(--space-s0));
+}
+
+/// 最大カラム数を上回るか、カラム幅が閾値（--grid-column-min-width）を下回るときに折り返すグリッド。
+///
+/// .gridと違い、コンテナ幅が広くなっても最大カラム数に収めることができる。
+///
+/// @link https://css-tricks.com/an-auto-filling-css-grid-with-max-columns/
+%grid-max-cols {
+    // config
+    --grid-gap: var(--space-s0);
+    --grid-max-column-count: 3;
+    --grid-column-min-width: 150px;
+
+    // settings
+    --grid-gap-count: calc(var(--grid-max-column-count) - 1);
+    --grid-total-gap-width: calc(var(--grid-gap-count) * var(--grid-gap));
+    --grid-column-max-width: calc((100% - var(--grid-total-gap-width)) / var(--grid-max-column-count));
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(max(var(--grid-column-min-width), var(--grid-column-max-width)), 1fr));
+    grid-gap: var(--grid-gap);
+}
+
+.grid {
+    @extend %grid;
+}
+
+.grid-max-cols {
+    @extend %grid-max-cols;
+}
+
+/// flexboxによるグリッドレイアウト
+%flex-grid {
+    --grid-gap: var(--space-s3);
+    --grid-column-width: calc(33.3333% - (var(--grid-gap) - var(--grid-gap) / 3));
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--grid-gap);
+
+    > * {
+        flex: 0 0 var(--grid-column-width);
+    }
+}
+
+.flex-grid\:1-2 {
+    --grid-column-width: 100%;
+
+    @extend %flex-grid;
+
+    > * {
+        @media screen and (max-width: em(map.get($breakpoints, sm))) {
+            --grid-column-width: calc(50% - (var(--grid-gap) - var(--grid-gap) / 2));
+        }
+    }
+}
+
+.flex-grid\:2 {
+    --grid-column-width: calc(50% - (var(--grid-gap) - var(--grid-gap) / 2));
+
+    @extend %flex-grid;
+}
+
+.flex-grid\:2-1 {
+    --grid-column-width: calc(50% - (var(--grid-gap) - var(--grid-gap) / 2));
+
+    @extend %flex-grid;
+
+    > * {
+        @media screen and (max-width: em(map.get($breakpoints, sm))) {
+            --grid-column-width: 100%;
+        }
+    }
+}
+
+.flex-grid\:3-2 {
+    --grid-column-width: calc(33.3333% - (var(--grid-gap) - var(--grid-gap) / 3));
+
+    @extend %flex-grid;
+
+    > * {
+        @media screen and (max-width: em(map.get($breakpoints, md))) {
+            --grid-column-width: calc(50% - (var(--grid-gap) - var(--grid-gap) / 2));
+        }
+    }
+}
+
+.flex-grid\:3-2-1 {
+    --grid-column-width: calc(33.3333% - (var(--grid-gap) - var(--grid-gap) / 3));
+
+    @extend %flex-grid;
+
+    > * {
+        @media screen and (max-width: em(map.get($breakpoints, md))) {
+            --grid-column-width: calc(50% - (var(--grid-gap) - var(--grid-gap) / 2));
+        }
+
+        @media screen and (max-width: em(map.get($breakpoints, sm))) {
+            --grid-column-width: 100%;
+        }
+    }
+}
+
+.flex-grid\:4-3-2 {
+    --grid-column-width: calc(25% - (var(--grid-gap) - var(--grid-gap) / 4));
+
+    @extend %flex-grid;
+
+    > * {
+        @media screen and (max-width: em(map.get($breakpoints, md))) {
+            --grid-column-width: calc(33.3333% - (var(--grid-gap) - var(--grid-gap) / 3));
+        }
+
+        @media screen and (max-width: em(map.get($breakpoints, sm))) {
+            --grid-column-width: calc(50% - (var(--grid-gap) - var(--grid-gap) / 2));
+        }
+    }
+}

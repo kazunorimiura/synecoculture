@@ -1,0 +1,63 @@
+@use "../../base/settings" as *;
+@use "../../utilities/cluster";
+@use "../../utilities/icon";
+@use "../../components/button";
+@use "dropdown-menu" as *;
+
+///
+/// ページメニュー（wp_page_menu関数で出力されるメニュー）
+///
+
+/// リスト要素
+
+.page-menu > ul {
+    @extend %dropdown-menu__navigation__list;
+}
+
+/// サブメニュー
+
+.page-menu .children {
+    @extend %navigation__sub-menu;
+}
+
+/// メニュー項目
+
+.page_item {
+    @extend %menu-item;
+}
+
+/// 子持ちメニュー項目
+
+.page_item_has_children {
+    @extend %menu-item-has-children;
+}
+
+/// ドロップダウンの子持ちメニュー項目
+
+.dropdown-menu .page_item_has_children {
+    @extend %dropdown-menu__menu-item-has-children;
+}
+
+.dropdown-menu .page_item_has_children .page_item_has_children {
+    @extend %dropdown-menu__menu-item-has-children__menu-item-has-children;
+}
+
+/// ドロップダウンのアンカー要素
+
+.dropdown-menu .page_item .page_item a {
+    @extend %dropdown-menu__menu-item__menu-item__a;
+}
+
+.dropdown-menu .page_item_has_children .page_item_has_children a {
+    @extend %dropdown-menu__menu-item-has-children__menu-item-has-children__a;
+}
+
+.dropdown-menu .page_item .page_item a:hover {
+    @extend %dropdown-menu__menu-item__menu-item__a\:hover;
+}
+
+/// ドロップダウンのメニュートグル
+
+.dropdown-menu .page_item_has_children .page_item_has_children .menu-item-toggle {
+    @extend %dropdown-menu__menu-item-has-children__menu-item-has-children__menu-item-toggle;
+}

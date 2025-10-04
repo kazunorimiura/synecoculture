@@ -1,0 +1,21 @@
+@use "../../base/element";
+
+// ※Simple Definition List Blocksブロックプラグインを使用。
+
+// dlにあたる要素
+.wp-block-simple-definition-list-blocks-list.is-style-default,
+.wp-block-simple-definition-list-blocks-list:not([class*="is-style"]) {
+    @extend %dl;
+}
+
+// dtにあたる要素
+.wp-block-simple-definition-list-blocks-list.is-style-default .wp-block-simple-definition-list-blocks-term,
+.wp-block-simple-definition-list-blocks-list:not([class*="is-style"]) .wp-block-simple-definition-list-blocks-term {
+    @extend %dt;
+}
+
+// ddにあたる要素
+.wp-block-simple-definition-list-blocks-list.is-style-default .wp-block-simple-definition-list-blocks-details,
+.wp-block-simple-definition-list-blocks-list:not([class*="is-style"]) .wp-block-simple-definition-list-blocks-details {
+    @extend %dd;
+}

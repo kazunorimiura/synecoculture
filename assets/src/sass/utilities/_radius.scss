@@ -1,0 +1,39 @@
+%radius {
+    border-radius: var(--radius);
+}
+
+%radius\:lg {
+    border-radius: var(--radius-lg);
+}
+
+%radius\:circle {
+    border-radius: 50%;
+}
+
+%radius\:circle\:i {
+    border-radius: 50% !important;
+}
+
+%radius-muted {
+    border-radius: 0 !important;
+}
+
+.radius {
+    @extend %radius;
+}
+
+.radius\:lg {
+    @extend %radius\:lg;
+}
+
+.radius\:circle {
+    @extend %radius\:circle;
+}
+
+.radius\:circle\:i {
+    @extend %radius\:circle\:i;
+}
+
+.radius-muted {
+    @extend %radius-muted;
+}

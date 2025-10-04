@@ -1,0 +1,1000 @@
+@use "sass:math";
+@use "sass:map";
+@use "../config";
+@use "../base/settings" as *;
+
+html {
+    @include light-theme;
+    @include css-variables;
+}
+
+[data-site-theme="dark"] {
+    @include dark-theme;
+}
+
+@media (prefers-color-scheme: dark) {
+    html {
+        @include dark-theme;
+    }
+
+    [data-site-theme="light"] {
+        @include light-theme;
+    }
+}
+
+// 1. テキストがコンテナに収まるようにする。
+body {
+    font: var(--font-text);
+    color: var(--color-content-secondary);
+    word-break: break-word; // 1
+    overflow-wrap: break-word; // 1
+    background-color: var(--color-background-primary);
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+abbr,
+acronym /* acronymは廃止されているが、互換性のために残している */ {
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: help;
+    border-bottom: 1px dotted var(--color-border-opaque);
+}
+
+address {
+    font-style: italic;
+}
+
+%blockquote {
+    position: relative;
+    padding-inline-start: 2em;
+    color: inherit;
+    border: none;
+
+    > p {
+        font-style: italic;
+    }
+
+    cite {
+        margin-block-start: var(--space-s-5em);
+        font-style: italic;
+        color: var(--color-content-tertiary);
+    }
+
+    cite a,
+    cite a:link,
+    cite a:visited {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    cite a::after,
+    cite a:link::after,
+    cite a:visited::after {
+        display: none;
+    }
+
+    cite a:active,
+    cite a:focus,
+    cite a:hover {
+        color: inherit;
+        text-decoration: underline;
+    }
+}
+
+%blockquote\:\:before {
+    --quote: #{escape-svg(get-data-url(quote, config.$color-content-tertiary))};
+
+    position: absolute;
+    top: 0.2em;
+    left: 0;
+    display: block;
+    width: 1.2em;
+    height: 1.2em;
+    color: inherit;
+    appearance: none;
+    cursor: pointer;
+    content: "";
+    background-image: var(--quote);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 1.2em; // アイコンサイズが1emだと小さく感じるので視覚調整
+    transition: color var(--duration);
+}
+
+blockquote {
+    @extend %blockquote;
+}
+
+blockquote::before {
+    @extend %blockquote\:\:before;
+}
+
+[data-site-theme="dark"] blockquote::before {
+    --quote: #{escape-svg(get-data-url(quote, config.$color-content-tertiary-dark))};
+}
+
+@media (prefers-color-scheme: dark) {
+    blockquote::before {
+        --quote: #{escape-svg(get-data-url(quote, config.$color-content-tertiary-dark))};
+    }
+
+    [data-site-theme="light"] blockquote::before {
+        --quote: #{escape-svg(get-data-url(quote, config.$color-content-tertiary))};
+    }
+}
+
+// 1. スペースをリセット
+// 2. 色を継承
+// 3. カーソルをデフォルトからポインタに変更
+// 4. 背景色を除去
+// 5. ボーダーを除去
+// 6. button要素の外観を除去
+button {
+    padding: 0; // 1
+    color: inherit; // 2
+    appearance: none; // 6
+    cursor: pointer; // 3
+    background-color: transparent; // 4
+    border: none; // 5
+}
+
+cite {
+    font-style: italic;
+}
+
+%code {
+    padding: 0.125em 0.25em;
+    font-family: var(--font-family-mono);
+    font-size: 0.9em;
+    hyphens: none;
+    text-align: left;
+    word-break: normal;
+    word-wrap: normal;
+    overflow-wrap: break-word;
+    box-decoration-break: clone;
+    tab-size: 4;
+    background-color: var(--color-background-secondary);
+    border: 1px solid var(--color-border-opaque);
+    word-spacing: normal;
+}
+
+code {
+    @extend %code;
+}
+
+%pre {
+    padding: 1em;
+    overflow: auto;
+    font-family: var(--font-family-mono);
+    font-size: 0.9em;
+    hyphens: none;
+    line-height: 1.6;
+    text-align: left;
+    text-shadow: none;
+    word-break: normal;
+    tab-size: 4;
+    white-space: pre;
+    background-color: var(--color-background-secondary);
+    border: 1px solid var(--color-border-opaque);
+    border-radius: var(--radius);
+    word-spacing: normal;
+    direction: ltr;
+
+    code {
+        display: block;
+        padding: 0;
+        font-size: inherit;
+        background-color: transparent;
+        border: none;
+    }
+}
+
+pre {
+    @extend %pre;
+}
+
+dfn {
+    font-style: italic;
+}
+
+em {
+    font-style: italic;
+}
+
+%figcaption {
+    font: var(--font-text--xs);
+    color: var(--color-content-tertiary);
+}
+
+caption,
+figcaption {
+    @extend %figcaption;
+}
+
+h1 {
+    font: var(--font-headline-1);
+}
+
+h2 {
+    font: var(--font-headline-2);
+}
+
+h3 {
+    font: var(--font-headline-3);
+}
+
+h4 {
+    font: var(--font-headline-4);
+}
+
+h5 {
+    font: var(--font-headline-5);
+}
+
+h6 {
+    font: var(--font-headline-6);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    max-width: var(--width-content);
+    color: var(--color-content-primary);
+    letter-spacing: -0.015em;
+}
+
+p,
+li {
+    max-width: var(--width-content);
+}
+
+small {
+    display: inline-block;
+    font: var(--font-text--sm);
+}
+
+// 1. 画像がコンテナに収まるようにする
+// 2. 画像比率を維持
+// 3. 垂直方向の揃えをテキストに合わせる
+img {
+    max-width: 100%; // 1
+    height: auto; // 2
+    vertical-align: bottom; // 3
+    background-blend-mode: multiply;
+}
+
+svg {
+    fill: currentcolor;
+}
+
+html[data-site-theme="dark"] img {
+    filter: brightness(0.8) contrast(1.2);
+}
+
+@media (prefers-color-scheme: dark) {
+    html:not([data-site-theme="light"]) img {
+        filter: brightness(0.8) contrast(1.2);
+    }
+}
+
+%input-padding {
+    padding-block: var(--input-padding-block, var(--space-s-5));
+    padding-inline: var(--input-padding-inline, var(--space-s-3));
+    line-height: inherit;
+}
+
+input,
+textarea,
+select,
+button {
+    @extend %input-padding;
+}
+
+textarea,
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="tel"],
+input[type="date"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="color"] {
+    display: block;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    appearance: none;
+    background-color: var(--color-background-opaque);
+    border: 1px solid var(--color-border-content);
+    border-radius: var(--radius);
+    outline-offset: 0;
+    transition: border-color var(--duration);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="tel"],
+input[type="date"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="color"] {
+    line-height: inherit;
+}
+
+textarea {
+    padding: 0.75em 1em;
+    line-height: inherit;
+}
+
+textarea::placeholder,
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="url"]::placeholder,
+input[type="password"]::placeholder,
+input[type="search"]::placeholder,
+input[type="number"]::placeholder,
+input[type="tel"]::placeholder,
+input[type="date"]::placeholder,
+input[type="month"]::placeholder,
+input[type="week"]::placeholder,
+input[type="time"]::placeholder,
+input[type="datetime"]::placeholder,
+input[type="datetime-local"]::placeholder,
+input[type="color"]::placeholder {
+    font-family: inherit;
+    color: var(--color-content-tertiary);
+    opacity: 1;
+}
+
+textarea:hover,
+input[type="text"]:hover,
+input[type="email"]:hover,
+input[type="url"]:hover,
+input[type="password"]:hover,
+input[type="search"]:hover,
+input[type="number"]:hover,
+input[type="tel"]:hover,
+input[type="date"]:hover,
+input[type="month"]:hover,
+input[type="week"]:hover,
+input[type="time"]:hover,
+input[type="datetime"]:hover,
+input[type="datetime-local"]:hover,
+input[type="color"]:hover {
+    border-color: var(--color-content-link);
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="number"]:focus,
+input[type="tel"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="week"]:focus,
+input[type="time"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="color"]:focus {
+    outline-color: var(--color-content-link);
+}
+
+textarea:disabled,
+input[type="text"]:disabled,
+input[type="email"]:disabled,
+input[type="url"]:disabled,
+input[type="password"]:disabled,
+input[type="search"]:disabled,
+input[type="number"]:disabled,
+input[type="tel"]:disabled,
+input[type="date"]:disabled,
+input[type="month"]:disabled,
+input[type="week"]:disabled,
+input[type="time"]:disabled,
+input[type="datetime"]:disabled,
+input[type="datetime-local"]:disabled,
+input[type="color"]:disabled {
+    color: var(--color-content-disabled);
+    cursor: not-allowed;
+    background-color: var(--color-background-disabled);
+    border-color: var(--color-border-disabled);
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.1em;
+    height: 1.1em;
+    margin-block: 0;
+    margin-inline: 0;
+    vertical-align: middle;
+    appearance: none;
+    cursor: pointer;
+    background-color: var(--color-background-opaque);
+    border: 1px solid var(--color-border-content);
+}
+
+input[type="radio"] + *,
+input[type="checkbox"] + * {
+    margin-inline-start: 0.1em;
+}
+
+input[type="radio"] {
+    border-radius: 50%;
+}
+
+input[type="checkbox"] {
+    border-radius: 2px;
+}
+
+input[type="radio"]::after {
+    --radio: #{escape-svg(get-data-url(radio, config.$color-content-on-color))};
+
+    display: block;
+    width: 1em;
+    height: 1em;
+    color: inherit;
+    appearance: none;
+    cursor: pointer;
+    content: "";
+    background-image: var(--radio);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 1em;
+    opacity: 0;
+    transition: color var(--duration);
+}
+
+[data-site-theme="dark"] input[type="radio"]::after {
+    --radio: #{escape-svg(get-data-url(radio, config.$color-content-on-color-dark))};
+}
+
+@media (prefers-color-scheme: dark) {
+    input[type="radio"]::after {
+        --radio: #{escape-svg(get-data-url(radio, config.$color-content-on-color-dark))};
+    }
+
+    [data-site-theme="light"] input[type="radio"]::after {
+        --radio: #{escape-svg(get-data-url(radio, config.$color-content-on-color))};
+    }
+}
+
+input[type="checkbox"]::after {
+    --check: #{escape-svg(get-data-url(check, config.$color-content-on-color))};
+
+    display: block;
+    width: 1em;
+    height: 1em;
+    color: inherit;
+    appearance: none;
+    cursor: pointer;
+    content: "";
+    background-image: var(--check);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 1em;
+    opacity: 0;
+    transition: color var(--duration);
+}
+
+[data-site-theme="dark"] input[type="checkbox"]::after {
+    --check: #{escape-svg(get-data-url(check, config.$color-content-on-color-dark))};
+}
+
+@media (prefers-color-scheme: dark) {
+    input[type="checkbox"]::after {
+        --check: #{escape-svg(get-data-url(check, config.$color-content-on-color-dark))};
+    }
+
+    [data-site-theme="light"] input[type="checkbox"]::after {
+        --check: #{escape-svg(get-data-url(check, config.$color-content-on-color))};
+    }
+}
+
+input[type="radio"] + label,
+input[type="checkbox"] + label {
+    display: inline;
+    margin-inline-start: var(--space-s-12);
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+input[type="radio"]:checked,
+input[type="checkbox"]:checked {
+    background-color: var(--color-content-link);
+    border-color: transparent;
+}
+
+input[type="radio"]:checked::after,
+input[type="checkbox"]:checked::after {
+    opacity: 1;
+}
+
+input[type="radio"]:disabled {
+    cursor: not-allowed;
+    background-color: var(--color-background-disabled);
+    border-color: var(--color-border-disabled);
+}
+
+input[type="checkbox"]:disabled {
+    color: var(--color-content-disabled);
+    cursor: not-allowed;
+    background-color: var(--color-background-disabled);
+    border-color: var(--color-border-disabled);
+}
+
+input[type="radio"]:disabled::after {
+    background-color: var(--color-content-disabled);
+}
+
+input[type="checkbox"]:disabled::after {
+    color: var(--color-content-disabled);
+}
+
+input[type="radio"]:disabled + label,
+input[type="checkbox"]:disabled + label {
+    color: var(--color-content-disabled);
+    cursor: not-allowed;
+}
+
+// 1. アングルアイコンと被らないように一定のスペースを確保する
+select {
+    --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-tertiary))};
+
+    display: inline-block;
+    width: 100%;
+    padding-inline-end: 3em; // 1
+    color: inherit;
+    appearance: none;
+    cursor: pointer;
+    background-color: var(--color-background-opaque);
+    background-image: var(--angle-down);
+    background-repeat: no-repeat;
+    background-position: right 0.75em center;
+    background-size: 1.2em; // アイコンサイズが1emだと小さく感じるので視覚調整
+    border: 1px solid var(--color-border-content);
+    border-radius: var(--radius);
+    transition: border-color var(--duration);
+}
+
+[data-site-theme="dark"] select {
+    --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-tertiary-dark))};
+}
+
+@media (prefers-color-scheme: dark) {
+    select {
+        --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-tertiary-dark))};
+    }
+
+    [data-site-theme="light"] select {
+        --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-tertiary))};
+    }
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+select:hover {
+    border-color: var(--color-content-link);
+}
+
+select:focus {
+    outline-color: var(--color-content-link);
+}
+
+select:disabled {
+    color: var(--color-content-disabled);
+    cursor: not-allowed;
+    background-color: var(--color-background-disabled);
+    border-color: var(--color-border-disabled);
+    opacity: 1;
+}
+
+// 検索フォームの削除ボタンを非表示
+::-webkit-search-cancel-button {
+    display: none;
+}
+
+a {
+    text-decoration: underline;
+}
+
+a:link {
+    color: var(--color-content-link);
+}
+
+a:visited {
+    color: var(--color-content-link-visited);
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:focus {
+    color: var(--color-content-link);
+}
+
+a:active {
+    filter: brightness(0.9);
+}
+
+a[tabindex="-1"]:link,
+a[tabindex="-1"]:visited {
+    color: inherit;
+    text-decoration: none;
+}
+
+a[tabindex="-1"]:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+a[tabindex="-1"]:focus {
+    color: inherit;
+    outline: none;
+}
+
+a[tabindex="-1"]:active {
+    color: inherit;
+    text-decoration: none;
+    outline: none;
+}
+
+a[target="_blank"]::after {
+    --open-in-new: #{escape-svg(get-data-url(open-in-new, config.$color-content-primary))};
+
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin-inline-start: 0.05em;
+    vertical-align: middle;
+    content: "";
+    background-color: currentcolor;
+    -webkit-mask: var(--open-in-new) no-repeat 50% 50%; /* stylelint-disable-line property-no-vendor-prefix */
+    mask: var(--open-in-new) no-repeat 50% 50%;
+    -webkit-mask-size: cover; /* stylelint-disable-line property-no-vendor-prefix */
+    mask-size: cover;
+}
+
+[data-site-theme="dark"] a[target="_blank"]::after {
+    --open-in-new: #{escape-svg(get-data-url(open-in-new, config.$color-content-primary-dark))};
+}
+
+@media (prefers-color-scheme: dark) {
+    a[target="_blank"]::after {
+        --open-in-new: #{escape-svg(get-data-url(open-in-new, config.$color-content-primary-dark))};
+    }
+
+    [data-site-theme="light"] a[target="_blank"]::after {
+        --open-in-new: #{escape-svg(get-data-url(open-in-new, config.$color-content-primary))};
+    }
+}
+
+a[href^="#fn:"] {
+    padding-inline: 0.15em 0.15em;
+    text-decoration: none;
+}
+
+a[href^="#fnref:"] {
+    text-decoration: none;
+}
+
+ol,
+ul {
+    position: relative;
+    padding-inline-start: var(--indent);
+}
+
+ol > li,
+ul > li {
+    margin-block: 0;
+}
+
+ol ol,
+ol ul,
+ul ol,
+ul ul {
+    margin-block: 0.4em;
+}
+
+ol > li > p,
+ul > li > p {
+    margin-block: 0.4em;
+    margin-inline: 0;
+}
+
+ol > li > p:first-child,
+ul > li > p:first-child {
+    margin-block-start: 0;
+}
+
+ol > li > p:last-child,
+ul > li > p:last-child {
+    margin-block-end: 0;
+}
+
+%dl {
+    --dt-basis: 220px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    overflow: hidden;
+    border: 1px solid var(--color-border-opaque);
+    border-radius: var(--radius);
+}
+
+dl {
+    @extend %dl;
+}
+
+%dt {
+    flex-basis: var(--dt-basis);
+    padding-block: var(--space-s1);
+    padding-inline: var(--space-s1);
+    font-weight: var(--font-weight-sign);
+    background-color: var(--color-background-secondary);
+    border-block-start: 1px solid var(--color-border-opaque);
+
+    &:first-of-type {
+        border-block-start: none;
+    }
+
+    @media screen and (max-width: em(map.get(config.$breakpoints, sm))) {
+        flex-basis: 100%;
+    }
+}
+
+dt {
+    @extend %dt;
+}
+
+%dd {
+    flex-basis: calc(100% - var(--dt-basis));
+    padding-block: var(--space-s1);
+    padding-inline: var(--space-s1);
+    border-block-start: 1px solid var(--color-border-opaque);
+    border-inline-start: 1px solid var(--color-border-opaque);
+
+    &:first-of-type {
+        border-block-start: none;
+    }
+
+    @media screen and (max-width: em(map.get(config.$breakpoints, sm))) {
+        flex-basis: 100%;
+        border-inline-start: none;
+
+        &:first-of-type {
+            border-block-start: 1px solid var(--color-border-opaque);
+        }
+    }
+}
+
+dd {
+    @extend %dd;
+}
+
+// 埋め込みコンテンツやiframeがコンテナに収まるようにする。
+embed,
+iframe,
+object,
+video {
+    max-width: 100%;
+}
+
+// iframeの外観をリセット。
+iframe {
+    display: block;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+// メディアに生じる下部の余白を削除。
+video,
+audio {
+    vertical-align: middle;
+}
+
+strong {
+    font-weight: var(--font-weight-bold);
+}
+
+// 1. 表示領域からはみ出さないようにする。
+%table {
+    width: 100%;
+    margin: 0;
+    font-size: inherit;
+    table-layout: fixed; // 1
+    border-collapse: collapse;
+}
+
+table {
+    @extend %table;
+}
+
+tr {
+    height: calc(48px / 16px * 1em);
+    background: transparent;
+    border-top: 0;
+    border-bottom: 1px solid var(--color-border-opaque);
+
+    &:last-of-type {
+        border-bottom: 0;
+    }
+}
+
+// 1. inheritだと、ブロックエディタで.editor-style-wrapperのカラーが継承されてしまうので明示的に指定。
+// 2. ブロックエディターのth要素において、min-width: 1pxがインラインに記述されているためimportantで上書き（WPバージョン5.8）
+%th\,td {
+    min-width: calc(120px / 16px * 1rem) !important; // 2
+    color: var(--color-content-secondary); // 1
+    text-align: left;
+}
+
+th,
+td {
+    @extend %th\,td;
+}
+
+%th {
+    padding-inline-end: calc(24px / 16px * 1em);
+    font-family: var(--font-family-headline);
+    font-size: 0.875em;
+    font-weight: var(--font-weight-bold);
+    vertical-align: middle;
+}
+
+th {
+    @extend %th;
+}
+
+%thead {
+    border-block-end: 1px solid var(--color-border-opaque);
+
+    th {
+        @extend %th;
+    }
+}
+
+thead {
+    @extend %thead;
+}
+
+%td {
+    padding: 1em 1.5em 1em 0;
+}
+
+td {
+    @extend %td;
+}
+
+%tfoot {
+    border-block-start: 1px solid var(--color-border-opaque);
+
+    td {
+        @extend %th;
+
+        color: var(--color-content-tertiary);
+    }
+}
+
+tfoot {
+    @extend %tfoot;
+}
+
+:target:not(#page-top, #content) {
+    animation-name: target-fade;
+    animation-duration: 2s;
+    animation-timing-function: ease-out;
+}
+
+@keyframes target-fade {
+    from {
+        background: var(--color-background-highlight);
+    }
+
+    to {
+        background: transparent;
+    }
+}
+
+details {
+    @extend %input-padding;
+
+    padding-block: var(--space-s-1);
+    padding-inline: var(--space-s-1);
+    text-align: left;
+    background-color: var(--color-background-secondary);
+    border-radius: var(--radius);
+}
+
+details summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: inherit;
+    font-weight: var(--font-weight-bold);
+    line-height: 1.2;
+    color: inherit;
+    list-style: none;
+    cursor: pointer;
+}
+
+details summary::-webkit-details-marker {
+    display: none;
+}
+
+details summary::after {
+    --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-tertiary))};
+
+    display: block;
+    width: 1.2em;
+    height: 1.2em;
+    color: inherit;
+    appearance: none;
+    cursor: pointer;
+    content: "";
+    background-image: var(--angle-down);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 1.2em; // アイコンサイズが1emだと小さく感じるので視覚調整
+    transition: color var(--duration);
+}
+
+[data-site-theme="dark"] details summary::after {
+    --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-tertiary-dark))};
+}
+
+@media (prefers-color-scheme: dark) {
+    details summary::after {
+        --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-tertiary-dark))};
+    }
+
+    [data-site-theme="light"] details summary::after {
+        --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-tertiary))};
+    }
+}
+
+details[open] summary::after {
+    transform: rotate(-180deg);
+}
+
+%hr {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--color-border-opaque);
+}
+
+hr {
+    @extend %hr;
+}

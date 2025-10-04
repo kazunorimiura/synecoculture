@@ -1,0 +1,31 @@
+@use "../base/settings" as *;
+
+$display: (
+    "none": none,
+    "block": block,
+    "inline": inline,
+    "inline-block": inline-block,
+    "flex": flex,
+    "inline-flex": inline-flex,
+    "grid": grid,
+    "inline-grid": inline-grid,
+    "table": table,
+    "table-row": table-row,
+    "table-cell": table-cell,
+);
+
+@each $key, $value in $display {
+    .d-#{$key} {
+        display: $value;
+    }
+}
+
+@each $key, $value in $display {
+    @each $bp-key, $bp-value in $breakpoints {
+        @media screen and (max-width: em($bp-value)) {
+            .#{$bp-key}\:d-#{$key} {
+                display: $value;
+            }
+        }
+    }
+}

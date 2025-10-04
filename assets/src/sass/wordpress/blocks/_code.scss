@@ -1,0 +1,5 @@
+@use "../../base/element";
+
+.wp-block-code {
+    @extend %pre;
+}

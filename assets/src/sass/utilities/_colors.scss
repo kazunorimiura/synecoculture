@@ -1,0 +1,348 @@
+@use "../base/settings" as *;
+
+///
+/// color
+///
+
+// foundation
+.c-primary-a {
+    color: var(-primary-a);
+}
+
+.c-primary-b {
+    color: var(--color-primary-b);
+}
+
+.c-info {
+    color: var(--color-info);
+}
+
+.c-positive {
+    color: var(--color-positive);
+}
+
+.c-warning {
+    color: var(--color-warning);
+}
+
+.c-negative {
+    color: var(--color-negative);
+}
+
+// core
+.c-content-primary {
+    color: var(--color-content-primary);
+}
+
+.c-content-inverse-primary {
+    color: var(--color-content-inverse-primary);
+}
+
+.c-content-secondary {
+    color: var(--color-content-secondary);
+}
+
+.c-content-inverse-secondary {
+    color: var(--color-content-inverse-secondary);
+}
+
+.c-content-tertiary {
+    color: var(--color-content-tertiary);
+}
+
+.c-content-inverse-tertiary {
+    color: var(--color-content-inverse-tertiary);
+}
+
+.c-background-primary {
+    color: var(--color-background-primary);
+}
+
+.c-background-inverse-primary {
+    color: var(--color-background-inverse-primary);
+}
+
+.c-background-secondary {
+    color: var(--color-background-secondary);
+}
+
+.c-background-inverse-secondary {
+    color: var(--color-background-inverse-secondary);
+}
+
+.c-background-tertiary {
+    color: var(--color-background-tertiary);
+}
+
+.c-border-content {
+    color: var(--color-border-content);
+}
+
+.c-border-opaque {
+    color: var(--color-border-opaque);
+}
+
+.c-border-inverse-content {
+    color: var(--color-border-inverse-content);
+}
+
+.c-border-inverse-opaque {
+    color: var(--color-border-inverse-opaque);
+}
+
+// core extension
+.c-content-info {
+    color: var(--color-content-info);
+}
+
+.c-content-positive {
+    color: var(--color-content-positive);
+}
+
+.c-content-warning {
+    color: var(--color-content-warning);
+}
+
+.c-content-negative {
+    color: var(--color-content-negative);
+}
+
+.c-content-link {
+    color: var(--color-content-link);
+}
+
+.c-content-disabled {
+    color: var(--color-content-disabled);
+}
+
+.c-content-on-color {
+    color: var(--color-content-on-color);
+}
+
+.c-background-info {
+    color: var(--color-background-info);
+}
+
+.c-background-info-opaque {
+    color: var(--color-background-info-opaque);
+}
+
+.c-background-positive {
+    color: var(--color-background-positive);
+}
+
+.c-background-positive-opaque {
+    color: var(--color-background-positive-opaque);
+}
+
+.c-background-warning {
+    color: var(--color-background-warning);
+}
+
+.c-background-warning-opaque {
+    color: var(--color-background-warning-opaque);
+}
+
+.c-background-negative {
+    color: var(--color-background-negative);
+}
+
+.c-background-negative-opaque {
+    color: var(--color-background-negative-opaque);
+}
+
+.c-background-highlight {
+    color: var(--color-background-highlight);
+}
+
+.c-background-disabled {
+    color: var(--color-background-disabled);
+}
+
+.c-border-info {
+    color: var(--color-border-info);
+}
+
+.c-border-positive {
+    color: var(--color-border-positive);
+}
+
+.c-border-warning {
+    color: var(--color-border-warning);
+}
+
+.c-border-negative {
+    color: var(--color-border-negative);
+}
+
+.c-border-disabled {
+    color: var(--color-border-disabled);
+}
+
+///
+/// background-color
+///
+
+// core
+.bg-color-content-primary {
+    background-color: var(--color-content-primary);
+}
+
+.bg-color-content-inverse-primary {
+    background-color: var(--color-content-inverse-primary);
+}
+
+.bg-color-content-secondary {
+    background-color: var(--color-content-secondary);
+}
+
+.bg-color-content-inverse-secondary {
+    background-color: var(--color-content-inverse-secondary);
+}
+
+.bg-color-content-tertiary {
+    background-color: var(--color-content-tertiary);
+}
+
+.bg-color-content-inverse-tertiary {
+    background-color: var(--color-content-inverse-tertiary);
+}
+
+.bg-color-background-primary {
+    background-color: var(--color-background-primary);
+}
+
+.bg-color-background-inverse-primary {
+    background-color: var(--color-background-inverse-primary);
+}
+
+.bg-color-background-secondary {
+    background-color: var(--color-background-secondary);
+}
+
+.bg-color-background-inverse-secondary {
+    background-color: var(--color-background-inverse-secondary);
+}
+
+.bg-color-background-tertiary {
+    background-color: var(--color-background-tertiary);
+}
+
+.bg-color-background-opaque {
+    background-color: var(--color-background-opaque);
+}
+
+.bg-color-border-content {
+    background-color: var(--color-border-content);
+}
+
+.bg-color-border-opaque {
+    background-color: var(--color-border-opaque);
+}
+
+.bg-color-border-inverse-content {
+    background-color: var(--color-border-inverse-content);
+}
+
+.bg-color-border-inverse-opaque {
+    background-color: var(--color-border-inverse-opaque);
+}
+
+// core extension
+
+.bg-color-content-opaque {
+    background-color: var(--color-content-opaque);
+}
+
+.bg-color-content-info {
+    background-color: var(--color-content-info);
+}
+
+.bg-color-content-positive {
+    background-color: var(--color-content-positive);
+}
+
+.bg-color-content-warning {
+    background-color: var(--color-content-warning);
+}
+
+.bg-color-content-negative {
+    background-color: var(--color-content-negative);
+}
+
+.bg-color-content-link {
+    background-color: var(--color-content-link);
+}
+
+.bg-color-content-disabled {
+    background-color: var(--color-content-disabled);
+}
+
+.bg-color-content-on-color {
+    background-color: var(--color-content-on-color);
+}
+
+.bg-color-background-info {
+    background-color: var(--color-background-info);
+}
+
+.bg-color-background-info-opaque {
+    background-color: var(--color-background-info-opaque);
+}
+
+.bg-color-background-positive {
+    background-color: var(--color-background-positive);
+}
+
+.bg-color-background-positive-opaque {
+    background-color: var(--color-background-positive-opaque);
+}
+
+.bg-color-background-warning {
+    background-color: var(--color-background-warning);
+}
+
+.bg-color-background-warning-opaque {
+    background-color: var(--color-background-warning-opaque);
+}
+
+.bg-color-background-negative {
+    background-color: var(--color-background-negative);
+}
+
+.bg-color-background-negative-opaque {
+    background-color: var(--color-background-negative-opaque);
+}
+
+.bg-color-background-highlight {
+    background-color: var(--color-background-highlight);
+}
+
+.bg-color-background-disabled {
+    background-color: var(--color-background-disabled);
+}
+
+.bg-color-border-info {
+    background-color: var(--color-border-info);
+}
+
+.bg-color-border-positive {
+    background-color: var(--color-border-positive);
+}
+
+.bg-color-border-warning {
+    background-color: var(--color-border-warning);
+}
+
+.bg-color-border-negative {
+    background-color: var(--color-border-negative);
+}
+
+.bg-color-border-disabled {
+    background-color: var(--color-border-disabled);
+}
+
+/// 特定の要素内のカラーコンテキストを反転させる
+.color-inversed {
+    @include dark-theme;
+}

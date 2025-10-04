@@ -1,0 +1,193 @@
+@use "../../base/settings" as *;
+@use "../../utilities/cluster";
+@use "../../utilities/icon";
+@use "../../utilities/shadow";
+@use "../../utilities/visual-adjust";
+@use "../../components/action-list";
+@use "../../components/button";
+@use "navigation" as *;
+
+///
+/// ドロップダウンメニュー
+///
+
+/// リスト要素
+
+.dropdown-menu .navigation__list,
+%dropdown-menu__navigation__list {
+    @extend %navigation__list;
+    @extend %cluster;
+
+    --cluster-space: var(--space-s-6) var(--space-s4);
+}
+
+/// メニュー項目
+
+.dropdown-menu .menu-item-has-children,
+%dropdown-menu__menu-item-has-children {
+    @extend %with-icon;
+
+    --with-icon-space: 0.2em;
+
+    // サブメニューの基本スタイル
+    .sub-menu-wrapper {
+        @extend %shadow\:layer2;
+
+        position: absolute;
+        z-index: z-index("dropdown-menu");
+        display: none;
+        width: var(--dropdown-menu-width);
+        padding: var(--dropdown-menu-sub-menu-padding);
+        margin: 0; // .with-iconのマージンをリセット
+        visibility: hidden;
+        background-color: var(--color-background-secondary);
+        border: var(--dropdown-menu-sub-menu-border-width) solid var(--color-border-opaque);
+        border-radius: var(--radius);
+        opacity: 0;
+    }
+
+    .sub-menu,
+    .children {
+        padding: 0;
+    }
+
+    // トリガーとサブメニューの間を埋める（カーソル移動時に閉じないようにする）
+    &::after {
+        position: absolute;
+        display: none;
+        width: var(--dropdown-menu-width);
+        height: var(--dropdown-menu-gap);
+        content: "";
+    }
+
+    &.is-open::after {
+        display: block;
+    }
+
+    &.submenu-pos-top::after {
+        bottom: 100%;
+    }
+
+    &.submenu-pos-bottom::after {
+        top: 100%;
+    }
+
+    &.submenu-pos-right::after {
+        left: 0;
+    }
+
+    &.submenu-pos-left::after {
+        right: 0;
+    }
+
+    &.submenu-pos-top > .sub-menu-wrapper {
+        bottom: 100%;
+        margin-block-end: var(--dropdown-menu-gap);
+    }
+
+    &.submenu-pos-bottom > .sub-menu-wrapper {
+        top: 100%;
+        margin-block-start: var(--dropdown-menu-gap);
+    }
+
+    &.submenu-pos-right > .sub-menu-wrapper {
+        left: 0;
+    }
+
+    &.submenu-pos-left > .sub-menu-wrapper {
+        right: 0;
+    }
+}
+
+// 2階層以上下の子持ちメニュー特有のスタイルを設定
+.dropdown-menu .menu-item-has-children .menu-item-has-children,
+%dropdown-menu__menu-item-has-children__menu-item-has-children {
+    display: flex;
+
+    // トリガーとサブメニューの間を埋める（カーソル移動時に閉じないようにする）
+    &::before {
+        position: absolute;
+        top: calc(var(--dropdown-menu-sub-menu-padding) * -1);
+        display: none;
+        width: var(--dropdown-menu-sub-menu-padding);
+        height: calc(100% + var(--dropdown-menu-sub-menu-padding) * 2);
+        content: "";
+    }
+
+    &.is-open::before {
+        display: block;
+    }
+
+    &.submenu-pos-right::before {
+        left: 100%;
+    }
+
+    &.submenu-pos-left::before {
+        left: calc(var(--dropdown-menu-sub-menu-padding) * -1);
+    }
+
+    &::after {
+        display: none;
+    }
+
+    // 1. テキストの水平のツラを合わせる
+    // 2. 1階層目のサブメニューの上下余白を相殺
+    &.submenu-pos-top > .sub-menu-wrapper {
+        bottom: calc((var(--dropdown-menu-sub-menu-padding) + var(--dropdown-menu-sub-menu-border-width)) * -1); // 1
+        margin-block-end: 0; // 2
+    }
+
+    &.submenu-pos-bottom > .sub-menu-wrapper {
+        top: calc((var(--dropdown-menu-sub-menu-padding) + var(--dropdown-menu-sub-menu-border-width)) * -1);
+        margin-block-start: 0;
+    }
+
+    &.submenu-pos-right > .sub-menu-wrapper {
+        left: calc(100% + var(--dropdown-menu-sub-menu-padding));
+    }
+
+    &.submenu-pos-left > .sub-menu-wrapper {
+        right: calc(100% + var(--dropdown-menu-sub-menu-padding));
+    }
+}
+
+/// アンカー要素
+
+.dropdown-menu .menu-item .menu-item a,
+%dropdown-menu__menu-item__menu-item__a {
+    @extend %action-list-content;
+}
+
+.dropdown-menu .menu-item-has-children .menu-item-has-children a,
+%dropdown-menu__menu-item-has-children__menu-item-has-children__a {
+    flex: 1 1 100%;
+}
+
+.dropdown-menu .menu-item .menu-item a:hover,
+%dropdown-menu__menu-item__menu-item__a\:hover {
+    text-decoration: none;
+}
+
+/// メニュートグル
+
+.dropdown-menu .menu-item-toggle {
+    @extend %button\:base;
+    @extend %button\:ghost;
+    @extend %button\:icon;
+    @extend %button\:disabled;
+    @extend %visual-adjust\:inline-end;
+
+    --icon-button-size: 1.6em;
+    --adjust-size: -0.3em;
+
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+// 1. メニュートグルの論理的な末尾側のスペースを確保
+.dropdown-menu .menu-item-has-children .menu-item-has-children .menu-item-toggle,
+%dropdown-menu__menu-item-has-children__menu-item-has-children__menu-item-toggle {
+    margin-inline-end: 0.5em; // 1
+}

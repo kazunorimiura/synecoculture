@@ -1,0 +1,17 @@
+.search-form label {
+    position: relative;
+}
+
+.search-form [type="search"] {
+    padding-inline-start: calc(0.8em + 1.2em + 0.4em);
+}
+
+.search-form .icon {
+    position: absolute;
+    top: 50%;
+    left: 0.8em;
+    width: 1.2em;
+    height: 1.2em;
+    color: var(--color-content-tertiary);
+    transform: translateY(-50%);
+}

@@ -1,0 +1,8 @@
+/// 要素からはみ出したコンテンツをスクロールできるようにする。
+
+.over-scroll {
+    position: relative;
+    flex: auto;
+    overflow: auto;
+    overscroll-behavior: contain;
+}

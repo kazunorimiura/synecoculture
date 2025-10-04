@@ -1,0 +1,271 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: Chinese (Simplified)\n"
+"Language: zh_CN\n"
+
+msgid "投稿"
+msgstr "发布"
+
+msgid "ホーム"
+msgstr "首页"
+
+msgid "ニュース"
+msgstr "新闻"
+
+msgid "検索"
+msgstr "搜索"
+
+msgid "目次"
+msgstr "目录"
+
+msgid "検索する:"
+msgstr "搜索："
+
+msgid "%sの検索結果"
+msgstr "%s的搜索结果"
+
+msgctxt "terms"
+msgid "ターム"
+msgstr "术语"
+
+msgctxt "authors"
+msgid "著者"
+msgstr "作者"
+
+msgid "前へ"
+msgstr "上一页"
+
+msgid "次へ"
+msgstr "下一页"
+
+msgid "ページ"
+msgstr "页面"
+
+msgid "未分類"
+msgstr "未分类"
+
+msgid "すべて"
+msgstr "全部"
+
+msgid "パンくずリスト"
+msgstr "面包屑导航"
+
+msgid "この記事を書いた人"
+msgstr "作者"
+
+msgid "この著者の記事一覧"
+msgstr "查看所有文章"
+
+msgid "関連記事"
+msgstr "相关文章"
+
+msgid "%s一覧"
+msgstr "查看所有%s"
+
+msgid "一覧へ"
+msgstr "查看全部"
+
+msgid "%sに戻る"
+msgstr "返回%s"
+
+msgid "さらに詳しく"
+msgstr "了解更多"
+
+msgid "すべて見る"
+msgstr "查看全部"
+
+msgid "もっと見る"
+msgstr "查看更多"
+
+msgid "最終更新日: %s"
+msgstr "最后更新：%s"
+
+msgid "カテゴリー"
+msgstr "分类"
+
+msgid "タグ"
+msgstr "标签"
+
+msgid "日付"
+msgstr "日期"
+
+msgid "%sナビゲーション"
+msgstr "%s导航"
+
+msgid "日付ナビゲーション"
+msgstr "日期导航"
+
+msgid "お探しのページは見つかりませんでした。"
+msgstr "找不到您要查找的页面。"
+
+msgid "投稿が見つかりませんでした。"
+msgstr "哎呀，看起来我还没有发布任何内容。"
+
+msgid "以下の可能性があります。"
+msgstr "可能存在以下情况。"
+
+msgid "コメント"
+msgstr "评论"
+
+msgid "コメントする"
+msgstr "发表评论"
+
+msgid "コメントは閉じています。"
+msgstr "评论已关闭。"
+
+msgid "ご覧になっていたページからのリンクが無効になっている"
+msgstr "您所查看页面的链接已失效"
+
+msgid "アドレス（URL）のタイプミスがある"
+msgstr "地址（URL）存在输入错误"
+
+msgid "当該ページの公開が終了している"
+msgstr "该页面已停止公开"
+
+msgid "上部（または下部）のメニューから目的のページをお探しいただくか、検索をお試しください。"
+msgstr "请通过顶部（或底部）菜单查找您要找的页面，或尝试搜索。"
+
+msgid "プライマリ"
+msgstr "主菜单"
+
+msgid "プライマリ（モバイル）"
+msgstr "主菜单（移动端）"
+
+msgid "グローバルプライマリ"
+msgstr "全局主菜单"
+
+msgid "グローバルセカンダリ"
+msgstr "全局次菜单"
+
+msgid "フッタープライマリ"
+msgstr "页脚主菜单"
+
+msgid "フッターセカンダリ"
+msgstr "页脚次菜单"
+
+msgid "ソーシャルリンク"
+msgstr "社交链接"
+
+msgid "Googleタグマネージャー"
+msgstr "Google跟踪代码管理器"
+
+msgid "ダークモード"
+msgstr "深色模式"
+
+msgid "「GTM-」から始まるIDを入力します（例, GTM-PQPQ54K）。"
+msgstr "请输入以\"GTM-\"开头的ID（例如：GTM-PQPQ54K）。"
+
+msgid "入力内容に不備があります。"
+msgstr "输入内容不完整。"
+
+msgid "「%1$s」に関する記事を%2$s件掲載しています。"
+msgstr "已发布%2$s篇关于%1$s的文章。"
+
+msgid "%1$sに公開した記事を%2$s件掲載しています。"
+msgstr "已发布%2$s篇于%1$s公开的文章。"
+
+msgid "すべての投稿を見る"
+msgstr "查看所有投稿"
+
+msgctxt "cta text to date archive"
+msgid "%sのすべての投稿を見る"
+msgstr "查看%s的所有投稿"
+
+msgctxt "cta text to tax archive"
+msgid "%sのすべての投稿を見る"
+msgstr "查看%s中的所有投稿"
+
+msgid "%sのプロフィールを見る"
+msgstr "查看%s的个人资料"
+
+msgctxt "yearly archives date format"
+msgid "Y年"
+msgstr "Y年"
+
+msgctxt "monthly archives date format"
+msgid "Y年n月"
+msgstr "Y年n月"
+
+msgctxt "year date format"
+msgid "Y年"
+msgstr "Y年"
+
+msgctxt "month date format"
+msgid "n月"
+msgstr "n月"
+
+msgid "お問い合わせ種別を選択してください。"
+msgstr "请选择咨询类型。"
+
+msgid "氏名を入力してください。"
+msgstr "请输入姓名。"
+
+msgid "姓を入力してください。"
+msgstr "请输入姓氏。"
+
+msgid "名を入力してください。"
+msgstr "请输入名字。"
+
+msgid "会社名を入力してください。"
+msgstr "请输入公司名称。"
+
+msgid "企業・団体名を入力してください。"
+msgstr "请输入企业/团体名称。"
+
+msgid "メールアドレスを入力してください。"
+msgstr "请输入邮箱地址。"
+
+msgid "メールアドレスの形式が正しくありません。"
+msgstr "邮箱地址格式不正确。"
+
+msgid "電話番号を入力してください。"
+msgstr "请输入电话号码。"
+
+msgid "電話番号の入力形式が正しくありません。"
+msgstr "电话号码输入格式不正确。"
+
+msgid "件名を選択してください。"
+msgstr "请选择主题。"
+
+msgid "お問い合わせ内容を入力してください。"
+msgstr "请输入您的留言。"
+
+msgid "個人情報保護方針の同意が必要です。"
+msgstr "需要同意隐私政策。"
+
+msgid "Google reCAPTCHAにより、自動化されたアクセスとして検知されました。しばらく時間をおいてから再度お試しください。"
+msgstr "Google reCAPTCHA检测到自动化访问。请稍等片刻后重试。"
+
+msgid "姓は%d文字以内で入力してください。"
+msgstr "请输入%d字符以内的姓氏。"
+
+msgid "名は%d文字以内で入力してください。"
+msgstr "请输入%d字符以内的名字。"
+
+msgid "会社名は%d文字以内で入力してください。"
+msgstr "请输入%d字符以内的公司名称。"
+
+msgid "企業・団体名は%d文字以内で入力してください。"
+msgstr "请输入%d字符以内的企业·团体名称。"
+
+msgid "メールアドレスは%d文字以内で入力してください。"
+msgstr "请输入%d字符以内的邮箱地址。"
+
+msgid "お問い合わせ内容は%d文字以内で入力してください。"
+msgstr "请输入%d字符以内的咨询内容。"
+
+msgid "このページは%sで提供されています。"
+msgstr "本页面提供%s版本。"
+
+msgid "このページは%sでのみ提供されています。"
+msgstr "本页面仅提供%s版本。"
+
+msgid "食・環境・健康のトリレンマのイメージ図"
+msgstr "饮食-环境-健康三难困境示意图"
+
+msgid "トリレンマ図のアニメーションを再生"
+msgstr "播放三难困境图动画"
+
+msgid "トリレンマ図のアニメーションを一時停止"
+msgstr "暂停三难困境图动画"

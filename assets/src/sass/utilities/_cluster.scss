@@ -1,0 +1,16 @@
+%cluster {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--cluster-space, 1rem);
+    align-items: var(--cluster-align-items, center);
+    justify-content: var(--cluster-justify-content, flex-start);
+
+    // 1. 長いテキストが折り返されるようにする。
+    > * {
+        min-width: 0; // 1
+    }
+}
+
+.cluster {
+    @extend %cluster;
+}

@@ -1,0 +1,35 @@
+///
+/// 視覚調整
+///
+
+%visual-adjust\:block-start {
+    margin-block-start: var(--adjust-size, -0.1em); // アイコンの視覚調整スペース（0.2emの片側分）をデフォルトの相殺値にする
+}
+
+%visual-adjust\:block-end {
+    margin-block-end: var(--adjust-size, -0.1em);
+}
+
+%visual-adjust\:inline-start {
+    margin-inline-start: var(--adjust-size, -0.1em);
+}
+
+%visual-adjust\:inline-end {
+    margin-inline-end: var(--adjust-size, -0.1em);
+}
+
+.visual-adjust\:block-start {
+    @extend %visual-adjust\:block-start;
+}
+
+.visual-adjust\:block-end {
+    @extend %visual-adjust\:block-end;
+}
+
+.visual-adjust\:inline-start {
+    @extend %visual-adjust\:inline-start;
+}
+
+.visual-adjust\:inline-end {
+    @extend %visual-adjust\:inline-end;
+}

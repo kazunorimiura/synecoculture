@@ -1,0 +1,212 @@
+<?php
+
+/**
+ * `WPF_Blog_Posting_Schema` クラスのユニットテスト
+ *
+ * @group schema
+ * @covers WPF_Blog_Posting_Schema
+ * @coversDefaultClass WPF_Blog_Posting_Schema
+ */
+class TestBlogPostingSchema extends WPF_UnitTestCase {
+	/**
+	 * @var WPF_Blog_Posting_Schema
+	 */
+	private $schema;
+
+	/**
+	 * @var int
+	 */
+	private $post_id;
+
+	/**
+	 * @var int
+	 */
+	private $author_id;
+
+	/**
+	 * テストの実行前にBlogPostingスキーマのインスタンスを作成し、
+	 * テスト用の投稿データと著者データを準備する
+	 */
+	public function set_up() {
+		parent::set_up();
+
+		// テスト用の著者を作成
+		$this->author_id = $this->factory->user->create(
+			array(
+				'user_login'   => 'testblogger',
+				'display_name' => 'Test Blogger',
+				'role'         => 'author',
+			)
+		);
+
+		// テスト用のブログ投稿を作成
+		$this->post_id = $this->factory->post->create(
+			array(
+				'post_title'   => 'Test Blog Post',
+				'post_content' => 'Test blog content',
+				'post_excerpt' => 'Test blog excerpt',
+				'post_status'  => 'publish',
+				'post_author'  => $this->author_id,
+				'post_date'    => '2024-01-01 12:00:00',
+			)
+		);
+
+		$this->go_to( get_permalink( $this->post_id ) );
+		setup_postdata( get_post( $this->post_id ) );
+
+		$this->schema = new WPF_Blog_Posting_Schema();
+	}
+
+	/**
+	 * テストの実行後にテストデータをクリーンアップする
+	 */
+	public function tear_down() {
+		wp_delete_post( $this->post_id, true );
+		wp_delete_user( $this->author_id );
+		parent::tear_down();
+	}
+
+	/**
+	 * クラスの継承関係が正しいことを確認する
+	 *
+	 * BlogPostingスキーマがArticleスキーマを継承していることを
+	 * テストする
+	 *
+	 * @covers ::get_data
+	 * @preserveGlobalState disabled
+	 */
+	public function test_inheritance() {
+		$this->assertInstanceOf( WPF_Article_Schema::class, $this->schema );
+	}
+
+	/**
+	 * スキーマタイプが 'BlogPosting' として設定されることを確認する
+	 *
+	 * @covers ::get_data
+	 * @preserveGlobalState disabled
+	 */
+	public function test_schema_type() {
+		$data = $this->schema->get_data();
+		$this->assertEquals( 'BlogPosting', $data['@type'] );
+	}
+
+	/**
+	 * 親クラスの基本情報が正しく継承されることを確認する
+	 *
+	 * Article型の基本プロパティが正しく設定されることをテストする
+	 *
+	 * @covers ::get_data
+	 * @preserveGlobalState disabled
+	 */
+	public function test_inherited_basic_info() {
+		$data = $this->schema->get_data();
+
+		$this->assertEquals( 'Test Blog Post', $data['headline'] );
+		$this->assertStringStartsWith( 'http', $data['url'] );
+		$this->assertEquals( 'Test blog excerpt', $data['description'] );
+
+		// 日付フォーマットの確認
+		$date_pattern = '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[-+]\d{2}:\d{2}$/';
+		$this->assertMatchesRegularExpression( $date_pattern, $data['datePublished'] );
+		$this->assertMatchesRegularExpression( $date_pattern, $data['dateModified'] );
+	}
+
+	/**
+	 * 親クラスの著者情報機能が正しく継承されることを確認する
+	 *
+	 * 著者情報が Person 型として正しく設定されることをテストする
+	 *
+	 * @covers ::get_data
+	 * @preserveGlobalState disabled
+	 */
+	public function test_inherited_author_info() {
+		$data = $this->schema->get_data();
+
+		$this->assertEquals( 'Person', $data['author']['@type'] );
+		$this->assertEquals( 'Test Blogger', $data['author']['name'] );
+		$this->assertStringStartsWith( 'http', $data['author']['url'] );
+	}
+
+	/**
+	 * 親クラスの画像処理機能が正しく継承されることを確認する
+	 *
+	 * アイキャッチ画像が ImageObject 型として
+	 * 正しく設定されることをテストする
+	 *
+	 * @covers ::get_data
+	 * @preserveGlobalState disabled
+	 */
+	public function test_inherited_featured_image() {
+		// テスト用の画像をアップロード
+		$attachment_id = $this->factory->attachment->create_upload_object(
+			DIR_TESTDATA . '/images/test-image.jpg',
+			$this->post_id
+		);
+
+		set_post_thumbnail( $this->post_id, $attachment_id );
+
+		// スキーマを再生成（画像設定後）
+		$schema = new WPF_Blog_Posting_Schema();
+		$data   = $schema->get_data();
+
+		$this->assertEquals( 'ImageObject', $data['image']['@type'] );
+		$this->assertStringEndsWith( '.jpg', $data['image']['url'] );
+		$this->assertIsInt( $data['image']['width'] );
+		$this->assertIsInt( $data['image']['height'] );
+	}
+
+	/**
+	 * 親クラスの発行者情報機能が正しく継承されることを確認する
+	 *
+	 * 発行者情報が Organization 型として
+	 * 正しく設定されることをテストする
+	 *
+	 * @covers ::get_data
+	 * @preserveGlobalState disabled
+	 */
+	public function test_inherited_publisher_info() {
+		$data = $this->schema->get_data();
+
+		$this->assertEquals( 'Organization', $data['publisher']['@type'] );
+		$this->assertEquals( get_bloginfo( 'name' ), $data['publisher']['name'] );
+		$this->assertEquals( home_url(), $data['publisher']['url'] );
+	}
+
+	/**
+	 * JSON-LDの出力形式が正しいことを確認する
+	 *
+	 * 生成されたJSONが有効なJSON-LDフォーマットであることを
+	 * テストする
+	 *
+	 * @covers ::get_json
+	 * @preserveGlobalState disabled
+	 */
+	public function test_json_ld_output() {
+		$json = $this->schema->get_json();
+
+		$this->assertJson( $json );
+		$data = json_decode( $json, true );
+
+		$this->assertEquals( 'https://schema.org', $data['@context'] );
+		$this->assertEquals( 'BlogPosting', $data['@type'] );
+	}
+
+	/**
+	 * script要素の出力が正しいことを確認する
+	 *
+	 * 生成されたscript要素が正しい形式であることをテストする
+	 *
+	 * @covers ::get_script
+	 * @preserveGlobalState disabled
+	 */
+	public function test_script_element() {
+		$script = $this->schema->get_script();
+
+		$this->assertStringStartsWith( '<script type="application/ld+json">', $script );
+		$this->assertStringEndsWith( '</script>', $script );
+
+		// script要素内のJSONを抽出して検証
+		$json = preg_replace( '/^<script.*?>|<\/script>$/', '', $script );
+		$this->assertJson( $json );
+	}
+}

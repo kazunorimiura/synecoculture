@@ -1,0 +1,27 @@
+@use "../base/element";
+@use "../utilities/link";
+
+%action-list-content {
+    @extend %input-padding;
+    @extend %link-muted;
+
+    display: block;
+
+    // padding-block: 0.4em;
+    border-radius: var(--radius);
+
+    &:link,
+    &:visited,
+    &:hover {
+        color: var(--link-color, inherit);
+    }
+
+    &:hover {
+        text-decoration: none;
+        background-color: var(--color-background-highlight);
+    }
+}
+
+.action-list-content {
+    @extend %action-list-content;
+}

@@ -1,0 +1,19 @@
+@use "../../utilities/cluster";
+@use "../../utilities/link";
+@use "../../utilities/radius";
+@use "../../components/button";
+
+.social-links .navigation__list {
+    @extend %cluster;
+
+    --cluster-space: var(--space-s-5);
+}
+
+.social-links .menu-item a {
+    @extend %button\:base;
+    @extend %button\:tertiary;
+    @extend %button\:icon;
+    @extend %button\:disabled;
+    @extend %radius\:circle\:i;
+    @extend %link-muted;
+}

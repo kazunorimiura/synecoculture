@@ -1,0 +1,7 @@
+@use "../utilities/region";
+
+.page-main {
+    @extend %region;
+
+    --region-space: var(--space-s6);
+}

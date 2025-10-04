@@ -1,0 +1,7 @@
+@use "table" as *;
+
+// テーブルブロックを選択したときにボーダーを表示
+.is-selected.wp-block-table table th,
+.is-selected.wp-block-table table td {
+    border: 1px dashed var(--color-border-opaque);
+}

@@ -1,0 +1,12 @@
+@use "../../base/element";
+
+// パディングをデフォルトスタイルに合わせる
+.wp-block-search__input {
+    @extend %input-padding;
+}
+
+// 1. 検索ボタンのテキストが折り返されないようにする
+.wp-block-search__button {
+    flex-shrink: 0; // 1
+    border-radius: var(--radius);
+}

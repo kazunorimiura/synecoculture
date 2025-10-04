@@ -1,0 +1,147 @@
+@use "sass:map";
+@use "../config";
+@use "../base/settings" as *;
+@use "../utilities/wrapper";
+@use "../utilities/grid";
+
+.our-purpose__cover {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.our-purpose__cover-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: var(--site-gutter-slat);
+    overflow: hidden;
+}
+
+.our-purpose__cover-inner__inner {
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-background-secondary);
+    background-image: linear-gradient(var(--color-border-opaque) 1px, transparent 1px), linear-gradient(90deg, var(--color-border-opaque) 1px, transparent 1px);
+    background-size: 18px 18px;
+    border-radius: var(--radius-lg);
+}
+
+.our-purpose__cover-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+    width: 66%;
+    max-width: rem(436);
+    height: auto;
+    max-height: rem(435);
+    transform: translate(-50%, -50%);
+}
+
+.our-purpose__main {
+    position: relative;
+    padding-block: fd(48, 96);
+    padding-inline: var(--site-gutter);
+    margin-inline: auto;
+    background-color: var(--color-background-primary);
+}
+
+.our-purpose__main::before,
+.our-purpose__main::after {
+    position: absolute;
+    top: calc(var(--radius-lg) * -1);
+    display: block;
+    width: var(--radius-lg);
+    height: var(--radius-lg);
+    content: "";
+    background-repeat: no-repeat;
+}
+
+.our-purpose__main::before {
+    left: var(--site-gutter-slat);
+    background-image: escape-svg(get-data-url("radius-reverse-left", config.$color-background-primary));
+}
+
+[data-site-theme="dark"] .our-purpose__main::before {
+    background-image: escape-svg(get-data-url("radius-reverse-left", config.$color-background-primary-dark));
+}
+
+@media (prefers-color-scheme: dark) {
+    .our-purpose__main::before {
+        left: var(--site-gutter-slat);
+        background-image: escape-svg(get-data-url("radius-reverse-left", config.$color-background-primary-dark));
+    }
+
+    [data-site-theme="light"] .our-purpose__main::before {
+        background-image: escape-svg(get-data-url("radius-reverse-left", config.$color-background-primary));
+    }
+}
+
+.our-purpose__main::after {
+    right: var(--site-gutter-slat);
+    background-image: escape-svg(get-data-url("radius-reverse-right", config.$color-background-primary));
+}
+
+[data-site-theme="dark"] .our-purpose__main::after {
+    background-image: escape-svg(get-data-url("radius-reverse-right", config.$color-background-primary-dark));
+}
+
+@media (prefers-color-scheme: dark) {
+    .our-purpose__main::after {
+        right: var(--site-gutter-slat);
+        background-image: escape-svg(get-data-url("radius-reverse-right", config.$color-background-primary-dark));
+    }
+
+    [data-site-theme="light"] .our-purpose__main::after {
+        background-image: escape-svg(get-data-url("radius-reverse-right", config.$color-background-primary));
+    }
+}
+
+.our-purpose__main > * + * {
+    margin-block-start: fd(64, 96);
+}
+
+.our-purpose__header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: fd(64, 128);
+    align-items: flex-start;
+}
+
+// 1. サイドバーの理想的な幅
+// 2. 長いテキストが折り返されるようにする
+// 3. flex-basisのサイズによって要素が画面をはみ出さないようにする
+.our-purpose__header__overline {
+    flex-basis: rem(362); // 1
+    flex-grow: 1; // 1
+    min-width: 0; // 2
+    max-width: 100%; // 3
+}
+
+// 1. 最低幅
+// 2. 最大幅
+// 3. 長いテキストが折り返されるようにする
+.our-purpose__header__main {
+    flex-basis: rem(800); // 1
+    flex-grow: 999; // 1
+    max-inline-size: rem(1083); // 2
+    min-width: 0; // 3
+}
+
+.our-purpose__header__main > * + * {
+    margin-block-start: fd(32, 48);
+}
+
+// 1. --switcher-threshold = 折り返しを発生させるコンテナの幅
+// 2. 長いテキストが折り返されるようにする
+.our-purpose__header__heading,
+.our-purpose__header__body {
+    flex-basis: calc((#{rem(720)} - 100%) * 999); // 1
+    flex-grow: 1; // 1
+    min-width: 0; // 2
+}
+
+.our-purpose__header__heading {
+    font: var(--font-headline-1);
+}

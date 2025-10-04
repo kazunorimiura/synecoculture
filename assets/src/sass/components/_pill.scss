@@ -1,0 +1,45 @@
+@use "../base/settings" as *;
+
+.pill {
+    display: inline-block;
+    padding-block: var(--pill-padding-block, #{rem(8)});
+    padding-inline: var(--pill-padding-inline, #{rem(16)});
+    font-size: var(--pill-font-size, var(--font-size-text));
+    line-height: var(--line-height-sign);
+    text-decoration: none;
+    vertical-align: middle;
+    appearance: none;
+    background-color: var(--color-background-primary);
+    border: 1px solid var(--color-content-primary);
+    border-radius: var(--radius);
+}
+
+.pill-secondary {
+    display: inline-block;
+    padding-block: var(--pill-padding-block, #{rem(8)});
+    padding-inline: var(--pill-padding-inline, #{rem(16)});
+    font-size: var(--pill-font-size, var(--font-size-text--sm));
+    line-height: var(--line-height-sign);
+    color: var(--color-content-tertiary);
+    text-decoration: none;
+    vertical-align: middle;
+    appearance: none;
+    background-color: var(--color-background-secondary);
+    border-radius: var(--radius-sm);
+}
+
+a.pill,
+a.pill:link {
+    color: var(--color-content-primary);
+}
+
+a.pill-secondary,
+a.pill-secondary:link {
+    color: var(--color-content-tertiary);
+}
+
+a.pill:hover,
+a.pill-secondary:hover {
+    text-decoration: none;
+    background-color: var(--color-background-highlight);
+}

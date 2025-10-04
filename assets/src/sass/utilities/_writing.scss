@@ -1,0 +1,86 @@
+// 多言語対応縦書きユーティリティクラス
+// htmlタグのlang属性で言語を区別
+
+// .vertical-writing
+// 日本語・簡体中文：縦書き、英語・フランス語：横書き
+.vertical-writing {
+    // デフォルトは横書き（英語・フランス語用）
+    writing-mode: horizontal-tb;
+    text-orientation: mixed;
+}
+
+// 日本語の場合
+html[lang|="ja"] .vertical-writing {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+// 簡体中文の場合
+html[lang|="zh"] .vertical-writing {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+// .symbolic-writing
+// 日本語・簡体中文：縦書き、英語・フランス語：横書きを90度回転
+.symbolic-writing {
+    // デフォルトは横書き
+    writing-mode: horizontal-tb;
+    text-orientation: mixed;
+    transform-origin: center;
+}
+
+// 日本語の場合
+html[lang|="ja"] .symbolic-writing {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: none;
+}
+
+// 簡体中文の場合
+html[lang|="zh-cn"] .symbolic-writing {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform: none;
+}
+
+// 英語の場合（横書きを90度回転）
+html[lang|="en"] .symbolic-writing {
+    margin-block-start: -1em;
+    white-space: nowrap;
+    writing-mode: horizontal-tb;
+    transform: rotate(90deg) translateX(50%);
+}
+
+// フランス語の場合（横書きを90度回転）
+html[lang|="fr"] .symbolic-writing {
+    margin-block-start: -1em;
+    white-space: nowrap;
+    writing-mode: horizontal-tb;
+    transform: rotate(90deg) translateX(50%);
+}
+
+// 追加のヘルパークラス（必要に応じて使用）
+
+// 縦書き時の文字方向を制御
+// uprightクラス：全ての文字を縦向きにする場合
+html[lang|="ja"] .text-upright,
+html[lang|="zh"] .text-upright {
+    text-orientation: upright;
+}
+
+// mixedクラス：CJK文字は縦向き、欧文は横向きのまま（推奨）
+html[lang|="ja"] .text-mixed,
+html[lang|="zh"] .text-mixed {
+    text-orientation: mixed;
+}
+
+// 回転時のコンテナ調整用
+html[lang|="en"] .symbolic-container,
+html[lang|="fr"] .symbolic-container {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+}

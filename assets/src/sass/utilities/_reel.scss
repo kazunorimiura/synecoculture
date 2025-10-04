@@ -1,0 +1,24 @@
+.reel {
+    display: flex;
+    overflow: auto hidden;
+
+    // 1. 長いテキストが折り返されるようにする。
+    > * {
+        flex: 0 0 auto;
+        min-width: 0; // 1
+    }
+
+    > img {
+        block-size: 100%;
+        flex-basis: auto;
+        width: auto;
+    }
+
+    > * + * {
+        margin-inline-start: var(--reel-space, var(--space-s0));
+    }
+
+    &.overflowing {
+        padding-block-end: var(--reel-overflowing-space, var(--space-s0));
+    }
+}

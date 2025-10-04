@@ -1,0 +1,124 @@
+@use "sass:map";
+@use "../../base/settings" as *;
+@use "../../components/prose";
+
+// 投稿タイトル (for editor)
+.edit-post-visual-editor__post-title-wrapper > h1 {
+    margin-block: var(--space-s0);
+}
+
+// フローコンテナ (for editor)
+.is-layout-flow {
+    @extend %prose;
+}
+
+// figure要素ではないメディア要素を、.proseにおけるfigureと同様のフロースペースにする
+.wp-block-media-text,
+.wp-block-media-text + *,
+.wp-block-cover,
+.wp-block-cover + * {
+    --flow-space: var(--space-s3);
+}
+
+// スペーサーの前後にフロースペースは適用しない
+.wp-block-spacer,
+.wp-block-spacer + * {
+    --flow-space: 0;
+}
+
+// 中央揃え
+// ※直下でない要素にWPのデフォルトスタイルが適用されるため上書きする
+// .aligncenter {
+//     margin-inline: auto;
+// }
+
+// 1. .prose における .alignleft および .alignright の下部マージンに合わせる (for editor)
+// .alignleft,
+// .alignright {
+//     margin-block-end: var(--space-s3); // 1
+// }
+
+// /// 左揃え
+// /// ※直下でない要素にWPのデフォルトスタイルが適用されるため上書きする
+// // 1. WPのデフォルトスタイルを上書き
+// // 2. ブロックの外側のツラを擬似的にコンテンツ幅（--width-content）に合わせる ※WPのデフォルトスタイルを上書き。margin-inline-startは、フロントエンドでは必要ないが、エディタでmargin-leftを打ち消してしまうため追加している
+// // 3. ブロックの外側のツラを擬似的にコンテンツ幅（--width-content）に合わせる
+// // 4. このプロパティのデフォルトスタイルを上書き
+// // 5. WPのデフォルトスタイルを上書き。margin-inline-startは、フロントエンドでは必要ないが、エディタでmargin-leftを打ち消してしまうため追加している
+// // 6. article > *のデフォルトスタイルを上書き
+// .alignleft {
+//     float: left;
+//     margin-inline-start: 0 !important; // 2
+//     margin-right: var(--space-s1em) !important; // 1
+//     margin-left: 0; // 3
+
+//     @media screen and (max-width: em(map.get($breakpoints, md))) {
+//         margin-inline-start: auto !important; // 5
+//         margin-right: auto !important; // 4
+//         margin-left: auto !important; // 6
+//     }
+// }
+
+// // 直下でない左揃えブロックでは外側の余白を設けない。※直下の左右揃えブロックでは外側が画面端についてしまうため、余白を設けている
+// .wp-block-columns .alignleft,
+// .wp-block-group .alignleft {
+//     margin-inline-start: auto !important;
+//     margin-left: auto !important;
+// }
+
+/// 右揃え
+/// ※直下でない要素にWPのデフォルトスタイルが適用されるため上書きする
+// 1. WPのデフォルトスタイルを上書き
+// 2. ブロックの外側のツラを擬似的にコンテンツ幅（--width-content）に合わせる ※WPのデフォルトスタイルを上書き。margin-inline-endは、フロントエンドでは必要ないが、エディタでmargin-rightを打ち消してしまうため追加している
+// 3. ブロックの外側のツラを擬似的にコンテンツ幅（--width-content）に合わせる
+// 4. このプロパティのデフォルトスタイルを上書き
+// 5. WPのデフォルトスタイルを上書き。margin-inline-endは、フロントエンドでは必要ないが、エディタでmargin-rightを打ち消してしまうため追加している
+// 6. article > *のデフォルトスタイルを上書き
+// .alignright {
+//     float: right;
+//     margin-inline-end: 0 !important; // 2
+//     margin-right: 0; // 3
+//     margin-left: var(--space-s1em) !important; // 1
+
+//     @media screen and (max-width: em(map.get($breakpoints, md))) {
+//         margin-inline-end: auto !important; // 5
+//         margin-right: auto !important; // 6
+//         margin-left: auto !important; // 4
+//     }
+// }
+
+// // 直下でない右揃えブロックでは外側の余白を設けない。※直下の左右揃えブロックでは外側が画面端についてしまうため、余白を設けている
+// .wp-block-columns .alignright,
+// .wp-block-group .alignright {
+//     margin-inline-end: auto !important;
+//     margin-right: auto !important;
+// }
+
+/* 〜WP6.0
+   ========================================================================== */
+
+/**
+ * ギャラリーブロック
+ */
+
+// 1. .proseにおけるfigureのバーティカルリズムに合わせる（なぜか意図的にフロントエンドではmargin: 0が指定されている）
+// 2. .proseにおける要素のセンタリングを適用（なぜか意図的にフロントエンドではmargin: 0が指定されている）
+.wp-block-gallery:not(.has-nested-images, .alignleft, .alignright) {
+    margin-block-start: var(--space-s3); // 1
+    margin-inline: auto; // 2
+}
+
+// ギャラリーアイテムの間隔を調整
+.wp-block-gallery.has-nested-images {
+    --wp--style--gallery-gap-default: var(--space-s-4);
+}
+
+// なぜかフロントエンドは古いギャラリー構造のままのためgapを明示的に指定
+.blocks-gallery-grid {
+    gap: var(--space-s-4);
+}
+
+// 〜WP6.0のギャラリーアイテムはマージンで間隔が取られているためリセット
+.blocks-gallery-grid .blocks-gallery-item {
+    margin: 0 !important;
+}

@@ -1,0 +1,417 @@
+@use "../base/settings" as *;
+
+///
+/// margin-block
+///
+
+$--i: 0;
+
+@while $--i < 8 {
+    .mb-s#{$--i} {
+        margin-block: var(--space-s#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+$--i: 1;
+
+@while $--i < 13 {
+    .mb-s-#{$--i} {
+        margin-block: var(--space-s-#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+.mb-s-space {
+    margin-block: var(--space-s-space);
+}
+
+.mb-s-none {
+    margin-block: 0;
+}
+
+.mb-s-auto {
+    margin-block: auto;
+}
+
+///
+/// margin-block-start
+///
+
+$--i: 0;
+
+@while $--i < 8 {
+    .mbs-s#{$--i} {
+        margin-block-start: var(--space-s#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+$--i: 1;
+
+@while $--i < 13 {
+    .mbs-s-#{$--i} {
+        margin-block-start: var(--space-s-#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+.mbs-s-space {
+    margin-block-start: var(--space-s-space);
+}
+
+.mbs-s-none {
+    margin-block-start: 0;
+}
+
+.mbs-s-auto {
+    margin-block-start: auto;
+}
+
+///
+/// margin-block-end
+///
+
+$--i: 0;
+
+@while $--i < 8 {
+    .mbe-s#{$--i} {
+        margin-block-end: var(--space-s#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+$--i: 1;
+
+@while $--i < 13 {
+    .mbe-s-#{$--i} {
+        margin-block-end: var(--space-s-#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+.mbe-s-space {
+    margin-block-end: var(--space-s-space);
+}
+
+.mbe-s-none {
+    margin-block-end: 0;
+}
+
+.mbe-s-auto {
+    margin-block-end: auto;
+}
+
+///
+/// margin-inline
+///
+
+$--i: 0;
+
+@while $--i < 8 {
+    .mi-s#{$--i} {
+        margin-inline: var(--space-s#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+$--i: 1;
+
+@while $--i < 13 {
+    .mi-s-#{$--i} {
+        margin-inline: var(--space-s-#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+.mi-s-space {
+    margin-inline: var(--space-s-space);
+}
+
+.mi-s-none {
+    margin-inline: 0;
+}
+
+.mi-s-auto {
+    margin-inline: auto;
+}
+
+///
+/// margin-inline-start
+///
+
+$--i: 0;
+
+@while $--i < 8 {
+    .mis-s#{$--i} {
+        margin-inline-start: var(--space-s#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+$--i: 1;
+
+@while $--i < 13 {
+    .mis-s-#{$--i} {
+        margin-inline-start: var(--space-s-#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+.mis-s-space {
+    margin-inline-start: var(--space-s-space);
+}
+
+.mis-s-none {
+    margin-inline-start: 0;
+}
+
+.mis-s-auto {
+    margin-inline-start: auto;
+}
+
+///
+/// margin-inline-end
+///
+
+$--i: 0;
+
+@while $--i < 8 {
+    .mie-s#{$--i} {
+        margin-inline-end: var(--space-s#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+$--i: 1;
+
+@while $--i < 13 {
+    .mie-s-#{$--i} {
+        margin-inline-end: var(--space-s-#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+.mie-s-space {
+    margin-inline-end: var(--space-s-space);
+}
+
+.mie-s-none {
+    margin-inline-end: 0;
+}
+
+.m-s-none {
+    margin: 0;
+}
+
+.m-s-auto {
+    margin: auto;
+}
+
+///
+/// padding-block
+///
+
+$--i: 0;
+
+@while $--i < 8 {
+    .pb-s#{$--i} {
+        padding-block: var(--space-s#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+$--i: 1;
+
+@while $--i < 13 {
+    .pb-s-#{$--i} {
+        padding-block: var(--space-s-#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+.pb-s-space {
+    padding-block: var(--space-s-space);
+}
+
+.pb-s-none {
+    padding-block: 0;
+}
+
+///
+/// padding-block-start
+///
+
+$--i: 0;
+
+@while $--i < 8 {
+    .pbs-s#{$--i} {
+        padding-block-start: var(--space-s#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+$--i: 1;
+
+@while $--i < 13 {
+    .pbs-s-#{$--i} {
+        padding-block-start: var(--space-s-#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+.pbs-s-space {
+    padding-block-start: var(--space-s-space);
+}
+
+.pbs-s-none {
+    padding-block-start: 0;
+}
+
+///
+/// padding-block-end
+///
+
+$--i: 0;
+
+@while $--i < 8 {
+    .pbe-s#{$--i} {
+        padding-block-end: var(--space-s#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+$--i: 1;
+
+@while $--i < 13 {
+    .pbe-s-#{$--i} {
+        padding-block-end: var(--space-s-#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+.pbe-s-space {
+    padding-block-end: var(--space-s-space);
+}
+
+.pbe-s-none {
+    padding-block-end: 0;
+}
+
+///
+/// padding-inline
+///
+
+$--i: 0;
+
+@while $--i < 8 {
+    .pi-s#{$--i} {
+        padding-inline: var(--space-s#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+$--i: 1;
+
+@while $--i < 13 {
+    .pi-s-#{$--i} {
+        padding-inline: var(--space-s-#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+.pi-s-space {
+    padding-inline: var(--space-s-space);
+}
+
+.pi-s-none {
+    padding-inline: 0;
+}
+
+///
+/// padding-inline-start
+///
+
+$--i: 0;
+
+@while $--i < 8 {
+    .pis-s#{$--i} {
+        padding-inline-start: var(--space-s#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+$--i: 1;
+
+@while $--i < 13 {
+    .pis-s-#{$--i} {
+        padding-inline-start: var(--space-s-#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+.pis-s-space {
+    padding-inline-start: var(--space-s-space);
+}
+
+.pis-s-none {
+    padding-inline-start: 0;
+}
+
+///
+/// padding-inline-end
+///
+
+$--i: 0;
+
+@while $--i < 8 {
+    .pie-s#{$--i} {
+        padding-inline-end: var(--space-s#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+$--i: 1;
+
+@while $--i < 13 {
+    .pie-s-#{$--i} {
+        padding-inline-end: var(--space-s-#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+.pie-s-space {
+    padding-inline-end: var(--space-s-space);
+}
+
+.pie-s-none {
+    padding-inline-end: 0;
+}
+
+.p-s-none {
+    padding: 0;
+}

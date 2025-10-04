@@ -1,0 +1,39 @@
+%shadow\:layer1 {
+    box-shadow: var(--shadow-sm, 0 1px 0 rgb(0 0 0 / 4%));
+}
+
+%shadow\:layer2 {
+    box-shadow: var(--shadow-medium, 0 3px 6px rgb(0 0 0 / 15%));
+}
+
+%shadow\:layer3 {
+    box-shadow: var(--shadow-large, 0 8px 24px rgb(0 0 0 / 20%));
+}
+
+%shadow\:layer4 {
+    box-shadow: var(--shadow-xlarge, 0 12px 48px rgb(0 0 0 / 30%));
+}
+
+%shadow\:muted {
+    box-shadow: none !important;
+}
+
+.shadow\:layer1 {
+    @extend %shadow\:layer1;
+}
+
+.shadow\:layer2 {
+    @extend %shadow\:layer2;
+}
+
+.shadow\:layer3 {
+    @extend %shadow\:layer3;
+}
+
+.shadow\:layer4 {
+    @extend %shadow\:layer4;
+}
+
+.shadow\:muted {
+    @extend %shadow\:muted;
+}

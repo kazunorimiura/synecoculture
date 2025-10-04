@@ -1,0 +1,21 @@
+{
+    "extends": ["stylelint-config-standard-scss", "stylelint-config-recess-order"],
+    "plugins": ["stylelint-scss"],
+    "rules": {
+        "indentation": 4,
+        "selector-class-pattern": "(?:__[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*)?(?:(?:_|--)[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*){0,2}(?:\\[.+\\])?$",
+        "selector-id-pattern": "(?:__[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*)?(?:(?:_|--)[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*){0,2}(?:\\[.+\\])?$",
+        "custom-property-pattern": "(?:__[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*)?(?:(?:_|--)[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*){0,2}(?:\\[.+\\])?$",
+        "scss/percent-placeholder-pattern": "(?:__[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*)?(?:(?:_|--)[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*){0,2}(?:\\[.+\\])?$",
+        "scss/at-mixin-pattern": "(?:__[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*)?(?:(?:_|--)[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*){0,2}(?:\\[.+\\])?$",
+        "scss/dollar-variable-pattern": "(?:__[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*)?(?:(?:_|--)[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*){0,2}(?:\\[.+\\])?$",
+        "declaration-block-no-redundant-longhand-properties": [
+            true,
+            {
+                "ignoreShorthands": ["margin", "padding", "flex-flow", "/border/"]
+            }
+        ],
+        "scss/comment-no-empty": null,
+        "number-max-precision": 20
+    }
+}

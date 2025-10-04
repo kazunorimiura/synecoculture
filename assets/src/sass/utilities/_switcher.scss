@@ -1,0 +1,50 @@
+/// switcherモジュールを出力する
+/// switcher = コンテナの幅が閾値（--switcher-threshold）を下回るときに折り返すグリッド。
+/// @link https://every-layout.dev/layouts/switcher/
+///
+/// @param {number} $max-columns [5] 最大カラム数。これ以降は常に折り返される。
+///
+/// @example
+///     .switcher {
+///         @include switcher;
+///     }
+/// @output
+///     .switcher {
+///         display: flex;
+///         flex-wrap: wrap;
+///         gap: var(--switcher-gap, var(--space-s0));
+///     }
+///     .switcher > * {
+///         flex-basis: var(--switcher-basis, calc((var(--switcher-threshold, var(--bp-sm)) - 100%) * 999));
+///         flex-grow: var(--switcher-grow, 1);
+///     }
+///     .switcher > :nth-last-child(n + 5),
+///     .switcher > :nth-last-child(n + 5) ~ * {
+///         flex-basis: 100%;
+///     }
+@mixin switcher($max-columns: 5) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--switcher-gap, var(--space-s0));
+
+    // 1. --switcher-threshold = 折り返しを発生させるコンテナの幅。
+    // 2. 長いテキストが折り返されるようにする。
+    > * {
+        flex-basis: var(--switcher-basis, calc((var(--switcher-threshold, var(--bp-sm)) - 100%) * 999)); // 1
+        flex-grow: var(--switcher-grow, 1);
+        min-width: 0; // 2
+    }
+
+    > :nth-last-child(n + #{$max-columns}),
+    > :nth-last-child(n + #{$max-columns}) ~ * {
+        flex-basis: 100%;
+    }
+}
+
+%switcher {
+    @include switcher;
+}
+
+.switcher {
+    @extend %switcher;
+}

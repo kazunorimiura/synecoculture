@@ -1,0 +1,136 @@
+@use "../../base/settings" as *;
+@use "../../utilities/flow";
+@use "../../utilities/reset-list";
+@use "../../utilities/switcher";
+@use "../../components/button";
+@use "../../components/notice";
+
+//
+// 共通
+//
+
+.wpforms-field ul {
+    @extend %reset-list;
+}
+
+//
+// form
+//
+
+.wpforms-form {
+    @extend %flow;
+}
+
+//
+// 入力フォーム群のコンテナ
+//
+
+.wpforms-field-container {
+    @extend %flow;
+}
+
+//
+// 入力フォームラベル
+//
+
+.wpforms-field-label {
+    font-weight: var(--font-weight-sign);
+}
+
+//
+// 入力フォームサブラベル
+//
+
+.wpforms-field-sublabel {
+    font: var(--font-text--sm);
+    color: var(--color-content-tertiary);
+}
+
+// エラーメッセージとの間隔をあける
+.wpforms-field-sublabel + * {
+    margin-inline-start: var(--space-s-12);
+}
+
+//
+// 入力フォームレイアウト
+//
+
+// 入力フォーム要素をレイアウトするものと思われるコンテナ
+// 姓名入力フォームの水平レイアウトに使われている
+.wpforms-field-row {
+    @extend %switcher;
+
+    --switcher-threshold: #{rem(300px)};
+
+    flex-direction: row-reverse;
+}
+
+//
+// textarea
+//
+
+.wpforms-field textarea.wpforms-field-small {
+    height: 4em;
+}
+
+.wpforms-field textarea.wpforms-field-medium {
+    height: 7.5em;
+}
+
+.wpforms-field textarea.wpforms-field-large {
+    height: 15em;
+}
+
+//
+// submit
+//
+
+.wpforms-submit-container {
+    --flow-space: var(--space-s5);
+
+    text-align: center;
+}
+
+.wpforms-submit {
+    @extend %button\:base;
+    @extend %button\:primary;
+    @extend %button\:disabled;
+    @extend %button\:wide;
+}
+
+//
+// ユーティリティ
+//
+
+// ラベル非表示
+.wpforms-label-hide {
+    display: none;
+}
+
+// noscriptメッセージなどを隠すためのユーティリティ
+.wpforms-hidden {
+    display: none;
+}
+
+//
+// noscriptメッセージ
+//
+
+#wpforms-error-noscript,
+.wpforms-error-noscript {
+    @extend %notice\:warning;
+}
+
+//
+// フォームエラー
+//
+
+.wpforms-error[name^="wpforms[fields]"] {
+    border-color: var(--color-border-negative);
+}
+
+// メッセージテキスト
+.wpforms-error[role="alert"] {
+    font: var(--font-text--sm);
+    color: var(--color-content-negative);
+}

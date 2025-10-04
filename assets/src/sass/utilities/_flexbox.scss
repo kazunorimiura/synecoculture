@@ -1,0 +1,121 @@
+///
+/// flexbox
+///
+
+@use "../base/settings" as *;
+
+.grow {
+    flex-grow: 1;
+}
+
+$flex-direction: (
+    "row": row,
+    "row-reverse": row-reverse,
+    "column": column,
+    "column-reverse": column-reverse,
+);
+
+@each $key, $value in $flex-direction {
+    .fd-#{$key} {
+        flex-direction: $value !important;
+    }
+
+    @each $bp-key, $bp-value in $breakpoints {
+        @media screen and (max-width: em($bp-value)) {
+            .#{$bp-key}\:fd-#{$key} {
+                flex-direction: $value !important;
+            }
+        }
+    }
+}
+
+$align-items: (
+    "center": center,
+    "flex-start": flex-start,
+    "flex-end": flex-end,
+);
+
+@each $key, $value in $align-items {
+    .ai-#{$key} {
+        align-items: $value;
+    }
+
+    @each $bp-key, $bp-value in $breakpoints {
+        @media screen and (max-width: em($bp-value)) {
+            .#{$bp-key}\:ai-#{$key} {
+                align-items: $value;
+            }
+        }
+    }
+}
+
+$justify-content: (
+    "center": center,
+    "flex-start": flex-start,
+    "flex-end": flex-end,
+);
+
+@each $key, $value in $justify-content {
+    .jc-#{$key} {
+        justify-content: $value;
+    }
+
+    @each $bp-key, $bp-value in $breakpoints {
+        @media screen and (max-width: em($bp-value)) {
+            .#{$bp-key}\:jc-#{$key} {
+                justify-content: $value;
+            }
+        }
+    }
+}
+
+///
+/// gap
+///
+
+$--i: 0;
+
+@while $--i < 8 {
+    .gap-s#{$--i} {
+        gap: var(--space-s#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+$--i: 1;
+
+@while $--i < 13 {
+    .gap-s-#{$--i} {
+        gap: var(--space-s-#{$--i});
+    }
+
+    $--i: $--i + 1;
+}
+
+.gap-s-space {
+    gap: var(--space-s-space);
+}
+
+///
+/// flex-wrap
+///
+
+$flex-wrap: (
+    "wrap": wrap,
+    "nowrap": nowrap,
+);
+
+@each $key, $value in $flex-wrap {
+    .flex-wrap-#{$key} {
+        flex-wrap: $value;
+    }
+
+    @each $bp-key, $bp-value in $breakpoints {
+        @media screen and (max-width: em($bp-value)) {
+            .#{$bp-key}\:flex-wrap-#{$key} {
+                flex-wrap: $value;
+            }
+        }
+    }
+}

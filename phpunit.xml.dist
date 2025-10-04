@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<phpunit
+	bootstrap="tests/phpunit/includes/bootstrap.php"
+	backupGlobals="false"
+	colors="true"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+    defaultTestSuite="default"
+	>
+	<testsuites>
+		<testsuite name="default">
+			<directory suffix=".php">tests/phpunit/tests</directory>
+			<exclude>tests/phpunit/tests/integrations/polylang</exclude>
+		</testsuite>
+        <testsuite name="polylang">
+			<directory suffix=".php">tests/phpunit/tests/integrations/polylang</directory>
+		</testsuite>
+	</testsuites>
+</phpunit>

@@ -1,0 +1,30 @@
+{
+    "phpsab.standard": "./.phpcs.xml.dist",
+    "phpsab.executablePathCBF": "./vendor/bin/phpcbf",
+    "phpsab.executablePathCS": "./vendor/bin/phpcs",
+    "[php]": {
+        "editor.defaultFormatter": "valeryanm.vscode-phpsab",
+        "editor.formatOnSave": true
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true
+    },
+    "stylelint.validate": ["scss"],
+    "stylelint.configFile": ".stylelintrc.json",
+    "[scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll.stylelint": "explicit"
+        }
+    }
+}

@@ -1,0 +1,12 @@
+%width-full {
+    width: var(--width-full);
+}
+
+.width-full {
+    @extend %width-full;
+}
+
+.width-content {
+    width: var(--width-content);
+    margin-inline: auto;
+}

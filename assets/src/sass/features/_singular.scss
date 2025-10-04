@@ -1,0 +1,37 @@
+@use "sass:map";
+@use "sass:math";
+@use "../base/settings" as *;
+@use "../utilities/flow";
+@use "../components/button";
+
+.singular__toc {
+    position: sticky;
+    top: calc(var(--site-header-height) + var(--space-s5));
+    max-height: calc(100vh - (var(--site-header-height) + var(--space-s5)));
+    font-size: 1rem;
+}
+
+.singular__toc__headline {
+    font-weight: var(--font-weight-bold);
+}
+
+.singular__toc\:fold {
+    margin-block-end: var(--space-s1);
+}
+
+.singular__toc\:fold + * {
+    --flow-space: 0 !important;
+}
+
+.post-password-form {
+    @extend %flow;
+}
+
+.post-password-form [type="submit"] {
+    @extend %button\:base;
+    @extend %button\:secondary;
+    @extend %button\:disabled;
+
+    width: 100%;
+    margin-block-start: 1rem;
+}

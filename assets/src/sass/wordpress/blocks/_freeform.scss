@@ -1,0 +1,7 @@
+@use "../../components/prose" as *;
+
+// for editor
+// フロントエンドではフラット化される
+.wp-block-freeform > div {
+    @extend %prose;
+}

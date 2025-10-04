@@ -1,0 +1,339 @@
+@use "../base/settings" as *;
+@use "../base/element" as *;
+
+// ボタンのベーススタイル
+// ソーシャルリンクボタンやタグなどの特殊な形状のボタンでも使用できるようにベーススタイルは切り出している
+%button\:base {
+    @extend %input-padding;
+
+    --input-padding-inline: var(--space-s1);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: inherit;
+    font-weight: var(--font-weight-sign);
+    line-height: var(--button-lh, var(--line-height-sign));
+    color: var(--color-content-primary);
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: var(--radius);
+
+    &:link,
+    &:visited {
+        color: var(--color-content-primary);
+    }
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    &::after,
+    &:link::after,
+    &:visited::after {
+        text-decoration: none;
+    }
+
+    &[target="_blank"]::after {
+        display: none;
+    }
+
+    // アイコン付きボタンの場合は間隔を設定
+    > * + * {
+        margin-inline-start: 0.4em;
+    }
+
+    // アイコンが左側にある場合、アイコンの視覚調整分のスペース（0.2em）を相殺
+    > svg:first-child {
+        margin-inline-start: -0.2em;
+    }
+
+    // アイコンが右側にある場合、アイコンの視覚調整分のスペース（0.2em）を相殺
+    > svg:last-child {
+        margin-inline-end: -0.2em;
+    }
+}
+
+%button\:primary {
+    position: relative;
+    overflow: hidden;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-content-button-primary);
+    text-decoration: none;
+    background-color: var(--color-background-button-primary);
+    border: 1px solid var(--color-border-button-primary);
+    box-shadow: 0 1px 1px rgb(255 255 255 / 25%) inset;
+
+    &:link,
+    &:visited {
+        color: var(--color-content-button-primary);
+        text-decoration: none;
+        background-color: var(--color-background-button-primary);
+    }
+
+    &::after,
+    &:link::after,
+    &:visited::after {
+        position: absolute;
+        inset: -1px;
+        display: block;
+        content: "";
+        opacity: 0.2;
+        transition: background-color 0.2s;
+    }
+
+    &:hover::after {
+        background-color: rgba(0 0 0 / 100%);
+    }
+
+    &:active::after {
+        background-color: rgba(0 0 0 / 50%);
+        transition: background-color 0s;
+    }
+}
+
+%button\:secondary {
+    position: relative;
+    overflow: hidden;
+    color: var(--color-content-button-secondary);
+    text-decoration: none;
+    background-color: var(--color-background-button-secondary);
+    border: 1px solid var(--color-border-button-secondary);
+
+    &:link,
+    &:visited {
+        color: var(--color-content-button-secondary);
+        text-decoration: none;
+        background-color: var(--color-background-button-secondary);
+    }
+
+    &::after,
+    &:link::after,
+    &:visited::after {
+        position: absolute;
+        inset: -1px;
+        display: block;
+        content: "";
+        opacity: 0.2;
+        transition: background-color 0.2s;
+    }
+
+    &:hover::after {
+        background-color: var(--color-background-inverse-secondary);
+    }
+
+    &:active::after {
+        background-color: var(--color-background-inverse-tertiary);
+        transition: background-color 0s;
+    }
+}
+
+%button\:tertiary {
+    position: relative;
+    overflow: hidden;
+    color: var(--color-content-button-tertiary);
+    text-decoration: none;
+    background-color: var(--color-background-button-tertiary);
+    border: 1px solid var(--color-border-button-tertiary);
+
+    &:link,
+    &:visited {
+        color: var(--color-content-button-tertiary);
+        text-decoration: none;
+        background-color: var(--color-background-button-tertiary);
+    }
+
+    &::after,
+    &:link::after,
+    &:visited::after {
+        position: absolute;
+        inset: -1px;
+        display: block;
+        content: "";
+        opacity: 0.2;
+        transition: background-color 0.2s;
+    }
+
+    &:hover::after {
+        background-color: var(--color-background-inverse-secondary);
+    }
+
+    &:active::after {
+        background-color: var(--color-background-inverse-tertiary);
+        transition: background-color 0s;
+    }
+}
+
+%button\:ghost {
+    position: relative;
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+
+    &:link,
+    &:visited {
+        color: inherit;
+        text-decoration: none;
+        background-color: transparent;
+    }
+
+    &::after,
+    &:link::after,
+    &:visited::after {
+        position: absolute;
+        inset: -1px;
+        display: block;
+        content: "";
+        opacity: 0.2;
+        transition: background-color 0.2s;
+    }
+
+    &:hover::after {
+        background-color: var(--color-background-inverse-secondary);
+    }
+
+    &:active::after {
+        background-color: var(--color-background-inverse-tertiary);
+        transition: background-color 0s;
+    }
+}
+
+%button\:icon {
+    --icon-button-size: 1.75em;
+
+    width: var(--icon-button-size);
+    height: var(--icon-button-size);
+    padding: 0;
+
+    > * + *,
+    > svg:first-child {
+        margin-inline-start: 0;
+    }
+
+    > svg:last-child {
+        margin-inline-end: 0;
+    }
+}
+
+%button\:wide {
+    --button-width: #{rem(170px)};
+
+    min-width: var(--button-width);
+}
+
+%button\:disabled {
+    &:disabled,
+    &:disabled:hover,
+    &:disabled[tabindex="-1"],
+    &:disabled[tabindex="-1"]:hover {
+        color: var(--color-content-disabled);
+        pointer-events: none;
+        cursor: default;
+        user-select: none;
+        background-color: var(--color-background-disabled);
+        border: 1px solid var(--color-border-disabled);
+    }
+
+    &:disabled::after,
+    &:disabled:hover::after,
+    &:disabled:active::after {
+        display: none;
+    }
+}
+
+.button {
+    @extend %button\:base;
+    @extend %button\:disabled;
+
+    &\:icon {
+        @extend %button\:base;
+        @extend %button\:icon;
+        @extend %button\:disabled;
+    }
+
+    &\:wide {
+        @extend %button\:base;
+        @extend %button\:disabled;
+        @extend %button\:wide;
+    }
+}
+
+.button\:primary {
+    @extend %button\:base;
+    @extend %button\:primary;
+    @extend %button\:disabled;
+
+    &\:icon {
+        @extend %button\:base;
+        @extend %button\:primary;
+        @extend %button\:icon;
+        @extend %button\:disabled;
+    }
+
+    &\:wide {
+        @extend %button\:base;
+        @extend %button\:primary;
+        @extend %button\:disabled;
+        @extend %button\:wide;
+    }
+}
+
+.button\:secondary {
+    @extend %button\:base;
+    @extend %button\:secondary;
+    @extend %button\:disabled;
+
+    &\:icon {
+        @extend %button\:base;
+        @extend %button\:secondary;
+        @extend %button\:icon;
+        @extend %button\:disabled;
+    }
+
+    &\:wide {
+        @extend %button\:base;
+        @extend %button\:secondary;
+        @extend %button\:disabled;
+        @extend %button\:wide;
+    }
+}
+
+.button\:tertiary {
+    @extend %button\:base;
+    @extend %button\:tertiary;
+    @extend %button\:disabled;
+
+    &\:icon {
+        @extend %button\:base;
+        @extend %button\:tertiary;
+        @extend %button\:icon;
+        @extend %button\:disabled;
+    }
+
+    &\:wide {
+        @extend %button\:base;
+        @extend %button\:tertiary;
+        @extend %button\:disabled;
+        @extend %button\:wide;
+    }
+}
+
+.button\:ghost {
+    @extend %button\:base;
+    @extend %button\:ghost;
+    @extend %button\:disabled;
+
+    &\:icon {
+        @extend %button\:base;
+        @extend %button\:ghost;
+        @extend %button\:icon;
+        @extend %button\:disabled;
+    }
+
+    &\:wide {
+        @extend %button\:base;
+        @extend %button\:ghost;
+        @extend %button\:disabled;
+        @extend %button\:wide;
+    }
+}

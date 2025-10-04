@@ -1,0 +1,53 @@
+@use "../../base/element" as *;
+@use "../../utilities/table-wrapper";
+
+.wp-block-table {
+    @extend %table-wrapper;
+}
+
+.wp-block-table table {
+    @extend %table;
+}
+
+.wp-block-table table th,
+.wp-block-table table td {
+    @extend %th\,td;
+
+    // WordPressのスタイルを上書き
+    padding: 1em 1.5em 1em 0;
+    line-height: inherit;
+    border: none;
+}
+
+.wp-block-table table th {
+    @extend %th;
+}
+
+.wp-block-table table td {
+    @extend %td;
+}
+
+.wp-block-table.is-style-stripes,
+.wp-block-table.is-style-stripes tbody tr {
+    border-bottom: none;
+}
+
+.wp-block-table.is-style-stripes tbody tr:nth-child(odd) {
+    background-color: var(--color-background-secondary);
+}
+
+.wp-block-table.is-style-stripes table td {
+    padding-inline-start: 1em;
+}
+
+.wp-block-table.is-style-stripes table td:last-child {
+    padding-inline-start: 1em;
+}
+
+.wp-block-table thead {
+    @extend %thead;
+}
+
+.wp-block-table tfoot {
+    @extend %tfoot;
+}

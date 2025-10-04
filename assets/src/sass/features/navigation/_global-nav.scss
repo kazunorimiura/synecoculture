@@ -1,0 +1,150 @@
+@use "sass:math";
+@use "../../base/settings" as *;
+@use "../../utilities/region";
+@use "../../utilities/wrapper";
+
+///
+/// グロナビボタン
+///
+
+$min-global-nav-button-size: 40px;
+$max-global-nav-button-size: 48px;
+$global-nav-icon-width: 23px;
+$global-nav-icon-height: 17px;
+$global-nav-icon-line-weight: 2px;
+
+.global-nav-button-wrapper {
+    position: fixed;
+    top: 0;
+    z-index: z-index("global-nav-button");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--site-header-height);
+}
+
+.global-nav-button {
+    --global-nav-button-size: #{fd($min-global-nav-button-size, $max-global-nav-button-size)};
+
+    // 1. 必ず単位を合わせる（アイコンのアニメーションが動作しないため）
+    --global-nav-icon-width: #{$global-nav-icon-width}; // 1
+    --global-nav-icon-height: #{$global-nav-icon-height}; // 1
+    --global-nav-icon-line-weight: #{$global-nav-icon-line-weight}; // 1
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--global-nav-button-size);
+    height: var(--global-nav-button-size);
+    margin-right: fd(math.div(($min-global-nav-button-size - $global-nav-icon-width), 2) * -1, math.div(($max-global-nav-button-size - $global-nav-icon-width), 2) * -1);
+    color: inherit;
+}
+
+.global-nav-icon {
+    position: relative;
+    display: block;
+    flex-shrink: 0;
+    width: var(--global-nav-icon-width);
+    height: var(--global-nav-icon-height);
+    font-size: inherit;
+}
+
+.global-nav-icon__line {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: var(--global-nav-icon-line-weight);
+    background-color: currentcolor;
+}
+
+.global-nav-icon__line--top {
+    top: 0;
+}
+
+.global-nav-icon__line--middle {
+    top: calc(var(--global-nav-icon-height) / 2 - var(--global-nav-icon-line-weight) / 2);
+}
+
+.global-nav-icon__line--bottom {
+    bottom: 0;
+}
+
+///
+/// グロナビ
+///
+
+.global-nav-wrapper {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    z-index: z-index("global-nav");
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    color: var(--color-content-primary);
+    pointer-events: none;
+}
+
+.global-nav-wrapper[data-is-open] {
+    pointer-events: auto;
+}
+
+.global-nav-wrapper::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    content: "";
+    background-color: rgb(0 0 0 / 40%);
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+}
+
+.global-nav-wrapper[data-is-open]::before {
+    opacity: 1;
+}
+
+.global-nav {
+    --flow-space: var(--space-s1);
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 92%;
+    max-width: 500px;
+    height: 100%;
+    padding-block: var(--site-header-height) var(--space-s1);
+    padding-inline: var(--space-s3);
+    overflow: scroll;
+    visibility: hidden;
+    background-color: var(--color-background-primary);
+    box-shadow:
+        0 0 12px 0 rgb(0 0 0 / 10%),
+        0 10px 30px 0 rgb(0 0 0 / 20%);
+    transform: translateX(100%);
+    -webkit-overflow-scrolling: touch;
+}
+
+/// グローバルプライマリ
+
+.global-nav .global-primary {
+    font-size: var(--font-size-headline-4);
+}
+
+/// グローバルセカンダリ
+
+.global-nav .global-secondary {
+    font-size: var(--font-size-text);
+    font-weight: var(--font-weight-sign);
+}
+
+/// ソーシャルリンク
+
+.global-social-links {
+    @extend %region;
+    @extend %wrapper;
+
+    --wrapper-gutter: var(--space-s-12);
+}

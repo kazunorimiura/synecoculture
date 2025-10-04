@@ -1,0 +1,22 @@
+@use "../config";
+@use "../base/settings" as *;
+@use "../utilities/wrapper";
+
+.syneco-overline {
+    display: flex;
+    flex-shrink: 0;
+    gap: rem(10);
+    align-items: center;
+}
+
+.syneco-overline__icon > .icon {
+    width: rem(22);
+    height: rem(22);
+}
+
+.syneco-overline__text {
+    font-size: var(--font-size-article);
+    font-weight: var(--font-weight-sign);
+    line-height: var(--line-height-sign);
+    letter-spacing: -0.03em;
+}

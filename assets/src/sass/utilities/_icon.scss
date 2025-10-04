@@ -1,0 +1,19 @@
+.icon {
+    display: block;
+    width: 1em;
+    height: 1em;
+    fill: currentcolor;
+}
+
+%with-icon {
+    display: inline-flex;
+    align-items: center;
+
+    > * + * {
+        margin-inline-start: var(--with-icon-space, 0.4em);
+    }
+}
+
+.with-icon {
+    @extend %with-icon;
+}

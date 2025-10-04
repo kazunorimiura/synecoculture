@@ -1,0 +1,56 @@
+@use "sass:map";
+@use "../config";
+@use "../base/settings" as *;
+@use "../utilities/wrapper";
+@use "../utilities/grid";
+@use "../utilities/flow";
+
+.blog-banner-container {
+    padding-inline: var(--site-gutter-slat);
+}
+
+.blog-banner {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+}
+
+.blog-banner::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    content: "";
+    background-color: rgb(0 0 0 / 54%);
+}
+
+.blog-banner__main {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: fd(32, 48);
+    align-items: center;
+    padding-block: fd(96, 128);
+    padding-inline: fd(24, 64);
+    color: var(--color-content-on-color);
+}
+
+.blog-banner__bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-background-inverse-primary);
+}
+
+.blog-banner__bg-image > img {
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

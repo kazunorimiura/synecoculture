@@ -1,0 +1,181 @@
+@use "sass:map";
+@use "../config";
+@use "../base/settings" as *;
+@use "../utilities/wrapper";
+@use "../utilities/grid";
+
+.trilemma {
+    position: relative;
+}
+
+.trilemma-image-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 2;
+    height: 100%;
+    transform: translateX(-50%);
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        position: static;
+        transform: translateX(0);
+    }
+}
+
+.trilemma-image__main {
+    position: sticky;
+    top: 0;
+}
+
+.trilemma-image {
+    width: 100%;
+    max-width: fd(200, 700);
+    height: 100%;
+    max-height: fd(200, 700);
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}
+
+.trilemma-image > svg {
+    display: block;
+}
+
+// トリレンマ図をダークモードに対応させる
+.trilemma-image path[fill="rgb(0,0,0)"] {
+    fill: var(--color-content-primary);
+}
+
+.trilemma-image path[stroke="rgb(0,0,0)"] {
+    stroke: var(--color-content-primary);
+}
+
+.trilemma-image stop[stop-color="rgb(255,255,255)"] {
+    stop-color: var(--color-background-primary);
+}
+
+.trilemma-explains-container {
+    overflow: hidden;
+}
+
+.trilemma-explains {
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+    cursor: grab;
+    user-select: none;
+    transition: none;
+    will-change: transform;
+    scroll-behavior: smooth;
+
+    /* スクロールバーを非表示にする場合 */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        flex-direction: row;
+        gap: var(--site-gutter);
+        width: calc(100% * 3 + var(--site-gutter) * 2);
+    }
+}
+
+.trilemma-explain {
+    display: flex;
+    flex: 1;
+    color: var(--color-content-disabled);
+    counter-increment: count 1;
+}
+
+.trilemma-explain.active {
+    color: var(--color-content-primary);
+}
+
+.trilemma-explain:nth-of-type(odd) {
+    justify-content: flex-start;
+}
+
+.trilemma-explain:nth-of-type(even) {
+    justify-content: flex-end;
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        justify-content: flex-start;
+    }
+}
+
+.trilemma-explain__inner {
+    width: 100%;
+    max-width: fd(150, 320);
+    border-block-start: 1px solid var(--color-border-opaque);
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        max-width: 100%;
+    }
+}
+
+.trilemma-explain__inner::before {
+    display: block;
+    margin-block-start: fd(32, 48);
+    font-size: em(40);
+    font-weight: var(--font-weight-sign);
+    line-height: var(--line-height-sign);
+    letter-spacing: -0.03em;
+    content: counter(count, decimal-leading-zero);
+}
+
+.trilemma-explain__main {
+    margin-block-start: rem(48);
+}
+
+.trilemma-explain__main > * + * {
+    margin-block-start: rem(12);
+}
+
+.trilemma-explain__heading {
+    font: var(--font-headline-4);
+    color: inherit;
+}
+
+.trilemma-explain__body {
+    font: var(--font-text--sm);
+}
+
+.trilemma-explain__cta {
+    margin-block-start: rem(24);
+}
+
+.trilemma-image-nav-container {
+    position: absolute;
+    bottom: 0.75rem;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.trilemma-play-pause-button.is-playing [data-icon="play"] {
+    display: none;
+}
+
+.trilemma-play-pause-button.is-playing [data-icon="pause"] {
+    display: block;
+}
+
+.trilemma-play-pause-button.is-paused [data-icon="play"] {
+    display: block;
+}
+
+.trilemma-play-pause-button.is-paused [data-icon="pause"] {
+    display: none;
+}
+
+.trilemma-image-nav {
+    display: none;
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        display: flex;
+        justify-content: center;
+    }
+}

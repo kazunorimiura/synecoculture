@@ -1,0 +1,63 @@
+@use "sass:map";
+@use "sass:math";
+@use "../utilities/link";
+@use "../utilities/flow";
+
+.site-footer__inner {
+    position: relative;
+
+    // .page-top のボーダーを視覚的に表現するための擬似要素
+    &::before {
+        position: absolute;
+        top: 0.6rem;
+        right: -1px;
+        z-index: -2;
+        display: block;
+        width: calc(4rem + 2px);
+        height: calc(4rem + 2px);
+        content: "";
+        background-color: var(--color-border-opaque);
+        border-radius: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+.page-top {
+    position: absolute;
+    top: 0.6rem;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    font-size: 1.4rem;
+    color: var(--color-content-tertiary);
+    background-color: var(--color-background-secondary);
+    border-radius: 50%;
+    transform: translateY(-50%);
+
+    &:link,
+    &:visited {
+        color: var(--color-content-tertiary);
+    }
+}
+
+.site-footer__title {
+    margin: 0;
+    font-family: var(--font-family-display);
+    font-size: var(--font-size-headline-4);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-sign);
+    letter-spacing: -0.05em;
+}
+
+.site-footer__title > :is(a:link, a:visited) {
+    color: inherit;
+    text-decoration: none;
+}
+
+.footer-nav-secondary {
+    font: var(--font-text--xs);
+    font-weight: var(--font-weight-sign);
+}

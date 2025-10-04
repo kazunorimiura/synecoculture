@@ -1,0 +1,34 @@
+/// WordPressフロントエンド用CSS
+
+@use "blocks/blockquote";
+@use "blocks/button";
+@use "blocks/caption";
+@use "blocks/code";
+@use "blocks/comments";
+@use "blocks/definition-list";
+@use "blocks/group";
+@use "blocks/paragraph";
+@use "blocks/pullquote";
+@use "blocks/search-button";
+@use "blocks/separator";
+@use "blocks/table";
+@use "commons/align";
+@use "commons/primary-cta";
+@use "features/comment";
+@use "features/mw-wp-form";
+@use "features/wpforms";
+
+// 1. fixed要素のtop位置にアドミンバーの高さを考慮する。
+.admin-bar .site-header-branding-wrapper,
+.admin-bar .global-nav-button-wrapper {
+    top: 32px; // 1
+
+    @media screen and (width <= 782px) {
+        top: 46px; // 1
+    }
+}
+
+// body 要素の flow ユーティリティが影響しないようにする。
+#wpadminbar {
+    --flow-space: 0;
+}

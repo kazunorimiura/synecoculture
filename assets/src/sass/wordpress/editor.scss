@@ -1,0 +1,19 @@
+///
+/// WordPressエディタ用CSS
+///
+
+@use "../base";
+@use "../utilities";
+@use "blocks/blockquote";
+@use "blocks/button";
+@use "blocks/caption";
+@use "blocks/code";
+@use "blocks/comments";
+@use "blocks/freeform";
+@use "blocks/group";
+@use "blocks/paragraph";
+@use "blocks/pullquote";
+@use "blocks/search-button";
+@use "blocks/separator";
+@use "blocks/table--editor";
+@use "commons/align";

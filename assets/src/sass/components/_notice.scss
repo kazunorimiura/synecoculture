@@ -1,0 +1,187 @@
+%_notice-base {
+    padding-block: var(--notice-padding-inline, 1em);
+    padding-inline: var(--notice-padding-inline, 1.35em);
+    border-style: var(--notice-border-style, solid);
+    border-width: var(--notice-border-width, 1px);
+    border-radius: var(--notice-border-radius, var(--radius));
+}
+
+%notice {
+    @extend %_notice-base;
+
+    color: var(--color-content-tertiary);
+    background-color: var(--color-background-secondary);
+    border-color: var(--color-border-opaque);
+}
+
+%notice\:subtle {
+    @extend %_notice-base;
+
+    color: var(--color-content-tertiary);
+    background-color: var(--color-background-secondary);
+    border-color: transparent;
+}
+
+%notice\:bold {
+    @extend %_notice-base;
+
+    color: var(--color-content-inverse-tertiary);
+    background-color: var(--color-background-inverse-secondary);
+    border-color: var(--color-background-inverse-secondary);
+}
+
+%notice\:info {
+    @extend %_notice-base;
+
+    color: var(--color-content-info);
+    background-color: var(--color-background-info-opaque);
+    border-color: var(--color-border-info);
+}
+
+%notice\:info\:subtle {
+    @extend %_notice-base;
+
+    color: var(--color-content-info);
+    background-color: var(--color-background-info-opaque);
+    border-color: transparent;
+}
+
+%notice\:info\:bold {
+    @extend %_notice-base;
+
+    color: var(--color-content-on-color);
+    background-color: var(--color-background-info);
+    border-color: var(--color-background-info);
+}
+
+%notice\:positive {
+    @extend %_notice-base;
+
+    color: var(--color-content-positive);
+    background-color: var(--color-background-positive-opaque);
+    border-color: var(--color-border-positive);
+}
+
+%notice\:positive\:subtle {
+    @extend %_notice-base;
+
+    color: var(--color-content-positive);
+    background-color: var(--color-background-positive-opaque);
+    border-color: transparent;
+}
+
+%notice\:positive\:bold {
+    @extend %_notice-base;
+
+    color: var(--color-content-on-color);
+    background-color: var(--color-background-positive);
+    border-color: var(--color-background-positive);
+}
+
+%notice\:warning {
+    @extend %_notice-base;
+
+    color: var(--color-content-warning);
+    background-color: var(--color-background-warning-opaque);
+    border-color: var(--color-border-warning);
+}
+
+%notice\:warning\:subtle {
+    @extend %_notice-base;
+
+    color: var(--color-content-warning);
+    background-color: var(--color-background-warning-opaque);
+    border-color: transparent;
+}
+
+%notice\:warning\:bold {
+    @extend %_notice-base;
+
+    color: var(--color-content-on-color);
+    background-color: var(--color-background-warning);
+    border-color: var(--color-background-warning);
+}
+
+%notice\:negative {
+    @extend %_notice-base;
+
+    color: var(--color-content-negative);
+    background-color: var(--color-background-negative-opaque);
+    border-color: var(--color-border-negative);
+}
+
+%notice\:negative\:subtle {
+    @extend %_notice-base;
+
+    color: var(--color-content-negative);
+    background-color: var(--color-background-negative-opaque);
+    border-color: transparent;
+}
+
+%notice\:negative\:bold {
+    @extend %_notice-base;
+
+    color: var(--color-content-on-color);
+    background-color: var(--color-background-negative);
+    border-color: var(--color-background-negative);
+}
+
+.notice {
+    @extend %notice;
+}
+
+.notice\:info {
+    @extend %notice\:info;
+}
+
+.notice\:positive {
+    @extend %notice\:positive;
+}
+
+.notice\:warning {
+    @extend %notice\:warning;
+}
+
+.notice\:negative {
+    @extend %notice\:negative;
+}
+
+.notice\:subtle {
+    @extend %notice\:subtle;
+}
+
+.notice\:info\:subtle {
+    @extend %notice\:info\:subtle;
+}
+
+.notice\:positive\:subtle {
+    @extend %notice\:positive\:subtle;
+}
+
+.notice\:warning\:subtle {
+    @extend %notice\:warning\:subtle;
+}
+
+.notice\:negative\:subtle {
+    @extend %notice\:negative\:subtle;
+}
+
+.notice\:bold {
+    @extend %notice\:bold;
+}
+
+.notice\:info\:bold {
+    @extend %notice\:info\:bold;
+}
+
+.notice\:positive\:bold {
+    @extend %notice\:positive\:bold;
+}
+
+.notice\:warning\:bold {
+    @extend %notice\:warning\:bold;
+}
+
+.notice\:negative\:bold {
+    @extend %notice\:negative\:bold;
+}

@@ -1,0 +1,961 @@
+/// 流体サイジングのビューポート区間
+$viewport: (
+    min: 375px,
+    max: 1728px,
+);
+
+/// ブレークポイント
+$breakpoints: (
+    xl: 1680px,
+    lg: 1024px,
+    md: 768px,
+    sm: 600px,
+    xs: 320px,
+);
+
+/// 幅
+$width: (
+    content: 60rem,
+    wide: 72rem,
+    full: 100%,
+);
+
+/// サイトガター（コンテンツの両サイドに設ける余白）
+/// 片側の幅を値として指定する
+$site-gutter-slat: (
+    min: 16px,
+    max: 24px,
+);
+$site-gutter: (
+    min: 24px,
+    max: 78px,
+);
+
+/// サイトヘッダーの高さ
+$site-header-height: (
+    min: 60px,
+    max: 66px,
+);
+
+/// フォントファミリー
+$font-family: (
+    ja: (
+        display: 'YakuHanJPs, "Helvetica Neue", Arial, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif',
+        headline: 'YakuHanJPs, "Helvetica Neue", Arial, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif',
+        text: 'YakuHanJPs, "Helvetica Neue", Arial, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif',
+        mono: '"SFMono-Regular", "Consolas", "Liberation Mono", "Menlo", monospace',
+    ),
+    en: (
+        display: '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif',
+        headline: '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif',
+        text: '-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif',
+        mono: '"SFMono-Regular", "Consolas", "Liberation Mono", "Menlo", monospace',
+    ),
+    fr: (
+        display: '"Helvetica Neue", Arial, "Segoe UI", Helvetica, sans-serif',
+        headline: '"Helvetica Neue", Arial, "Segoe UI", Helvetica, sans-serif',
+        text: '"Helvetica Neue", Arial, "Segoe UI", Helvetica, sans-serif',
+        mono: '"SFMono-Regular", "Consolas", "Liberation Mono", "Menlo", monospace',
+    ),
+    zh: (
+        display: '"Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
+        headline: '"Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
+        text: '"Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif',
+        mono: '"SFMono-Regular", "Consolas", "Liberation Mono", "Menlo", monospace',
+    ),
+);
+
+/// フォントウェイト
+$font-weight: (
+    bold: 600,
+    sign: 500,
+    text: 400,
+);
+
+/// フォントサイズのハーモニックモジュラースケール
+$hms-font-size: (
+    min: (
+        size: 15px,
+        numerator: 12,
+    ),
+    max: (
+        size: 16px,
+        numerator: 8,
+    ),
+);
+
+/// ラインハイトのハーモニックモジュラースケール
+$hms-line-height: (
+    min: (
+        size: 2,
+        numerator: -24,
+    ),
+    max: (
+        size: 2,
+        numerator: -6,
+    ),
+);
+
+/// ドロップダウンメニュー
+$dropdown-menu: (
+    gap: 1rem,
+    sub-menu-padding: var(--space-s-10),
+    sub-menu-border-width: 1px,
+);
+
+/// 角丸
+$radius-xs: 2px;
+$radius-sm: 6px;
+$radius: 9px;
+$radius-md: 9px;
+$radius-lg: 16px;
+
+/// デフォルトのアニメーション速度
+$duration: 0.3s;
+
+/// インデントスペース
+$indent: 1.3em;
+
+/// カラーパレット
+/// figmaからコピペして、接頭辞（--）を「$」に置換する（data URLで色指定するため、css変数だけでなく、sass変数も必要）
+/// 正規表現で ^-- を $ に置換する（ '--' 接頭辞を持つsass変数はプライベート変数として扱われるため、他のファイルでインポートできなくなる）
+/// WPの場合、絵文字を'light'または'dark'に置き換える必要がある（WP側で拒否されるため）
+$gray-light----gray-0: rgb(247 247 247 / 100%);
+$gray-light----gray-1: rgb(245 245 245 / 100%);
+$gray-light----gray-2: rgb(240 240 240 / 100%);
+$gray-light----gray-3: rgb(233 233 233 / 100%);
+$gray-light----gray-4: rgb(224 224 224 / 100%);
+$gray-light----gray-5: rgb(211 211 211 / 100%);
+$gray-light----gray-6: rgb(196 196 196 / 100%);
+$gray-light----gray-7: rgb(179 179 179 / 100%);
+$gray-light----gray-8: rgb(159 159 159 / 100%);
+$gray-light----gray-9: rgb(138 138 138 / 100%);
+$gray-light----gray-10: rgb(116 116 116 / 100%);
+$gray-light----gray-11: rgb(95 95 95 / 100%);
+$gray-light----gray-12: rgb(75 75 75 / 100%);
+$gray-light----gray-13: rgb(58 58 58 / 100%);
+$gray-light----gray-14: rgb(43 43 43 / 100%);
+$gray-light----gray-15: rgb(31 31 31 / 100%);
+$gray-light----gray-16: rgb(22 22 22 / 100%);
+$gray-light----gray-17: rgb(15 15 15 / 100%);
+$gray-light----gray-18: rgb(10 10 10 / 100%);
+$gray-light----gray-19: rgb(8 8 8 / 100%);
+$gray-dark----gray-0: rgb(8 8 8 / 100%);
+$gray-dark----gray-1: rgb(15 15 15 / 100%);
+$gray-dark----gray-2: rgb(23 23 23 / 100%);
+$gray-dark----gray-3: rgb(31 31 31 / 100%);
+$gray-dark----gray-4: rgb(39 39 39 / 100%);
+$gray-dark----gray-5: rgb(48 48 48 / 100%);
+$gray-dark----gray-6: rgb(58 58 58 / 100%);
+$gray-dark----gray-7: rgb(68 68 68 / 100%);
+$gray-dark----gray-8: rgb(81 81 81 / 100%);
+$gray-dark----gray-9: rgb(100 100 100 / 100%);
+$gray-dark----gray-10: rgb(154 154 154 / 100%);
+$gray-dark----gray-11: rgb(173 173 173 / 100%);
+$gray-dark----gray-12: rgb(186 186 186 / 100%);
+$gray-dark----gray-13: rgb(197 197 197 / 100%);
+$gray-dark----gray-14: rgb(207 207 207 / 100%);
+$gray-dark----gray-15: rgb(216 216 216 / 100%);
+$gray-dark----gray-16: rgb(224 224 224 / 100%);
+$gray-dark----gray-17: rgb(232 232 232 / 100%);
+$gray-dark----gray-18: rgb(240 240 240 / 100%);
+$gray-dark----gray-19: rgb(247 247 247 / 100%);
+$blue-light----blue-0: rgb(240 245 250 / 100%);
+$blue-light----blue-1: rgb(234 241 248 / 100%);
+$blue-light----blue-2: rgb(222 232 243 / 100%);
+$blue-light----blue-3: rgb(203 220 236 / 100%);
+$blue-light----blue-4: rgb(178 203 227 / 100%);
+$blue-light----blue-5: rgb(147 181 215 / 100%);
+$blue-light----blue-6: rgb(113 157 201 / 100%);
+$blue-light----blue-7: rgb(76 130 184 / 100%);
+$blue-light----blue-8: rgb(40 103 165 / 100%);
+$blue-light----blue-9: rgb(9 77 145 / 100%);
+$blue-light----blue-10: rgb(0 62 124 / 100%);
+$blue-light----blue-11: rgb(0 52 104 / 100%);
+$blue-light----blue-12: rgb(0 43 85 / 100%);
+$blue-light----blue-13: rgb(0 34 68 / 100%);
+$blue-light----blue-14: rgb(0 27 54 / 100%);
+$blue-light----blue-15: rgb(0 21 43 / 100%);
+$blue-light----blue-16: rgb(0 17 34 / 100%);
+$blue-light----blue-17: rgb(0 14 27 / 100%);
+$blue-light----blue-18: rgb(0 11 23 / 100%);
+$blue-light----blue-19: rgb(0 10 20 / 100%);
+$blue-dark----blue-0: rgb(0 10 20 / 100%);
+$blue-dark----blue-1: rgb(0 14 27 / 100%);
+$blue-dark----blue-2: rgb(0 17 35 / 100%);
+$blue-dark----blue-3: rgb(0 21 42 / 100%);
+$blue-dark----blue-4: rgb(0 25 50 / 100%);
+$blue-dark----blue-5: rgb(0 29 59 / 100%);
+$blue-dark----blue-6: rgb(0 34 68 / 100%);
+$blue-dark----blue-7: rgb(0 39 79 / 100%);
+$blue-dark----blue-8: rgb(0 45 91 / 100%);
+$blue-dark----blue-9: rgb(0 55 109 / 100%);
+$blue-dark----blue-10: rgb(38 99 160 / 100%);
+$blue-dark----blue-11: rgb(68 123 179 / 100%);
+$blue-dark----blue-12: rgb(92 142 191 / 100%);
+$blue-dark----blue-13: rgb(115 158 202 / 100%);
+$blue-dark----blue-14: rgb(136 173 211 / 100%);
+$blue-dark----blue-15: rgb(157 188 220 / 100%);
+$blue-dark----blue-16: rgb(178 203 228 / 100%);
+$blue-dark----blue-17: rgb(198 217 235 / 100%);
+$blue-dark----blue-18: rgb(219 231 243 / 100%);
+$blue-dark----blue-19: rgb(240 245 250 / 100%);
+$red-light----red-0: rgb(250 241 240 / 100%);
+$red-light----red-1: rgb(248 236 234 / 100%);
+$red-light----red-2: rgb(243 225 222 / 100%);
+$red-light----red-3: rgb(236 208 203 / 100%);
+$red-light----red-4: rgb(227 186 178 / 100%);
+$red-light----red-5: rgb(215 158 147 / 100%);
+$red-light----red-6: rgb(201 126 113 / 100%);
+$red-light----red-7: rgb(184 92 76 / 100%);
+$red-light----red-8: rgb(165 59 40 / 100%);
+$red-light----red-9: rgb(145 30 9 / 100%);
+$red-light----red-10: rgb(124 19 0 / 100%);
+$red-light----red-11: rgb(104 16 0 / 100%);
+$red-light----red-12: rgb(85 13 0 / 100%);
+$red-light----red-13: rgb(68 10 0 / 100%);
+$red-light----red-14: rgb(54 8 0 / 100%);
+$red-light----red-15: rgb(43 6 0 / 100%);
+$red-light----red-16: rgb(34 5 0 / 100%);
+$red-light----red-17: rgb(27 4 0 / 100%);
+$red-light----red-18: rgb(23 3 0 / 100%);
+$red-light----red-19: rgb(20 3 0 / 100%);
+$red-dark----red-0: rgb(20 3 0 / 100%);
+$red-dark----red-1: rgb(27 4 0 / 100%);
+$red-dark----red-2: rgb(35 5 0 / 100%);
+$red-dark----red-3: rgb(42 6 0 / 100%);
+$red-dark----red-4: rgb(50 8 0 / 100%);
+$red-dark----red-5: rgb(59 9 0 / 100%);
+$red-dark----red-6: rgb(68 10 0 / 100%);
+$red-dark----red-7: rgb(79 12 0 / 100%);
+$red-dark----red-8: rgb(91 14 0 / 100%);
+$red-dark----red-9: rgb(109 16 0 / 100%);
+$red-dark----red-10: rgb(160 56 38 / 100%);
+$red-dark----red-11: rgb(179 85 68 / 100%);
+$red-dark----red-12: rgb(191 107 92 / 100%);
+$red-dark----red-13: rgb(202 128 115 / 100%);
+$red-dark----red-14: rgb(211 147 136 / 100%);
+$red-dark----red-15: rgb(220 166 157 / 100%);
+$red-dark----red-16: rgb(228 185 178 / 100%);
+$red-dark----red-17: rgb(235 204 198 / 100%);
+$red-dark----red-18: rgb(243 223 219 / 100%);
+$red-dark----red-19: rgb(250 241 240 / 100%);
+$yellow-light----yellow-0: rgb(250 247 240 / 100%);
+$yellow-light----yellow-1: rgb(248 244 234 / 100%);
+$yellow-light----yellow-2: rgb(243 238 222 / 100%);
+$yellow-light----yellow-3: rgb(236 228 203 / 100%);
+$yellow-light----yellow-4: rgb(227 215 178 / 100%);
+$yellow-light----yellow-5: rgb(215 198 147 / 100%);
+$yellow-light----yellow-6: rgb(201 179 113 / 100%);
+$yellow-light----yellow-7: rgb(184 157 76 / 100%);
+$yellow-light----yellow-8: rgb(165 134 40 / 100%);
+$yellow-light----yellow-9: rgb(145 111 9 / 100%);
+$yellow-light----yellow-10: rgb(124 93 0 / 100%);
+$yellow-light----yellow-11: rgb(104 78 0 / 100%);
+$yellow-light----yellow-12: rgb(85 64 0 / 100%);
+$yellow-light----yellow-13: rgb(68 51 0 / 100%);
+$yellow-light----yellow-14: rgb(54 41 0 / 100%);
+$yellow-light----yellow-15: rgb(43 32 0 / 100%);
+$yellow-light----yellow-16: rgb(34 25 0 / 100%);
+$yellow-light----yellow-17: rgb(27 20 0 / 100%);
+$yellow-light----yellow-18: rgb(23 17 0 / 100%);
+$yellow-light----yellow-19: rgb(20 15 0 / 100%);
+$yellow-dark----yellow-0: rgb(20 15 0 / 100%);
+$yellow-dark----yellow-1: rgb(27 21 0 / 100%);
+$yellow-dark----yellow-2: rgb(35 26 0 / 100%);
+$yellow-dark----yellow-3: rgb(42 32 0 / 100%);
+$yellow-dark----yellow-4: rgb(50 38 0 / 100%);
+$yellow-dark----yellow-5: rgb(59 44 0 / 100%);
+$yellow-dark----yellow-6: rgb(68 51 0 / 100%);
+$yellow-dark----yellow-7: rgb(79 59 0 / 100%);
+$yellow-dark----yellow-8: rgb(91 68 0 / 100%);
+$yellow-dark----yellow-9: rgb(109 82 0 / 100%);
+$yellow-dark----yellow-10: rgb(160 130 38 / 100%);
+$yellow-dark----yellow-11: rgb(179 151 68 / 100%);
+$yellow-dark----yellow-12: rgb(191 167 92 / 100%);
+$yellow-dark----yellow-13: rgb(202 180 115 / 100%);
+$yellow-dark----yellow-14: rgb(211 192 136 / 100%);
+$yellow-dark----yellow-15: rgb(220 204 157 / 100%);
+$yellow-dark----yellow-16: rgb(228 215 178 / 100%);
+$yellow-dark----yellow-17: rgb(235 226 198 / 100%);
+$yellow-dark----yellow-18: rgb(243 237 219 / 100%);
+$yellow-dark----yellow-19: rgb(250 247 240 / 100%);
+$purple-light----purple-0: rgb(240 240 250 / 100%);
+$purple-light----purple-1: rgb(234 234 248 / 100%);
+$purple-light----purple-2: rgb(222 222 243 / 100%);
+$purple-light----purple-3: rgb(203 203 236 / 100%);
+$purple-light----purple-4: rgb(178 178 227 / 100%);
+$purple-light----purple-5: rgb(147 147 215 / 100%);
+$purple-light----purple-6: rgb(113 113 201 / 100%);
+$purple-light----purple-7: rgb(76 76 184 / 100%);
+$purple-light----purple-8: rgb(40 40 165 / 100%);
+$purple-light----purple-9: rgb(9 9 145 / 100%);
+$purple-light----purple-10: rgb(0 0 124 / 100%);
+$purple-light----purple-11: rgb(0 0 104 / 100%);
+$purple-light----purple-12: rgb(0 0 85 / 100%);
+$purple-light----purple-13: rgb(0 0 68 / 100%);
+$purple-light----purple-14: rgb(0 0 54 / 100%);
+$purple-light----purple-15: rgb(0 0 43 / 100%);
+$purple-light----purple-16: rgb(0 0 34 / 100%);
+$purple-light----purple-17: rgb(0 0 27 / 100%);
+$purple-light----purple-18: rgb(0 0 23 / 100%);
+$purple-light----purple-19: rgb(0 0 20 / 100%);
+$purple-dark----purple-0: rgb(0 0 20 / 100%);
+$purple-dark----purple-1: rgb(0 0 27 / 100%);
+$purple-dark----purple-2: rgb(0 0 35 / 100%);
+$purple-dark----purple-3: rgb(0 0 42 / 100%);
+$purple-dark----purple-4: rgb(0 0 50 / 100%);
+$purple-dark----purple-5: rgb(0 0 59 / 100%);
+$purple-dark----purple-6: rgb(0 0 68 / 100%);
+$purple-dark----purple-7: rgb(0 0 79 / 100%);
+$purple-dark----purple-8: rgb(0 0 91 / 100%);
+$purple-dark----purple-9: rgb(0 0 109 / 100%);
+$purple-dark----purple-10: rgb(38 38 160 / 100%);
+$purple-dark----purple-11: rgb(68 68 179 / 100%);
+$purple-dark----purple-12: rgb(92 92 191 / 100%);
+$purple-dark----purple-13: rgb(115 115 202 / 100%);
+$purple-dark----purple-14: rgb(136 136 211 / 100%);
+$purple-dark----purple-15: rgb(157 157 220 / 100%);
+$purple-dark----purple-16: rgb(178 178 228 / 100%);
+$purple-dark----purple-17: rgb(198 198 235 / 100%);
+$purple-dark----purple-18: rgb(219 219 243 / 100%);
+$purple-dark----purple-19: rgb(240 240 250 / 100%);
+$green-light----green-0: rgb(240 250 245 / 100%);
+$green-light----green-1: rgb(234 248 241 / 100%);
+$green-light----green-2: rgb(222 243 233 / 100%);
+$green-light----green-3: rgb(203 236 221 / 100%);
+$green-light----green-4: rgb(178 227 204 / 100%);
+$green-light----green-5: rgb(147 215 184 / 100%);
+$green-light----green-6: rgb(113 201 160 / 100%);
+$green-light----green-7: rgb(76 184 134 / 100%);
+$green-light----green-8: rgb(40 165 107 / 100%);
+$green-light----green-9: rgb(9 145 81 / 100%);
+$green-light----green-10: rgb(0 124 66 / 100%);
+$green-light----green-11: rgb(0 104 55 / 100%);
+$green-light----green-12: rgb(0 85 45 / 100%);
+$green-light----green-13: rgb(0 68 37 / 100%);
+$green-light----green-14: rgb(0 54 29 / 100%);
+$green-light----green-15: rgb(0 43 23 / 100%);
+$green-light----green-16: rgb(0 34 18 / 100%);
+$green-light----green-17: rgb(0 27 14 / 100%);
+$green-light----green-18: rgb(0 23 12 / 100%);
+$green-light----green-19: rgb(0 20 11 / 100%);
+$green-dark----green-0: rgb(0 20 11 / 100%);
+$green-dark----green-1: rgb(0 27 15 / 100%);
+$green-dark----green-2: rgb(0 35 19 / 100%);
+$green-dark----green-3: rgb(0 42 23 / 100%);
+$green-dark----green-4: rgb(0 50 27 / 100%);
+$green-dark----green-5: rgb(0 59 31 / 100%);
+$green-dark----green-6: rgb(0 68 36 / 100%);
+$green-dark----green-7: rgb(0 79 42 / 100%);
+$green-dark----green-8: rgb(0 91 49 / 100%);
+$green-dark----green-9: rgb(0 109 58 / 100%);
+$green-dark----green-10: rgb(38 160 103 / 100%);
+$green-dark----green-11: rgb(68 179 127 / 100%);
+$green-dark----green-12: rgb(92 191 145 / 100%);
+$green-dark----green-13: rgb(115 202 161 / 100%);
+$green-dark----green-14: rgb(136 211 176 / 100%);
+$green-dark----green-15: rgb(157 220 190 / 100%);
+$green-dark----green-16: rgb(178 228 204 / 100%);
+$green-dark----green-17: rgb(198 235 218 / 100%);
+$green-dark----green-18: rgb(219 243 232 / 100%);
+$green-dark----green-19: rgb(240 250 245 / 100%);
+$brand-light----brand-0: rgb(240 250 245 / 100%);
+$brand-light----brand-1: rgb(234 248 241 / 100%);
+$brand-light----brand-2: rgb(222 243 233 / 100%);
+$brand-light----brand-3: rgb(203 236 221 / 100%);
+$brand-light----brand-4: rgb(178 227 204 / 100%);
+$brand-light----brand-5: rgb(147 215 184 / 100%);
+$brand-light----brand-6: rgb(113 201 160 / 100%);
+$brand-light----brand-7: rgb(76 184 134 / 100%);
+$brand-light----brand-8: rgb(40 165 107 / 100%);
+$brand-light----brand-9: rgb(9 145 81 / 100%);
+$brand-light----brand-10: rgb(0 124 66 / 100%);
+$brand-light----brand-11: rgb(0 104 55 / 100%);
+$brand-light----brand-12: rgb(0 85 45 / 100%);
+$brand-light----brand-13: rgb(0 68 37 / 100%);
+$brand-light----brand-14: rgb(0 54 29 / 100%);
+$brand-light----brand-15: rgb(0 43 23 / 100%);
+$brand-light----brand-16: rgb(0 34 18 / 100%);
+$brand-light----brand-17: rgb(0 27 14 / 100%);
+$brand-light----brand-18: rgb(0 23 12 / 100%);
+$brand-light----brand-19: rgb(0 20 11 / 100%);
+$brand-dark----brand-0: rgb(0 20 11 / 100%);
+$brand-dark----brand-1: rgb(0 27 15 / 100%);
+$brand-dark----brand-2: rgb(0 35 19 / 100%);
+$brand-dark----brand-3: rgb(0 42 23 / 100%);
+$brand-dark----brand-4: rgb(0 50 27 / 100%);
+$brand-dark----brand-5: rgb(0 59 31 / 100%);
+$brand-dark----brand-6: rgb(0 68 36 / 100%);
+$brand-dark----brand-7: rgb(0 79 42 / 100%);
+$brand-dark----brand-8: rgb(0 91 49 / 100%);
+$brand-dark----brand-9: rgb(0 109 58 / 100%);
+$brand-dark----brand-10: rgb(38 160 103 / 100%);
+$brand-dark----brand-11: rgb(68 179 127 / 100%);
+$brand-dark----brand-12: rgb(92 191 145 / 100%);
+$brand-dark----brand-13: rgb(115 202 161 / 100%);
+$brand-dark----brand-14: rgb(136 211 176 / 100%);
+$brand-dark----brand-15: rgb(157 220 190 / 100%);
+$brand-dark----brand-16: rgb(178 228 204 / 100%);
+$brand-dark----brand-17: rgb(198 235 218 / 100%);
+$brand-dark----brand-18: rgb(219 243 232 / 100%);
+$brand-dark----brand-19: rgb(240 250 245 / 100%);
+
+/// ファンデーションカラー
+$color-primary-a: $gray-light----gray-19;
+$color-primary-b: #fff;
+$color-info: $blue-light----blue-8; // primary-bに乗せるテキストとして使うため、primary-bに対して4.5:1のコントラストを維持できる色相を選択する
+$color-positive: $green-light----green-10;
+$color-warning: $yellow-light----yellow-9;
+$color-negative: $red-light----red-7;
+
+/// ファンデーションカラー（ダーク）
+$color-primary-a-dark: $gray-dark----gray-19;
+$color-primary-b-dark: $gray-dark----gray-0;
+$color-info-dark: $blue-dark----blue-12;
+$color-positive-dark: $green-dark----green-10;
+$color-warning-dark: $yellow-dark----yellow-10;
+$color-negative-dark: $red-dark----red-12;
+
+/// コアカラー
+$color-content-primary: $color-primary-a;
+$color-content-secondary: $gray-light----gray-14;
+$color-content-tertiary: $gray-light----gray-10;
+$color-content-inverse-primary: $color-primary-a-dark;
+$color-content-inverse-secondary: $gray-dark----gray-14;
+$color-content-inverse-tertiary: $gray-dark----gray-10;
+$color-background-primary: $color-primary-b;
+$color-background-secondary: $gray-light----gray-1;
+$color-background-tertiary: $gray-light----gray-3;
+$color-background-inverse-primary: $color-primary-b-dark;
+$color-background-inverse-secondary: $gray-dark----gray-2;
+$color-background-inverse-tertiary: $gray-dark----gray-3;
+$color-border-content: $gray-light----gray-9;
+$color-border-opaque: $gray-light----gray-4;
+$color-border-inverse-content: $gray-dark----gray-10;
+$color-border-inverse-opaque: $gray-dark----gray-4;
+
+/// コアカラー（ダーク）
+$color-content-primary-dark: $color-primary-a-dark;
+$color-content-secondary-dark: $gray-dark----gray-14;
+$color-content-tertiary-dark: $gray-dark----gray-10;
+$color-content-inverse-primary-dark: $color-primary-a;
+$color-content-inverse-secondary-dark: $gray-light----gray-14;
+$color-content-inverse-tertiary-dark: $gray-light----gray-10;
+$color-background-primary-dark: $color-primary-b-dark;
+$color-background-secondary-dark: $gray-dark----gray-2;
+$color-background-tertiary-dark: $gray-dark----gray-3;
+$color-background-inverse-primary-dark: $color-primary-b;
+$color-background-inverse-secondary-dark: $gray-light----gray-1;
+$color-background-inverse-tertiary-dark: $gray-light----gray-3;
+$color-border-content-dark: $gray-dark----gray-9;
+$color-border-opaque-dark: $gray-dark----gray-4;
+$color-border-inverse-content-dark: $gray-light----gray-10;
+$color-border-inverse-opaque-dark: $gray-light----gray-4;
+
+/// コア拡張カラー
+$color-content-info: $color-info; // background opaque系に乗せるテキストとして使うため、background opaque系に対して4.5:1のコントラストを維持できる色相を選択する（目安として--color-infoよりも一段色相を上げるとよい）
+$color-content-positive: $green-light----green-10;
+$color-content-warning: $yellow-light----yellow-10;
+$color-content-negative: $red-light----red-8;
+$color-content-link: $green-light----green-10;
+$color-content-link-visited: $green-light----green-11;
+$color-content-button-primary: $color-primary-b;
+$color-content-button-secondary: inherit;
+$color-content-button-tertiary: inherit;
+$color-content-disabled: $gray-light----gray-9;
+$color-content-on-color: $color-primary-b;
+$color-background-opaque: $gray-light----gray-0; // secondaryよりもかすかな背景色。フォーム要素の背景色などに使用する
+$color-background-info: $color-info;
+$color-background-info-opaque: $blue-light----blue-0;
+$color-background-positive: $color-positive;
+$color-background-positive-opaque: $green-light----green-0;
+$color-background-warning: $color-warning;
+$color-background-warning-opaque: $yellow-light----yellow-0;
+$color-background-negative: $color-negative;
+$color-background-negative-opaque: $red-light----red-0;
+$color-background-highlight: rgb(0 0 0 / 8%);
+$color-background-disabled: $gray-light----gray-2;
+$color-background-button-primary: $color-positive;
+$color-background-button-secondary: transparent;
+$color-background-button-tertiary: transparent;
+$color-border-info: $color-info;
+$color-border-positive: $color-positive;
+$color-border-warning: $color-warning;
+$color-border-negative: $color-negative;
+$color-border-disabled: $color-border-opaque;
+$color-border-button-primary: $color-positive;
+$color-border-button-secondary: currentcolor;
+$color-border-button-tertiary: $gray-light----gray-9;
+
+/// コア拡張カラー（ダーク）
+$color-content-info-dark: $color-info-dark;
+$color-content-positive-dark: $green-dark----green-10;
+$color-content-warning-dark: $yellow-dark----yellow-10;
+$color-content-negative-dark: $red-dark----red-12;
+$color-content-link-dark: $green-dark----green-10;
+$color-content-link-visited-dark: $green-dark----green-11;
+$color-content-button-primary-dark: $color-primary-b;
+$color-content-button-secondary-dark: inherit;
+$color-content-button-tertiary-dark: inherit;
+$color-content-disabled-dark: $gray-dark----gray-9;
+$color-content-on-color-dark: $color-primary-b;
+$color-background-opaque-dark: $gray-dark----gray-1;
+$color-background-info-dark: $color-info-dark; // --color-content-on-colorに対し、コントラスト4.5:1になる色相を選択する
+$color-background-info-opaque-dark: $blue-dark----blue-0;
+$color-background-positive-dark: $green-dark----green-10;
+$color-background-positive-opaque-dark: $green-dark----green-0;
+$color-background-warning-dark: $yellow-dark----yellow-10;
+$color-background-warning-opaque-dark: $yellow-dark----yellow-0;
+$color-background-negative-dark: $red-dark----red-12;
+$color-background-negative-opaque-dark: $red-dark----red-0;
+$color-background-highlight-dark: rgb(255 255 255 / 12%);
+$color-background-disabled-dark: $gray-dark----gray-1;
+$color-background-button-primary-dark: $green-dark----green-9;
+$color-background-button-secondary-dark: transparent;
+$color-background-button-tertiary-dark: transparent;
+$color-border-info-dark: $color-info-dark;
+$color-border-positive-dark: $color-positive-dark;
+$color-border-warning-dark: $color-warning-dark;
+$color-border-negative-dark: $color-negative-dark;
+$color-border-disabled-dark: $color-border-opaque-dark;
+$color-border-button-primary-dark: $green-dark----green-9;
+$color-border-button-secondary-dark: currentcolor;
+$color-border-button-tertiary-dark: $gray-dark----gray-9;
+
+/// プログラムカラー
+$color-brand: $brand-light----brand-9;
+$color-brand-secondary: $brand-light----brand-8;
+
+/// プログラムカラー（ダーク）
+$color-brand-dark: $brand-dark----brand-9;
+$color-brand-secondary-dark: $brand-dark----brand-8;
+
+@mixin color-palette {
+    --gray-light----gray-0: #{$gray-light----gray-0};
+    --gray-light----gray-1: #{$gray-light----gray-1};
+    --gray-light----gray-2: #{$gray-light----gray-2};
+    --gray-light----gray-3: #{$gray-light----gray-3};
+    --gray-light----gray-4: #{$gray-light----gray-4};
+    --gray-light----gray-5: #{$gray-light----gray-5};
+    --gray-light----gray-6: #{$gray-light----gray-6};
+    --gray-light----gray-7: #{$gray-light----gray-7};
+    --gray-light----gray-8: #{$gray-light----gray-8};
+    --gray-light----gray-9: #{$gray-light----gray-9};
+    --gray-light----gray-10: #{$gray-light----gray-10};
+    --gray-light----gray-11: #{$gray-light----gray-11};
+    --gray-light----gray-12: #{$gray-light----gray-12};
+    --gray-light----gray-13: #{$gray-light----gray-13};
+    --gray-light----gray-14: #{$gray-light----gray-14};
+    --gray-light----gray-15: #{$gray-light----gray-15};
+    --gray-light----gray-16: #{$gray-light----gray-16};
+    --gray-light----gray-17: #{$gray-light----gray-17};
+    --gray-light----gray-18: #{$gray-light----gray-18};
+    --gray-light----gray-19: #{$gray-light----gray-19};
+    --gray-dark----gray-0: #{$gray-dark----gray-0};
+    --gray-dark----gray-1: #{$gray-dark----gray-1};
+    --gray-dark----gray-2: #{$gray-dark----gray-2};
+    --gray-dark----gray-3: #{$gray-dark----gray-3};
+    --gray-dark----gray-4: #{$gray-dark----gray-4};
+    --gray-dark----gray-5: #{$gray-dark----gray-5};
+    --gray-dark----gray-6: #{$gray-dark----gray-6};
+    --gray-dark----gray-7: #{$gray-dark----gray-7};
+    --gray-dark----gray-8: #{$gray-dark----gray-8};
+    --gray-dark----gray-9: #{$gray-dark----gray-9};
+    --gray-dark----gray-10: #{$gray-dark----gray-10};
+    --gray-dark----gray-11: #{$gray-dark----gray-11};
+    --gray-dark----gray-12: #{$gray-dark----gray-12};
+    --gray-dark----gray-13: #{$gray-dark----gray-13};
+    --gray-dark----gray-14: #{$gray-dark----gray-14};
+    --gray-dark----gray-15: #{$gray-dark----gray-15};
+    --gray-dark----gray-16: #{$gray-dark----gray-16};
+    --gray-dark----gray-17: #{$gray-dark----gray-17};
+    --gray-dark----gray-18: #{$gray-dark----gray-18};
+    --gray-dark----gray-19: #{$gray-dark----gray-19};
+    --blue-light----blue-0: #{$blue-light----blue-0};
+    --blue-light----blue-1: #{$blue-light----blue-1};
+    --blue-light----blue-2: #{$blue-light----blue-2};
+    --blue-light----blue-3: #{$blue-light----blue-3};
+    --blue-light----blue-4: #{$blue-light----blue-4};
+    --blue-light----blue-5: #{$blue-light----blue-5};
+    --blue-light----blue-6: #{$blue-light----blue-6};
+    --blue-light----blue-7: #{$blue-light----blue-7};
+    --blue-light----blue-8: #{$blue-light----blue-8};
+    --blue-light----blue-9: #{$blue-light----blue-9};
+    --blue-light----blue-10: #{$blue-light----blue-10};
+    --blue-light----blue-11: #{$blue-light----blue-11};
+    --blue-light----blue-12: #{$blue-light----blue-12};
+    --blue-light----blue-13: #{$blue-light----blue-13};
+    --blue-light----blue-14: #{$blue-light----blue-14};
+    --blue-light----blue-15: #{$blue-light----blue-15};
+    --blue-light----blue-16: #{$blue-light----blue-16};
+    --blue-light----blue-17: #{$blue-light----blue-17};
+    --blue-light----blue-18: #{$blue-light----blue-18};
+    --blue-light----blue-19: #{$blue-light----blue-19};
+    --blue-dark----blue-0: #{$blue-dark----blue-0};
+    --blue-dark----blue-1: #{$blue-dark----blue-1};
+    --blue-dark----blue-2: #{$blue-dark----blue-2};
+    --blue-dark----blue-3: #{$blue-dark----blue-3};
+    --blue-dark----blue-4: #{$blue-dark----blue-4};
+    --blue-dark----blue-5: #{$blue-dark----blue-5};
+    --blue-dark----blue-6: #{$blue-dark----blue-6};
+    --blue-dark----blue-7: #{$blue-dark----blue-7};
+    --blue-dark----blue-8: #{$blue-dark----blue-8};
+    --blue-dark----blue-9: #{$blue-dark----blue-9};
+    --blue-dark----blue-10: #{$blue-dark----blue-10};
+    --blue-dark----blue-11: #{$blue-dark----blue-11};
+    --blue-dark----blue-12: #{$blue-dark----blue-12};
+    --blue-dark----blue-13: #{$blue-dark----blue-13};
+    --blue-dark----blue-14: #{$blue-dark----blue-14};
+    --blue-dark----blue-15: #{$blue-dark----blue-15};
+    --blue-dark----blue-16: #{$blue-dark----blue-16};
+    --blue-dark----blue-17: #{$blue-dark----blue-17};
+    --blue-dark----blue-18: #{$blue-dark----blue-18};
+    --blue-dark----blue-19: #{$blue-dark----blue-19};
+    --red-light----red-0: #{$red-light----red-0};
+    --red-light----red-1: #{$red-light----red-1};
+    --red-light----red-2: #{$red-light----red-2};
+    --red-light----red-3: #{$red-light----red-3};
+    --red-light----red-4: #{$red-light----red-4};
+    --red-light----red-5: #{$red-light----red-5};
+    --red-light----red-6: #{$red-light----red-6};
+    --red-light----red-7: #{$red-light----red-7};
+    --red-light----red-8: #{$red-light----red-8};
+    --red-light----red-9: #{$red-light----red-9};
+    --red-light----red-10: #{$red-light----red-10};
+    --red-light----red-11: #{$red-light----red-11};
+    --red-light----red-12: #{$red-light----red-12};
+    --red-light----red-13: #{$red-light----red-13};
+    --red-light----red-14: #{$red-light----red-14};
+    --red-light----red-15: #{$red-light----red-15};
+    --red-light----red-16: #{$red-light----red-16};
+    --red-light----red-17: #{$red-light----red-17};
+    --red-light----red-18: #{$red-light----red-18};
+    --red-light----red-19: #{$red-light----red-19};
+    --red-dark----red-0: #{$red-dark----red-0};
+    --red-dark----red-1: #{$red-dark----red-1};
+    --red-dark----red-2: #{$red-dark----red-2};
+    --red-dark----red-3: #{$red-dark----red-3};
+    --red-dark----red-4: #{$red-dark----red-4};
+    --red-dark----red-5: #{$red-dark----red-5};
+    --red-dark----red-6: #{$red-dark----red-6};
+    --red-dark----red-7: #{$red-dark----red-7};
+    --red-dark----red-8: #{$red-dark----red-8};
+    --red-dark----red-9: #{$red-dark----red-9};
+    --red-dark----red-10: #{$red-dark----red-10};
+    --red-dark----red-11: #{$red-dark----red-11};
+    --red-dark----red-12: #{$red-dark----red-12};
+    --red-dark----red-13: #{$red-dark----red-13};
+    --red-dark----red-14: #{$red-dark----red-14};
+    --red-dark----red-15: #{$red-dark----red-15};
+    --red-dark----red-16: #{$red-dark----red-16};
+    --red-dark----red-17: #{$red-dark----red-17};
+    --red-dark----red-18: #{$red-dark----red-18};
+    --red-dark----red-19: #{$red-dark----red-19};
+    --yellow-light----yellow-0: #{$yellow-light----yellow-0};
+    --yellow-light----yellow-1: #{$yellow-light----yellow-1};
+    --yellow-light----yellow-2: #{$yellow-light----yellow-2};
+    --yellow-light----yellow-3: #{$yellow-light----yellow-3};
+    --yellow-light----yellow-4: #{$yellow-light----yellow-4};
+    --yellow-light----yellow-5: #{$yellow-light----yellow-5};
+    --yellow-light----yellow-6: #{$yellow-light----yellow-6};
+    --yellow-light----yellow-7: #{$yellow-light----yellow-7};
+    --yellow-light----yellow-8: #{$yellow-light----yellow-8};
+    --yellow-light----yellow-9: #{$yellow-light----yellow-9};
+    --yellow-light----yellow-10: #{$yellow-light----yellow-10};
+    --yellow-light----yellow-11: #{$yellow-light----yellow-11};
+    --yellow-light----yellow-12: #{$yellow-light----yellow-12};
+    --yellow-light----yellow-13: #{$yellow-light----yellow-13};
+    --yellow-light----yellow-14: #{$yellow-light----yellow-14};
+    --yellow-light----yellow-15: #{$yellow-light----yellow-15};
+    --yellow-light----yellow-16: #{$yellow-light----yellow-16};
+    --yellow-light----yellow-17: #{$yellow-light----yellow-17};
+    --yellow-light----yellow-18: #{$yellow-light----yellow-18};
+    --yellow-light----yellow-19: #{$yellow-light----yellow-19};
+    --yellow-dark----yellow-0: #{$yellow-dark----yellow-0};
+    --yellow-dark----yellow-1: #{$yellow-dark----yellow-1};
+    --yellow-dark----yellow-2: #{$yellow-dark----yellow-2};
+    --yellow-dark----yellow-3: #{$yellow-dark----yellow-3};
+    --yellow-dark----yellow-4: #{$yellow-dark----yellow-4};
+    --yellow-dark----yellow-5: #{$yellow-dark----yellow-5};
+    --yellow-dark----yellow-6: #{$yellow-dark----yellow-6};
+    --yellow-dark----yellow-7: #{$yellow-dark----yellow-7};
+    --yellow-dark----yellow-8: #{$yellow-dark----yellow-8};
+    --yellow-dark----yellow-9: #{$yellow-dark----yellow-9};
+    --yellow-dark----yellow-10: #{$yellow-dark----yellow-10};
+    --yellow-dark----yellow-11: #{$yellow-dark----yellow-11};
+    --yellow-dark----yellow-12: #{$yellow-dark----yellow-12};
+    --yellow-dark----yellow-13: #{$yellow-dark----yellow-13};
+    --yellow-dark----yellow-14: #{$yellow-dark----yellow-14};
+    --yellow-dark----yellow-15: #{$yellow-dark----yellow-15};
+    --yellow-dark----yellow-16: #{$yellow-dark----yellow-16};
+    --yellow-dark----yellow-17: #{$yellow-dark----yellow-17};
+    --yellow-dark----yellow-18: #{$yellow-dark----yellow-18};
+    --yellow-dark----yellow-19: #{$yellow-dark----yellow-19};
+    --purple-light----purple-0: #{$purple-light----purple-0};
+    --purple-light----purple-1: #{$purple-light----purple-1};
+    --purple-light----purple-2: #{$purple-light----purple-2};
+    --purple-light----purple-3: #{$purple-light----purple-3};
+    --purple-light----purple-4: #{$purple-light----purple-4};
+    --purple-light----purple-5: #{$purple-light----purple-5};
+    --purple-light----purple-6: #{$purple-light----purple-6};
+    --purple-light----purple-7: #{$purple-light----purple-7};
+    --purple-light----purple-8: #{$purple-light----purple-8};
+    --purple-light----purple-9: #{$purple-light----purple-9};
+    --purple-light----purple-10: #{$purple-light----purple-10};
+    --purple-light----purple-11: #{$purple-light----purple-11};
+    --purple-light----purple-12: #{$purple-light----purple-12};
+    --purple-light----purple-13: #{$purple-light----purple-13};
+    --purple-light----purple-14: #{$purple-light----purple-14};
+    --purple-light----purple-15: #{$purple-light----purple-15};
+    --purple-light----purple-16: #{$purple-light----purple-16};
+    --purple-light----purple-17: #{$purple-light----purple-17};
+    --purple-light----purple-18: #{$purple-light----purple-18};
+    --purple-light----purple-19: #{$purple-light----purple-19};
+    --purple-dark----purple-0: #{$purple-dark----purple-0};
+    --purple-dark----purple-1: #{$purple-dark----purple-1};
+    --purple-dark----purple-2: #{$purple-dark----purple-2};
+    --purple-dark----purple-3: #{$purple-dark----purple-3};
+    --purple-dark----purple-4: #{$purple-dark----purple-4};
+    --purple-dark----purple-5: #{$purple-dark----purple-5};
+    --purple-dark----purple-6: #{$purple-dark----purple-6};
+    --purple-dark----purple-7: #{$purple-dark----purple-7};
+    --purple-dark----purple-8: #{$purple-dark----purple-8};
+    --purple-dark----purple-9: #{$purple-dark----purple-9};
+    --purple-dark----purple-10: #{$purple-dark----purple-10};
+    --purple-dark----purple-11: #{$purple-dark----purple-11};
+    --purple-dark----purple-12: #{$purple-dark----purple-12};
+    --purple-dark----purple-13: #{$purple-dark----purple-13};
+    --purple-dark----purple-14: #{$purple-dark----purple-14};
+    --purple-dark----purple-15: #{$purple-dark----purple-15};
+    --purple-dark----purple-16: #{$purple-dark----purple-16};
+    --purple-dark----purple-17: #{$purple-dark----purple-17};
+    --purple-dark----purple-18: #{$purple-dark----purple-18};
+    --purple-dark----purple-19: #{$purple-dark----purple-19};
+    --green-light----green-0: #{$green-light----green-0};
+    --green-light----green-1: #{$green-light----green-1};
+    --green-light----green-2: #{$green-light----green-2};
+    --green-light----green-3: #{$green-light----green-3};
+    --green-light----green-4: #{$green-light----green-4};
+    --green-light----green-5: #{$green-light----green-5};
+    --green-light----green-6: #{$green-light----green-6};
+    --green-light----green-7: #{$green-light----green-7};
+    --green-light----green-8: #{$green-light----green-8};
+    --green-light----green-9: #{$green-light----green-9};
+    --green-light----green-10: #{$green-light----green-10};
+    --green-light----green-11: #{$green-light----green-11};
+    --green-light----green-12: #{$green-light----green-12};
+    --green-light----green-13: #{$green-light----green-13};
+    --green-light----green-14: #{$green-light----green-14};
+    --green-light----green-15: #{$green-light----green-15};
+    --green-light----green-16: #{$green-light----green-16};
+    --green-light----green-17: #{$green-light----green-17};
+    --green-light----green-18: #{$green-light----green-18};
+    --green-light----green-19: #{$green-light----green-19};
+    --green-dark----green-0: #{$green-dark----green-0};
+    --green-dark----green-1: #{$green-dark----green-1};
+    --green-dark----green-2: #{$green-dark----green-2};
+    --green-dark----green-3: #{$green-dark----green-3};
+    --green-dark----green-4: #{$green-dark----green-4};
+    --green-dark----green-5: #{$green-dark----green-5};
+    --green-dark----green-6: #{$green-dark----green-6};
+    --green-dark----green-7: #{$green-dark----green-7};
+    --green-dark----green-8: #{$green-dark----green-8};
+    --green-dark----green-9: #{$green-dark----green-9};
+    --green-dark----green-10: #{$green-dark----green-10};
+    --green-dark----green-11: #{$green-dark----green-11};
+    --green-dark----green-12: #{$green-dark----green-12};
+    --green-dark----green-13: #{$green-dark----green-13};
+    --green-dark----green-14: #{$green-dark----green-14};
+    --green-dark----green-15: #{$green-dark----green-15};
+    --green-dark----green-16: #{$green-dark----green-16};
+    --green-dark----green-17: #{$green-dark----green-17};
+    --green-dark----green-18: #{$green-dark----green-18};
+    --green-dark----green-19: #{$green-dark----green-19};
+    --brand-light----brand-0: #{$brand-light----brand-0};
+    --brand-light----brand-1: #{$brand-light----brand-1};
+    --brand-light----brand-2: #{$brand-light----brand-2};
+    --brand-light----brand-3: #{$brand-light----brand-3};
+    --brand-light----brand-4: #{$brand-light----brand-4};
+    --brand-light----brand-5: #{$brand-light----brand-5};
+    --brand-light----brand-6: #{$brand-light----brand-6};
+    --brand-light----brand-7: #{$brand-light----brand-7};
+    --brand-light----brand-8: #{$brand-light----brand-8};
+    --brand-light----brand-9: #{$brand-light----brand-9};
+    --brand-light----brand-10: #{$brand-light----brand-10};
+    --brand-light----brand-11: #{$brand-light----brand-11};
+    --brand-light----brand-12: #{$brand-light----brand-12};
+    --brand-light----brand-13: #{$brand-light----brand-13};
+    --brand-light----brand-14: #{$brand-light----brand-14};
+    --brand-light----brand-15: #{$brand-light----brand-15};
+    --brand-light----brand-16: #{$brand-light----brand-16};
+    --brand-light----brand-17: #{$brand-light----brand-17};
+    --brand-light----brand-18: #{$brand-light----brand-18};
+    --brand-light----brand-19: #{$brand-light----brand-19};
+    --brand-dark----brand-0: #{$brand-dark----brand-0};
+    --brand-dark----brand-1: #{$brand-dark----brand-1};
+    --brand-dark----brand-2: #{$brand-dark----brand-2};
+    --brand-dark----brand-3: #{$brand-dark----brand-3};
+    --brand-dark----brand-4: #{$brand-dark----brand-4};
+    --brand-dark----brand-5: #{$brand-dark----brand-5};
+    --brand-dark----brand-6: #{$brand-dark----brand-6};
+    --brand-dark----brand-7: #{$brand-dark----brand-7};
+    --brand-dark----brand-8: #{$brand-dark----brand-8};
+    --brand-dark----brand-9: #{$brand-dark----brand-9};
+    --brand-dark----brand-10: #{$brand-dark----brand-10};
+    --brand-dark----brand-11: #{$brand-dark----brand-11};
+    --brand-dark----brand-12: #{$brand-dark----brand-12};
+    --brand-dark----brand-13: #{$brand-dark----brand-13};
+    --brand-dark----brand-14: #{$brand-dark----brand-14};
+    --brand-dark----brand-15: #{$brand-dark----brand-15};
+    --brand-dark----brand-16: #{$brand-dark----brand-16};
+    --brand-dark----brand-17: #{$brand-dark----brand-17};
+    --brand-dark----brand-18: #{$brand-dark----brand-18};
+    --brand-dark----brand-19: #{$brand-dark----brand-19};
+}
+
+/// ファンデーションカラー
+@mixin foundation-colors {
+    --color-primary-a: #{$color-primary-a};
+    --color-primary-b: #{$color-primary-b};
+    --color-info: #{$color-info}; // primary-bに乗せるテキストとして使うため、primary-bに対して4.5:1のコントラストを維持できる色相を選択する
+    --color-positive: #{$color-positive};
+    --color-warning: #{$color-warning};
+    --color-negative: #{$color-negative};
+}
+
+/// ファンデーションカラー（ダーク）
+@mixin foundation-colors--dark {
+    --color-primary-a: #{$color-primary-a-dark};
+    --color-primary-b: #{$color-primary-b-dark};
+    --color-info: #{$color-info-dark};
+    --color-positive: #{$color-positive-dark};
+    --color-warning: #{$color-warning-dark};
+    --color-negative: #{$color-negative-dark};
+}
+
+/// コアカラー
+@mixin core-colors {
+    --color-content-primary: #{$color-content-primary};
+    --color-content-secondary: #{$color-content-secondary};
+    --color-content-tertiary: #{$color-content-tertiary};
+    --color-content-inverse-primary: #{$color-content-inverse-primary};
+    --color-content-inverse-secondary: #{$color-content-inverse-secondary};
+    --color-content-inverse-tertiary: #{$color-content-inverse-tertiary};
+    --color-background-primary: #{$color-background-primary};
+    --color-background-secondary: #{$color-background-secondary};
+    --color-background-tertiary: #{$color-background-tertiary};
+    --color-background-inverse-primary: #{$color-background-inverse-primary};
+    --color-background-inverse-secondary: #{$color-background-inverse-secondary};
+    --color-background-inverse-tertiary: #{$color-background-inverse-tertiary};
+    --color-border-content: #{$color-border-content};
+    --color-border-opaque: #{$color-border-opaque};
+    --color-border-inverse-content: #{$color-border-inverse-content};
+    --color-border-inverse-opaque: #{$color-border-inverse-opaque};
+}
+
+/// コアカラー（ダーク）
+@mixin core-colors--dark {
+    --color-content-primary: #{$color-content-primary-dark};
+    --color-content-secondary: #{$color-content-secondary-dark};
+    --color-content-tertiary: #{$color-content-tertiary-dark};
+    --color-content-inverse-primary: #{$color-content-inverse-primary-dark};
+    --color-content-inverse-secondary: #{$color-content-inverse-secondary-dark};
+    --color-content-inverse-tertiary: #{$color-content-inverse-tertiary-dark};
+    --color-background-primary: #{$color-background-primary-dark};
+    --color-background-secondary: #{$color-background-secondary-dark};
+    --color-background-tertiary: #{$color-background-tertiary-dark};
+    --color-background-inverse-primary: #{$color-background-inverse-primary-dark};
+    --color-background-inverse-secondary: #{$color-background-inverse-secondary-dark};
+    --color-background-inverse-tertiary: #{$color-background-inverse-tertiary-dark};
+    --color-border-content: #{$color-border-content-dark};
+    --color-border-opaque: #{$color-border-opaque-dark};
+    --color-border-inverse-content: #{$color-border-inverse-content-dark};
+    --color-border-inverse-opaque: #{$color-border-inverse-opaque-dark};
+}
+
+/// コア拡張カラー
+@mixin core-extension-colors {
+    --color-content-info: #{$color-content-info}; // background opaque系に乗せるテキストとして使うため、background opaque系に対して4.5:1のコントラストを維持できる色相を選択する（目安として--color-infoよりも一段色相を上げるとよい）
+    --color-content-positive: #{$color-content-positive};
+    --color-content-warning: #{$color-content-warning};
+    --color-content-negative: #{$color-content-negative};
+    --color-content-link: #{$color-content-link};
+    --color-content-link-visited: #{$color-content-link-visited};
+    --color-content-button-primary: #{$color-content-button-primary};
+    --color-content-button-secondary: #{$color-content-button-secondary};
+    --color-content-button-tertiary: #{$color-content-button-tertiary};
+    --color-content-disabled: #{$color-content-disabled};
+    --color-content-on-color: #{$color-content-on-color};
+    --color-background-opaque: #{$color-background-opaque};
+    --color-background-info: #{$color-background-info};
+    --color-background-info-opaque: #{$color-background-info-opaque};
+    --color-background-positive: #{$color-background-positive};
+    --color-background-positive-opaque: #{$color-background-positive-opaque};
+    --color-background-warning: #{$color-background-warning};
+    --color-background-warning-opaque: #{$color-background-warning-opaque};
+    --color-background-negative: #{$color-background-negative};
+    --color-background-negative-opaque: #{$color-background-negative-opaque};
+    --color-background-highlight: #{$color-background-highlight};
+    --color-background-disabled: #{$color-background-disabled};
+    --color-background-button-primary: #{$color-background-button-primary};
+    --color-background-button-secondary: #{$color-background-button-secondary};
+    --color-background-button-tertiary: #{$color-background-button-tertiary};
+    --color-border-info: #{$color-border-info};
+    --color-border-positive: #{$color-border-positive};
+    --color-border-warning: #{$color-border-warning};
+    --color-border-negative: #{$color-border-negative};
+    --color-border-disabled: #{$color-border-disabled};
+    --color-border-button-primary: #{$color-border-button-primary};
+    --color-border-button-secondary: #{$color-border-button-secondary};
+    --color-border-button-tertiary: #{$color-border-button-tertiary};
+}
+
+/// コア拡張カラー（ダーク）
+@mixin core-extension-colors--dark {
+    --color-content-info: #{$color-content-info-dark};
+    --color-content-positive: #{$color-content-positive-dark};
+    --color-content-warning: #{$color-content-warning-dark};
+    --color-content-negative: #{$color-content-negative-dark};
+    --color-content-link: #{$color-content-link-dark};
+    --color-content-link-visited: #{$color-content-link-visited-dark};
+    --color-content-button-primary: #{$color-content-button-primary-dark};
+    --color-content-button-secondary: #{$color-content-button-secondary-dark};
+    --color-content-button-tertiary: #{$color-content-button-tertiary-dark};
+    --color-content-disabled: #{$color-content-disabled-dark};
+    --color-content-on-color: #{$color-content-on-color-dark};
+    --color-background-opaque: #{$color-background-opaque-dark};
+    --color-background-info: #{$color-background-info-dark}; // --color-content-on-colorに対し、コントラスト4.5:1になる色相を選択する
+    --color-background-info-opaque: #{$color-background-info-opaque-dark};
+    --color-background-positive: #{$color-background-positive-dark};
+    --color-background-positive-opaque: #{$color-background-positive-opaque-dark};
+    --color-background-warning: #{$color-background-warning-dark};
+    --color-background-warning-opaque: #{$color-background-warning-opaque-dark};
+    --color-background-negative: #{$color-background-negative-dark};
+    --color-background-negative-opaque: #{$color-background-negative-opaque-dark};
+    --color-background-highlight: #{$color-background-highlight-dark};
+    --color-background-disabled: #{$color-background-disabled-dark};
+    --color-background-button-primary: #{$color-background-button-primary-dark};
+    --color-background-button-secondary: #{$color-background-button-secondary-dark};
+    --color-background-button-tertiary: #{$color-background-button-tertiary-dark};
+    --color-border-info: #{$color-border-info-dark};
+    --color-border-positive: #{$color-border-positive-dark};
+    --color-border-warning: #{$color-border-warning-dark};
+    --color-border-negative: #{$color-border-negative-dark};
+    --color-border-disabled: #{$color-border-disabled-dark};
+    --color-border-button-primary: #{$color-border-button-primary-dark};
+    --color-border-button-secondary: #{$color-border-button-secondary-dark};
+    --color-border-button-tertiary: #{$color-border-button-tertiary-dark};
+}
+
+/// プログラムカラー
+@mixin program-colors {
+    --color-brand: #{$color-brand};
+    --color-brand-secondary: #{$color-brand-secondary};
+}
+
+/// プログラムカラー（ダーク）
+@mixin program-colors--dark {
+    --color-brand: #{$color-brand-dark};
+    --color-brand-secondary: #{$color-brand-secondary-dark};
+}

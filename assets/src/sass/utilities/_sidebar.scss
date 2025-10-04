@@ -1,0 +1,57 @@
+/// sidebarモジュールを出力する。
+/// sidebar = 非サイドバーが最低幅もしくは理想的な幅（-sidebar-content-min-width|-sidebar-content-width）を下回るときに折り返すグリッド。
+/// @link https://every-layout.dev/layouts/sidebar/
+///
+/// @param {string} $sidebar [first] サイドバーとする要素をfirstかlastのいずれかで指定する。
+/// @param {string} $non-sidebar [last] 非サイドバーとする要素をfirstかlastのいずれかで指定する。
+///
+/// @example
+///     .sidebar {
+///         @include sidebar;
+///     }
+/// @output
+///     .sidebar {
+///         display: flex;
+///         flex-wrap: wrap;
+///         gap: var(--sidebar-gap, var(--space-s2));
+///     }
+///     .sidebar > :first-child {
+///         flex-basis: var(--sidebar-width, auto);
+///         flex-grow: 1;
+///     }
+///     .sidebar > :last-child {
+///         flex-basis: var(--sidebar-content-width, 0);
+///         flex-grow: 999;
+///         min-inline-size: var(--sidebar-content-min-width, 50%);
+///     }
+@mixin sidebar($sidebar: first, $non-sidebar: last) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sidebar-gap, var(--space-s2));
+
+    // 1. サイドバーの理想的な幅。auto はコンテンツに応じる。
+    // 2. 長いテキストが折り返されるようにする。
+    > :#{$sidebar}-child {
+        flex-basis: var(--sidebar-width, auto); // 1
+        flex-grow: 1; // 1
+        min-width: 0; // 2
+    }
+
+    // 1. 非サイドバーの理想的な幅。「0」の場合は利用可能な幅を埋める。
+    // 2. 折り返しが発生するしきい値。コンテナに対する割合を指定する。
+    // 3. 長いテキストが折り返されるようにする。
+    > :#{$non-sidebar}-child {
+        flex-basis: var(--sidebar-content-width, 0); // 1
+        flex-grow: 999; // 1
+        min-inline-size: var(--sidebar-content-min-width, 50%); // 2
+        min-width: 0; // 3
+    }
+}
+
+.sidebar {
+    @include sidebar;
+}
+
+.sidebar\:on-right {
+    @include sidebar($sidebar: last, $non-sidebar: first);
+}

@@ -1,0 +1,40 @@
+@use "sass:map";
+@use "sass:math";
+@use "../base/settings" as *;
+
+.page-header {
+    position: relative;
+}
+
+.page-header__content {
+    position: relative;
+
+    &::after {
+        display: block;
+        width: rem(20px);
+        height: rem(4px);
+        content: "";
+        background-color: var(--color-brand);
+        background-image: linear-gradient(90deg, var(--color-brand-secondary) 0%, var(--color-brand-secondary) 50%, var(--color-brand) 50.1%, var(--color-brand) 100%);
+    }
+}
+
+.page-header h1 {
+    --flow-space: 0.35rem;
+
+    font: var(--font-headline-1);
+}
+
+.page-header__meta {
+    font: var(--font-text--sm);
+    color: var(--color-content-tertiary);
+}
+
+.page-header__meta > * + *::before {
+    display: block;
+    width: 1px;
+    height: 1.1em;
+    content: "";
+    background-color: var(--color-content-tertiary);
+    transform: rotate(22.5deg);
+}

@@ -1,0 +1,10 @@
+// コンテンツのチャンク／セクション／領域に対して一貫した垂直方向の間隔を提供するコンテナ。
+// 参考: https://web.dev/design-system/css-utilities/#region
+
+%region {
+    padding-block: var(--region-space, var(--space-s2)) var(--region-space, var(--space-s2));
+}
+
+.region {
+    @extend %region;
+}

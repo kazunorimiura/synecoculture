@@ -1,0 +1,101 @@
+%border {
+    border: var(--border-width, 1px) var(--border-style, solid) var(--border-color, var(--color-border-opaque));
+}
+
+%border-top {
+    border-top: var(--border-width, 1px) var(--border-style, solid) var(--border-color, var(--color-border-opaque));
+}
+
+%border-bottom {
+    border-bottom: var(--border-width, 1px) var(--border-style, solid) var(--border-color, var(--color-border-opaque));
+}
+
+%border-left {
+    border-left: var(--border-width, 1px) var(--border-style, solid) var(--border-color, var(--color-border-opaque));
+}
+
+%border-right {
+    border-right: var(--border-width, 1px) var(--border-style, solid) var(--border-color, var(--color-border-opaque));
+}
+
+%border-top-only {
+    border-top: var(--border-width, 1px) var(--border-style, solid) var(--border-color, var(--color-border-opaque));
+    border-right: none;
+    border-bottom: none;
+    border-left: none;
+}
+
+%border-bottom-only {
+    border-top: none;
+    border-right: none;
+    border-bottom: var(--border-width, 1px) var(--border-style, solid) var(--border-color, var(--color-border-opaque));
+    border-left: none;
+}
+
+%border-muted {
+    border: none !important;
+}
+
+%border-top-muted {
+    border-top: none !important;
+}
+
+%border-bottom-muted {
+    border-bottom: none !important;
+}
+
+%border-left-muted {
+    border-left: none !important;
+}
+
+%border-right-muted {
+    border-right: none !important;
+}
+
+.border {
+    @extend %border;
+}
+
+.border-top {
+    @extend %border-top;
+}
+
+.border-bottom {
+    @extend %border-bottom;
+}
+
+.border-left {
+    @extend %border-left;
+}
+
+.border-right {
+    @extend %border-right;
+}
+
+.border-top-only {
+    @extend %border-top-only;
+}
+
+.border-bottom-only {
+    @extend %border-bottom-only;
+}
+
+.border-muted {
+    @extend %border-muted;
+}
+
+.border-top-muted {
+    @extend %border-top-muted;
+}
+
+.border-bottom-muted {
+    @extend %border-bottom-muted;
+}
+
+.border-left-muted {
+    @extend %border-left-muted;
+}
+
+.border-right-muted {
+    @extend %border-right-muted;
+}

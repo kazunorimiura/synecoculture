@@ -1,0 +1,73 @@
+@use "../../base/settings" as *;
+@use "../../utilities/cluster";
+@use "../../utilities/flow";
+@use "../../utilities/icon";
+@use "../../utilities/visual-adjust";
+@use "../../components/action-list";
+@use "../../components/button";
+@use "navigation" as *;
+
+///
+/// アコーディオンメニュー
+///
+
+// メニュートグルのサイズ。クリックしやすいサイズにする
+$menu-toggle-size: 2.5em;
+
+.accordion-menu .navigation__list {
+    @extend %navigation__list;
+    @extend %flow;
+
+    --flow-space: var(--space-s-12);
+}
+
+.accordion-menu .menu-item {
+    display: flex; // メニュー項目をブロック要素にしてコンテナ幅全体を占有するようにする。ただし、メニュートグルと横並びにする必要があるためflexを指定
+    flex-grow: 1;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/// アンカー要素
+
+.accordion-menu .menu-item a {
+    @extend %action-list-content;
+
+    flex: 1 0 calc(100% - #{$menu-toggle-size}); // アコーディオンのアンカー要素をできるだけ拡大する。flex-wrap: wrapを指定しているため、理想的な幅はメニュートグルの幅を差し引く
+}
+
+/// メニュートグル
+
+.accordion-menu .menu-item-toggle {
+    @extend %button\:base;
+    @extend %button\:ghost;
+    @extend %button\:icon;
+    @extend %button\:disabled;
+    @extend %visual-adjust\:inline-start;
+    @extend %visual-adjust\:inline-end;
+
+    --icon-button-size: #{$menu-toggle-size};
+    --adjust-size: 0;
+
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+/// サブメニュー
+
+// アニメーション対象の要素（.sub-menuのpaddingによるレイアウトシフトを防ぐため、このラッパー要素をわざわざ追加している）
+.accordion-menu .sub-menu-wrapper {
+    display: none;
+    flex: 1 1 auto;
+    height: 0;
+    margin: 0; // .with-iconのマージンをリセット
+    overflow: hidden;
+    background-color: var(--color-background-secondary);
+    border-radius: var(--radius);
+}
+
+.accordion-menu .sub-menu {
+    padding: var(--space-s-10);
+}

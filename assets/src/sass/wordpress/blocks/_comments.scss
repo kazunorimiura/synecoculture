@@ -1,0 +1,5 @@
+// WPがなぜかこれだけ左寄せしているのでリセット
+ol.wp-block-latest-comments {
+    padding-inline-start: 0;
+    margin-left: auto;
+}

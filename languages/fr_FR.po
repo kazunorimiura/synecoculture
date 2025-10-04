@@ -1,0 +1,271 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language-Team: French\n"
+"Language: fr_FR\n"
+
+msgid "投稿"
+msgstr "Article"
+
+msgid "ホーム"
+msgstr "Accueil"
+
+msgid "ニュース"
+msgstr "Actualités"
+
+msgid "検索"
+msgstr "Recherche"
+
+msgid "目次"
+msgstr "Table des matières"
+
+msgid "検索する:"
+msgstr "Rechercher :"
+
+msgid "%sの検索結果"
+msgstr "Résultats de recherche pour %s"
+
+msgctxt "terms"
+msgid "ターム"
+msgstr "Termes"
+
+msgctxt "authors"
+msgid "著者"
+msgstr "Auteurs"
+
+msgid "前へ"
+msgstr "Précédent"
+
+msgid "次へ"
+msgstr "Suivant"
+
+msgid "ページ"
+msgstr "Page"
+
+msgid "未分類"
+msgstr "Non classé"
+
+msgid "すべて"
+msgstr "Tout"
+
+msgid "パンくずリスト"
+msgstr "Fil d'Ariane"
+
+msgid "この記事を書いた人"
+msgstr "Écrit par"
+
+msgid "この著者の記事一覧"
+msgstr "Voir tous les articles"
+
+msgid "関連記事"
+msgstr "Articles connexes"
+
+msgid "%s一覧"
+msgstr "Voir tout %s"
+
+msgid "一覧へ"
+msgstr "Voir tout"
+
+msgid "%sに戻る"
+msgstr "Retour à %s"
+
+msgid "さらに詳しく"
+msgstr "En savoir plus"
+
+msgid "すべて見る"
+msgstr "Tout voir"
+
+msgid "もっと見る"
+msgstr "Voir plus"
+
+msgid "最終更新日: %s"
+msgstr "Dernière mise à jour : %s"
+
+msgid "カテゴリー"
+msgstr "Catégorie"
+
+msgid "タグ"
+msgstr "Tag"
+
+msgid "日付"
+msgstr "Date"
+
+msgid "%sナビゲーション"
+msgstr "Navigation %s"
+
+msgid "日付ナビゲーション"
+msgstr "Navigation par date"
+
+msgid "お探しのページは見つかりませんでした。"
+msgstr "La page que vous recherchez est introuvable."
+
+msgid "投稿が見つかりませんでした。"
+msgstr "Oups, il semblerait que je n'aie pas encore publié."
+
+msgid "以下の可能性があります。"
+msgstr "Les possibilités suivantes existent."
+
+msgid "コメント"
+msgstr "Commentaire"
+
+msgid "コメントする"
+msgstr "Laisser un commentaire"
+
+msgid "コメントは閉じています。"
+msgstr "Les commentaires sont fermés."
+
+msgid "ご覧になっていたページからのリンクが無効になっている"
+msgstr "Le lien de la page que vous consultiez n'est plus valide."
+
+msgid "アドレス（URL）のタイプミスがある"
+msgstr "Il y a une erreur de frappe dans l'adresse (URL)."
+
+msgid "当該ページの公開が終了している"
+msgstr "La page a été fermée au public."
+
+msgid "上部（または下部）のメニューから目的のページをお探しいただくか、検索をお試しください。"
+msgstr "Veuillez utiliser le menu en haut (ou en bas) pour trouver la page que vous recherchez, ou essayez la recherche."
+
+msgid "プライマリ"
+msgstr "Principal"
+
+msgid "プライマリ（モバイル）"
+msgstr "Principal (Mobile)"
+
+msgid "グローバルプライマリ"
+msgstr "Principal global"
+
+msgid "グローバルセカンダリ"
+msgstr "Secondaire global"
+
+msgid "フッタープライマリ"
+msgstr "Pied de page principal"
+
+msgid "フッターセカンダリ"
+msgstr "Pied de page secondaire"
+
+msgid "ソーシャルリンク"
+msgstr "Liens sociaux"
+
+msgid "Googleタグマネージャー"
+msgstr "Google Tag Manager"
+
+msgid "ダークモード"
+msgstr "Mode sombre"
+
+msgid "「GTM-」から始まるIDを入力します（例, GTM-PQPQ54K）。"
+msgstr "Saisissez un ID commençant par \"GTM-\" (ex. GTM-PQPQ54K)."
+
+msgid "入力内容に不備があります。"
+msgstr "Les détails de saisie sont incomplets."
+
+msgid "「%1$s」に関する記事を%2$s件掲載しています。"
+msgstr "%2$s articles concernant \"%1$s\" sont disponibles."
+
+msgid "%1$sに公開した記事を%2$s件掲載しています。"
+msgstr "%2$s articles publiés en %1$s."
+
+msgid "すべての投稿を見る"
+msgstr "Voir tous les articles"
+
+msgctxt "cta text to date archive"
+msgid "%sのすべての投稿を見る"
+msgstr "Voir tous les articles de %s"
+
+msgctxt "cta text to tax archive"
+msgid "%sのすべての投稿を見る"
+msgstr "Voir tous les articles dans %s"
+
+msgid "%sのプロフィールを見る"
+msgstr "Voir le profil de %s"
+
+msgctxt "yearly archives date format"
+msgid "Y年"
+msgstr "Y"
+
+msgctxt "monthly archives date format"
+msgid "Y年n月"
+msgstr "F Y"
+
+msgctxt "year date format"
+msgid "Y年"
+msgstr "Y"
+
+msgctxt "month date format"
+msgid "n月"
+msgstr "F"
+
+msgid "お問い合わせ種別を選択してください。"
+msgstr "Veuillez sélectionner un type de demande."
+
+msgid "氏名を入力してください。"
+msgstr "Veuillez saisir votre nom."
+
+msgid "姓を入力してください。"
+msgstr "Veuillez saisir votre nom de famille."
+
+msgid "名を入力してください。"
+msgstr "Veuillez saisir votre prénom."
+
+msgid "会社名を入力してください。"
+msgstr "Veuillez saisir le nom de votre entreprise."
+
+msgid "企業・団体名を入力してください。"
+msgstr "Veuillez saisir le nom de l'entreprise/organisation."
+
+msgid "メールアドレスを入力してください。"
+msgstr "Veuillez saisir votre adresse e-mail."
+
+msgid "メールアドレスの形式が正しくありません。"
+msgstr "Le format de l'adresse e-mail est incorrect."
+
+msgid "電話番号を入力してください。"
+msgstr "Veuillez saisir votre numéro de téléphone."
+
+msgid "電話番号の入力形式が正しくありません。"
+msgstr "Le format de saisie du numéro de téléphone est incorrect."
+
+msgid "件名を選択してください。"
+msgstr "Veuillez sélectionner un sujet."
+
+msgid "お問い合わせ内容を入力してください。"
+msgstr "Veuillez saisir votre message."
+
+msgid "個人情報保護方針の同意が必要です。"
+msgstr "Le consentement à la politique de confidentialité est requis."
+
+msgid "Google reCAPTCHAにより、自動化されたアクセスとして検知されました。しばらく時間をおいてから再度お試しください。"
+msgstr "Google reCAPTCHA a détecté un accès automatisé. Veuillez patienter un moment et réessayer."
+
+msgid "姓は%d文字以内で入力してください。"
+msgstr "Veuillez saisir votre nom de famille en %d caractères maximum."
+
+msgid "名は%d文字以内で入力してください。"
+msgstr "Veuillez saisir votre prénom en %d caractères maximum."
+
+msgid "会社名は%d文字以内で入力してください。"
+msgstr "Veuillez saisir le nom de votre entreprise en %d caractères maximum."
+
+msgid "企業・団体名は%d文字以内で入力してください。"
+msgstr "Veuillez saisir le nom de votre entreprise/organisation en %d caractères maximum."
+
+msgid "メールアドレスは%d文字以内で入力してください。"
+msgstr "Veuillez saisir votre adresse e-mail en %d caractères maximum."
+
+msgid "お問い合わせ内容は%d文字以内で入力してください。"
+msgstr "Veuillez saisir votre message en %d caractères maximum."
+
+msgid "このページは%sで提供されています。"
+msgstr "Cette page est disponible en %s."
+
+msgid "このページは%sでのみ提供されています。"
+msgstr "Cette page n'est disponible qu'en %s."
+
+msgid "食・環境・健康のトリレンマのイメージ図"
+msgstr "Schéma conceptuel du trilemme Alimentation-Environnement-Santé"
+
+msgid "トリレンマ図のアニメーションを再生"
+msgstr "Lire l'animation du diagramme de trilemme"
+
+msgid "トリレンマ図のアニメーションを一時停止"
+msgstr "Mettre en pause l'animation du diagramme de trilemme"

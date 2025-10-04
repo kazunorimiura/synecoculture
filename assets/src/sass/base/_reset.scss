@@ -1,0 +1,47 @@
+html,
+body,
+p,
+ol,
+ul,
+li,
+dl,
+dt,
+dd,
+blockquote,
+figure,
+fieldset,
+form,
+legend,
+textarea,
+pre,
+iframe,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    padding: 0;
+    margin: 0;
+}
+
+fieldset {
+    border: none;
+}
+
+html {
+    // ページ全体にボーダーボックスを適用（参考: https://css-tricks.com/box-sizing/）
+    box-sizing: border-box;
+
+    // ルートフォントサイズを設定
+    font-size: 100%;
+}
+
+// box-sizingの詳細度を緩和してコンポーネントが手動でオーバーライドできるようにする
+// 参考: https://css-tricks.com/box-sizing/
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}

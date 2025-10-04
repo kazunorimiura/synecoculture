@@ -1,0 +1,21 @@
+{
+    "root": true,
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module"
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:promise/recommended",
+        "plugin:import/recommended",
+        "prettier"
+    ],
+    "rules": {
+        "import/no-named-as-default": 0
+    }
+}

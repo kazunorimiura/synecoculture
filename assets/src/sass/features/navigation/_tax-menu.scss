@@ -1,0 +1,9 @@
+///
+/// taxナビゲーション
+///
+
+.tax-menu [aria-current] {
+    font-weight: var(--font-weight-bold);
+    border-color: var(--color-border-content);
+    border-width: 2px;
+}

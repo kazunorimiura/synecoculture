@@ -1,0 +1,51 @@
+@use "sass:map";
+@use "../base/settings" as *;
+
+%wrapper\:base {
+    display: flow-root; // floatの回り込みを解除する
+    padding-inline: var(--wrapper-gutter, var(--site-gutter));
+
+    > * {
+        margin-inline: auto;
+    }
+}
+
+%wrapper {
+    @extend %wrapper\:base;
+
+    > * {
+        max-width: var(--max-width, var(--width-content));
+    }
+}
+
+%wrapper\:wide {
+    @extend %wrapper\:base;
+
+    // ストレッチ幅よりも{n}vw分小さくする
+    // NOTE: WordPressのワイド幅とは異なる
+    // NOTE: WordPressのワイド幅はあくまで可読範囲のコンテキストにおけるサイズを定義している
+    // NOTE: 一方、このワイド幅はビューポートコンテキストにおけるサイズを定義している
+    @media screen and (min-width: em(map.get($breakpoints, md))) {
+        padding-inline: var(--wrapper-gutter, var(--site-gutter-wide));
+    }
+}
+
+%wrapper\:stretch {
+    @extend %wrapper\:base;
+
+    > * {
+        max-width: var(--max-width, 100%);
+    }
+}
+
+.wrapper {
+    @extend %wrapper;
+}
+
+.wrapper\:wide {
+    @extend %wrapper\:wide;
+}
+
+.wrapper\:stretch {
+    @extend %wrapper\:stretch;
+}

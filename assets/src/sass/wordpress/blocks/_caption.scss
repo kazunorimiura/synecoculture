@@ -1,0 +1,12 @@
+@use "../../components/prose";
+
+.wp-element-caption,
+.wp-caption-text {
+    margin-block-start: var(--space-s-space);
+}
+
+// なぜかフロントエンドではglobal-styles-inline-cssによって意図的にマージンを指定されているためリセット
+.wp-block-image :where(figcaption) {
+    margin-top: var(--space-s-space);
+    margin-bottom: 0;
+}

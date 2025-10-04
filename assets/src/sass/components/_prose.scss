@@ -1,0 +1,89 @@
+@use "sass:map";
+@use "../base/settings" as *;
+@use "../utilities/flow";
+@use "../utilities/wrapper";
+
+%prose {
+    @extend %flow;
+
+    display: flow-root;
+
+    > * {
+        --flow-space: var(--space-s0em);
+
+        max-width: var(--width-content);
+        margin-inline: auto;
+    }
+
+    // .wrapperが入れ子になるなどの理由で.wrapperで囲えず、一方で、両サイドのガターを適用したい時に使う
+    &.with-gutter > * {
+        width: calc(100% - var(--site-gutter) * 2);
+    }
+
+    .alignwide {
+        max-width: var(--width-wide);
+    }
+
+    .alignfull {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .aligncenter {
+        margin-inline: auto;
+    }
+
+    // 1. floatの適用により、後続要素の上部マージンが効かないため、明示的に指定
+    .alignleft,
+    .alignright {
+        margin-block: var(--space-s3); // 1
+
+        @media screen and (max-width: em(map.get($breakpoints, md))) {
+            float: none !important;
+        }
+    }
+
+    .alignleft {
+        float: left;
+        margin-inline: 0 var(--space-s3);
+
+        @media screen and (max-width: em(map.get($breakpoints, md))) {
+            margin-inline: auto;
+        }
+    }
+
+    .alignright {
+        float: right;
+        margin-inline: var(--space-s3) 0;
+
+        @media screen and (max-width: em(map.get($breakpoints, md))) {
+            margin-inline: auto;
+        }
+    }
+
+    figure,
+    figure + * {
+        --flow-space: var(--space-s3);
+    }
+
+    :is(h2, h3, h4) {
+        --flow-space: var(--space-s2em) !important;
+    }
+
+    :is(h2 + *, h3 + *, h4 + *) {
+        --flow-space: var(--space-s2) !important;
+    }
+
+    hr,
+    hr + * {
+        --flow-space: var(--space-s5) !important;
+    }
+
+    p:empty {
+        display: none;
+    }
+}
+
+.prose {
+    @extend %prose;
+}

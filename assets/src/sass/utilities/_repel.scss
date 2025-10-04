@@ -1,0 +1,24 @@
+/// 均等配置した各カラム同士がぶつかるときに折り返すグリッド。
+/// @link https://github.com/GoogleChrome/web.dev/blob/c26991cc9f60aae63bc75869a7a3741a6520d07a/src/scss/compositions/_repel.scss
+%repel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--repel-gap, var(--space-s1));
+    align-items: var(--repel-vertical-align, center);
+    justify-content: space-between;
+
+    // 1. 長いテキストが折り返されるようにする。
+    > * {
+        min-width: 0; // 1
+    }
+}
+
+.repel {
+    @extend %repel;
+}
+
+.repel\:reverse {
+    @extend %repel;
+
+    flex-direction: row-reverse;
+}

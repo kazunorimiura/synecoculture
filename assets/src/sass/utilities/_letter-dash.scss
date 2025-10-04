@@ -1,0 +1,10 @@
+.letter-dash {
+    display: inline-block;
+    padding: 0;
+    color: transparent;
+    text-decoration: none;
+    background-image: linear-gradient(var(--color-content-primary), var(--color-content-primary));
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 87.5% 1px;
+}

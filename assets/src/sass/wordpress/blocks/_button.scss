@@ -1,0 +1,44 @@
+@use "../../components/button";
+
+.wp-block-button__link {
+    @extend %button\:base;
+    @extend %button\:primary;
+    @extend %button\:disabled;
+
+    border: none;
+    box-shadow: none;
+
+    &\:icon {
+        @extend %button\:base;
+        @extend %button\:primary;
+        @extend %button\:icon;
+        @extend %button\:disabled;
+    }
+
+    &\:wide {
+        @extend %button\:base;
+        @extend %button\:primary;
+        @extend %button\:disabled;
+        @extend %button\:wide;
+    }
+}
+
+.is-style-outline .wp-block-button__link {
+    @extend %button\:base;
+    @extend %button\:secondary;
+    @extend %button\:disabled;
+
+    &\:icon {
+        @extend %button\:base;
+        @extend %button\:secondary;
+        @extend %button\:icon;
+        @extend %button\:disabled;
+    }
+
+    &\:wide {
+        @extend %button\:base;
+        @extend %button\:secondary;
+        @extend %button\:disabled;
+        @extend %button\:wide;
+    }
+}

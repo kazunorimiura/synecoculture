@@ -1,0 +1,51 @@
+@use "../../base/settings" as *;
+@use "../../utilities/cluster";
+
+///
+/// ナビゲーション
+///
+
+/// 共通
+
+.navigation a[target="_blank"]::after {
+    display: none;
+}
+
+/// リスト要素
+
+// 1. base/elementのデフォルトマージン、with-iconモジュールによって副作用的に適用されてしまうサブメニューのマージンをリセット
+.navigation__list,
+%navigation__list {
+    padding: 0;
+    margin: 0; // 1
+    list-style: none;
+}
+
+/// サブメニュー
+
+// 1. base/elementのデフォルトマージンをリセット
+// 2. ブラウザ依存のスタイルをリセット
+// 3. サブメニュー内の項目の行送りが大きすぎると、改行されたときに別の項目に見えてしまうため、狭くする。
+// 4. デフォルトのリストインデントをリセット
+.navigation .sub-menu,
+%navigation__sub-menu {
+    padding-inline-start: 0; // 4
+    margin: 0; // 1
+    line-height: 1.35; // 3
+    list-style: none; // 2
+}
+
+/// メニュー項目
+
+.menu-item,
+%menu-item {
+    font-weight: var(--font-weight-sign);
+}
+
+/// 子持ちメニュー項目
+
+.menu-item-has-children,
+%menu-item-has-children {
+    position: relative;
+    cursor: pointer;
+}

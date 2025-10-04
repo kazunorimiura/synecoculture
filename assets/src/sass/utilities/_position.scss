@@ -1,0 +1,15 @@
+%pos\:rel {
+    position: relative;
+}
+
+.pos\:rel {
+    @extend %pos\:rel;
+}
+
+%pos\:abs {
+    position: absolute;
+}
+
+.pos\:abs {
+    @extend %pos\:abs;
+}

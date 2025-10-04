@@ -1,0 +1,33 @@
+@use "../../components/notice";
+
+.is-style-notice--info {
+    @extend %notice\:info;
+}
+
+.is-style-notice--positive {
+    @extend %notice\:positive;
+}
+
+.is-style-notice--warning {
+    @extend %notice\:warning;
+}
+
+.is-style-notice--negative {
+    @extend %notice\:negative;
+}
+
+.is-style-notice--info--bold {
+    @extend %notice\:info\:bold;
+}
+
+.is-style-notice--positive--bold {
+    @extend %notice\:positive\:bold;
+}
+
+.is-style-notice--warning--bold {
+    @extend %notice\:warning\:bold;
+}
+
+.is-style-notice--negative--bold {
+    @extend %notice\:negative\:bold;
+}

@@ -1,0 +1,44 @@
+@use "../config";
+@use "../base/settings" as *;
+@use "../utilities/wrapper";
+
+.our-story {
+    @extend %wrapper;
+
+    display: flex;
+    gap: fd(96, 146);
+    justify-content: space-between;
+}
+
+.our-story__item {
+    flex: 1;
+}
+
+[class*="our-story__item--img"] {
+    display: flex;
+    flex-direction: column;
+}
+
+.our-story__item--img1 {
+    justify-content: center;
+}
+
+.our-story__item--img3 {
+    justify-content: flex-end;
+}
+
+.our-story__item img {
+    display: block;
+    border-radius: var(--radius-lg);
+}
+
+.our-story__item__heading {
+    margin-block-start: rem(48);
+    font: var(--font-headline-1);
+    line-height: var(--line-height-headline-1);
+}
+
+.our-story__item__body {
+    margin-block-start: rem(64);
+    font-weight: var(--font-weight-sign);
+}

@@ -1,0 +1,138 @@
+@use "sass:map";
+@use "../config";
+@use "../base/settings" as *;
+@use "../utilities/wrapper";
+@use "../utilities/grid";
+
+.news-slider-container {
+    padding-block: fd(64, 96);
+}
+
+.news-slider__header-container {
+    padding-inline: var(--site-gutter);
+}
+
+.news-slider__header {
+    display: flex;
+    flex-wrap: wrap;
+    gap: fd(64, 128);
+    align-items: flex-start;
+    padding-block-end: fd(64, 96);
+    border-bottom: 1px solid var(--color-border-opaque);
+}
+
+// 1. サイドバーの理想的な幅
+// 2. 長いテキストが折り返されるようにする
+// 3. flex-basisのサイズによって要素が画面をはみ出さないようにする
+.news-slider__header__overline {
+    flex-basis: rem(362); // 1
+    flex-grow: 1; // 1
+    min-width: 0; // 2
+    max-width: 100%; // 3
+}
+
+// 1. 最低幅
+// 2. 最大幅
+// 3. 長いテキストが折り返されるようにする
+.news-slider__header__main {
+    flex-basis: rem(800); // 1
+    flex-grow: 999; // 1
+    max-inline-size: rem(1083); // 2
+    min-width: 0; // 3
+}
+
+.news-slider__header__main > * + * {
+    margin-block-start: fd(32, 48);
+}
+
+// 1. --switcher-threshold = 折り返しを発生させるコンテナの幅
+// 2. 長いテキストが折り返されるようにする
+.news-slider__header__heading,
+.news-slider__header__body {
+    flex-basis: calc((#{rem(720)} - 100%) * 999); // 1
+    flex-grow: 1; // 1
+    min-width: 0; // 2
+}
+
+.news-slider__header__heading {
+    font: var(--font-headline-1);
+}
+
+.news-slider__main-container {
+    padding-block-start: fd(48, 64);
+    padding-inline: var(--site-gutter);
+    overflow: hidden !important;
+}
+
+.news-slider__main {
+    overflow: visible !important;
+}
+
+.news-slide {
+    background-color: red;
+}
+
+.news-slider-nav {
+    display: flex;
+    gap: var(--space-s-7);
+}
+
+.news-slider-nav-prev,
+.news-slider-nav-next {
+    position: static;
+    width: rem(60);
+    height: rem(60);
+    color: var(--color-content-primary);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40%;
+    border: 1px solid var(--color-border-opaque);
+    border-radius: 50%;
+}
+
+.news-slider-nav-prev {
+    --angle-left: #{escape-svg(get-data-url(angle-left, config.$color-content-primary))};
+
+    background-image: var(--angle-left);
+}
+
+[data-site-theme="dark"] .news-slider-nav-prev {
+    --angle-left: #{escape-svg(get-data-url(angle-left, config.$color-content-primary-dark))};
+}
+
+@media (prefers-color-scheme: dark) {
+    .news-slider-nav-prev {
+        --angle-left: #{escape-svg(get-data-url(angle-left, config.$color-content-primary-dark))};
+    }
+
+    [data-site-theme="light"] .news-slider-nav-prev {
+        --angle-left: #{escape-svg(get-data-url(angle-left, config.$color-content-primary))};
+    }
+}
+
+.news-slider-nav-next {
+    --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-primary))};
+
+    background-image: var(--angle-right);
+}
+
+[data-site-theme="dark"] .news-slider-nav-next {
+    --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-primary-dark))};
+}
+
+@media (prefers-color-scheme: dark) {
+    .news-slider-nav-next {
+        --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-primary-dark))};
+    }
+
+    [data-site-theme="light"] .news-slider-nav-next {
+        --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-primary))};
+    }
+}
+
+.news-slider__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-block-start: fd(32, 48);
+}

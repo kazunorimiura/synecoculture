@@ -1,0 +1,5 @@
+@use "../../components/prose";
+
+.comment-content {
+    @extend %prose;
+}

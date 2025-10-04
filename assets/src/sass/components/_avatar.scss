@@ -1,0 +1,15 @@
+.avatar,
+.avatar > img {
+    flex: none;
+    width: var(--avatar-size, 4.0625rem);
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.avatar\:lg {
+    --avatar-size: 8.75rem;
+}
+
+a[class^="avatar"]:hover {
+    background-color: transparent;
+}
