@@ -1,35 +1,56 @@
+@use "sass:map";
 @use "../config";
 @use "../base/settings" as *;
+@use "../utilities/grid";
 @use "../utilities/wrapper";
 
-.our-story {
-    @extend %wrapper;
-
-    display: flex;
-    gap: fd(96, 146);
-    justify-content: space-between;
+.our-story-container {
+    @extend %wrapper\:stretch;
 }
 
-.our-story__item {
-    flex: 1;
+.our-story {
+    // @extend %grid;
+
+    // --grid-column-width: 290px;
+    // --grid-gap: #{fd(96, 146)};
+
+    display: grid;
+    grid-template-columns: 1fr 1.225fr 1fr 1fr;
+    grid-gap: fd(96, 146);
+    padding-block: fd(96, 128);
 }
 
 [class*="our-story__item--img"] {
     display: flex;
     flex-direction: column;
+
+    > .frame {
+        overflow: hidden;
+        border-radius: var(--radius-lg);
+    }
 }
 
 .our-story__item--img1 {
     justify-content: center;
+
+    > .frame {
+        --n: 1;
+        --d: 1;
+    }
+}
+
+.our-story__item--img2 > .frame {
+    --n: 374;
+    --d: 552;
 }
 
 .our-story__item--img3 {
     justify-content: flex-end;
-}
 
-.our-story__item img {
-    display: block;
-    border-radius: var(--radius-lg);
+    > .frame {
+        --n: 374;
+        --d: 249;
+    }
 }
 
 .our-story__item__heading {
@@ -41,4 +62,43 @@
 .our-story__item__body {
     margin-block-start: rem(64);
     font-weight: var(--font-weight-sign);
+}
+
+@media screen and (max-width: em(1500)) {
+    .our-story {
+        grid-template-columns: 1fr 1.2fr 1fr;
+    }
+}
+
+@media screen and (max-width: em(map.get($breakpoints, lg))) {
+    .our-story {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .our-story__item {
+        grid-column: span 1;
+    }
+}
+
+@media screen and (max-width: em(map.get($breakpoints, md))) {
+    .our-story {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* 最初の画像とテキストは2列分使用 */
+    .our-story__item--img1,
+    .our-story__item:not([class*="--img"]) {
+        grid-column: span 2;
+    }
+
+    /* img2とimg3はそれぞれ1列ずつ */
+    .our-story__item--img2,
+    .our-story__item--img3 {
+        grid-column: span 1;
+    }
+
+    .our-story__item--img1 > .frame {
+        --n: 1;
+        --d: 0.5625;
+    }
 }

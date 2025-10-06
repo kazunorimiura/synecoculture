@@ -10,13 +10,17 @@
 }
 
 // 日本語の場合
+// 1. ブラウザが言語を自動判定して下線を左側に置く場合があるので右側を強制
 html[lang|="ja"] .vertical-writing {
+    text-underline-position: right; // 1
     writing-mode: vertical-rl;
     text-orientation: mixed;
 }
 
 // 簡体中文の場合
+// 1. ブラウザが言語を自動判定して下線を左側に置く場合があるので右側を強制（中国語では左側に配置されるのが伝統的な慣習）
 html[lang|="zh"] .vertical-writing {
+    text-underline-position: right; // 1
     writing-mode: vertical-rl;
     text-orientation: mixed;
 }
@@ -38,7 +42,7 @@ html[lang|="ja"] .symbolic-writing {
 }
 
 // 簡体中文の場合
-html[lang|="zh-cn"] .symbolic-writing {
+html[lang|="zh"] .symbolic-writing {
     writing-mode: vertical-rl;
     text-orientation: mixed;
     transform: none;

@@ -72,6 +72,29 @@ $wpf_global_nav = has_nav_menu( 'global_primary' ) || has_nav_menu( 'global_seco
 				?>
 			</div>
 
+			<?php
+			if ( has_nav_menu( 'primary_cta' ) ) {
+				?>
+				<div class="primary-cta">
+					<?php
+					wp_nav_menu(
+						array(
+							'theme_location'       => 'primary_cta',
+							'container'            => 'nav',
+							'container_class'      => 'navigation dropdown-menu',
+							'container_aria_label' => __( 'サイトアクション', 'wordpressfoundation' ),
+							'menu_class'           => 'navigation__list',
+							'fallback_cb'          => false,
+							'walker'               => new WPF_Walker_Nav_Menu(),
+							'wpf_link_classes'     => 'link-muted',
+						)
+					);
+					?>
+				</div>
+				<?php
+			}
+			?>
+
 			<div class="lg:hidden-yes">
 				<div class="primary-nav">
 					<?php
@@ -103,97 +126,72 @@ $wpf_global_nav = has_nav_menu( 'global_primary' ) || has_nav_menu( 'global_seco
 			</div>
 
 			<?php
-			if ( has_nav_menu( 'primary_cta' ) ) {
-				?>
-				<div class="primary-cta">
-					<?php
-					wp_nav_menu(
-						array(
-							'theme_location'       => 'primary_cta',
-							'container'            => 'nav',
-							'container_class'      => 'navigation dropdown-menu',
-							'container_aria_label' => __( 'サイトアクション', 'wordpressfoundation' ),
-							'menu_class'           => 'navigation__list',
-							'fallback_cb'          => false,
-							'walker'               => new WPF_Walker_Nav_Menu(),
-							'wpf_link_classes'     => 'link-muted',
-						)
-					);
-					?>
-				</div>
-				<?php
-			}
-			?>
-
-			<?php
 			if ( $wpf_global_nav ) {
 				?>
-				<div class="hidden-no">
-					<div class="global-nav-button-wrapper">
-						<button class="global-nav-button" aria-controls="global-nav" aria-expanded="false">
-							<span class="global-nav-icon" aria-hidden="true">
-								<span class="global-nav-icon__line global-nav-icon__line--top"></span> 
-								<span class="global-nav-icon__line global-nav-icon__line--middle"></span>
-								<span class="global-nav-icon__line global-nav-icon__line--bottom"></span>
-							</span>
-							<span class="screen-reader-text" data-open-text="<?php esc_attr_e( '開く', 'wordpressfoundation' ); ?>" data-close-text="<?php esc_attr_e( '閉じる', 'wordpressfoundation' ); ?>"><?php esc_html_e( '開く', 'wordpressfoundation' ); ?></span>
-						</button>
-					</div>
+				<div class="global-nav-button-wrapper">
+					<button class="global-nav-button" aria-controls="global-nav" aria-expanded="false">
+						<span class="global-nav-icon" aria-hidden="true">
+							<span class="global-nav-icon__line global-nav-icon__line--top"></span> 
+							<span class="global-nav-icon__line global-nav-icon__line--middle"></span>
+							<span class="global-nav-icon__line global-nav-icon__line--bottom"></span>
+						</span>
+						<span class="screen-reader-text" data-open-text="<?php esc_attr_e( '開く', 'wordpressfoundation' ); ?>" data-close-text="<?php esc_attr_e( '閉じる', 'wordpressfoundation' ); ?>"><?php esc_html_e( '開く', 'wordpressfoundation' ); ?></span>
+					</button>
+				</div>
 
-					<div class="global-nav-wrapper">
-						<div class="global-nav flow ps" id="global-nav">
-							<?php
-							if ( has_nav_menu( 'global_primary' ) ) {
-								wp_nav_menu(
-									array(
-										'theme_location'   => 'global_primary',
-										'container'        => 'div',
-										'container_class'  => 'navigation accordion-menu global-primary',
-										'container_aria_label' => __( 'グローバルナビゲーション', 'wordpressfoundation' ),
-										'menu_class'       => 'navigation__list',
-										'fallback_cb'      => false,
-										'walker'           => new WPF_Walker_Nav_Menu(),
-										'wpf_link_classes' => 'link-muted',
-									)
-								);
-							}
-							?>
+				<div class="global-nav-wrapper">
+					<div class="global-nav flow ps" id="global-nav">
+						<?php
+						if ( has_nav_menu( 'global_primary' ) ) {
+							wp_nav_menu(
+								array(
+									'theme_location'       => 'global_primary',
+									'container'            => 'div',
+									'container_class'      => 'navigation accordion-menu global-primary',
+									'container_aria_label' => __( 'グローバルナビゲーション', 'wordpressfoundation' ),
+									'menu_class'           => 'navigation__list',
+									'fallback_cb'          => false,
+									'walker'               => new WPF_Walker_Nav_Menu(),
+									'wpf_link_classes'     => 'link-muted',
+								)
+							);
+						}
+						?>
 
-							<?php
-							if ( has_nav_menu( 'global_secondary' ) ) {
-								wp_nav_menu(
-									array(
-										'theme_location'   => 'global_secondary',
-										'container'        => 'div',
-										'container_class'  => 'navigation accordion-menu global-secondary',
-										'container_aria_label' => __( 'サブグローバルナビゲーション', 'wordpressfoundation' ),
-										'menu_class'       => 'navigation__list',
-										'fallback_cb'      => false,
-										'walker'           => new WPF_Walker_Nav_Menu(),
-										'wpf_link_classes' => 'link-muted',
-									)
-								);
-							}
-							?>
+						<?php
+						if ( has_nav_menu( 'global_secondary' ) ) {
+							wp_nav_menu(
+								array(
+									'theme_location'       => 'global_secondary',
+									'container'            => 'div',
+									'container_class'      => 'navigation accordion-menu global-secondary',
+									'container_aria_label' => __( 'サブグローバルナビゲーション', 'wordpressfoundation' ),
+									'menu_class'           => 'navigation__list',
+									'fallback_cb'          => false,
+									'walker'               => new WPF_Walker_Nav_Menu(),
+									'wpf_link_classes'     => 'link-muted',
+								)
+							);
+						}
+						?>
 
-							<?php
-							if ( has_nav_menu( 'social_links' ) ) {
-								wp_nav_menu(
-									array(
-										'theme_location'  => 'social_links',
-										'container'       => 'div',
-										'container_class' => 'navigation social-links global-social-links',
-										'container_aria_label' => __( 'ソーシャルリンク', 'wordpressfoundation' ),
-										'menu_class'      => 'navigation__list',
-										'fallback_cb'     => false,
-										'link_before'     => '<span>', // ソーシャルリンクをアイコンに置換するために必須。
-										'link_after'      => '</span>',
-										'depth'           => 1,
-									)
-								);
-							}
-							?>
-						</div>
+						<?php
+						if ( has_nav_menu( 'social_links' ) ) {
+							wp_nav_menu(
+								array(
+									'theme_location'       => 'social_links',
+									'container'            => 'div',
+									'container_class'      => 'navigation social-links global-social-links',
+									'container_aria_label' => __( 'ソーシャルリンク', 'wordpressfoundation' ),
+									'menu_class'           => 'navigation__list',
+									'fallback_cb'          => false,
+									'link_before'          => '<span>', // ソーシャルリンクをアイコンに置換するために必須。
+									'link_after'           => '</span>',
+									'depth'                => 1,
+								)
+							);
+						}
+						?>
 					</div>
 				</div>
 				<?php

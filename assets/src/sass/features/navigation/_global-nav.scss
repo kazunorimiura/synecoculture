@@ -1,4 +1,6 @@
+@use "sass:map";
 @use "sass:math";
+@use "../../config";
 @use "../../base/settings" as *;
 @use "../../utilities/region";
 @use "../../utilities/wrapper";
@@ -9,13 +11,14 @@
 
 $min-global-nav-button-size: 40px;
 $max-global-nav-button-size: 48px;
-$global-nav-icon-width: 23px;
-$global-nav-icon-height: 17px;
-$global-nav-icon-line-weight: 2px;
+$global-nav-icon-width: 30px;
+$global-nav-icon-height: 31px;
+$global-nav-icon-line-weight: 5px;
 
 .global-nav-button-wrapper {
     position: fixed;
     top: 0;
+    right: fd(map.get(config.$site-gutter, min), 40);
     z-index: z-index("global-nav-button");
     display: flex;
     align-items: center;
@@ -23,10 +26,11 @@ $global-nav-icon-line-weight: 2px;
     height: var(--site-header-height);
 }
 
+// 1. 必ず単位を合わせる（アイコンのアニメーションが動作しないため）
+// 2. アイコン周囲の余白分を相殺して右端をツラに合わせる
+// 3. button要素のデフォルトパディングをリセット
 .global-nav-button {
     --global-nav-button-size: #{fd($min-global-nav-button-size, $max-global-nav-button-size)};
-
-    // 1. 必ず単位を合わせる（アイコンのアニメーションが動作しないため）
     --global-nav-icon-width: #{$global-nav-icon-width}; // 1
     --global-nav-icon-height: #{$global-nav-icon-height}; // 1
     --global-nav-icon-line-weight: #{$global-nav-icon-line-weight}; // 1
@@ -36,7 +40,8 @@ $global-nav-icon-line-weight: 2px;
     justify-content: center;
     width: var(--global-nav-button-size);
     height: var(--global-nav-button-size);
-    margin-right: fd(math.div(($min-global-nav-button-size - $global-nav-icon-width), 2) * -1, math.div(($max-global-nav-button-size - $global-nav-icon-width), 2) * -1);
+    padding: 0; // 3
+    margin-right: fd(math.div(($min-global-nav-button-size - $global-nav-icon-width), 2) * -1, math.div(($max-global-nav-button-size - $global-nav-icon-width), 2) * -1); // 2
     color: inherit;
 }
 

@@ -8,15 +8,6 @@
 
 .page-header__content {
     position: relative;
-
-    &::after {
-        display: block;
-        width: rem(20px);
-        height: rem(4px);
-        content: "";
-        background-color: var(--color-brand);
-        background-image: linear-gradient(90deg, var(--color-brand-secondary) 0%, var(--color-brand-secondary) 50%, var(--color-brand) 50.1%, var(--color-brand) 100%);
-    }
 }
 
 .page-header h1 {

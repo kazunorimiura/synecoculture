@@ -38,6 +38,12 @@
     }
 }
 
+%wrapper\:slat {
+    @extend %wrapper\:base;
+
+    padding-inline: var(--wrapper-gutter, var(--site-gutter-slat));
+}
+
 .wrapper {
     @extend %wrapper;
 }
@@ -48,4 +54,8 @@
 
 .wrapper\:stretch {
     @extend %wrapper\:stretch;
+}
+
+.wrapper\:slat {
+    @extend %wrapper\:slat;
 }

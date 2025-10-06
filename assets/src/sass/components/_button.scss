@@ -337,3 +337,7 @@
         @extend %button\:wide;
     }
 }
+
+.swiper-button-disabled {
+    @extend %button\:disabled;
+}

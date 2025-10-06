@@ -97,29 +97,23 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 				<div class="syneco-branding">
 				<?php
 				if ( ! empty( $tagline ) || ! empty( $body_copy ) ) {
-					?>
-					<div class="syneco-branding-message">
-					<?php
 					// タグライン
 					if ( ! empty( $tagline ) ) {
 						?>
-							<div class="syneco-tagline vertical-writing">
-							<?php echo wp_kses_post( $tagline ); ?>
-							</div>
-							<?php
+						<div class="syneco-tagline vertical-writing">
+							<span><?php echo wp_kses_post( $tagline ); ?></span>
+						</div>
+						<?php
 					}
 
 					// ボディコピー
 					if ( ! empty( $body_copy ) ) {
 						?>
-							<div class="syneco-body-copy vertical-writing">
-							<?php echo wp_kses_post( $body_copy ); ?>
-							</div>
-							<?php
+						<div class="syneco-body-copy vertical-writing">
+							<span><?php echo wp_kses_post( $body_copy ); ?></span>
+						</div>
+						<?php
 					}
-					?>
-					</div>
-					<?php
 				}
 
 				// スライドショー
@@ -128,98 +122,103 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 					<div class="syneco-slider-container">
 						<div id="synecoSlider" class="syneco-slider swiper">
 							<div class="swiper-wrapper">
-							<?php
-							foreach ( $slider as $slide ) {
-								$slide_image_id = $slide['_wpf_top__slider__slide_image'];
-								$slide_title    = $slide['_wpf_top__slider__slide_title'];
-								$slide_link_url = $slide['_wpf_top__slider__slide_link_url'];
+								<?php
+								foreach ( $slider as $slide ) {
+									$slide_image_id = $slide['_wpf_top__slider__slide_image'];
+									$slide_title    = $slide['_wpf_top__slider__slide_title'];
+									$slide_link_url = $slide['_wpf_top__slider__slide_link_url'];
 
-								if ( ! empty( $slide_image_id ) ) {
-									$slide_image = wp_get_attachment_image(
-										$slide_image_id,
-										'1536x1536',
-										false,
-										array()
-									);
-									if ( ! empty( $slide_image ) ) {
-										?>
+									if ( ! empty( $slide_image_id ) ) {
+										$slide_image = wp_get_attachment_image(
+											$slide_image_id,
+											'1536x1536',
+											false,
+											array()
+										);
+										if ( ! empty( $slide_image ) ) {
+											?>
 											<div class="syneco-slider__item swiper-slide">
-											<?php
-											// スライド画像
-											$classes = 'syneco-slider__item-image';
-											if ( ! empty( $slide_link_url ) ) {
-												?>
-													<a href="<?php echo esc_url( $slide_link_url ); ?>" class="<?php echo esc_attr( $classes ); ?>">
-													<?php
-											} else {
-												?>
-													<div class="<?php echo esc_attr( $classes ); ?>">
-													<?php
-											}
-											echo WPF_Template_Tags::kses_post( $slide_image ); // phpcs:ignore WordPress.Security.EscapeOutput
-											if ( ! empty( $slide_link_url ) ) {
-												?>
-													</a>
-												<?php
-											} else {
-												?>
-													</div>
-												<?php
-											}
+												<div class="syneco-slider__item-image">
+													<?php echo WPF_Template_Tags::kses_post( $slide_image ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+												</div>
 
-											// スライドタイトル
-											if ( ! empty( $slide_title ) ) {
-												$classes = 'syneco-slider__item-title';
-												if ( ! empty( $slide_link_url ) ) {
-													?>
+												<?php
+												// スライドタイトル
+												if ( ! empty( $slide_title ) ) {
+													$classes = 'syneco-slider__item-title';
+													if ( ! empty( $slide_link_url ) ) {
+														?>
 														<a 
 															href="<?php echo esc_url( $slide_link_url ); ?>" 
 															class="<?php echo esc_attr( $classes ); ?>"
 														>
 														<?php
-												} else {
-													?>
+													} else {
+														?>
 														<div class="<?php echo esc_attr( $classes ); ?>">
 														<?php
-												}
-												echo wp_kses_post( $slide_title ); // タイトルを出力
-												if ( ! empty( $slide_link_url ) ) {
+													}
 													?>
+													<span class="syneco-slider__item-title__icon">
+														<?php echo WPF_Icons::get_svg( 'ui', 'enter', 24 ); /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>
+													</span>
+
+													<span class="syneco-slider__item-title__text">
+														<?php echo wp_kses_post( $slide_title ); // タイトルを出力 ?>
+													</span>
+													<?php
+													if ( ! empty( $slide_link_url ) ) {
+														?>
 														</a>
-													<?php
-												} else {
-													?>
+														<?php
+													} else {
+														?>
 														</div>
-													<?php
+														<?php
+													}
 												}
-											}
-											?>
+												?>
 											</div>
 											<?php
+										}
 									}
 								}
-							}
-							?>
+								?>
 							</div>
 
 							<div class="syneco-slider__nav-container">
-								<div class="syneco-slider__nav-button-prev">
-										<span class="screen-reader-text"><?php echo esc_html_e( '前へ', 'wordpressfoundation' ); ?></span>
-								</div>
-								<div class="syneco-slider__nav-button-next">
-										<span class="screen-reader-text"><?php echo esc_html_e( '次へ', 'wordpressfoundation' ); ?></span>
-								</div>
+								<button class="syneco-slider__nav-button-prev">
+									<span class="screen-reader-text"><?php echo esc_html_e( '前へ', 'wordpressfoundation' ); ?></span>
+								</button>
+								<button class="syneco-slider__nav-button-next">
+									<span class="screen-reader-text"><?php echo esc_html_e( '次へ', 'wordpressfoundation' ); ?></span>
+								</button>
+
+								<button 
+									class="syneco-slider__play-pause-button is-playing" 
+									type="button"
+									aria-controls="trilemmaImage" 
+									data-play-text="<?php echo esc_attr_e( 'ヒーロースライダーのアニメーションを再生', 'wordpressfoundation' ); ?>"
+									data-pause-text="<?php echo esc_attr_e( 'ヒーロースライダーのアニメーションを一時停止', 'wordpressfoundation' ); ?>">
+									<span class="screen-reader-text"><?php echo esc_html_e( 'ヒーロースライダーのアニメーションを一時停止', 'wordpressfoundation' ); ?></span>
+									<div data-icon="play">
+										<?php echo WPF_Icons::get_svg( 'ui', 'play', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+									</div>
+									<div data-icon="pause">
+										<?php echo WPF_Icons::get_svg( 'ui', 'pause', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+									</div>
+								</button>
 							</div>
 						</div>
 
 						<div class="syneco-branding__cta">
-							<div class="syneco-branding__cta-icon">
-								<?php echo WPF_Icons::get_svg( 'ui', 'angle_up', 24 ); /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>
+							<div class="syneco-branding__cta-icon" aria-hidden="true">
+								<?php echo WPF_Icons::get_svg( 'ui', 'arrow_down', 24 ); /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>
 							</div>
 							<div class="syneco-branding__cta-text">Scroll</div>
 						</div>
 					</div>
-						<?php
+					<?php
 				}
 				?>
 				</div>
@@ -254,77 +253,85 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			ob_start();
 			if ( ! empty( $heading ) || ! empty( $body ) || ! empty( $image_1_id ) || ! empty( $image_2_id ) || ! empty( $image_3_id ) ) {
 				?>
-				<div class="our-story">
-					<?php
-					$image_1 = wp_get_attachment_image(
-						$image_1_id,
-						'medium_large',
-						false,
-						array( 'loading' => 'lazy' )
-					);
-					if ( ! empty( $image_1 ) ) {
-						?>
-						<div class="our-story__item our-story__item--img1">
-							<?php echo WPF_Template_Tags::kses_post( $image_1 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-						</div>
+				<div class="our-story-container">
+					<div class="our-story">
 						<?php
-					}
-					?>
-
-					<?php
-					if ( ! empty( $heading ) || ! empty( $body ) ) {
-						?>
-						<div class="our-story__item">
-							<div class="our-story__item__overline syneco-overline">
-								<div class="syneco-overline__icon">
-									<?php echo WPF_Icons::get_svg( 'ui', 'syneco', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+						$image_1 = wp_get_attachment_image(
+							$image_1_id,
+							'medium_large',
+							false,
+							array( 'loading' => 'lazy' )
+						);
+						if ( ! empty( $image_1 ) ) {
+							?>
+							<div class="our-story__item our-story__item--img1">
+								<div class="frame">
+									<?php echo WPF_Template_Tags::kses_post( $image_1 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 								</div>
-								<div class="syneco-overline__text">Our Story</div>
 							</div>
+							<?php
+						}
+						?>
 
-							<h2 class="our-story__item__heading">
-								<?php echo wp_kses_post( $heading ); // 見出しを出力 ?>
-							</h2>
+						<?php
+						if ( ! empty( $heading ) || ! empty( $body ) ) {
+							?>
+							<div class="our-story__item">
+								<div class="our-story__item__overline syneco-overline">
+									<div class="syneco-overline__icon">
+										<?php echo WPF_Icons::get_svg( 'ui', 'syneco', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+									</div>
+									<div class="syneco-overline__text">Our Story</div>
+								</div>
 
-							<div class="our-story__item__body prose">
-								<?php echo wp_kses_post( $body ); // 本文を出力 ?>
+								<h2 class="our-story__item__heading">
+									<?php echo wp_kses_post( $heading ); // 見出しを出力 ?>
+								</h2>
+
+								<div class="our-story__item__body prose">
+									<?php echo wp_kses_post( $body ); // 本文を出力 ?>
+								</div>
 							</div>
-						</div>
-						<?php
-					}
-					?>
-
-					<?php
-					$image_2 = wp_get_attachment_image(
-						$image_2_id,
-						'medium_large',
-						false,
-						array( 'loading' => 'lazy' )
-					);
-					if ( ! empty( $image_2 ) ) {
+							<?php
+						}
 						?>
-						<div class="our-story__item our-story__item--img2">
-							<?php echo WPF_Template_Tags::kses_post( $image_2 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-						</div>
-						<?php
-					}
-					?>
 
-					<?php
-					$image_3 = wp_get_attachment_image(
-						$image_3_id,
-						'medium_large',
-						false,
-						array( 'loading' => 'lazy' )
-					);
-					if ( ! empty( $image_3 ) ) {
-						?>
-						<div class="our-story__item our-story__item--img3">
-							<?php echo WPF_Template_Tags::kses_post( $image_3 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-						</div>
 						<?php
-					}
-					?>
+						$image_2 = wp_get_attachment_image(
+							$image_2_id,
+							'medium_large',
+							false,
+							array( 'loading' => 'lazy' )
+						);
+						if ( ! empty( $image_2 ) ) {
+							?>
+							<div class="our-story__item our-story__item--img2">
+								<div class="frame">
+									<?php echo WPF_Template_Tags::kses_post( $image_2 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+								</div>
+							</div>
+							<?php
+						}
+						?>
+
+						<?php
+						$image_3 = wp_get_attachment_image(
+							$image_3_id,
+							'medium_large',
+							false,
+							array( 'loading' => 'lazy' )
+						);
+						if ( ! empty( $image_3 ) ) {
+							?>
+							<div class="our-story__item our-story__item--img3">
+								<div class="frame">
+									<?php echo WPF_Template_Tags::kses_post( $image_3 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+								</div>
+							</div>
+							<?php
+						}
+						?>
+					</div>
 				</div>
 				<?php
 			}
@@ -1521,12 +1528,12 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 
 								<div class="news-slider__footer">
 									<div class="news-slider-nav">
-										<div class="news-slider-nav-prev">
+										<button class="news-slider-nav-prev">
 											<span class="screen-reader-text"><?php echo esc_html_e( '前へ', 'wordpressfoundation' ); ?></span>
-										</div>
-										<div class="news-slider-nav-next">
+										</button>
+										<button class="news-slider-nav-next">
 											<span class="screen-reader-text"><?php echo esc_html_e( '次へ', 'wordpressfoundation' ); ?></span>
-										</div>
+										</button >
 									</div>
 
 									<div class="news-slider-cta">

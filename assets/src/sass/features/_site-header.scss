@@ -16,8 +16,7 @@
     z-index: z-index("site-header");
     width: 100%;
     height: var(--site-header-height);
-    background-color: var(--color-background-primary);
-    border-bottom: 1px solid var(--color-border-opaque);
+    background-color: transparent;
 }
 
 .site-header__inner {
@@ -43,4 +42,15 @@
 .site-header__title > a:visited {
     color: inherit;
     text-decoration: none;
+}
+
+.site-header__title-content {
+    display: block;
+    width: fd(140, 190);
+    height: fd(37.87, 51.4);
+}
+
+.site-header__title-content > svg {
+    width: 100%;
+    height: auto;
 }

@@ -9,12 +9,10 @@
 /**
  * サイトロゴを返す
  *
- * @param string $width ロゴの幅
- * @param string $height ロゴの高さ
  * @return string
  */
-function wpf_get_site_logo( $width = '11.875em', $height = '3.2125em' ) {
-	return '<svg class="d-block" style="width: ' . $width . '; height: ' . $height . '" width="190" height="53" viewBox="0 0 190 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+function wpf_get_site_logo() {
+	return '<svg viewBox="0 0 190 53" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M27.2919 25.3635C28.2243 27.218 27.8293 28.7778 26.6021 29.219C25.2389 29.7076 23.752 28.5188 23.1963 26.7371C22.1532 23.3944 21.4127 20.8228 20.9949 15.2801C24.378 19.6418 25.9241 22.6429 27.2919 25.3635Z" fill="var(--color-content-primary)"/>
     <path d="M21.6577 32.5186C22.8902 30.8489 24.4603 30.4955 25.4084 31.3916C26.4613 32.3865 26.0728 34.2501 24.7343 35.5516C22.2245 37.9924 20.4214 39.9367 15.666 42.8148C18.0274 37.8258 19.8494 34.9685 21.6577 32.5186Z" fill="var(--color-content-primary)"/>
     <path d="M31.618 34.2261C29.5461 34.1057 28.3924 32.9832 28.6253 31.7C28.8837 30.275 30.6569 29.582 32.4782 29.9926C35.8938 30.7617 39.5248 31.6695 44.5326 34.0803C39.0641 34.8274 34.6581 34.4031 31.618 34.2261Z" fill="var(--color-content-primary)"/>

@@ -216,11 +216,13 @@
 
 .dive-into-synecoculture__joins__header {
     flex-basis: var(--learn-header-width);
+    min-height: rem(380);
     font-weight: bold;
     border-inline-end: 1px solid var(--color-border-opaque);
 
     @media screen and (max-width: em(map.get($breakpoints, sm))) {
         flex-basis: 100%;
+        min-height: 0;
         padding-block-end: rem(12);
         border-block-end: 1px solid var(--color-border-opaque);
         border-inline-end: none;

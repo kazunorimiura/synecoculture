@@ -94,19 +94,35 @@
     --angle-left: #{escape-svg(get-data-url(angle-left, config.$color-content-primary))};
 
     background-image: var(--angle-left);
+
+    &.swiper-button-disabled {
+        --angle-left: #{escape-svg(get-data-url(angle-left, config.$color-content-disabled))};
+    }
 }
 
 [data-site-theme="dark"] .news-slider-nav-prev {
     --angle-left: #{escape-svg(get-data-url(angle-left, config.$color-content-primary-dark))};
+
+    &.swiper-button-disabled {
+        --angle-left: #{escape-svg(get-data-url(angle-left, config.$color-content-disabled-dark))};
+    }
 }
 
 @media (prefers-color-scheme: dark) {
     .news-slider-nav-prev {
         --angle-left: #{escape-svg(get-data-url(angle-left, config.$color-content-primary-dark))};
+
+        &.swiper-button-disabled {
+            --angle-left: #{escape-svg(get-data-url(angle-left, config.$color-content-disabled-dark))};
+        }
     }
 
     [data-site-theme="light"] .news-slider-nav-prev {
         --angle-left: #{escape-svg(get-data-url(angle-left, config.$color-content-primary))};
+
+        &.swiper-button-disabled {
+            --angle-left: #{escape-svg(get-data-url(angle-left, config.$color-content-disabled))};
+        }
     }
 }
 
@@ -114,19 +130,35 @@
     --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-primary))};
 
     background-image: var(--angle-right);
+
+    &.swiper-button-disabled {
+        --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-disabled))};
+    }
 }
 
 [data-site-theme="dark"] .news-slider-nav-next {
     --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-primary-dark))};
+
+    &.swiper-button-disabled {
+        --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-disabled-dark))};
+    }
 }
 
 @media (prefers-color-scheme: dark) {
     .news-slider-nav-next {
         --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-primary-dark))};
+
+        &.swiper-button-disabled {
+            --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-disabled-dark))};
+        }
     }
 
     [data-site-theme="light"] .news-slider-nav-next {
         --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-primary))};
+
+        &.swiper-button-disabled {
+            --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-disabled))};
+        }
     }
 }
 
