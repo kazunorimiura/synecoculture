@@ -850,6 +850,55 @@ class WPF_Template_Functions {
 		}
 		$obj['_wpf_pickup_flag'] = $data;
 
+		// `_wpf_cover_media_id` メタをパブリック投稿タイプに登録
+		$object_type = 'post';
+		$data        = array( $object_type => array() );
+		foreach ( $post_types as $post_type ) {
+			$data[ $object_type ][] = array(
+				'object_subtype' => $post_type,
+				'type'           => 'integer',
+				'default'        => 0,
+				'single'         => true,
+				'show_in_rest'   => true,
+				'auth_callback'  => function() {
+					return current_user_can( 'edit_posts' );
+				},
+			);
+		}
+		$obj['_wpf_cover_media_id'] = $data;
+
+		// `_wpf_cover_media_metadata` メタをパブリック投稿タイプに登録
+		$object_type = 'post';
+		$data        = array( $object_type => array() );
+		foreach ( $post_types as $post_type ) {
+			$data[ $object_type ][] = array(
+				'object_subtype' => $post_type,
+				'type'           => 'object',
+				'default'        => (object) array(),
+				'single'         => true,
+				'show_in_rest'   => array(
+					'schema' => array(
+						'type'       => 'object',
+						'properties' => array(
+							'type' => array(
+								'type' => 'string',
+							),
+							'mime' => array(
+								'type' => 'string',
+							),
+							'url'  => array(
+								'type' => 'string',
+							),
+						),
+					),
+				),
+				'auth_callback'  => function() {
+					return current_user_can( 'edit_posts' );
+				},
+			);
+		}
+		$obj['_wpf_cover_media_metadata'] = $data;
+
 		foreach ( $obj as $key => $value ) {
 			foreach ( $value as $object_type => $settings ) {
 				foreach ( $settings as $setting ) {

@@ -1,15 +1,16 @@
 import includes from 'lodash/includes';
 /* global wp */
 
-(function (plugins, editPost, element, components, data, compose) {
+(function (plugins, editPost, element, components, data, compose, blockEditor) {
     const el = element.createElement;
 
-    const { __ } = wp.i18n;
+    const { __, sprintf } = wp.i18n;
     const { Fragment } = element;
     const { registerPlugin } = plugins;
     const { PluginDocumentSettingPanel, PluginPostStatusInfo } = editPost;
-    const { CheckboxControl, SelectControl, TextControl, TextareaControl, ToggleControl, __experimentalHStack, __experimentalVStack } = components;
+    const { Button, CheckboxControl, DropZone, SelectControl, TextControl, TextareaControl, ToggleControl, __experimentalHStack, __experimentalVStack } = components;
     const { select, useSelect, withSelect, withDispatch } = data;
+    const { MediaUpload, MediaUploadCheck } = blockEditor;
 
     const usePostTypes = () => {
         const postTypes = useSelect((select) => {
@@ -225,6 +226,164 @@ import includes from 'lodash/includes';
         });
     });
 
+    const MetaCoverMediaUpload = compose.compose(
+        withDispatch(function (dispatch) {
+            return {
+                setMetaValue: function (id, metaData) {
+                    dispatch('core/editor').editPost({ meta: { _wpf_cover_media_id: id, _wpf_cover_media_metadata: metaData } });
+                },
+            };
+        }),
+        withSelect(function (select) {
+            return {
+                coverMediaId: select('core/editor').getEditedPostAttribute('meta')['_wpf_cover_media_id'],
+                coverMediaMetadata: select('core/editor').getEditedPostAttribute('meta')['_wpf_cover_media_metadata'],
+            };
+        }),
+    )(function (props) {
+        console.log('props', props);
+
+        const onSelectImage = (media) => {
+            props.setMetaValue(media.id, { type: media.type, mime: media.mime, url: media.url });
+
+            // video要素をロードしてサムネイルを表示させる
+            // 参考: https://stackoverflow.com/a/32215374
+            const videoEl = document.querySelector('.wpf-cover-media-video');
+            if (videoEl) {
+                videoEl.load();
+            }
+        };
+
+        return el(
+            MediaUploadCheck,
+            {},
+            el(MediaUpload, {
+                help: props.help,
+                value: props.coverMediaMetadata.url,
+                onSelect: onSelectImage,
+                type: ['image', 'video'],
+                render: function (obj) {
+                    return el(
+                        'div',
+                        {
+                            style: {
+                                display: 'flex',
+                                gap: '1rem',
+                                flexDirection: 'column',
+                            },
+                        },
+                        el(
+                            'div',
+                            { className: 'components-base-control editor-post-featured-image' },
+                            el(
+                                'label',
+                                {
+                                    style: {
+                                        fontSize: '11px',
+                                        marginBottom: '8px',
+                                        display: 'inline-block',
+                                        lineHeight: 1.4,
+                                    },
+                                },
+                                props.title,
+                            ),
+                            el(
+                                'div',
+                                {
+                                    className: 'editor-post-featured-image__container',
+                                },
+                                !props.coverMediaId &&
+                                    el(
+                                        Button,
+                                        {
+                                            className: 'components-button editor-post-featured-image__toggle',
+                                            onClick: obj.open,
+                                        },
+                                        sprintf(__('%sを設定', 'wordpressfoundation'), props.title),
+                                    ),
+                                !!props.coverMediaId &&
+                                    el(
+                                        Button,
+                                        {
+                                            className: 'components-button editor-post-featured-image__preview',
+                                            'aria-describedby': `editor-post-cover-image-${props.coverMediaId}-describedby`,
+                                            onClick: obj.open,
+                                            'aria-label': '画像を編集または更新',
+                                        },
+                                        el(
+                                            'span',
+                                            {
+                                                className: 'components-responsive-wrapper',
+                                            },
+                                            el('div', {
+                                                'aria-hidden': true,
+                                                style: {
+                                                    position: 'absolute',
+                                                    inset: '0px',
+                                                    pointerEvents: 'none',
+                                                    opacity: 0,
+                                                    overflow: 'hidden',
+                                                    zIndex: -1,
+                                                },
+                                            }),
+                                            el('span', {
+                                                style: {
+                                                    paddingBottom: '56.25%',
+                                                },
+                                            }),
+                                            'video' === props.coverMediaMetadata.type &&
+                                                el(
+                                                    'video',
+                                                    {
+                                                        className: 'components-responsive-wrapper__content wpf-cover-media-video',
+                                                    },
+                                                    el('source', {
+                                                        src: props.coverMediaMetadata.url,
+                                                        type: props.coverMediaMetadata.mime,
+                                                    }),
+                                                ),
+                                            'image' === props.coverMediaMetadata.type &&
+                                                el('img', {
+                                                    src: props.coverMediaMetadata.url,
+                                                    className: 'components-responsive-wrapper__content',
+                                                }),
+                                        ),
+                                    ),
+                                el(DropZone, {}),
+                            ),
+                            !!props.coverMediaId &&
+                                el(
+                                    Button,
+                                    {
+                                        className: 'components-button is-secondary',
+                                        onClick: obj.open,
+                                        style: {
+                                            marginTop: '8px',
+                                        },
+                                    },
+                                    sprintf(__('%sを置換', 'wordpressfoundation'), props.title),
+                                ),
+                            !!props.coverMediaId &&
+                                el(
+                                    Button,
+                                    {
+                                        className: 'components-button is-link is-destructive',
+                                        style: {
+                                            marginTop: '8px',
+                                        },
+                                        onClick: () => {
+                                            props.setMetaValue(0, {});
+                                        },
+                                    },
+                                    sprintf(__('%sを削除', 'wordpressfoundation'), props.title),
+                                ),
+                        ),
+                    );
+                },
+            }),
+        );
+    });
+
     registerPlugin('wpf-inspector-languages-provided', {
         icon: false,
         render: () => {
@@ -407,6 +566,34 @@ import includes from 'lodash/includes';
         },
     });
 
+    registerPlugin('page-cover', {
+        icon: false,
+        render: function () {
+            const allowedPostTypes = usePostTypes();
+            const postType = select('core/editor').getCurrentPostType();
+
+            if (!includes(allowedPostTypes, postType)) {
+                return el(Fragment, {});
+            }
+
+            return el(
+                Fragment,
+                {},
+                el(
+                    PluginDocumentSettingPanel,
+                    {
+                        name: 'page-cover',
+                        icon: false,
+                        title: __('カバー設定', 'wordpressfoundation'),
+                    },
+                    el(MetaCoverMediaUpload, {
+                        title: __('カバー画像（または動画）', 'wordpressfoundation'),
+                    }),
+                ),
+            );
+        },
+    });
+
     registerPlugin('schema-settings', {
         icon: false,
         render: () => {
@@ -442,4 +629,4 @@ import includes from 'lodash/includes';
             );
         },
     });
-})(window.wp.plugins, window.wp.editPost, window.wp.element, window.wp.components, window.wp.data, window.wp.compose);
+})(window.wp.plugins, window.wp.editPost, window.wp.element, window.wp.components, window.wp.data, window.wp.compose, window.wp.blockEditor);

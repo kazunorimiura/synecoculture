@@ -154,4 +154,4 @@ function wpf_old_theme_image_sizes() {
 	update_option( 'medium_size_w', 600 );
 	update_option( 'medium_size_h', 600 );
 }
-// add_action( 'after_setup_theme', 'wpf_old_theme_image_sizes' );
+add_action( 'after_setup_theme', 'wpf_old_theme_image_sizes' );

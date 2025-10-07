@@ -3,8 +3,9 @@
 .pill {
     display: inline-block;
     padding-block: var(--pill-padding-block, #{rem(8)});
-    padding-inline: var(--pill-padding-inline, #{rem(16)});
+    padding-inline: var(--pill-padding-inline, #{rem(11)});
     font-size: var(--pill-font-size, var(--font-size-text));
+    font-weight: var(--font-weight-sign);
     line-height: var(--line-height-sign);
     text-decoration: none;
     vertical-align: middle;
@@ -17,8 +18,9 @@
 .pill-secondary {
     display: inline-block;
     padding-block: var(--pill-padding-block, #{rem(8)});
-    padding-inline: var(--pill-padding-inline, #{rem(16)});
+    padding-inline: var(--pill-padding-inline, #{rem(11)});
     font-size: var(--pill-font-size, var(--font-size-text--sm));
+    font-weight: var(--font-weight-sign);
     line-height: var(--line-height-sign);
     color: var(--color-content-tertiary);
     text-decoration: none;

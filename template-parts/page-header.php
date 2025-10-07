@@ -6,204 +6,294 @@
  * @since 0.1.0
  */
 
-$wpf_subtitle = isset( $args['subtitle'] ) ? $args['subtitle'] : '';
+$wpf_breadcrumbs       = WPF_Template_Tags::get_the_breadcrumbs( 'display' );
+$wpf_cover_media       = WPF_Template_Tags::get_the_cover_media();
+$wpf_container_classes = ! empty( $wpf_cover_media ) && ! empty( get_object_vars( $wpf_cover_media ) ) ? 'page-header page-header--has-cover' : 'page-header';
 ?>
 
-<div class="page-header">
-	<?php
-	$wpf_breadcrumbs = WPF_Template_Tags::get_the_breadcrumbs();
-	if ( $wpf_breadcrumbs ) {
-		?>
-		<div class="bg-color-background-primary border-bottom">
-			<div class="wrapper:stretch pb-s-3 over-scroll">
-				<nav class="breadcrumbs" aria-label="<?php esc_html_e( 'パンくずリスト', 'wordpressfoundation' ); ?>">
-					<ul class="breadcrumbs__list">
+<div class="<?php echo esc_attr( $wpf_container_classes ); ?>">
+	<div class="page-header__main">
+		<div class="page-header__main__inner">
+			<?php
+			// 検索結果ページの場合
+			if ( is_search() ) {
+				?>
+				<div class="wrapper:wide border-bottom">
+					<div class="flow">
+						<h1 class="page-header__title">
+							<?php esc_html_e( 'Search', 'wordpressfoundation' ); ?>
+						</h1>
+
+						<?php get_search_form(); ?>
+					</div>
+				</div>
 				<?php
-				foreach ( $wpf_breadcrumbs as $wpf_breadcrumb ) {
+
+				// 上記以外のページの場合
+			} else {
+				?>
+				<div class="page-header__main__content">
+					<?php
+					/**
+					 * ヘッダーメタ
+					 */
 					?>
-						<li>
+					<div class="page-header__header-meta">
 						<?php
-						if ( end( $wpf_breadcrumbs ) === $wpf_breadcrumb ) {
-							echo $wpf_breadcrumb['text']; // phpcs:ignore WordPress.Security.EscapeOutput
-						} else {
+						/**
+						 * アーカイブページにおけるパンくずリスト
+						 */
+						if ( ! is_single() && $wpf_breadcrumbs ) {
 							?>
-							<a href="<?php echo esc_url( $wpf_breadcrumb['link'] ); ?>">
-								<?php echo $wpf_breadcrumb['text']; // phpcs:ignore WordPress.Security.EscapeOutput ?>
-							</a>
+							<div class="page-header__breadcrumbs-container">
+								<nav class="breadcrumbs" aria-label="<?php esc_html_e( 'パンくずリスト', 'wordpressfoundation' ); ?>">
+									<ul class="breadcrumbs__list">
+										<?php
+										foreach ( $wpf_breadcrumbs as $wpf_breadcrumb ) {
+											?>
+											<li>
+												<?php
+												if ( end( $wpf_breadcrumbs ) === $wpf_breadcrumb ) {
+													echo $wpf_breadcrumb['text']; // phpcs:ignore WordPress.Security.EscapeOutput
+												} else {
+													?>
+													<a href="<?php echo esc_url( $wpf_breadcrumb['link'] ); ?>">
+														<?php echo $wpf_breadcrumb['text']; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+													</a>
+													<?php
+												}
+												?>
+											</li>
+											<?php
+										}
+										?>
+									</ul>
+								</nav>
+							</div>
 							<?php
 						}
 						?>
+
+						<?php
+						/**
+						 * タームリスト
+						 */
+						$wpf_terms = WPF_Utils::get_the_terms();
+						if ( is_single() && ! empty( $wpf_terms ) && 'uncategorized' !== $wpf_terms[0]->slug ) {
+							// `project` 投稿タイプの場合
+							if ( is_singular( 'project' ) ) {
+								$ancestors = get_ancestors( $wpf_terms[0]->term_id, 'project_cat', 'taxonomy' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+								if ( ! empty( $ancestors ) ) {
+									// 配列の最後が最上位のターム
+									$top_parent_id   = end( $ancestors ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+									$top_parent      = get_term( $top_parent_id, 'project_cat' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+									$top_parent_link = get_term_link( $top_parent );  // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+									?>
+									<a href="<?php echo esc_url( $top_parent_link ); ?>" class="pill">
+										<?php echo esc_html( $top_parent->name ); ?>
+									</a>
+									<?php
+								} else {
+									// 祖先がいない場合は自身が最上位
+									$term_link = get_term_link( $term->term_id ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+									?>
+									<a href="<?php echo esc_url( $term_link ); ?>" class="pill">
+										<?php echo esc_html( $term->name ); ?>
+									</a>
+									<?php
+								}
+
+								// `project` 投稿タイプ以外の場合
+							} else {
+								?>
+								<a href="<?php echo esc_url( get_term_link( $wpf_terms[0]->term_id, $wpf_terms[0]->taxonomy ) ); ?>" class="pill">
+									<?php echo esc_html( $wpf_terms[0]->name ); ?>
+								</a>
+								<?php
+							}
+						}
+						?>
+					</div>
+
+					<?php
+					/**
+					 * タイトル
+					 */
+					$wpf_title = WPF_Template_Tags::get_the_page_title();
+					if ( ! empty( $wpf_title ) ) {
+						?>
+						<h1 class="page-header__title">
+							<?php echo wp_kses_post( $wpf_title ); ?>
+						</h1>
+						<?php
+					}
+					?>
+
+					<?php
+					/**
+					 * サブタイトル
+					 */
+					$wpf_subtitle = isset( $args['subtitle'] ) ? $args['subtitle'] : '';
+					if ( $wpf_subtitle ) {
+						?>
+						<p class="page-header__subtitle">
+							<?php echo wp_kses_post( $wpf_subtitle ); ?>
+						</p>
+						<?php
+					}
+					?>
+
+					<?php
+					/**
+					 * ニュース個別投稿ページにおけるフッターメタ
+					 */
+					if ( is_single() && is_singular( 'post' ) ) {
+						?>
+						<div class="page-header__footer-meta">
+							<div class="page-header__date">
+								<?php
+								echo WPF_Template_Tags::get_the_publish_date_tag(); // phpcs:ignore WordPress.Security.EscapeOutput
+								?>
+							</div>
+						</div>
+						<?php
+					}
+
+					/**
+					 * プロジェクト個別投稿ページにおけるフッターメタ
+					 */
+					if ( is_single() && is_singular( 'project' ) ) {
+						$cat_terms    = get_the_terms( get_the_ID(), 'project_cat' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+						$domain_terms = get_the_terms( get_the_ID(), 'project_domain' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+
+						// 選択しているタームを出力
+						if ( ( $cat_terms && ! is_wp_error( $cat_terms ) ) || ( $domain_terms && ! is_wp_error( $domain_terms ) ) ) {
+							?>
+							<div class="cluster" style="--cluster-space: 0.5rem;">
+								<?php
+								if ( $cat_terms && ! is_wp_error( $cat_terms ) ) {
+									foreach ( $cat_terms as $term ) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride
+										$term_link = get_term_link( $term->term_id ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+										?>
+										<a href="<?php echo esc_url( $term_link ); ?>" class="pill-secondary">
+											<?php echo esc_html( $term->name ); ?>
+										</a>
+										<?php
+									}
+								}
+
+								if ( $domain_terms && ! is_wp_error( $domain_terms ) ) {
+									foreach ( $domain_terms as $term ) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride
+										$term_link = get_term_link( $term->term_id ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+										?>
+										<a href="<?php echo esc_url( $term_link ); ?>" class="pill-secondary">
+											<?php echo esc_html( $term->name ); ?>
+										</a>
+										<?php
+									}
+								}
+								?>
+							</div>
+							<?php
+						}
+					}
+					?>
+				</div>
+
+				<?php
+				/**
+				 * シングルページにおけるサムネイル
+				 */
+				$wpf_thumbnail = wp_get_attachment_image(
+					get_post_thumbnail_id(),
+					'1536x1536',
+					false,
+					array()
+				);
+				if ( ! empty( $wpf_thumbnail ) ) {
+					?>
+					<div class="page-header__thumbnail frame">
+						<?php echo wp_kses_post( $wpf_thumbnail ); // アイキャッチを出力 ?>
+					</div>
+					<?php
+				}
+			}
+			?>
+		</div>
+	</div>
+
+	<?php
+	/**
+	 * シングルページにおけるパンくずリスト
+	 */
+	if ( is_single() && $wpf_breadcrumbs ) {
+		?>
+		<div class="page-header__breadcrumbs-container">
+			<nav class="breadcrumbs" aria-label="<?php esc_html_e( 'パンくずリスト', 'wordpressfoundation' ); ?>">
+				<ul class="breadcrumbs__list">
+					<?php
+					foreach ( $wpf_breadcrumbs as $wpf_breadcrumb ) {
+						?>
+						<li>
+							<?php
+							if ( end( $wpf_breadcrumbs ) === $wpf_breadcrumb ) {
+								echo $wpf_breadcrumb['text']; // phpcs:ignore WordPress.Security.EscapeOutput
+							} else {
+								?>
+								<a href="<?php echo esc_url( $wpf_breadcrumb['link'] ); ?>">
+									<?php echo $wpf_breadcrumb['text']; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+								</a>
+								<?php
+							}
+							?>
 						</li>
 						<?php
-				}
-				?>
-					</ul>
-				</nav>
-			</div>
+					}
+					?>
+				</ul>
+			</nav>
 		</div>
 		<?php
 	}
 	?>
 
 	<?php
-	// 著者ページの場合
-	if ( is_author() ) {
-		$wpf_user_id          = (int) get_query_var( 'author' );
-		$wpf_avatar           = get_avatar( $wpf_user_id, 300 );
-		$wpf_display_name     = function_exists( 'pll__' ) ? pll__( get_the_author_meta( 'display_name', $wpf_user_id ), 'wordpressfoundation' ) : get_the_author_meta( 'display_name', $wpf_user_id );
-		$wpf_position         = function_exists( 'pll__' ) ? pll__( get_the_author_meta( 'position', $wpf_user_id ), 'wordpressfoundation' ) : get_the_author_meta( 'position', $wpf_user_id );
-		$wpf_description      = get_the_author_meta( 'description', $wpf_user_id );
-		$wpf_social_links     = array(
-			'x'         => get_the_author_meta( 'x', $wpf_user_id ),
-			'instagram' => get_the_author_meta( 'instagram', $wpf_user_id ),
-			'facebook'  => get_the_author_meta( 'facebook', $wpf_user_id ),
-		);
-		$wpf_social_icon_size = 36;
+	if ( ! empty( $wpf_cover_media ) ) {
 		?>
-		<div class="wrapper:wide border-bottom">
-			<div class="author-info">
-				<?php
-				// アバター
-				if ( ! empty( $wpf_avatar ) ) {
+		<div class="page-header__cover">
+			<?php
+			/**
+			 * カバー画像の場合
+			 */
+			if ( isset( $wpf_cover_media->media_metadata ) && isset( $wpf_cover_media->media_metadata->type ) && 'image' === $wpf_cover_media->media_metadata->type ) {
+				$wpf_cover_media_image = wp_get_attachment_image(
+					$wpf_cover_media->media_id,
+					'1536x1536',
+					false,
+					array()
+				);
+				if ( ! empty( $wpf_cover_media_image ) ) {
 					?>
-					<a 
-						class="avatar:lg" 
-						href="<?php echo esc_url( get_author_posts_url( $wpf_user_id ) ); ?>" 
-						title="<?php echo esc_attr( /* translators: 著者名 */ sprintf( __( '%sのプロフィールを見る', 'wordpressfoundation' ), $wpf_display_name ) ); ?>"
-						aria-label="<?php echo esc_attr( /* translators: 著者名 */ sprintf( __( '%sのプロフィールを見る', 'wordpressfoundation' ), $wpf_display_name ) ); ?>">
-						<?php echo $wpf_avatar; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>
-					</a>
+					<div class="page-header__cover-image">
+						<?php echo wp_kses_post( $wpf_cover_media_image ); // カバー画像を出力 ?>
+					</div>
 					<?php
 				}
+
+				/**
+				 * カバー動画の場合
+				 */
+			} elseif ( isset( $wpf_cover_media->media_metadata ) && isset( $wpf_cover_media->media_metadata->type ) && 'video' === $wpf_cover_media->media_metadata->type ) {
 				?>
-
-				<div>
-					<?php
-					if ( ! empty( $wpf_display_name ) ) {
-						?>
-						<a href="<?php echo esc_url( get_author_posts_url( $wpf_user_id ) ); ?>">
-							<?php echo esc_html( $wpf_display_name ); ?>
-						</a>
-						<?php
-					}
-
-					if ( ! empty( $wpf_position ) ) {
-						?>
-						<p>
-							<?php echo esc_html( $wpf_position ); ?>
-						</p>
-						<?php
-					}
-
-					if ( ! empty( $wpf_description ) ) {
-						?>
-						<p>
-							<?php echo esc_html( $wpf_description ); ?>
-						</p>
-						<?php
-					}
-
-					if ( count( array_filter( $wpf_social_links ) ) !== 0 ) {
-						?>
-						<div>
-							<?php
-							foreach ( $wpf_social_links as $wpf_key => $wpf_value ) {
-								if ( ! empty( $wpf_value ) ) {
-									?>
-									<a href="<?php echo esc_url( $wpf_value ); ?>" target="_brank">
-										<?php echo WPF_Icons::get_svg( 'social', $wpf_key, $wpf_social_icon_size ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-										<span class="screen-reader-text"><?php echo esc_html( ucfirst( $wpf_key ) ); ?></span>
-									</a>
-									<?php
-								}
-							}
-							?>
-						</div>
-						<?php
-					}
-					?>
-				</div>
-			</div>
-		</div>
-		<?php
-
-		// 検索結果ページの場合
-	} elseif ( is_search() ) {
-		?>
-		<div class="wrapper:wide border-bottom">
-			<div class="flow">
-				<h1>
-					<?php
-					esc_html_e( 'Search', 'wordpressfoundation' );
-					?>
-				</h1>
-
-				<?php get_search_form(); ?>
-			</div>
-		</div>
-		<?php
-
-		// 上記以外のページの場合
-	} else {
-		$wpf_title = WPF_Template_Tags::get_the_page_title();
-		if ( ! empty( $wpf_title ) ) {
+				<video class="page-header__cover-video" autoplay muted playsinline loop>
+					<source src="<?php echo esc_url( wp_get_attachment_url( $wpf_cover_media->media_id ) ); ?>" type="<?php echo esc_attr( $wpf_cover_media->media_metadata->mime ); ?>">
+				</video>
+				<?php
+			}
 			?>
-			<div class="wrapper:wide border-bottom">
-				<div class="page-header__content">
-					<div class="region" style="--region-space: var(--space-s6)">
-						<div class="flow" style="--flow-space: var(--space-s-1em)">
-							<?php
-							if ( is_single() ) {
-								?>
-								<div class="cluster mbe-s-3">
-									<?php
-									$wpf_terms = WPF_Utils::get_the_terms();
-									if ( ! empty( $wpf_terms ) && 'uncategorized' !== $wpf_terms[0]->slug ) {
-										?>
-										<p 
-											class="c-content-positive font-text--xs"
-											style="--flow-space: var(--space-s-space)">
-											<a 
-												href="<?php echo esc_url( get_term_link( $wpf_terms[0]->term_id, $wpf_terms[0]->taxonomy ) ); ?>"
-												class="pill">
-												<?php echo esc_html( $wpf_terms[0]->name ); ?>
-											</a>
-										</p>
-										<?php
-									}
-									?>
-
-									<div class="page-header__meta cluster" style="--cluster-space: 0 0.75em">
-										<div class="cluster">
-											<div>
-												<?php
-												echo WPF_Template_Tags::get_the_publish_date_tag(); // phpcs:ignore WordPress.Security.EscapeOutput
-												?>
-											</div>
-										</div>
-									</div>
-								</div>
-								<?php
-							}
-							?>
-
-							<h1>
-								<?php echo wp_kses_post( $wpf_title ); ?>
-							</h1>
-
-							<?php
-							if ( $wpf_subtitle ) {
-								?>
-								<p class="page-header__subtitle"><?php echo wp_kses_post( $wpf_subtitle ); ?></p>
-								<?php
-							}
-							?>
-						</div>
-					</div>
-				</div>
-			</div>
-			<?php
-		}
+		</div>
+		<?php
 	}
 	?>
+
 </div>

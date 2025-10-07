@@ -426,9 +426,10 @@ class WPF_Template_Tags {
 	 * 現在のクエリに基づきパンくずリストを取得
 	 *
 	 * @since 0.1.0
+	 * @param string $context 使用コンテキスト 'display' または 'schema'
 	 * @return array[]|null テキスト、リンク、レイヤー種類の配列の配列
 	 */
-	public static function get_the_breadcrumbs() {
+	public static function get_the_breadcrumbs( $context = 'schema' ) {
 		$queried_object = get_queried_object();
 
 		// フロントページまたはホームページの表示が「投稿」の場合のホームページまたは404ページの場合はパンくずリストを表示しない
@@ -441,8 +442,13 @@ class WPF_Template_Tags {
 		/*
 		 * ホームレイヤーをパンくずに追加する。
 		 */
+		$home_text = get_option( 'page_on_front' ) ? get_the_title( get_option( 'page_on_front' ) ) : __( 'ホーム', 'wordpressfoundation' );
+		if ( 'display' === $context ) {
+			$home_text = '<span class="screen-reader-text">' . $home_text . '</span><span class="home-icon">' . WPF_Icons::get_svg( 'ui', 'home', 24 ) . '</span>';
+		}
+
 		$home_layer = array(
-			'text'  => get_option( 'page_on_front' ) ? get_the_title( get_option( 'page_on_front' ) ) : __( 'ホーム', 'wordpressfoundation' ),
+			'text'  => $home_text,
 			'link'  => get_home_url(),
 			'layer' => 'home',
 		);
@@ -650,8 +656,13 @@ class WPF_Template_Tags {
 			}
 
 			// 現在のページのレイヤーを追加
+			$current_text = $queried_object->post_title;
+			if ( 'display' === $context && 30 <= mb_strlen( $current_text ) ) {
+				$current_text = __( '現在のページ', 'wordpressfoundation' );
+			}
+
 			$current_page_layer = array(
-				'text'  => $queried_object->post_title,
+				'text'  => $current_text,
 				'link'  => get_permalink( $queried_object->ID ),
 				'layer' => 'current_page',
 			);
@@ -1471,6 +1482,36 @@ class WPF_Template_Tags {
 		$post_types = self::get_post_types_with_meta_value( $meta_key, $cache_time );
 
 		return in_array( $post_type, $post_types, true );
+	}
+
+	/**
+	 * カバーメディアを取得
+	 *
+	 * @param int $post_id 投稿ID。オプション。
+	 * @return stdClass|null
+	 */
+	public static function get_the_cover_media( $post_id = 0 ) {
+		if ( 0 === $post_id ) {
+			$post_id = get_the_ID();
+		}
+
+		if ( ! $post_id ) {
+			return;
+		}
+
+		$args = array();
+
+		$media_id = get_post_meta( $post_id, '_wpf_cover_media_id', true );
+		if ( ! empty( $media_id ) ) {
+			$args['media_id'] = $media_id;
+		}
+
+		$media_metadata = get_post_meta( $post_id, '_wpf_cover_media_metadata', true );
+		if ( ! empty( get_object_vars( $media_metadata ) ) ) {
+			$args['media_metadata'] = (object) $media_metadata;
+		}
+
+		return (object) $args;
 	}
 
 	/**

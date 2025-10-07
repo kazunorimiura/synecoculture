@@ -1,31 +1,131 @@
 @use "sass:map";
 @use "sass:math";
 @use "../base/settings" as *;
+@use "../utilities/flow";
 
-.page-header {
-    position: relative;
+.page-header:not(.page-header--has-cover) {
+    border-bottom: 1px solid var(--color-border-opaque);
 }
 
-.page-header__content {
-    position: relative;
+.page-header.page-header--has-cover {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - var(--site-header-height) - var(--site-gutter-slat));
 }
 
-.page-header h1 {
-    --flow-space: 0.35rem;
+.page-header__main {
+    padding-block: fd(64, 96);
+    padding-inline: var(--site-gutter);
+}
 
+.page-header__main__inner {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: fd(32, 96);
+    align-items: flex-start;
+    margin-inline: auto;
+
+    @media screen and (max-width: em(map.get($breakpoints, sm))) {
+        flex-direction: column-reverse;
+    }
+}
+
+.single .page-header__main__inner {
+    max-width: var(--width-wide);
+}
+
+.page-header__thumbnail {
+    --n: 1;
+    --d: 1;
+
+    flex-basis: fd(200, 249);
+    flex-shrink: 0;
+    border-radius: var(--radius-lg);
+
+    @media screen and (max-width: em(map.get($breakpoints, sm))) {
+        --n: 1;
+        --d: 0.5625;
+
+        flex-basis: 100%;
+
+        > img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+.page-header__main__content {
+    @extend %flow;
+
+    flex: 1;
+    width: 100%;
+}
+
+.page-header__title {
+    --flow-space: fd(24, 32);
+
+    margin-block-start: fd(24, 32);
     font: var(--font-headline-1);
 }
 
-.page-header__meta {
-    font: var(--font-text--sm);
-    color: var(--color-content-tertiary);
+.archive .page-header__title,
+.page .page-header__title {
+    font: var(--font-display);
 }
 
-.page-header__meta > * + *::before {
-    display: block;
-    width: 1px;
-    height: 1.1em;
-    content: "";
-    background-color: var(--color-content-tertiary);
-    transform: rotate(22.5deg);
+.page-header__footer-meta {
+    margin-block-start: fd(12, 16);
+}
+
+.page-header__date {
+    font-size: fd(16, 18);
+    font-weight: var(--font-weight-sign);
+    line-height: var(--line-height-sign);
+}
+
+.page-header .home-icon > svg {
+    width: 1.2em;
+    height: 1.2em;
+}
+
+// 1. カバーメディアの高さをメインコンテンツを除くコンテナの高さに合わせる
+.page-header__cover {
+    flex: 1; // 1
+    min-height: 0; // 1
+    padding-inline: var(--site-gutter-slat);
+}
+
+.page-header__cover-image {
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+}
+
+.page-header__cover-image > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.page-header__breadcrumbs-container {
+    overflow: scroll;
+
+    @media screen and (max-width: em(map.get($breakpoints, md))) {
+        font-size: var(--font-size-text--sm);
+        line-height: var(--line-height-sign);
+    }
+}
+
+.single .page-header__breadcrumbs-container {
+    display: flex;
+    justify-content: flex-end;
+    padding-block-end: fd(18, 24);
+    padding-inline: var(--site-gutter);
+    font-size: var(--font-size-text--sm);
+    line-height: var(--line-height-sign);
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        justify-content: flex-start;
+    }
 }

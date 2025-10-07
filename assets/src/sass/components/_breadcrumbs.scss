@@ -15,9 +15,8 @@
     display: flex;
     gap: 0 0.6rem;
     align-items: center;
-    font: var(--font-text--xs);
     font-weight: var(--font-weight-sign);
-    color: var(--color-content-tertiary);
+    line-height: var(--line-height-sign);
     white-space: nowrap;
 
     &:last-child {
@@ -26,11 +25,11 @@
 }
 
 .breadcrumbs__list li + li::before {
-    --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-tertiary))};
+    --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-primary))};
 
     display: block;
-    width: 1em;
-    height: 1em;
+    width: 1.2em;
+    height: 1.2em;
     color: inherit;
     appearance: none;
     cursor: pointer;
@@ -38,21 +37,21 @@
     background-image: var(--angle-right);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 1em;
+    background-size: 1.2em;
     transition: color var(--duration);
 }
 
 [data-site-theme="dark"] .breadcrumbs__list li + li::before {
-    --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-tertiary-dark))};
+    --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-primary-dark))};
 }
 
 @media (prefers-color-scheme: dark) {
     .breadcrumbs__list li + li::before {
-        --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-tertiary-dark))};
+        --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-primary-dark))};
     }
 
     [data-site-theme="light"] .breadcrumbs__list li + li::before {
-        --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-tertiary))};
+        --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-primary))};
     }
 }
 
