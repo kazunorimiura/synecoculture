@@ -1,63 +1,101 @@
 @use "sass:map";
-@use "sass:math";
-@use "../utilities/link";
+@use "../config";
+@use "../base/settings" as *;
 @use "../utilities/flow";
+@use "../utilities/repel";
+
+.site-footer {
+    padding-block: fd(64, 96) fd(48, 64);
+    padding-inline: var(--site-gutter);
+}
 
 .site-footer__inner {
-    position: relative;
+    @extend %flow;
+}
 
-    // .page-top のボーダーを視覚的に表現するための擬似要素
-    &::before {
-        position: absolute;
-        top: 0.6rem;
-        right: -1px;
-        z-index: -2;
-        display: block;
-        width: calc(4rem + 2px);
-        height: calc(4rem + 2px);
-        content: "";
-        background-color: var(--color-border-opaque);
-        border-radius: 50%;
-        transform: translateY(-50%);
+.site-footer__nav-primary {
+    --flow-space: #{fd(64, 96)};
+}
+
+.footer-nav-primary > .navigation__list {
+    display: grid;
+    grid-template-columns: 2.5fr 2.5fr 2.5fr 2.5fr 1fr 1fr 1fr;
+}
+
+/* 最後以外の全アイテムにデフォルト30px */
+.footer-nav-primary > .navigation__list > * {
+    margin-inline-end: fd(64, 96);
+}
+
+/* 4番目以降のアイテムは10pxに上書き */
+.footer-nav-primary > .navigation__list > *:nth-child(n + 5) {
+    margin-inline-end: fd(18, 24);
+}
+
+/* 1500px以下 - 4列2行 */
+@media screen and (max-width: em(1500)) {
+    .footer-nav-primary > .navigation__list {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    /* margin-rightを全て共通の値に上書き */
+    .footer-nav-primary > .navigation__list > * {
+        margin-block-end: fd(36, 52);
+        margin-inline-end: fd(16, 96);
     }
 }
 
-.page-top {
-    position: absolute;
-    top: 0.6rem;
-    right: 0;
+@media screen and (max-width: em(map.get($breakpoints, lg))) {
+    .footer-nav-primary > .navigation__list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: em(map.get($breakpoints, md))) {
+    .footer-nav-primary > .navigation__list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.footer-nav-primary > .navigation__list > .menu-item > a {
+    font-weight: var(--font-weight-bold);
+}
+
+.footer-nav-primary > .navigation__list > .menu-item > a + * {
+    margin-block-start: rem(24);
+}
+
+.footer-nav-primary > .navigation__list > .menu-item .menu-item {
+    margin-block-start: rem(12);
+}
+
+.footer-nav-primary > .navigation__list > .menu-item .sub-menu {
+    padding: 0;
+    list-style: none;
+}
+
+.site-footer__nav-secondary {
+    --flow-space: #{fd(48, 64)};
+
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 4rem;
-    height: 4rem;
-    font-size: 1.4rem;
-    color: var(--color-content-tertiary);
-    background-color: var(--color-background-secondary);
-    border-radius: 50%;
-    transform: translateY(-50%);
-
-    &:link,
-    &:visited {
-        color: var(--color-content-tertiary);
-    }
-}
-
-.site-footer__title {
-    margin: 0;
-    font-family: var(--font-family-display);
-    font-size: var(--font-size-headline-4);
-    font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-sign);
-    letter-spacing: -0.05em;
-}
-
-.site-footer__title > :is(a:link, a:visited) {
-    color: inherit;
-    text-decoration: none;
+    justify-content: space-between;
+    padding-block-start: fd(48, 64);
+    border-top: 1px solid var(--color-border-opaque);
 }
 
 .footer-nav-secondary {
+    font: var(--font-text--sm);
+}
+
+.site-footer__notice {
+    --flow-space: #{fd(48, 64)};
+
     font: var(--font-text--xs);
-    font-weight: var(--font-weight-sign);
+}
+
+.site-footer__copy-container {
+    @extend %repel;
+
+    --flow-space: #{rem(32)};
 }
