@@ -416,6 +416,9 @@ $max-line-height-sizes: hms(map.get(map.get(config.$hms-line-height, max), size)
     /// サイトガターslat版（サイトコンテンツの両サイドに設ける余白）
     --site-gutter-slat: #{fd(map.get(config.$site-gutter-slat, min), map.get(config.$site-gutter-slat, max))};
 
+    /// サイトガターwide版（サイトコンテンツの両サイドに設ける余白）
+    --site-gutter-wide: calc(#{fd(map.get(config.$site-gutter, min), map.get(config.$site-gutter, max))} + 5vw);
+
     /// 角丸
     --radius-xs: #{rem(config.$radius-xs)};
     --radius-sm: #{rem(config.$radius-sm)};

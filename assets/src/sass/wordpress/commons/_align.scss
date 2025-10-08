@@ -2,6 +2,13 @@
 @use "../../base/settings" as *;
 @use "../../components/prose";
 
+img.alignnone,
+img.aligncenter,
+img.alignleft,
+img.alignlright {
+    border-radius: var(--radius);
+}
+
 // 投稿タイトル (for editor)
 .edit-post-visual-editor__post-title-wrapper > h1 {
     margin-block: var(--space-s0);

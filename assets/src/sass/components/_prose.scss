@@ -62,8 +62,15 @@
     }
 
     figure,
-    figure + * {
+    figure + *,
+    > img,
+    > img + * {
         --flow-space: var(--space-s3);
+    }
+
+    figure,
+    img {
+        max-width: 100%;
     }
 
     :is(h2, h3, h4) {

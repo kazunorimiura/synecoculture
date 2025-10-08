@@ -67,14 +67,6 @@ class WPF_Template_Tags {
 					$title = get_the_title( $page_for_posts );
 				}
 
-				// タクソノミーアーカイブの場合
-			} elseif ( is_category() || is_tag() || is_tax() ) {
-				$page_for_posts = WPF_Utils::get_page_for_posts();
-
-				if ( $page_for_posts ) {
-					$title = get_the_title( $page_for_posts );
-				}
-
 				// 検索結果ページの場合
 			} elseif ( is_search() ) {
 				$title = function_exists( 'pll__' ) ? pll__( 'Search' ) : __( 'Search', 'wordpressfoundation' );
@@ -709,7 +701,7 @@ class WPF_Template_Tags {
 		ob_start();
 		foreach ( $terms as $term ) {
 			?>
-			<a class="pill pill--<?php echo esc_attr( hash( 'md5', $term->slug ) ); ?>" href="<?php echo esc_url( get_term_link( $term->term_id ) ); ?>">
+			<a class="pill-secondary pill--<?php echo esc_attr( hash( 'md5', $term->slug ) ); ?>" href="<?php echo esc_url( get_term_link( $term->term_id ) ); ?>">
 				<?php echo esc_html( $term->name ); ?>
 			</a>
 			<?php

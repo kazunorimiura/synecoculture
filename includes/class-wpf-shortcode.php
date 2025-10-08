@@ -1036,7 +1036,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 									</div>
 
 									<?php
-									// 選択しているタームを出力
+									// 選択しているタームと領域タームを出力
 									if ( ( $cat_terms && ! is_wp_error( $cat_terms ) ) || ( $domain_terms && ! is_wp_error( $domain_terms ) ) ) {
 										?>
 										<div class="featured-projects__item__sub-categories">

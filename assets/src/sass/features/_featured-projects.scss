@@ -149,17 +149,11 @@
 }
 
 .featured-projects__item__sub-categories {
-    @extend %cluster;
-
-    --cluster-space: #{rem(8)};
-
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(8);
     padding-block-start: fd(18, 24);
     border-block-start: 1px solid var(--color-border-opaque);
-}
-
-.featured-projects__item__sub-category::before {
-    display: inline-block;
-    content: "#";
 }
 
 .featured-projects__item__header {

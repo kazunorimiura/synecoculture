@@ -955,7 +955,7 @@ details summary::-webkit-details-marker {
 }
 
 details summary::after {
-    --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-tertiary))};
+    --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-primary))};
 
     display: block;
     width: 1.2em;
@@ -972,16 +972,16 @@ details summary::after {
 }
 
 [data-site-theme="dark"] details summary::after {
-    --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-tertiary-dark))};
+    --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-primary-dark))};
 }
 
 @media (prefers-color-scheme: dark) {
     details summary::after {
-        --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-tertiary-dark))};
+        --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-primary-dark))};
     }
 
     [data-site-theme="light"] details summary::after {
-        --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-tertiary))};
+        --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-primary))};
     }
 }
 

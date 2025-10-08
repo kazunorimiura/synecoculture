@@ -80,9 +80,13 @@ global $wpf_template_tags;
 			</div>
 
 			<div class="site-footer__notice">
+				<?php
+				$wpf_kyoseinoho_text    = function_exists( 'pll__' ) ? pll__( '協生農法は株式会社桜自然塾の商標または登録商標です。' ) : __( 'Se協生農法は株式会社桜自然塾の商標または登録商標です。', 'wordpressfoundation' );
+				$wpf_synecoculture_text = function_exists( 'pll__' ) ? pll__( 'Synecocultureはソニーグループ株式会社の商標です。' ) : __( 'Synecocultureはソニーグループ株式会社の商標です。', 'wordpressfoundation' );
+				?>
 				<ul>
-					<li>協生農法は株式会社桜自然塾の商標または登録商標です。</li>
-					<li>Synecocultureはソニー株式会社の商標です。</li>
+					<li><?php echo esc_html( $wpf_kyoseinoho_text ); ?></li>
+					<li><?php echo esc_html( $wpf_synecoculture_text ); ?></li>
 				</ul>
 			</div>
 

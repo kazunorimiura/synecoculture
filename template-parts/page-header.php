@@ -145,9 +145,9 @@ $wpf_container_classes = ! empty( $wpf_cover_media ) && ! empty( get_object_vars
 
 					<?php
 					/**
-					 * ニュース個別投稿ページにおけるフッターメタ
+					 * ニュース、ブログ個別投稿ページにおけるフッターメタ
 					 */
-					if ( is_single() && is_singular( 'post' ) ) {
+					if ( is_single() && is_singular( 'post' ) || is_singular( 'blog' ) ) {
 						?>
 						<div class="page-header__footer-meta">
 							<div class="page-header__date">
@@ -204,18 +204,20 @@ $wpf_container_classes = ! empty( $wpf_cover_media ) && ! empty( get_object_vars
 				/**
 				 * シングルページにおけるサムネイル
 				 */
-				$wpf_thumbnail = wp_get_attachment_image(
-					get_post_thumbnail_id(),
-					'1536x1536',
-					false,
-					array()
-				);
-				if ( ! empty( $wpf_thumbnail ) ) {
-					?>
-					<div class="page-header__thumbnail frame">
-						<?php echo wp_kses_post( $wpf_thumbnail ); // アイキャッチを出力 ?>
-					</div>
-					<?php
+				if ( is_single() ) {
+					$wpf_thumbnail = wp_get_attachment_image(
+						get_post_thumbnail_id(),
+						'1536x1536',
+						false,
+						array()
+					);
+					if ( ! empty( $wpf_thumbnail ) ) {
+						?>
+						<div class="page-header__thumbnail frame">
+							<?php echo wp_kses_post( $wpf_thumbnail ); // アイキャッチを出力 ?>
+						</div>
+						<?php
+					}
 				}
 			}
 			?>

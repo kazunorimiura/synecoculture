@@ -84,6 +84,9 @@ msgstr "最后更新：%s"
 msgid "カテゴリー"
 msgstr "分类"
 
+msgid "領域"
+msgstr "领域"
+
 msgid "タグ"
 msgstr "标签"
 

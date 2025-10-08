@@ -84,6 +84,9 @@ msgstr "Dernière mise à jour : %s"
 msgid "カテゴリー"
 msgstr "Catégorie"
 
+msgid "領域"
+msgstr "Domaine"
+
 msgid "タグ"
 msgstr "Tag"
 

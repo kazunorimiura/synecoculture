@@ -88,6 +88,9 @@ class WPF_Polylang_Functions {
 		foreach ( $languages as $lang ) {
 			pll_register_string( 'wpf_untranslated_content_notice', $lang['name'], __( 'テーマ', 'wordpressfoundation' ) );
 		}
+
+		pll_register_string( 'wpf_legal_notice', '協生農法は株式会社桜自然塾の商標または登録商標です。', __( 'テーマ', 'wordpressfoundation' ) );
+		pll_register_string( 'wpf_legal_notice', 'Synecocultureはソニーグループ株式会社の商標です。', __( 'テーマ', 'wordpressfoundation' ) );
 	}
 
 	/**

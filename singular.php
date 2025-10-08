@@ -140,7 +140,7 @@ if ( have_posts() ) {
 
 									<?php
 									// タグ
-									if ( $wpf_show_tags ) {
+									if ( $wpf_show_tags && is_singular( 'blog' ) ) {
 										?>
 										<nav class="tags cluster widget font-text--xs" aria-label="<?php esc_attr_e( 'タグ', 'wordpressfoundation' ); ?>">
 											<?php echo $wpf_terms; // phpcs:ignore WordPress.Security.EscapeOutput ?>
@@ -205,12 +205,12 @@ if ( have_posts() ) {
 									}
 
 									// コメント
-									if ( $wpf_show_comments ) {
+									if ( $wpf_show_comments && is_singular( 'blog' ) ) {
 										comments_template();
 									}
 
 									// 投稿ナビゲーション
-									if ( $wpf_show_post_nav ) {
+									if ( $wpf_show_post_nav && is_singular( 'post' ) && is_singular( 'blog' ) ) {
 										?>
 										<nav class="navigation post-navigation widget" aria-label="<?php esc_attr_e( '投稿ナビゲーション', 'wordpressfoundation' ); ?>">
 											<div class="nav-links switcher">

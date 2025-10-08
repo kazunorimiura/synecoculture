@@ -1,10 +1,12 @@
+@use "sass:map";
+@use "../config";
 @use "../base/settings" as *;
 
 .pill {
     display: inline-block;
     padding-block: var(--pill-padding-block, #{rem(8)});
     padding-inline: var(--pill-padding-inline, #{rem(11)});
-    font-size: var(--pill-font-size, var(--font-size-text));
+    font-size: fd(rem(map.get($min-font-sizes, s-1)), rem(map.get($max-font-sizes, s0)));
     font-weight: var(--font-weight-sign);
     line-height: var(--line-height-sign);
     text-decoration: none;
@@ -19,7 +21,7 @@
     display: inline-block;
     padding-block: var(--pill-padding-block, #{rem(8)});
     padding-inline: var(--pill-padding-inline, #{rem(11)});
-    font-size: var(--pill-font-size, var(--font-size-text--sm));
+    font-size: fd(rem(map.get($min-font-sizes, s-2)), rem(map.get($max-font-sizes, s-1)));
     font-weight: var(--font-weight-sign);
     line-height: var(--line-height-sign);
     color: var(--color-content-tertiary);
@@ -28,6 +30,11 @@
     appearance: none;
     background-color: var(--color-background-secondary);
     border-radius: var(--radius-sm);
+}
+
+.pill-secondary::before {
+    display: inline-block;
+    content: "#";
 }
 
 a.pill,

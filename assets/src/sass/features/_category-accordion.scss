@@ -1,0 +1,57 @@
+@use "sass:map";
+@use "../config";
+@use "../base/settings" as *;
+@use "../utilities/grid";
+@use "../utilities/flow";
+@use "../utilities/wrapper";
+
+.category-accordion {
+    padding: 0;
+    background-color: var(--color-background-primary);
+}
+
+.category-accordion__heading {
+    gap: fd(8, 10);
+    justify-content: flex-start;
+    font-weight: var(--font-weight-sign);
+    line-height: var(--line-height-sign);
+}
+
+.category-accordion__main {
+    margin-block-start: fd(24, 32);
+}
+
+.category-accordion__item {
+    position: relative;
+    display: block;
+    padding-block: fd(8, 12);
+    padding-inline: fd(23, 29) fd(18, 24);
+    font-weight: var(--font-weight-sign);
+    line-height: var(--line-height-sign);
+    transition: background-color 0.15s;
+}
+
+a.category-accordion__item,
+a.category-accordion__item:link {
+    color: var(--color-content-primary);
+    text-decoration: none;
+}
+
+a.category-accordion__item:hover {
+    background-color: var(--color-background-secondary);
+}
+
+.category-accordion__item[aria-current="page"] {
+    background-color: var(--color-background-secondary);
+}
+
+.category-accordion__item[aria-current="page"]::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: rem(5);
+    height: 100%;
+    content: "";
+    background-color: var(--color-background-inverse-primary);
+}

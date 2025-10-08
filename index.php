@@ -22,7 +22,7 @@ global $wpf_template_tags;
 	);
 	?>
 
-	<div class="page-main wrapper:wide">
+	<div class="page-main wrapper:stretch">
 		<div class="flow">
 			<?php
 			if ( is_404() ) {

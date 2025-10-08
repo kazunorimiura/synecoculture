@@ -6,7 +6,8 @@ $viewport: (
 
 /// ブレークポイント
 $breakpoints: (
-    xl: 1680px,
+    xxl: 1680px,
+    xl: 1200px,
     lg: 1024px,
     md: 768px,
     sm: 600px,
@@ -52,9 +53,9 @@ $font-family: (
         mono: '"SFMono-Regular", "Consolas", "Liberation Mono", "Menlo", monospace',
     ),
     fr: (
-        display: '"Helvetica Neue", Arial, "Segoe UI", Helvetica, sans-serif',
-        headline: '"Helvetica Neue", Arial, "Segoe UI", Helvetica, sans-serif',
-        text: '"Helvetica Neue", Arial, "Segoe UI", Helvetica, sans-serif',
+        display: '-apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, "Segoe UI", Helvetica, sans-serif',
+        headline: '-apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, "Segoe UI", Helvetica, sans-serif',
+        text: '-apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, "Segoe UI", Helvetica, sans-serif',
         mono: '"SFMono-Regular", "Consolas", "Liberation Mono", "Menlo", monospace',
     ),
     zh: (
