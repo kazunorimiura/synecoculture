@@ -5,11 +5,12 @@ import includes from 'lodash/includes';
     const el = element.createElement;
 
     const { __, sprintf } = wp.i18n;
-    const { Fragment } = element;
+    const { Fragment, useState, useEffect } = element;
     const { registerPlugin } = plugins;
     const { PluginDocumentSettingPanel, PluginPostStatusInfo } = editPost;
-    const { Button, CheckboxControl, DropZone, SelectControl, TextControl, TextareaControl, ToggleControl, __experimentalHStack, __experimentalVStack } = components;
+    const { Button, CheckboxControl, DropZone, FormTokenField, SearchControl, SelectControl, Spinner, TextControl, TextareaControl, ToggleControl, __experimentalHStack, __experimentalVStack } = components;
     const { select, useSelect, withSelect, withDispatch } = data;
+    const { decodeEntities } = wp.htmlEntities;
     const { MediaUpload, MediaUploadCheck } = blockEditor;
 
     const usePostTypes = () => {
@@ -625,6 +626,212 @@ import includes from 'lodash/includes';
                             title: __('スキーマタイプ', 'wordpressfoundation'),
                         }),
                     ),
+                ),
+            );
+        },
+    });
+
+    const PostsList = ({ postType, orderby, order, searchTerm, metaValue, setMetaValue, allPosts, setAllPosts }) => {
+        const [page, setPage] = useState(1);
+        const postsPerPage = 12;
+
+        const { posts, hasResolvedPosts, totalPages, isLoading } = useSelect(
+            (select) => {
+                const query = {
+                    per_page: postsPerPage,
+                    parent: 0, // 親投稿のみ取得
+                    orderby: orderby,
+                    order: order,
+                    page: page,
+                };
+                if (searchTerm) {
+                    query.search = searchTerm;
+                }
+
+                return {
+                    posts: select('core').getEntityRecords('postType', postType, query),
+                    hasResolvedPosts: select('core').hasFinishedResolution('getEntityRecords', ['postType', postType, query]),
+                    totalPages: select('core').getEntityRecordsTotalPages('postType', postType, query),
+                    isLoading: !select('core').hasFinishedResolution('getEntityRecords', ['postType', postType, query]),
+                };
+            },
+            [searchTerm, page, metaValue],
+        );
+
+        useEffect(() => {
+            if (hasResolvedPosts && posts) {
+                if (page === 1) {
+                    setAllPosts(posts);
+                } else {
+                    setAllPosts((prevPosts) => [...prevPosts, ...posts]);
+                }
+            }
+        }, [posts, hasResolvedPosts]);
+
+        useEffect(() => {
+            setPage(1);
+        }, [searchTerm]);
+
+        if (!hasResolvedPosts && page === 1) {
+            return el(Spinner);
+        }
+
+        if (!allPosts.length) {
+            return el('div', {}, __('No results', 'wordpressfoundation'));
+        }
+
+        const options = allPosts.map((post) => {
+            return {
+                label: sprintf(__('%s', 'wordpressfoundation'), decodeEntities(post.title.rendered)),
+                value: String(post.id),
+                isChecked: includes(metaValue, String(post.id)),
+            };
+        });
+
+        function onChange(index) {
+            const updatedMetaValue = [...metaValue];
+            const value = String(options[index].value);
+
+            if (includes(updatedMetaValue, value)) {
+                const valueIndex = updatedMetaValue.indexOf(value);
+                updatedMetaValue.splice(valueIndex, 1);
+            } else {
+                updatedMetaValue.push(value);
+            }
+
+            setMetaValue(updatedMetaValue);
+        }
+
+        const checkboxes = options.map((option, index) => {
+            return el(CheckboxControl, {
+                onChange: () => onChange(index),
+                label: option.label,
+                key: option.value,
+                checked: option.isChecked,
+            });
+        });
+
+        return el(
+            'div',
+            {},
+            checkboxes,
+            posts &&
+                totalPages &&
+                page < totalPages &&
+                el(
+                    Button,
+                    {
+                        isSecondary: true,
+                        onClick: () => setPage(page + 1),
+                        disabled: isLoading, // ローディング中はボタンを無効化
+                    },
+                    isLoading ? __('Loading...', 'wordpressfoundation') : __('Load More', 'wordpressfoundation'),
+                ),
+        );
+    };
+
+    const MetaPostsSelectControl = (props) => {
+        const [searchTerm, setSearchTerm] = useState('');
+        const [allPosts, setAllPosts] = useState([]);
+
+        const tokens = props.metaValue.map((id) => {
+            const post = allPosts.find((p) => p.id === Number(id));
+            return post ? decodeEntities(post.title.rendered) : id;
+        });
+
+        return el(
+            'div',
+            {},
+            el(FormTokenField, {
+                label: __('追加済みの項目', 'wordpressfoundation'),
+                value: tokens,
+                displayTransform: (token) => {
+                    if (!isNaN(token)) {
+                        const post = select('core').getEntityRecord('postType', props.postType, token);
+                        return post ? decodeEntities(post.title.rendered) : token;
+                    }
+                    return token;
+                },
+                onChange: (values) => {
+                    const updatedMetaValue = props.metaValue
+                        .filter((id) => {
+                            const post = allPosts.find((p) => p.id === Number(id));
+                            return post ? values.includes(decodeEntities(post.title.rendered)) : false;
+                        })
+                        .concat(values.filter((value) => !allPosts.some((p) => decodeEntities(p.title.rendered) === value)).map(String));
+                    props.setMetaValue(updatedMetaValue);
+                },
+                __experimentalShowHowTo: false,
+                __experimentalExpandOnFocus: true,
+            }),
+            el(SearchControl, {
+                label: __('Search Pages', 'wordpressfoundation'),
+                value: searchTerm,
+                onChange: (value) => setSearchTerm(value),
+            }),
+            el(
+                'div',
+                {
+                    className: 'editor-post-taxonomies__hierarchical-terms-list',
+                    style: {
+                        marginBlockStart: '0px',
+                    },
+                },
+                el(PostsList, {
+                    postType: props.postType,
+                    orderby: 'orderby' in props ? props.orderby : 'date',
+                    order: 'order' in props ? props.order : 'desc',
+                    searchTerm: searchTerm,
+                    metaValue: props.metaValue,
+                    setMetaValue: props.setMetaValue,
+                    allPosts: allPosts,
+                    setAllPosts: setAllPosts,
+                }),
+            ),
+        );
+    };
+
+    const MetaPostsSelectControlWrapper = compose.compose(
+        withDispatch((dispatch, props) => {
+            return {
+                setMetaValue: (metaValue) => {
+                    dispatch('core/editor').editPost({
+                        meta: { [props.metaKey]: metaValue },
+                    });
+                },
+            };
+        }),
+        withSelect((select, props) => {
+            return {
+                metaValue: select('core/editor').getEditedPostAttribute('meta')[props.metaKey] || [],
+            };
+        }),
+    )(MetaPostsSelectControl);
+
+    registerPlugin('related-members', {
+        icon: false,
+        render: () => {
+            const postType = select('core/editor').getCurrentPostType();
+            if (!includes(['post', 'project'], postType)) {
+                return el(Fragment, {});
+            }
+            return el(
+                Fragment,
+                {},
+                el(
+                    PluginDocumentSettingPanel,
+                    {
+                        name: 'related-members',
+                        icon: false,
+                        title: __('関連メンバー', 'wordpressfoundation'),
+                    },
+                    el(MetaPostsSelectControlWrapper, {
+                        postType: 'member',
+                        metaKey: '_wpf_related_members',
+                        orderby: 'title',
+                        order: 'asc',
+                        title: __('メンバーを検索', 'wordpressfoundation'),
+                    }),
                 ),
             );
         },

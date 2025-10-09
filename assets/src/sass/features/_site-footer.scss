@@ -19,12 +19,12 @@
 
 .footer-nav-primary > .navigation__list {
     display: grid;
-    grid-template-columns: 2.5fr 2.5fr 2.5fr 2.5fr 1fr 1fr 1fr;
+    grid-template-columns: 2.5fr 2.5fr 2.5fr 2.5fr 1.2fr 1.2fr 1.2fr;
 }
 
 /* 最後以外の全アイテムにデフォルト30px */
 .footer-nav-primary > .navigation__list > * {
-    margin-inline-end: fd(64, 96);
+    margin-inline-end: fd(48, 64);
 }
 
 /* 4番目以降のアイテムは10pxに上書き */

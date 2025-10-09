@@ -455,16 +455,17 @@ class WPF_Template_Functions {
 			'member_cat',
 			'member',
 			array(
-				'hierarchical'      => true,
-				'rewrite'           => array(
+				'hierarchical'       => true,
+				'rewrite'            => array(
 					'slug'         => 'member/category',
 					'with_front'   => false,
 					'hierarchical' => true,
 				),
-				'public'            => true,
-				'show_ui'           => true,
-				'show_admin_column' => true,
-				'show_in_rest'      => true,
+				'public'             => true,
+				'publicly_queryable' => false,
+				'show_ui'            => true,
+				'show_admin_column'  => true,
+				'show_in_rest'       => true,
 			)
 		);
 
@@ -849,6 +850,30 @@ class WPF_Template_Functions {
 			);
 		}
 		$obj['_wpf_pickup_flag'] = $data;
+
+		// `_wpf_related_members` メタをパブリック投稿タイプに登録
+		$object_type = 'post';
+		$data        = array( $object_type => array() );
+		foreach ( $post_types as $post_type ) {
+			$data[ $object_type ][] = array(
+				'object_subtype' => $post_type,
+				'type'           => 'array',
+				'default'        => '',
+				'single'         => true,
+				'show_in_rest'   => array(
+					'schema' => array(
+						'type'  => 'array',
+						'items' => array(
+							'type' => 'integer',
+						),
+					),
+				),
+				'auth_callback'  => function() {
+					return current_user_can( 'edit_posts' );
+				},
+			);
+		}
+		$obj['_wpf_related_members'] = $data;
 
 		// `_wpf_cover_media_id` メタをパブリック投稿タイプに登録
 		$object_type = 'post';

@@ -21,6 +21,7 @@ class WPF_Polylang_Functions {
 		'_wpf_show_toc',
 		'_wpf_hide_search_engine',
 		'_wpf_schema_type',
+		'_wpf_related_members',
 		'_wpf_pickup_flag',
 		// SCFの `smart-cf-repeat-multiple-data` メタデータを同期する
 		// SCFは 繰り返し可能カスタムフィールドの子フィールドに複数の値を持てるフィールド（配列型）が含まれる場合、
@@ -60,6 +61,44 @@ class WPF_Polylang_Functions {
 		add_filter( 'pll_copy_post_metas', array( $this, 'pll_copy_post_metas' ), 10, 1 );
 		add_filter( 'pll_copy_term_metas', array( $this, 'pll_copy_term_metas' ), 10, 1 );
 		add_filter( 'pll_post_metas_to_export', array( $this, 'export_post_metas' ), 10 );
+		add_filter( 'pll_translate_post_meta', array( $this, 'translate_post_meta' ), 10, 3 );
+	}
+
+	/**
+	 * 言語間で同期する投稿メタを翻訳する。
+	 * 投稿IDを保存するメタデータなど、言語ごとに値が異なる投稿メタを翻訳する。
+	 *
+	 * @param string $value メタ値。
+	 * @param string $key メタキー。
+	 * @param string $lang 対象投稿の言語スラッグ。
+	 * @return string
+	 */
+	public static function translate_post_meta( $value, $key, $lang ) {
+		// 投稿から選択するタイプのメタデータで、かつサブ言語と同期するものは、サブ言語版の投稿が選択されるようにする
+		if ( in_array(
+			$key,
+			array(
+				'_wpf_related_members',
+			),
+			true
+		) ) {
+			if ( is_array( $value ) ) {
+				$tr_post_ids = array();
+
+				foreach ( $value as $post_id ) {
+					$tr_post_id = pll_get_post( $post_id, $lang );
+					array_push( $tr_post_ids, (string) $tr_post_id );
+				}
+
+				if ( ! empty( $tr_post_ids ) ) {
+					$value = $tr_post_ids;
+				}
+			} elseif ( is_string( $value ) ) {
+				$value = (string) pll_get_post( $value, $lang );
+			}
+		}
+
+		return $value;
 	}
 
 	/**

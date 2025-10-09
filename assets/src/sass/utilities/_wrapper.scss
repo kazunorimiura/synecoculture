@@ -28,6 +28,10 @@
     @media screen and (min-width: em(map.get($breakpoints, md))) {
         padding-inline: var(--wrapper-gutter, var(--site-gutter-wide));
     }
+
+    > * {
+        max-width: var(--max-width, var(--width-wide));
+    }
 }
 
 %wrapper\:stretch {
@@ -42,6 +46,10 @@
     @extend %wrapper\:base;
 
     padding-inline: var(--wrapper-gutter, var(--site-gutter-slat));
+
+    > * {
+        max-width: var(--max-width, 100%);
+    }
 }
 
 .wrapper {

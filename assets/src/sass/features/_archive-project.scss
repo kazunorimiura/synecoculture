@@ -55,6 +55,16 @@
     box-shadow: 0 1px 3px rgb(0 0 0 / 25%);
 }
 
+[data-site-theme="dark"] .archive-project__item {
+    border: 1px solid var(--color-border-opaque);
+}
+
+@media (prefers-color-scheme: dark) {
+    .archive-project__item {
+        border: 1px solid var(--color-border-opaque);
+    }
+}
+
 .archive-project__item__inner {
     display: flex;
     flex-direction: column-reverse;

@@ -39,6 +39,8 @@ class LottieButtonController {
         this.animationID = null;
 
         this.container = document.querySelector(this.options.containerSelector);
+        if (!this.container) return;
+
         this.buttons = document.querySelectorAll(this.options.buttonsSelector);
         this.buttonsContainer = this.options.buttonsContainerSelector ? document.querySelector(this.options.buttonsContainerSelector) : this.buttons.length > 0 ? this.buttons[0].parentElement : null;
 

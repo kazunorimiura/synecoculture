@@ -1069,21 +1069,15 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 									?>
 								</div>
 
-								<?php
-								if ( has_post_thumbnail() ) {
-									?>
-									<div class="featured-projects__item__thumbnail-container">
-										<a 
-											class="d-flex jc-center frame radius featured-projects__item__thumbnail" 
-											href="<?php the_permalink(); ?>" 
-											aria-hidden="true"
-											tabindex="-1">
-											<?php WPF_Template_Tags::the_image( get_post_thumbnail_id() ); ?>
-										</a>
-									</div>
-									<?php
-								}
-								?>
+								<div class="featured-projects__item__thumbnail-container">
+									<a 
+										class="d-flex jc-center frame radius featured-projects__item__thumbnail" 
+										href="<?php the_permalink(); ?>" 
+										aria-hidden="true"
+										tabindex="-1">
+										<?php WPF_Template_Tags::the_image( get_post_thumbnail_id() ); ?>
+									</a>
+								</div>
 							</div>
 						</div>
 						<?php
@@ -1467,84 +1461,115 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 
 			$news_page = get_page_by_path( 'news' );
 
+			$query = new WP_Query(
+				array(
+					'post_type'      => 'post',
+					'posts_per_page' => 8,
+				)
+			);
+
 			ob_start();
-			if ( $news_page && ! empty( $heading ) && ! empty( $body ) ) {
-				$news_page_id = $news_page->ID;
-				if ( function_exists( 'pll_get_post' ) ) {
-					$news_page_id = pll_get_post( $news_page_id );
+			if ( $query->have_posts() ) {
+				if ( $news_page && ! empty( $heading ) && ! empty( $body ) ) {
+					$news_page_id = $news_page->ID;
+					if ( function_exists( 'pll_get_post' ) ) {
+						$news_page_id = pll_get_post( $news_page_id );
 
-					if ( $news_page->ID !== $news_page_id ) {
-						$news_page = get_post( $news_page_id );
+						if ( $news_page->ID !== $news_page_id ) {
+							$news_page = get_post( $news_page_id );
+						}
 					}
-				}
-				$permalink = get_permalink( $news_page->ID );
-				?>
-				<div class="news-slider-container">
-					<div class="news-slider">
-						<div class="news-slider__header-container">
-							<div class="news-slider__header">
-								<div class="news-slider__header__overline syneco-overline">
-									<div class="syneco-overline__icon">
-										<?php echo WPF_Icons::get_svg( 'ui', 'syneco', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-									</div>
-									<div class="syneco-overline__text">Information</div>
-								</div>
-
-								<div class="news-slider__header__main">
-									<?php
-									if ( ! empty( $heading ) ) {
-										?>
-										<h2 class="news-slider__header__heading">
-											<?php echo wp_kses_post( $heading ); // 見出しを出力 ?>
-										</h2>
-										<?php
-									}
-									?>
-
-									<?php
-									if ( ! empty( $body ) ) {
-										?>
-										<div class="news-slider__header__body prose">
-											<?php echo wp_kses_post( $body ); // 本文を出力 ?>
+					$permalink = get_permalink( $news_page->ID );
+					?>
+					<div class="news-slider-container">
+						<div class="news-slider">
+							<div class="news-slider__header-container">
+								<div class="news-slider__header">
+									<div class="news-slider__header__overline syneco-overline">
+										<div class="syneco-overline__icon">
+											<?php echo WPF_Icons::get_svg( 'ui', 'syneco', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 										</div>
+										<div class="syneco-overline__text">Information</div>
+									</div>
+
+									<div class="news-slider__header__main">
 										<?php
-									}
-									?>
+										if ( ! empty( $heading ) ) {
+											?>
+											<h2 class="news-slider__header__heading">
+												<?php echo wp_kses_post( $heading ); // 見出しを出力 ?>
+											</h2>
+											<?php
+										}
+										?>
+
+										<?php
+										if ( ! empty( $body ) ) {
+											?>
+											<div class="news-slider__header__body prose">
+												<?php echo wp_kses_post( $body ); // 本文を出力 ?>
+											</div>
+											<?php
+										}
+										?>
+									</div>
 								</div>
 							</div>
-						</div>
 
-						<div class="news-slider__main-container">
-							<div id="newsSlider" class="news-slider__main swiper">
-								<div class="news-slides swiper-wrapper">
-									<div class="news-slide swiper-slide">Slide 1</div>
-									<div class="news-slide swiper-slide">Slide 2</div>
-									<div class="news-slide swiper-slide">Slide 3</div>
-									<div class="news-slide swiper-slide">Slide 4</div>
-									<div class="news-slide swiper-slide">Slide 5</div>
-									<div class="news-slide swiper-slide">Slide 6</div>
-									<div class="news-slide swiper-slide">Slide 7</div>
-								</div>
+							<div class="news-slider__main-container">
+								<div id="newsSlider" class="news-slider__main swiper">
+									<div class="news-slides swiper-wrapper">
+										<?php
+										while ( $query->have_posts() ) {
+											$query->the_post();
+											?>
+											<div class="news-slide swiper-slide">
+												<div class="news-slide__item">
+													<div class="news-slide__item__main">
+														<div class="news-slide__item__title">
+															<?php the_title(); ?>
+														</div>
 
-								<div class="news-slider__footer">
-									<div class="news-slider-nav">
-										<button class="news-slider-nav-prev">
-											<span class="screen-reader-text"><?php echo esc_html_e( '前へ', 'wordpressfoundation' ); ?></span>
-										</button>
-										<button class="news-slider-nav-next">
-											<span class="screen-reader-text"><?php echo esc_html_e( '次へ', 'wordpressfoundation' ); ?></span>
-										</button >
+														<div class="news-slide__item__date">
+															<?php echo WPF_Template_Tags::get_the_publish_date_tag(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+														</div>
+													</div>
+
+													<a 
+														class="news-slide__item__thumbnail frame" 
+														href="<?php the_permalink(); ?>" 
+														aria-hidden="true"
+														tabindex="-1">
+														<?php WPF_Template_Tags::the_image( get_post_thumbnail_id() ); ?>
+													</a>
+												</div>
+											</div>
+											<?php
+										}
+										wp_reset_postdata();
+										?>
 									</div>
 
-									<div class="news-slider-cta">
-										<a href="<?php echo esc_url( $permalink ); ?>" class="button:primary">View All</a>
+									<div class="news-slider__footer">
+										<div class="news-slider-nav">
+											<button class="news-slider-nav-prev">
+												<span class="screen-reader-text"><?php echo esc_html_e( '前へ', 'wordpressfoundation' ); ?></span>
+											</button>
+											<button class="news-slider-nav-next">
+												<span class="screen-reader-text"><?php echo esc_html_e( '次へ', 'wordpressfoundation' ); ?></span>
+											</button >
+										</div>
+
+										<div class="news-slider-cta">
+											<a href="<?php echo esc_url( $permalink ); ?>" class="button:primary">View All</a>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<?php
+					<?php
+				}
 			}
 			return ob_get_clean();
 		}
