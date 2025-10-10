@@ -139,7 +139,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 											?>
 											<div class="syneco-slider__item swiper-slide">
 												<div class="syneco-slider__item-image">
-													<?php echo WPF_Template_Tags::kses_post( $slide_image ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+													<?php echo $slide_image; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 												</div>
 
 												<?php
@@ -266,7 +266,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 							?>
 							<div class="our-story__item our-story__item--img1">
 								<div class="frame">
-									<?php echo WPF_Template_Tags::kses_post( $image_1 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+									<?php echo $image_1; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 								</div>
 							</div>
 							<?php
@@ -307,7 +307,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 							?>
 							<div class="our-story__item our-story__item--img2">
 								<div class="frame">
-									<?php echo WPF_Template_Tags::kses_post( $image_2 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+									<?php echo $image_2; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 								</div>
 							</div>
 							<?php
@@ -325,7 +325,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 							?>
 							<div class="our-story__item our-story__item--img3">
 								<div class="frame">
-									<?php echo WPF_Template_Tags::kses_post( $image_3 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+									<?php echo $image_3; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 								</div>
 							</div>
 							<?php
@@ -387,7 +387,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 								if ( ! empty( $cover_image ) ) {
 									?>
 									<div class="our-approach__cover-image">
-										<?php echo WPF_Template_Tags::kses_post( $cover_image ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+										<?php echo $cover_image; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 									</div>
 									<?php
 								}
@@ -458,7 +458,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 														<div class="our-approach-benefit-item__icon">
 															<?php
 															// アイコン（SVG）を出力
-															echo WPF_Template_Tags::kses_post( $icon ); // phpcs:ignore WordPress.Security.EscapeOutput 
+															echo $icon; // phpcs:ignore WordPress.Security.EscapeOutput 
 															?>
 														</div>
 														<?php
@@ -563,7 +563,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 												if ( ! empty( $image ) ) {
 													?>
 													<div class="our-approach-strategies-item__bg-image">
-														<?php echo wp_kses_post( $image ); // 背景画像を出力 ?>
+														<?php echo $image; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 													</div>
 													<?php
 												}
@@ -629,7 +629,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 									if ( ! empty( $cover_image ) ) {
 										?>
 										<div class="our-purpose__cover-image">
-											<?php echo WPF_Template_Tags::kses_post( $cover_image ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+											<?php echo $cover_image; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 										</div>
 										<?php
 									}
@@ -875,7 +875,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 											<div class="our-initiatives__item__icon">
 												<?php
 												// アイコン（SVG）を出力
-												echo WPF_Template_Tags::kses_post( $icon ); // phpcs:ignore WordPress.Security.EscapeOutput 
+												echo $icon; // phpcs:ignore WordPress.Security.EscapeOutput 
 												?>
 											</div>
 											<?php
@@ -1256,7 +1256,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 										);
 										?>
 										<div class="dive-into-synecoculture__learn__image frame">
-											<?php echo wp_kses_post( $thumbnail ); // アイキャッチを出力 ?>
+											<?php echo $thumbnail; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 										</div>
 										<?php
 									}
@@ -1397,7 +1397,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 							if ( ! empty( $blog_logo ) ) {
 								?>
 								<div class="blog-banner__blog-logo">
-									<?php echo WPF_Template_Tags::kses_post( $blog_logo ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+									<?php echo $blog_logo; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 								</div>
 								<?php
 							}
@@ -1429,7 +1429,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 							if ( ! empty( $bg_image ) ) {
 								?>
 								<div class="blog-banner__bg-image">
-									<?php echo WPF_Template_Tags::kses_post( $bg_image ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+									<?php echo $bg_image; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 								</div>
 								<?php
 							}

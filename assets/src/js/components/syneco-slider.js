@@ -5,6 +5,11 @@ import { debounce } from '../utils/debounce';
 class synecoSlider {
     constructor(el) {
         this.el = el;
+        if (!this.el) return;
+
+        this.defaultMaxWidth = window.getComputedStyle(this.el).getPropertyValue('max-width');
+        this.siteHeaderEl = document.querySelector('.site-header');
+        this.calcSize();
 
         this.timer = null;
 
@@ -93,7 +98,8 @@ class synecoSlider {
 
         this.setupPlayPauseButton(); // 再生・停止ボタンのセットアップ
 
-        window.addEventListener('resize', debounce(this.onResize.bind(this), 300));
+        this.resize = this.resize.bind(this);
+        window.addEventListener('resize', debounce(this.resize, 300));
     }
 
     setupPlayPauseButton() {
@@ -252,7 +258,21 @@ class synecoSlider {
         });
     }
 
-    onResize() {
+    calcSize() {
+        const height = this.el.offsetHeight;
+        const viewportHeight = window.innerHeight - this.siteHeaderEl.clientHeight * 2;
+
+        if (viewportHeight <= height) {
+            this.el.style.maxWidth = `${viewportHeight}px`;
+        } else {
+            this.el.style.maxWidth = this.defaultMaxWidth;
+        }
+
+        return height;
+    }
+
+    resize() {
+        this.calcSize();
         this.swiperResize;
     }
 

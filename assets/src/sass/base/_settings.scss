@@ -193,6 +193,7 @@ $max-viewport: map.get(config.$viewport, max);
 /// @param {number} $min-viewport [$min-viewport] 最小ビューポートサイズ
 /// @param {number} $max-viewport [$max-viewport] 最大ビューポートサイズ
 /// @param {number} $remove-max [false] 最大ビューポートサイズを超えても流体サイジングを継続するか
+/// @param {number} $force-unit [false] 値の単位の使用を強制するか（px単位のみ対象）。デフォルトはしない
 /// @return {number}
 /// @example
 ///     fd(16px, 24px)
@@ -202,7 +203,7 @@ $max-viewport: map.get(config.$viewport, max);
 ///     min(max(1rem, calc(1rem + (1.5 - 1) * ((100vw - 23.4375rem) / (90 - 23.4375)))), 1.5rem)
 ///     min(max(1em, calc(1em + (1.5 - 1) * ((100vw - 23.4375em) / (90 - 23.4375)))), 1.5em)
 ///     max(1rem, calc(1rem + (1.5 - 1) * ((100vw - 23.4375rem) / (90 - 23.4375))))
-@function fd($min-value, $max-value, $min-viewport: $min-viewport, $max-viewport: $max-viewport, $remove-max: false) {
+@function fd($min-value, $max-value, $min-viewport: $min-viewport, $max-viewport: $max-viewport, $remove-max: false, $force-unit: false) {
     @if $min-value == $max-value {
         @return $max-value;
     }
@@ -211,8 +212,8 @@ $max-viewport: map.get(config.$viewport, max);
     $max-viewport: strip-unit($max-viewport);
     $unit: math.unit($min-value);
 
-    // 最小・最大サイズがpxの場合、rem値に変換
-    @if "px" == $unit {
+    // 単位（pxのみ対象）強制の無効、かつ最小・最大サイズがpxの場合、rem値に変換
+    @if false == $force-unit and "px" == $unit {
         $min-value: strip-unit($min-value);
         $max-value: strip-unit($max-value);
         $min-value: rem($min-value);

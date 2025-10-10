@@ -11,6 +11,7 @@ import { createAccordion } from './components/accordion';
 import { createSynecoSlider } from './components/syneco-slider';
 import { createNewsSlider } from './components/news-slider';
 import { createTrilemmaImage } from './components/trilemma-image';
+import { createFeaturedProjects } from './components/featured-projects';
 
 class App {
     constructor() {
@@ -86,6 +87,8 @@ class App {
         createSynecoSlider();
 
         createNewsSlider();
+
+        createFeaturedProjects();
 
         // 埋め込み動画をレスポンシブ化
         this.intrinsicRatioVideos = new IntrinsicRatioVideos();
