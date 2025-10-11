@@ -231,6 +231,12 @@ class WPF_Template_Functions {
 
 		// body 要素に class 属性を追加する。
 		add_filter( 'body_class', array( $this, 'body_class' ), 10, 1 );
+
+		// タームオーダーに基づいて`member`投稿のメニューオーダーを設定
+		add_action( 'save_post', array( $this, 'save_post_update_member_menu_order_by_term_order' ), 10, 3 );
+
+		// `member_cat` タクソノミータームを更新した時に `_wpf_term_order` 値に基づいてメンバーの `menu_order' を更新
+		add_action( 'saved_term', array( $this, 'save_term_update_member_menu_order_by_term_order' ), 11, 5 );
 	}
 
 	/**
@@ -563,7 +569,7 @@ class WPF_Template_Functions {
 					'singular_name' => _x( 'ブログ', 'blog', 'wordpressfoundation' ),
 				),
 				'public'        => true,
-				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'comments', 'revisions', 'post-formats' ),
+				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'comments', 'page-attributes' ),
 				'menu_position' => 5,
 				'rewrite'       => array(
 					'with_front' => false,
@@ -585,7 +591,7 @@ class WPF_Template_Functions {
 					'singular_name' => _x( '研究・活動', 'project', 'wordpressfoundation' ),
 				),
 				'public'        => true,
-				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'comments', 'revisions', 'post-formats' ),
+				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes' ),
 				'menu_position' => 5,
 				'rewrite'       => array(
 					'slug'       => 'projects',
@@ -608,7 +614,7 @@ class WPF_Template_Functions {
 					'singular_name' => _x( '実践事例', 'case-study', 'wordpressfoundation' ),
 				),
 				'public'        => true,
-				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'comments', 'revisions', 'post-formats' ),
+				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes' ),
 				'menu_position' => 5,
 				'rewrite'       => array(
 					'slug'       => 'case-studies',
@@ -631,7 +637,7 @@ class WPF_Template_Functions {
 					'singular_name' => _x( 'メンバー', 'member', 'wordpressfoundation' ),
 				),
 				'public'        => true,
-				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'comments', 'revisions', 'post-formats' ),
+				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes' ),
 				'menu_position' => 5,
 				'rewrite'       => array(
 					'slug'       => 'members',
@@ -654,7 +660,7 @@ class WPF_Template_Functions {
 					'singular_name' => _x( '用語集', 'glossary', 'wordpressfoundation' ),
 				),
 				'public'        => true,
-				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'comments', 'revisions', 'post-formats' ),
+				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes' ),
 				'menu_position' => 5,
 				'rewrite'       => array(
 					'slug'       => 'glossarys',
@@ -677,7 +683,7 @@ class WPF_Template_Functions {
 					'singular_name' => _x( '採用情報', 'career', 'wordpressfoundation' ),
 				),
 				'public'        => true,
-				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'comments', 'revisions', 'post-formats' ),
+				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes' ),
 				'menu_position' => 5,
 				'rewrite'       => array(
 					'slug'       => 'careers',
@@ -2186,5 +2192,117 @@ class WPF_Template_Functions {
 	 */
 	public static function body_class( $classes ) {
 		return $classes;
+	}
+
+	/**
+	 * タームオーダーに基づいて`member`投稿のメニューオーダーを設定
+	 *
+	 * @param int     $post_id 投稿ID
+	 * @param WP_Post $post 投稿オブジェクト
+	 * @param bool    $update 既存の投稿が更新されているかどうか
+	 * @return void
+	 */
+	public function save_post_update_member_menu_order_by_term_order( $post_id, $post, $update ) {
+		// 自動保存の場合はスキップ
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+
+		// リビジョンの場合はスキップ
+		if ( wp_is_post_revision( $post_id ) ) {
+			return;
+		}
+
+		// 投稿タイプをチェック
+		if ( ! in_array( $post->post_type, array( 'member' ), true ) ) {
+			return;
+		}
+
+		// 投稿に紐づくタームのIDを取得
+		$terms = wp_get_post_terms( $post_id, 'member_cat', array( 'fields' => 'ids' ) );
+
+		if ( is_wp_error( $terms ) || empty( $terms ) ) {
+			return;
+		}
+
+		$orders = array();
+
+		// 各タームとその祖先の_wpf_term_orderの合計を計算
+		foreach ( $terms as $term_id ) {
+			$term_name = get_term( $term_id, 'member_cat' );
+			$order     = (int) get_term_meta( $term_id, '_wpf_term_order', true );
+			$orders[]  = $order;
+		}
+
+		// 最小のorder値を取得
+		$min_order = min( $orders );
+
+		// メニューオーダーを更新
+		// 無限ループを防ぐためにアクションを一時的に削除
+		remove_action( 'save_post', array( $this, 'save_post_update_member_menu_order_by_term_order' ), 10, 3 );
+		wp_update_post(
+			array(
+				'ID'         => $post_id,
+				'menu_order' => $min_order,
+			)
+		);
+		add_action( 'save_post', array( $this, 'save_post_update_member_menu_order_by_term_order' ), 10, 3 );
+	}
+
+	/**
+	 * `member_cat` タクソノミータームを更新した時に `_wpf_term_order` 値に基づいてメンバーの `menu_order' を更新
+	 *
+	 * @param int    $term_id タームID。
+	 * @param int    $tt_id タームタクソノミーID。
+	 * @param string $taxonomy タクソノミー名。
+	 * @param bool   $update 既存のタームが更新されているかどうか。
+	 * @param array  $args wp_insert_term() に渡される引数。
+	 * @return void
+	 */
+	public function save_term_update_member_menu_order_by_term_order( $term_id, $tt_id, $taxonomy, $update, $args ) {
+		if ( 'member_cat' === $taxonomy ) {
+			global $wpdb;
+
+			$query_args = array(
+				'post_type'      => array( 'member' ),
+				'posts_per_page' => -1,
+				'tax_query'      => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+					array(
+						'taxonomy'         => $taxonomy,
+						'field'            => 'term_id',
+						'terms'            => $term_id,
+						'include_children' => false,
+					),
+				),
+			);
+			$query      = new WP_Query( $query_args );
+			if ( $query->have_posts() ) {
+				while ( $query->have_posts() ) {
+					$query->the_post();
+
+					global $post;
+
+					$terms  = get_the_terms( $post->ID, $taxonomy );
+					$orders = array();
+					foreach ( $terms as $term ) {
+						$order        = 0;
+						$ancestor_ids = get_ancestors( $term->term_id, $taxonomy );
+						if ( ! empty( $ancestor_ids ) ) {
+							foreach ( $ancestor_ids as $ancestor_id ) {
+								$ancestor_term = get_term( $ancestor_id, $taxonomy );
+								$order        += (int) $ancestor_term->order;
+							}
+						}
+						$order += (int) $term->order;
+						array_push( $orders, $order );
+					}
+
+					$min_order = min( $orders );
+
+					$wpdb->update( $wpdb->posts, array( 'menu_order' => $min_order ), array( 'ID' => $post->ID ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+				}
+				wp_reset_postdata();
+			}
+		}
 	}
 }

@@ -32,6 +32,9 @@ $wpf_template_tags = new WPF_Template_Tags();
  * 拡張
  */
 
+// タクソノミーに順序フィールドを追加
+new WPF_Term_Order();
+
 // Polylangフレンドリーなカスタム投稿タイプパーマリンク。
 new WPF_CPT_Rewrite();
 new WPF_CPT_Permalink();

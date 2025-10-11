@@ -1,0 +1,41 @@
+@use "sass:map";
+@use "../config";
+@use "../base/settings" as *;
+
+.single-project .page-main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: fd(64, 128);
+    width: calc(100% - var(--site-gutter) * 2);
+    max-width: var(--width-wide);
+    margin-inline: auto;
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        flex-direction: column-reverse;
+        gap: fd(48, 128);
+    }
+}
+
+.single-project__sidebar {
+    flex-basis: fd(180, 249);
+    flex-grow: 1; // 1
+    min-width: 0; // 2
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        flex-basis: 100%;
+        padding-block-start: fd(48, 64);
+        border-top: 1px solid var(--color-border-opaque);
+    }
+}
+
+.single-project__sidebar > * + * {
+    margin-block-start: rem(32);
+}
+
+// 1. 非サイドバーの理想的な幅。「0」の場合は利用可能な幅を埋める
+// 2. 長いテキストが折り返されるようにする
+.single-project__main {
+    flex-basis: 0; // 1
+    flex-grow: 999; // 1
+    min-width: 0; // 2
+}

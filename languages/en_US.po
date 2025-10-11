@@ -280,3 +280,6 @@ msgstr "Play trilemma diagram animation"
 
 msgid "トリレンマ図のアニメーションを一時停止"
 msgstr "Pause trilemma diagram animation"
+
+msgid "%sのプロフィールページへ"
+msgstr "Go to %s's profile"

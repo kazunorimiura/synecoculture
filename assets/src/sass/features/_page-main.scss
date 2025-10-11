@@ -1,7 +1,10 @@
+@use "sass:map";
+@use "../config";
+@use "../base/settings" as *;
 @use "../utilities/region";
 
 .page-main {
     @extend %region;
 
-    --region-space: var(--space-s6);
+    --region-space: #{fd(64, 96)};
 }

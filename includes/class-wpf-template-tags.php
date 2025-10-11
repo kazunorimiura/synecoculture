@@ -544,7 +544,6 @@ class WPF_Template_Tags {
 		 * タクソノミーアーカイブなら、親タームをパンくずに追加し、現在のタームも追加する。
 		 */
 		if ( is_category() || is_tag() || is_tax() ) {
-
 			// ヒエラルキーがある場合、親タームを追加
 			if ( 0 !== $queried_object->parent ) {
 				$taxonomy = $queried_object->taxonomy;
@@ -599,33 +598,37 @@ class WPF_Template_Tags {
 				// 選択されているタームが複数taxにまたがる場合は、最初に登録されたtaxをメインとみなす。
 				$main_tax = $taxonomies[0];
 
-				// ヒエラルキーのあるtaxを大分類とみなし、それ以外は無視する。
-				if ( is_taxonomy_hierarchical( $main_tax ) ) {
-					$terms = get_the_terms( $queried_object->ID, $main_tax );
+				// publicly_queryableがfalseの場合（taxアーカイブを無効にしている場合）はスルー
+				$main_tax_obj = get_taxonomy( $main_tax );
+				if ( $main_tax_obj && $main_tax_obj->publicly_queryable ) {
+					// ヒエラルキーのあるtaxを大分類とみなし、それ以外は無視する
+					if ( is_taxonomy_hierarchical( $main_tax ) ) {
+						$terms = get_the_terms( $queried_object->ID, $main_tax );
 
-					if ( ! empty( $terms ) ) {
-						$main_term = $terms[0];
-						$parents   = get_ancestors( $main_term->term_id, $main_tax, 'taxonomy' );
+						if ( ! empty( $terms ) ) {
+							$main_term = $terms[0];
+							$parents   = get_ancestors( $main_term->term_id, $main_tax, 'taxonomy' );
 
-						foreach ( array_reverse( $parents ) as $term_id ) {
-							$parent = get_term( $term_id, $main_tax );
+							foreach ( array_reverse( $parents ) as $term_id ) {
+								$parent = get_term( $term_id, $main_tax );
 
-							$term_layer = array(
-								'text'  => $parent->name,
-								'link'  => get_term_link( $parent->term_id, $main_tax ),
-								'layer' => 'taxonomy',
-							);
-							array_push( $breadcrumbs, $term_layer );
-						}
+								$term_layer = array(
+									'text'  => $parent->name,
+									'link'  => get_term_link( $parent->term_id, $main_tax ),
+									'layer' => 'taxonomy',
+								);
+								array_push( $breadcrumbs, $term_layer );
+							}
 
-						// 「未分類」は除外
-						if ( 'uncategorized' !== $main_term->slug ) {
-							$term_layer = array(
-								'text'  => $main_term->name,
-								'link'  => get_term_link( $main_term->term_id, $main_tax ),
-								'layer' => 'taxonomy',
-							);
-							array_push( $breadcrumbs, $term_layer );
+							// 「未分類」は除外
+							if ( 'uncategorized' !== $main_term->slug ) {
+								$term_layer = array(
+									'text'  => $main_term->name,
+									'link'  => get_term_link( $main_term->term_id, $main_tax ),
+									'layer' => 'taxonomy',
+								);
+								array_push( $breadcrumbs, $term_layer );
+							}
 						}
 					}
 				}
@@ -972,6 +975,45 @@ class WPF_Template_Tags {
 	}
 
 	/**
+	 * 添付ファイルIDが存在する場合は img 要素、なければ no-image 画像を返す。
+	 *
+	 * @since 0.1.0
+	 * @param int          $image_id 画像ファイルID。
+	 * @param string|int[] $size 画像の大きさ。キーワードまたは数値（幅・高さの配列）。
+	 * @param boolean      $icon 画像ファイルを表すメディアアイコンを使用するかどうか。
+	 * @param string|array $attr img要素の属性。
+	 * @param boolean      $use_no_image 画像がない場合にno-image画像を使用するかどうか。
+	 * @return string|false 添付ファイルIDが存在する場合は img 要素、なければ no-image画像、それもなければ false を返す。
+	 */
+	public static function get_the_member_image( $image_id, $size = 'medium', $icon = false, $attr = array(), $use_no_image = true ) {
+		$image = false;
+
+		if ( $image_id ) {
+			$image = wp_get_attachment_image(
+				$image_id,
+				$size,
+				$icon,
+				$attr
+			);
+		} elseif ( $use_no_image ) {
+			$image = '<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_9691_28496)">
+            <rect width="500" height="500" fill="var(--color-background-disabled)"/>
+            <path d="M249.999 288.732C333.618 288.732 401.407 356.521 401.407 440.141C401.407 441.317 401.393 442.493 401.366 443.662L401.369 500H98.5901V443.662C98.573 442.881 98.5764 442.101 98.5833 441.317L98.5901 440.141C98.5901 356.521 166.379 288.733 249.999 288.732Z" fill="var(--color-content-disabled)"/>
+            <path d="M250 91.5493C294.727 91.5493 330.986 127.808 330.986 172.535C330.986 217.263 294.727 253.521 250 253.521C205.273 253.521 169.014 217.262 169.014 172.535C169.014 127.808 205.273 91.5494 250 91.5493Z" fill="var(--color-content-disabled)"/>
+            </g>
+            <defs>
+            <clipPath id="clip0_9691_28496">
+            <rect width="500" height="500" fill="var(--color-background-primary)"/>
+            </clipPath>
+            </defs>
+            </svg>';
+		}
+
+		return $image;
+	}
+
+	/**
 	 * {@see ::get_the_image} を出力する。
 	 *
 	 * @since 0.1.0
@@ -983,6 +1025,20 @@ class WPF_Template_Tags {
 	 */
 	public static function the_image( $image_id, $size = 'medium', $icon = false, $attr = array(), $use_no_image = true ) {
 		echo self::get_the_image( $image_id, $size, $icon, $attr, $use_no_image ); // phpcs:ignore WordPress.Security.EscapeOutput
+	}
+
+	/**
+	 * {@see ::get_the_member_image} を出力する。
+	 *
+	 * @since 0.1.0
+	 * @param int          $image_id 画像ファイルID。
+	 * @param string|int[] $size 画像の大きさ。キーワードまたは数値（幅・高さの配列）。
+	 * @param boolean      $icon 画像ファイルを表すメディアアイコンを使用するかどうか。
+	 * @param string|array $attr img要素の属性。
+	 * @param boolean      $use_no_image 画像がない場合にno-image画像を使用するかどうか。
+	 */
+	public static function the_member_image( $image_id, $size = 'medium', $icon = false, $attr = array(), $use_no_image = true ) {
+		echo self::get_the_member_image( $image_id, $size, $icon, $attr, $use_no_image ); // phpcs:ignore WordPress.Security.EscapeOutput
 	}
 
 	/**

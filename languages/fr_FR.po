@@ -272,3 +272,6 @@ msgstr "Lire l'animation du diagramme de trilemme"
 
 msgid "トリレンマ図のアニメーションを一時停止"
 msgstr "Mettre en pause l'animation du diagramme de trilemme"
+
+msgid "%sのプロフィールページへ"
+msgstr "Aller au profil de %s"
