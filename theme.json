@@ -19,8 +19,8 @@
                 "headline-6": "1.7777777778",
                 "article": "1.7777777778",
                 "text": "1.7777777778",
-                "text--sm": "1.6899346405",
-                "text--xs": "1.6106362773",
+                "text-sm": "1.6899346405",
+                "text-xs": "1.6106362773",
                 "tiny": "1.5386614685",
                 "sign": "1.2"
             },
@@ -35,8 +35,8 @@
                 "headline-6": "min(max(0.9375rem, calc(0.9375rem + (1 - 0.9375) * (100vw - 23.4375rem) / (108 - 23.4375))), 1rem)",
                 "article": "min(max(1.0227272727rem, calc(1.0227272727rem + (1.1428571429 - 1.0227272727) * (100vw - 23.4375rem) / (108 - 23.4375))), 1.1428571429rem)",
                 "text": "min(max(0.9375rem, calc(0.9375rem + (1 - 0.9375) * (100vw - 23.4375rem) / (108 - 23.4375))), 1rem)",
-                "text--sm": "min(max(0.8653846154rem, calc(0.8653846154rem + (0.8888888889 - 0.8653846154) * (100vw - 23.4375rem) / (108 - 23.4375))), 0.8888888889rem)",
-                "text--xs": "max(min(0.8035714286rem, calc(0.8035714286rem + (0.8 - 0.8035714286) * (100vw - 23.4375rem) / (108 - 23.4375))), 0.8rem)",
+                "text-sm": "min(max(0.8653846154rem, calc(0.8653846154rem + (0.8888888889 - 0.8653846154) * (100vw - 23.4375rem) / (108 - 23.4375))), 0.8888888889rem)",
+                "text-xs": "max(min(0.8035714286rem, calc(0.8035714286rem + (0.8 - 0.8035714286) * (100vw - 23.4375rem) / (108 - 23.4375))), 0.8rem)",
                 "tiny": "max(min(0.75rem, calc(0.75rem + (0.7272727273 - 0.75) * (100vw - 23.4375rem) / (108 - 23.4375))), 0.7272727273rem)"
             },
             "font-weight": {
@@ -383,13 +383,13 @@
                 },
                 {
                     "name": "Text Small",
-                    "size": "var(--wp--custom--font-size--text--sm)",
-                    "slug": "text--sm"
+                    "size": "var(--wp--custom--font-size--text-sm)",
+                    "slug": "text-sm"
                 },
                 {
                     "name": "Text Extra Small",
-                    "size": "var(--wp--custom--font-size--text--xs)",
-                    "slug": "text--xs"
+                    "size": "var(--wp--custom--font-size--text-xs)",
+                    "slug": "text-xs"
                 },
                 {
                     "name": "Tiny",

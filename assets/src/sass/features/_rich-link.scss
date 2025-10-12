@@ -1,0 +1,108 @@
+@use "sass:map";
+@use "sass:math";
+@use "../config";
+@use "../base/settings" as *;
+
+.rich-link {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: var(--radius);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 25%);
+}
+
+.rich-link,
+.rich-link:link,
+.rich-link:visited {
+    color: var(--color-content-primary);
+    text-decoration: none;
+}
+
+.rich-link[target="_blank"]::after {
+    display: none;
+}
+
+.rich-link__inner {
+    padding-block: fd(18, 48) fd(18, 48);
+    padding-inline: fd(18, 48) fd(12, 24);
+}
+
+.rich-link__main {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: fd(12, 48);
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rich-link__content > * + * {
+    margin-block-start: rem(4);
+}
+
+.rich-link__text {
+    // font-headline-3からfont-textへの流体サイジングに、line-height-headline-3の行高を掛けてpx値に変換
+    $min-lh-value: map.get($min-font-sizes, s0) * (math.div(math.max(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)) - math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)), 2) + math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4))) * 1px;
+    $max-lh-value: map.get($max-font-sizes, s2) * (math.div(math.max(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)) - math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)), 2) + math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4))) * 1px;
+
+    font-size: fd(rem(map.get($min-font-sizes, s0)), rem(map.get($max-font-sizes, s2)));
+    font-weight: var(--font-weight-bold);
+    line-height: fd($min-lh-value, $max-lh-value);
+}
+
+.rich-link__sub-text {
+    // font-text--smからfont-tinyへの流体サイジングに、line-height-text--smの行高を掛けてpx値に変換
+    $min-lh-value: map.get($min-font-sizes, s-3) * (math.div(math.max(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)) - math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)), 2) + math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4))) * 1px;
+    $max-lh-value: map.get($max-font-sizes, s-1) * (math.div(math.max(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)) - math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)), 2) + math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4))) * 1px;
+
+    font-size: fd(rem(map.get($min-font-sizes, s-3)), rem(map.get($max-font-sizes, s-1)));
+    font-weight: var(--font-weight-sign);
+    line-height: fd($min-lh-value, $max-lh-value);
+    color: var(--color-content-tertiary);
+}
+
+.rich-link__cta {
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+
+.rich-link__thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 33.3333%;
+    height: 100%;
+}
+
+.rich-link__thumbnail::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    content: "";
+    background-image: linear-gradient(270deg, var(--color-background-primary) 0%, rgb(255 255 255 / 54%) 100%);
+}
+
+[data-site-theme="dark"] .rich-link__thumbnail::before {
+    background-image: linear-gradient(270deg, var(--color-background-primary) 0%, rgb(0 0 0 / 54%) 100%);
+}
+
+@media (prefers-color-scheme: dark) {
+    .rich-link__thumbnail::before {
+        background-image: linear-gradient(270deg, var(--color-background-primary) 0%, rgb(0 0 0 / 54%) 100%);
+    }
+
+    [data-site-theme="light"] .rich-link__thumbnail::before {
+        background-image: linear-gradient(270deg, var(--color-background-primary) 0%, rgb(255 255 255 / 54%) 100%);
+    }
+}
+
+.rich-link__thumbnail > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

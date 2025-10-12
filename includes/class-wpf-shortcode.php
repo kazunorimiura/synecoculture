@@ -39,6 +39,10 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			add_shortcode( 'wpf_blog_banner', array( $this, 'blog_banner' ) );
 			add_shortcode( 'wpf_news_slider', array( $this, 'news_slider' ) );
 			add_shortcode( 'wpf_our_initiatives', array( $this, 'our_initiatives' ) );
+			add_shortcode( 'wpf_tiny_head', array( $this, 'tiny_head' ) );
+			add_shortcode( 'wpf_rich_link', array( $this, 'rich_link' ) );
+			add_shortcode( 'wpf_project_posts', array( $this, 'project_posts' ) );
+			add_shortcode( 'wpf_news_posts', array( $this, 'news_posts' ) );
 		}
 
 		/**
@@ -1570,6 +1574,583 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 					</div>
 					<?php
 				}
+			}
+			return ob_get_clean();
+		}
+
+		/**
+		 * 極小オーバーラインを出力するショートコード。
+		 * enterアイコン + 任意のテキストのオーバーラインテキストを出力する。
+		 *
+		 * @param array $atts ショートコード引数。
+		 * @return string
+		 */
+		public static function tiny_head( $atts ) {
+			// デフォルト引数と与えられた引数を結合する
+			$atts = shortcode_atts(
+				array(
+					'text' => __( 'さらに詳しく', 'wordpressfoundation' ),
+				),
+				$atts,
+				'wpf_tiny_head'
+			);
+
+			$text = $atts['text'];
+
+			ob_start();
+			if ( ! empty( $text ) ) {
+				?>
+				<div class="tiny-head">
+					<div class="tiny-head__icon">
+						<?php echo WPF_Icons::get_svg( 'ui', 'enter' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+					</div>
+					<div class="tiny-head__text">
+						<?php echo esc_html( $text ); ?>
+					</div>
+				</div>
+				<?php
+			}
+			return ob_get_clean();
+		}
+
+		/**
+		 * リッチリンクを出力するショートコード。
+		 * リンクをリッチなデザインで出力する。
+		 *
+		 * @param array $atts ショートコード引数。
+		 * @return string
+		 */
+		public static function rich_link( $atts ) {
+			// デフォルト引数と与えられた引数を結合する
+			$atts = shortcode_atts(
+				array(
+					'url'       => '',
+					'text'      => '',
+					'sub_text'  => '',
+					'image_url' => '',
+					'target'    => '_self',
+				),
+				$atts,
+				'wpf_rich_link'
+			);
+
+			$url       = self::strip( $atts['url'] );
+			$text      = $atts['text'];
+			$sub_text  = $atts['sub_text'];
+			$image_url = self::strip( $atts['image_url'] );
+			$target    = self::strip( $atts['target'] );
+
+			ob_start();
+			if ( ! empty( $url ) ) {
+				?>
+				<a class="rich-link" href="<?php echo esc_url( $url ); ?>" target="<?php echo esc_attr( $target ); ?>">
+					<div class="rich-link__inner">
+						<div class="rich-link__main">
+							<div class="rich-link__content">
+								<div class="rich-link__text">
+									<?php
+									if ( ! empty( $text ) ) {
+										echo esc_html( $text );
+									} else {
+										echo esc_url( $url );
+									}
+									?>
+								</div>
+
+								<div class="rich-link__sub-text">
+									<?php echo esc_html( $sub_text ); ?>
+								</div>
+							</div>
+
+							<div class="rich-link__cta button:tertiary:icon">
+								<span class="screen-reader-text">
+									<?php echo esc_html_e( 'さらに詳しく', 'wordpressfoundation' ); ?>
+								</span>
+								<?php
+								if ( '_blank' === $target ) {
+									echo WPF_Icons::get_svg( 'ui', 'arrow_upper_right' ); // phpcs:ignore WordPress.Security.EscapeOutput
+								} else {
+									echo WPF_Icons::get_svg( 'ui', 'arrow_right' ); // phpcs:ignore WordPress.Security.EscapeOutput
+								}
+								?>
+							</div>
+						</div>
+
+						<div class="rich-link__thumbnail">
+							<?php
+							if ( ! empty( $image_url ) ) {
+								$media_id = attachment_url_to_postid( $image_url );
+								if ( ! empty( $media_id ) ) {
+									WPF_Template_Tags::the_image( $media_id, 'medium' );
+								} else {
+									?>
+									<img src="<?php echo esc_url( $image_url ); ?>" alt="">
+									<?php
+								}
+							} else {
+								WPF_Template_Tags::the_image( 0, 'medium' );
+							}
+							?>
+						</div>
+					</div>
+				</a>
+				<?php
+			}
+			return ob_get_clean();
+		}
+
+		/**
+		 * `project`投稿タイプの投稿リストを出力するショートコード。
+		 *
+		 * @param array $atts ショートコード引数。
+		 * @return string
+		 */
+		public static function project_posts( $atts ) {
+			// デフォルト引数と与えられた引数を結合する
+			$atts = shortcode_atts(
+				array(
+					'heading_text' => '',
+					'body_text'    => '',
+					'per_page'     => 5,
+					'taxonomy'     => '',
+					'term'         => '',
+					'cta_link'     => '',
+					'cta_text'     => '',
+					'target'       => '_self',
+				),
+				$atts,
+				'wpf_project_posts'
+			);
+
+			// per_pageの値を検証（上限を100に設定）
+			$posts_per_page = intval( $atts['per_page'] );
+			if ( 100 < $posts_per_page ) {
+				$posts_per_page = 100; // 最大100件に制限
+			}
+
+			$args = array(
+				'post_type'      => 'project',
+				'posts_per_page' => $posts_per_page,
+				'post__not_in'   => array( get_the_ID() ),
+				'paged'          => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
+			);
+
+			// タクソノミーとタームが指定されている場合
+			if ( ! empty( $atts['taxonomy'] ) && ! empty( $atts['term'] ) ) {
+				$terms             = array_map( 'trim', explode( ',', $atts['term'] ) );
+				$args['tax_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+					array(
+						'taxonomy' => $atts['taxonomy'],
+						'field'    => 'slug',
+						'terms'    => $terms,
+					),
+				);
+			}
+
+			$query = new WP_Query( $args );
+
+			ob_start();
+			if ( $query->have_posts() ) {
+				?>
+				<?php
+				if ( ! empty( $atts['heading_text'] ) ) {
+					?>
+					<h2 class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></h2>
+					<?php
+				}
+				?>
+
+				<?php
+				if ( ! empty( $atts['body_text'] ) ) {
+					?>
+					<p><?php echo esc_html( $atts['body_text'] ); ?></p>
+					<?php
+				}
+				?>
+
+				<div class="project-posts">
+					<?php
+					while ( $query->have_posts() ) {
+						$query->the_post();
+
+						$cat_terms    = get_the_terms( get_the_ID(), 'project_cat' );
+						$domain_terms = get_the_terms( get_the_ID(), 'project_domain' );
+						?>
+						<div class="project-posts__item">
+							<div class="project-posts__item__inner">
+								<div class="project-posts__item__main">
+									<?php
+									if ( $cat_terms && ! is_wp_error( $cat_terms ) ) {
+										?>
+										<div class="project-posts__item__main-categories">
+											<?php
+											// 選択しているタームの最祖先を出力
+											foreach ( $cat_terms as $term ) {
+												// 祖先タームのIDを配列で取得（最も近い親から最上位の順）
+												$ancestors = get_ancestors( $term->term_id, 'project_cat', 'taxonomy' );
+
+												if ( ! empty( $ancestors ) ) {
+													// 配列の最後が最上位のターム
+													$top_parent_id   = end( $ancestors );
+													$top_parent      = get_term( $top_parent_id, 'project_cat' );
+													$top_parent_link = get_term_link( $top_parent );
+													?>
+													<a href="<?php echo esc_url( $top_parent_link ); ?>" class="project-posts__item__main-category pill">
+														<?php echo esc_html( $top_parent->name ); ?>
+													</a>
+													<?php
+												} else {
+													// 祖先がいない場合は自身が最上位
+													$term_link = get_term_link( $term->term_id );
+													?>
+													<a href="<?php echo esc_url( $term_link ); ?>" class="project-posts__item__main-category pill">
+														<?php echo esc_html( $term->name ); ?>
+													</a>
+													<?php
+												}
+											}
+											?>
+										</div>
+										<?php
+									}
+									?>
+
+									<a class="project-posts__item__title" href="<?php the_permalink(); ?>">
+										<?php the_title(); ?>
+									</a>
+
+									<?php
+									/**
+									 * 選択しているタームと領域タームを出力
+									 */
+									if ( ( $cat_terms && ! is_wp_error( $cat_terms ) ) || ( $domain_terms && ! is_wp_error( $domain_terms ) ) ) {
+										?>
+										<div class="project-posts__item__sub-categories">
+											<?php
+											if ( $cat_terms && ! is_wp_error( $cat_terms ) ) {
+												foreach ( $cat_terms as $term ) {
+													$term_link = get_term_link( $term->term_id );
+													?>
+													<a href="<?php echo esc_url( $term_link ); ?>" class="project-posts__item__sub-category pill-secondary">
+														<?php echo esc_html( $term->name ); ?>
+													</a>
+													<?php
+												}
+											}
+
+											if ( $domain_terms && ! is_wp_error( $domain_terms ) ) {
+												foreach ( $domain_terms as $term ) {
+													$term_link = get_term_link( $term->term_id );
+													?>
+													<a href="<?php echo esc_url( $term_link ); ?>" class="project-posts__item__sub-category pill-secondary">
+														<?php echo esc_html( $term->name ); ?>
+													</a>
+													<?php
+												}
+											}
+											?>
+										</div>
+										<?php
+									}
+									?>
+								</div>
+
+								<a href="<?php the_permalink(); ?>" class="project-posts__item__thubmnail frame" aria-hidden="true" tabindex="-1">
+									<?php WPF_Template_Tags::the_image( get_post_thumbnail_id(), 'medium' ); ?>
+								</a>
+							</div>
+						</div>
+						<?php
+					}
+					?>
+
+					<?php
+					if ( $query->max_num_pages > 1 ) {
+						$cta_link = $atts['cta_link'];
+						$cta_text = ! empty( $atts['cta_text'] ) ? $atts['cta_text'] : __( 'View All', 'wordpressfoundation' );
+						$target   = self::strip( $atts['target'] );
+						if ( ! empty( $cta_link ) ) {
+							?>
+							<div class="project-posts__cta">
+								<a class="button:secondary" href="<?php echo esc_url( $cta_link ); ?>" target="<?php echo esc_attr( $target ); ?>">
+									<?php echo esc_html( $cta_text ); ?>
+								</a>
+							</div>
+							<?php
+						}
+					}
+					wp_reset_postdata();
+					?>
+				</div>
+				<?php
+			}
+			return ob_get_clean();
+		}
+
+		/**
+		 * `post`投稿タイプの投稿リストを出力するショートコード。
+		 *
+		 * @param array $atts ショートコード引数。
+		 * @return string
+		 */
+		public static function news_posts( $atts ) {
+			// デフォルト引数と与えられた引数を結合する
+			$atts = shortcode_atts(
+				array(
+					'heading_text' => '',
+					'body_text'    => '',
+					'per_page'     => 5,
+					'taxonomy'     => '',
+					'term'         => '',
+					'cta_link'     => '',
+					'cta_text'     => '',
+					'target'       => '_self',
+				),
+				$atts,
+				'wpf_news_posts'
+			);
+
+			// per_pageの値を検証（上限を100に設定）
+			$posts_per_page = intval( $atts['per_page'] );
+			if ( 100 < $posts_per_page ) {
+				$posts_per_page = 100; // 最大100件に制限
+			}
+
+			$args = array(
+				'post_type'      => 'post',
+				'posts_per_page' => $posts_per_page,
+				'post__not_in'   => array( get_the_ID() ),
+				'paged'          => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
+			);
+
+			// タクソノミーとタームが指定されている場合
+			if ( ! empty( $atts['taxonomy'] ) && ! empty( $atts['term'] ) ) {
+				$terms             = array_map( 'trim', explode( ',', $atts['term'] ) );
+				$args['tax_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+					array(
+						'taxonomy' => $atts['taxonomy'],
+						'field'    => 'slug',
+						'terms'    => $terms,
+					),
+				);
+			}
+
+			$query = new WP_Query( $args );
+
+			ob_start();
+			if ( $query->have_posts() ) {
+				?>
+				<?php
+				if ( ! empty( $atts['heading_text'] ) ) {
+					?>
+					<h2 class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></h2>
+					<?php
+				}
+				?>
+
+				<?php
+				if ( ! empty( $atts['body_text'] ) ) {
+					?>
+					<p><?php echo esc_html( $atts['body_text'] ); ?></p>
+					<?php
+				}
+				?>
+
+				<div class="news-posts">
+					<?php
+					while ( $query->have_posts() ) {
+						$query->the_post();
+
+						$cat_terms    = get_the_terms( get_the_ID(), 'project_cat' );
+						$domain_terms = get_the_terms( get_the_ID(), 'project_domain' );
+						?>
+						<div class="news-posts__item">
+							<div class="news-posts__item__inner">
+								<div class="news-posts__item__main">
+									<?php
+									$wpf_terms = WPF_Utils::get_the_terms();
+									if ( ! empty( $wpf_terms ) && 'uncategorized' !== $wpf_terms[0]->slug ) {
+										?>
+										<div class="news-posts__item__main-categories">
+											<a href="<?php echo esc_url( get_term_link( $wpf_terms[0]->term_id, $wpf_terms[0]->taxonomy ) ); ?>" class="news-posts__item__main-category pill">
+												<?php echo esc_html( $wpf_terms[0]->name ); ?>
+											</a>
+										</div>
+										<?php
+									}
+									?>
+
+									<a class="news-posts__item__title" href="<?php the_permalink(); ?>">
+										<?php the_title(); ?>
+									</a>
+
+									<div class="news-posts__item__date">
+										<?php echo WPF_Template_Tags::get_the_publish_date_tag(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+									</div>
+								</div>
+
+								<a href="<?php the_permalink(); ?>" class="news-posts__item__thubmnail frame" aria-hidden="true" tabindex="-1">
+									<?php WPF_Template_Tags::the_image( get_post_thumbnail_id(), 'medium' ); ?>
+								</a>
+							</div>
+						</div>
+						<?php
+					}
+					?>
+
+					<?php
+					if ( $query->max_num_pages > 1 ) {
+						$cta_link = $atts['cta_link'];
+						$cta_text = ! empty( $atts['cta_text'] ) ? $atts['cta_text'] : __( 'View All', 'wordpressfoundation' );
+						$target   = self::strip( $atts['target'] );
+						if ( ! empty( $cta_link ) ) {
+							?>
+							<div class="news-posts__cta">
+								<a class="button:secondary" href="<?php echo esc_url( $cta_link ); ?>" target="<?php echo esc_attr( $target ); ?>">
+									<?php echo esc_html( $cta_text ); ?>
+								</a>
+							</div>
+							<?php
+						}
+					}
+					wp_reset_postdata();
+					?>
+				</div>
+				<?php
+			}
+			return ob_get_clean();
+		}
+
+		/**
+		 * `member`投稿タイプの投稿リストを出力するショートコード。
+		 *
+		 * @param array $atts ショートコード引数。
+		 * @return string
+		 */
+		public static function member_posts( $atts ) {
+			// デフォルト引数と与えられた引数を結合する
+			$atts = shortcode_atts(
+				array(
+					'heading_text' => '',
+					'body_text'    => '',
+					'per_page'     => -1,
+					'taxonomy'     => '',
+					'term'         => '',
+					'cta_link'     => '',
+					'cta_text'     => '',
+					'target'       => '_self',
+				),
+				$atts,
+				'wpf_member_posts'
+			);
+
+			// per_pageの値を検証（上限を100に設定）
+			$posts_per_page = intval( $atts['per_page'] );
+			if ( 100 < $posts_per_page ) {
+				$posts_per_page = 100; // 最大100件に制限
+			}
+
+			$args = array(
+				'post_type'      => 'member',
+				'posts_per_page' => $posts_per_page,
+				'post__not_in'   => array( get_the_ID() ),
+				'paged'          => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
+			);
+
+			// タクソノミーとタームが指定されている場合
+			if ( ! empty( $atts['taxonomy'] ) && ! empty( $atts['term'] ) ) {
+				$terms             = array_map( 'trim', explode( ',', $atts['term'] ) );
+				$args['tax_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+					array(
+						'taxonomy' => $atts['taxonomy'],
+						'field'    => 'slug',
+						'terms'    => $terms,
+					),
+				);
+			}
+
+			$query = new WP_Query( $args );
+
+			ob_start();
+			if ( $query->have_posts() ) {
+				?>
+				<?php
+				if ( ! empty( $atts['heading_text'] ) ) {
+					?>
+					<h2 class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></h2>
+					<?php
+				}
+				?>
+
+				<?php
+				if ( ! empty( $atts['body_text'] ) ) {
+					?>
+					<p><?php echo esc_html( $atts['body_text'] ); ?></p>
+					<?php
+				}
+				?>
+
+				<div class="member-posts">
+					<?php
+					while ( $query->have_posts() ) {
+						$query->the_post();
+
+						$cat_terms    = get_the_terms( get_the_ID(), 'project_cat' );
+						$domain_terms = get_the_terms( get_the_ID(), 'project_domain' );
+						?>
+						<div class="member-posts__item">
+							<div class="member-posts__item__inner">
+								<div class="member-posts__item__main">
+									<?php
+									$wpf_terms = WPF_Utils::get_the_terms();
+									if ( ! empty( $wpf_terms ) && 'uncategorized' !== $wpf_terms[0]->slug ) {
+										?>
+										<div class="member-posts__item__main-categories">
+											<a href="<?php echo esc_url( get_term_link( $wpf_terms[0]->term_id, $wpf_terms[0]->taxonomy ) ); ?>" class="member-posts__item__main-category pill">
+												<?php echo esc_html( $wpf_terms[0]->name ); ?>
+											</a>
+										</div>
+										<?php
+									}
+									?>
+
+									<a class="member-posts__item__title" href="<?php the_permalink(); ?>">
+										<?php the_title(); ?>
+									</a>
+
+									<div class="member-posts__item__date">
+										<?php echo WPF_Template_Tags::get_the_publish_date_tag(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+									</div>
+								</div>
+
+								<a href="<?php the_permalink(); ?>" class="member-posts__item__thubmnail frame" aria-hidden="true" tabindex="-1">
+									<?php WPF_Template_Tags::the_image( get_post_thumbnail_id(), 'medium' ); ?>
+								</a>
+							</div>
+						</div>
+						<?php
+					}
+					?>
+
+					<?php
+					if ( $query->max_num_pages > 1 ) {
+						$cta_link = $atts['cta_link'];
+						$cta_text = ! empty( $atts['cta_text'] ) ? $atts['cta_text'] : __( 'View All', 'wordpressfoundation' );
+						$target   = self::strip( $atts['target'] );
+						if ( ! empty( $cta_link ) ) {
+							?>
+							<div class="member-posts__cta">
+								<a class="button:secondary" href="<?php echo esc_url( $cta_link ); ?>" target="<?php echo esc_attr( $target ); ?>">
+									<?php echo esc_html( $cta_text ); ?>
+								</a>
+							</div>
+							<?php
+						}
+					}
+					wp_reset_postdata();
+					?>
+				</div>
+				<?php
 			}
 			return ob_get_clean();
 		}

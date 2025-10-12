@@ -141,20 +141,3 @@ if ( ! is_plugin_active( 'all-in-one-seo-pack/all_in_one_seo_pack.php' ) && ! is
 		}
 	);
 }
-
-/**
- * 旧ブログの画像サイズバリエーション設定に合わせる（コンテンツとして保存されている画像URLとDBの参照を一致させるため）
- * ※この設定はマイグレーション用であるため、マイグレーション後は必ずコメントアウトすること。
- *
- * @return void
- */
-function wpf_old_theme_image_sizes() {
-	// サムネイルサイズを変更
-	update_option( 'thumbnail_size_w', 160 );
-	update_option( 'thumbnail_size_h', 160 );
-
-	// 中サイズを変更
-	update_option( 'medium_size_w', 600 );
-	update_option( 'medium_size_h', 600 );
-}
-// add_action( 'after_setup_theme', 'wpf_old_theme_image_sizes' );

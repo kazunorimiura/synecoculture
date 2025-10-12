@@ -70,11 +70,11 @@
 
     figure,
     img {
-        max-width: 100%;
+        max-width: var(--width-content);
     }
 
     :is(h2, h3, h4) {
-        --flow-space: var(--space-s2em) !important;
+        --flow-space: var(--space-s3em) !important;
     }
 
     :is(h2 + *, h3 + *, h4 + *) {
@@ -88,6 +88,23 @@
 
     p:empty {
         display: none;
+    }
+
+    .tiny-head,
+    .rich-link,
+    .project-posts,
+    .news-posts {
+        --flow-space: var(--space-s3);
+    }
+
+    .tiny-head + * {
+        --flow-space: #{rem(16)};
+    }
+
+    .rich-link + *,
+    .project-posts + *,
+    .news-posts + * {
+        --flow-space: var(--space-s3);
     }
 }
 

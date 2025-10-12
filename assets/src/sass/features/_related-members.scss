@@ -45,7 +45,8 @@
 }
 
 .related-members__item__title,
-.related-members__item__title:link {
+.related-members__item__title:link,
+.related-members__item__title:visited {
     color: var(--color-content-primary);
     text-decoration: none;
 }

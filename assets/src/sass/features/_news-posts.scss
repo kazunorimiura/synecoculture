@@ -1,0 +1,92 @@
+@use "sass:map";
+@use "sass:math";
+@use "../config";
+@use "../base/settings" as *;
+@use "../utilities/cluster";
+
+.news-posts > * + * {
+    margin-block-start: fd(12, 16);
+}
+
+.news-posts__item {
+    display: block;
+    border-radius: var(--radius);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 25%);
+}
+
+.news-posts__item__inner {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: fd(16, 24);
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: fd(12, 16);
+}
+
+.news-posts__item__main {
+    flex: 1;
+}
+
+.news-posts__item__main > * + * {
+    margin-block-start: fd(8, 16);
+}
+
+.news-posts__item__main-categories {
+    @extend %cluster;
+
+    --cluster-space: #{rem(8)};
+}
+
+.news-posts__item__main-category {
+    // font-text--smからfont-tinyへの流体サイジングに、line-height-text--smの行高を掛けてpx値に変換
+    $min-lh-value: map.get($min-font-sizes, s-3) * (math.div(math.max(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)) - math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)), 2) + math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4))) * 1px;
+    $max-lh-value: map.get($max-font-sizes, s-1) * (math.div(math.max(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)) - math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)), 2) + math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4))) * 1px;
+
+    display: block;
+    padding-block: fd(3, 6);
+    font-size: fd(rem(map.get($min-font-sizes, s-3)), rem(map.get($max-font-sizes, s-1)));
+    line-height: fd($min-lh-value, $max-lh-value);
+}
+
+.news-posts__item__title {
+    // font-headline-4からfont-textへの流体サイジングに、line-height-headline-4の行高を掛けてpx値に変換
+    $min-lh-value: map.get($min-font-sizes, s-1) * (math.div(math.max(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)) - math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)), 2) + math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4))) * 1px;
+    $max-lh-value: map.get($max-font-sizes, s1) * (math.div(math.max(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)) - math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)), 2) + math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4))) * 1px;
+
+    font-size: fd(rem(map.get($min-font-sizes, s-1)), rem(map.get($max-font-sizes, s1)));
+    font-weight: var(--font-weight-bold);
+    line-height: fd($min-lh-value, $max-lh-value);
+}
+
+.news-posts__item__title,
+.news-posts__item__title:link,
+.news-posts__item__title:visited {
+    display: block;
+    color: var(--color-content-primary);
+    text-decoration: none;
+}
+
+.news-posts__item__date {
+    font-size: fd(rem(map.get($min-font-sizes, s-3)), rem(map.get($max-font-sizes, s-1)));
+    line-height: var(--line-height-sign);
+}
+
+.news-posts__item__thubmnail {
+    --n: 1;
+    --d: 1;
+
+    display: block;
+    flex-basis: fd(90, 140);
+    flex-shrink: 0;
+    border-radius: var(--radius-sm);
+}
+
+.news-posts__cta {
+    display: flex;
+    justify-content: center;
+    margin-block-start: var(--space-s3);
+}
+
+.news-posts__cta > a {
+    display: block;
+}

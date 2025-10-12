@@ -61,7 +61,8 @@
 }
 
 .syneco-slider__item-title,
-.syneco-slider__item-title:link {
+.syneco-slider__item-title:link,
+.syneco-slider__item-title:visited {
     display: flex;
     gap: fd(12, 16);
     align-items: center;
