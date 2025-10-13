@@ -275,3 +275,9 @@ msgstr "暂停三难困境图动画"
 
 msgid "%sのプロフィールページへ"
 msgstr "前往%s的个人主页"
+
+msgid "現在のページ"
+msgstr "当前页面"
+
+msgid "行動指針"
+msgstr "行为准则"

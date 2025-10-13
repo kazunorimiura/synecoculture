@@ -6,7 +6,7 @@
     display: flex;
     gap: rem(4);
     align-items: center;
-    font-size: var(--font-text--sm);
+    font-size: var(--font-size-text--sm);
     line-height: var(--line-height-sign);
     color: var(--color-content-tertiary);
 }
@@ -17,5 +17,6 @@
 }
 
 .tiny-head__text {
+    font-size: inherit;
     font-weight: var(--font-weight-bold);
 }

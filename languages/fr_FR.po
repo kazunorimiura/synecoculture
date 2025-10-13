@@ -275,3 +275,9 @@ msgstr "Mettre en pause l'animation du diagramme de trilemme"
 
 msgid "%sのプロフィールページへ"
 msgstr "Aller au profil de %s"
+
+msgid "現在のページ"
+msgstr "Page actuelle"
+
+msgid "行動指針"
+msgstr "Code de conduite"

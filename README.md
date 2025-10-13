@@ -259,6 +259,18 @@ cd /srv/www/wordpress-foundation/public_html/wp-content/themes/wordpress-foundat
 wp import wp-cpt-test-contents.xml --authors=create
 ```
 
+### 翻訳ファイルの生成
+
+```bash
+msgfmt -o languages/en_US.mo languages/en_US.po
+```
+
+msgfmtコマンドが実行できない場合は、gettextがインストールされていない可能性がある。
+
+```bash
+brew install gettext
+```
+
 ### JS用翻訳ファイルの生成
 
 jsonファイル名は ` {textdomain}-{locale}-{handlename}.json` とする必要がある。`handlename` は、翻訳したいJSファイルのエンキュー時のハンドル名。

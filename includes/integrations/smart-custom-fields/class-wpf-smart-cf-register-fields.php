@@ -478,6 +478,96 @@ class WPF_Smart_Cf_Register_Fields {
 				);
 				$settings[] = $_setting;
 			}
+
+			if ( 'about' === $page_slug ) {
+				$_setting = SCF::add_setting( '_wpf_about__intro', 'イントロダクション' );
+				$_setting->add_group(
+					'_wpf_about__intro',
+					false,
+					array(
+						array(
+							'name'  => '_wpf_about__intro__body',
+							'label' => __( '本文', 'wordpressfoundation' ),
+							'type'  => 'textarea',
+							'rows'  => 2,
+						),
+						array(
+							'name'  => '_wpf_about__intro__image',
+							'label' => __( '画像', 'wordpressfoundation' ),
+							'type'  => 'image',
+							'size'  => 'thumbnail',
+							'notes' => __( '推奨画像サイズ: 1000x563px', 'wordpressfoundation' ),
+						),
+					)
+				);
+				$settings[] = $_setting;
+
+				$_setting = SCF::add_setting( '_wpf_about__trilemma', '食・環境・健康のトリレンマ' );
+				$_setting->add_group(
+					'_wpf_about__trilemma',
+					false,
+					array(
+						array(
+							'name'    => '_wpf_about__trilemma__message',
+							'type'    => 'message',
+							'default' => __( '※食・環境・健康のトリレンマに関するコンテンツは「ホーム」固定ページで設定してください。', 'wordpressfoundation' ),
+						),
+					)
+				);
+				$settings[] = $_setting;
+
+				$_setting = SCF::add_setting( '_wpf_about__our_values', '行動指針' );
+				$_setting->add_group(
+					'_wpf_about__our_values',
+					true,
+					array(
+						array(
+							'name'  => '_wpf_about__our_values__heading',
+							'label' => __( '見出し', 'wordpressfoundation' ),
+							'type'  => 'text',
+						),
+						array(
+							'name'  => '_wpf_about__our_values__body',
+							'label' => __( '本文', 'wordpressfoundation' ),
+							'type'  => 'textarea',
+							'rows'  => 2,
+						),
+					)
+				);
+				$settings[] = $_setting;
+
+				$_setting = SCF::add_setting( '_wpf_about__child_page_links', '下層ページへのリンク' );
+				$_setting->add_group(
+					'_wpf_about__child_page_links',
+					true,
+					array(
+						array(
+							'name'  => '_wpf_about__child_page_links__heading',
+							'label' => __( '見出し', 'wordpressfoundation' ),
+							'type'  => 'text',
+						),
+						array(
+							'name'  => '_wpf_about__child_page_links__body',
+							'label' => __( '本文', 'wordpressfoundation' ),
+							'type'  => 'textarea',
+							'rows'  => 2,
+						),
+						array(
+							'name'  => '_wpf_about__child_page_links__image',
+							'label' => __( 'サムネイル', 'wordpressfoundation' ),
+							'type'  => 'image',
+							'size'  => 'thumbnail',
+							'notes' => __( '推奨画像サイズ: 500x500px', 'wordpressfoundation' ),
+						),
+						array(
+							'name'  => '_wpf_about__child_page_links__link_url',
+							'label' => __( 'リンクURL', 'wordpressfoundation' ),
+							'type'  => 'text',
+						),
+					)
+				);
+				$settings[] = $_setting;
+			}
 		}
 
 		if ( 'case-study' === $type ) {

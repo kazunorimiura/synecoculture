@@ -271,7 +271,7 @@ $wpf_container_classes = ! empty( $wpf_cover_media ) && ! empty( get_object_vars
 				if ( ! empty( $wpf_cover_media_image ) ) {
 					?>
 					<div class="page-header__cover-image">
-						<?php echo wp_kses_post( $wpf_cover_media_image ); // カバー画像を出力 ?>
+						<?php echo $wpf_cover_media_image; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					</div>
 					<?php
 				}

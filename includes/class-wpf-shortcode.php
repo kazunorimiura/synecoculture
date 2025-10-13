@@ -33,6 +33,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			add_shortcode( 'wpf_our_story', array( $this, 'our_story' ) );
 			add_shortcode( 'wpf_our_approach', array( $this, 'our_approach' ) );
 			add_shortcode( 'wpf_our_purpose', array( $this, 'our_purpose' ) );
+			add_shortcode( 'wpf_our_purpose_for_about', array( $this, 'our_purpose_for_about' ) );
 			add_shortcode( 'wpf_trilemma', array( $this, 'trilemma' ) );
 			add_shortcode( 'wpf_featured_projects', array( $this, 'featured_projects' ) );
 			add_shortcode( 'wpf_dive_into_synecoculture', array( $this, 'dive_into_synecoculture' ) );
@@ -43,6 +44,10 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			add_shortcode( 'wpf_rich_link', array( $this, 'rich_link' ) );
 			add_shortcode( 'wpf_project_posts', array( $this, 'project_posts' ) );
 			add_shortcode( 'wpf_news_posts', array( $this, 'news_posts' ) );
+			add_shortcode( 'wpf_member_posts', array( $this, 'member_posts' ) );
+			add_shortcode( 'wpf_our_values', array( $this, 'our_values' ) );
+			add_shortcode( 'wpf_about_intro', array( $this, 'about_intro' ) );
+			add_shortcode( 'wpf_about_child_page_links', array( $this, 'about_child_page_links' ) );
 		}
 
 		/**
@@ -685,6 +690,108 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 
 							<?php echo do_shortcode( '[wpf_trilemma]' ); ?>
 							<?php echo do_shortcode( '[wpf_our_initiatives]' ); ?>
+						</div>
+						<?php
+					}
+					?>
+				</div>
+				<?php
+			}
+			return ob_get_clean();
+		}
+
+		/**
+		 * 私たちについてページのOur Purposeを出力するショートコード。
+		 *
+		 * @param array $atts ショートコード引数。
+		 * @return string
+		 */
+		public static function our_purpose_for_about( $atts ) {
+			// デフォルト引数と与えられた引数を結合する
+			$atts = shortcode_atts(
+				array(),
+				$atts,
+				'wpf_our_purpose_for_about'
+			);
+
+			$cover_image_id = SCF::get( '_wpf_top__our_purpose__cover_image' );
+			$heading        = SCF::get( '_wpf_top__our_purpose__heading' );
+			$body           = SCF::get( '_wpf_top__our_purpose__body' );
+
+			ob_start();
+			if ( ! empty( $heading ) || ! empty( $body ) ) {
+				?>
+				<div class="our-purpose">
+					<?php
+					/**
+					 * Our Purpose カバー
+					 */
+					$cover_image = wp_get_attachment_image(
+						$cover_image_id,
+						'large',
+						false,
+						array( 'loading' => 'lazy' )
+					);
+					if ( ! empty( $cover_image ) || ! empty( $cover_text ) ) {
+						?>
+						<div class="our-purpose__cover">
+							<div class="our-purpose__cover-inner">
+								<div class="our-purpose__cover-inner__inner">
+									<?php
+									if ( ! empty( $cover_image ) ) {
+										?>
+										<div class="our-purpose__cover-image">
+											<?php echo $cover_image; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+										</div>
+										<?php
+									}
+									?>
+								</div>
+							</div>
+						</div>
+						<?php
+					}
+					?>
+
+					<?php
+					/**
+					 * Our Purpose メイン
+					 */
+					if ( ! empty( $heading ) || ! empty( $body ) ) {
+						?>
+						<div class="our-purpose__main">
+							<div class="our-purpose__header">
+								<div class="our-purpose__header__overline syneco-overline">
+									<div class="syneco-overline__icon">
+										<?php echo WPF_Icons::get_svg( 'ui', 'syneco', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+									</div>
+									<div class="syneco-overline__text">Our Purpose</div>
+								</div>
+
+								<div class="our-purpose__header__main">
+									<?php
+									if ( ! empty( $heading ) ) {
+										?>
+										<h2 class="our-purpose__header__heading">
+											<?php echo wp_kses_post( $heading ); // 見出しを出力 ?>
+										</h2>
+										<?php
+									}
+									?>
+
+									<?php
+									if ( ! empty( $body ) ) {
+										?>
+										<div class="our-purpose__header__body prose">
+											<?php echo wp_kses_post( $body ); // 本文を出力 ?>
+										</div>
+										<?php
+									}
+									?>
+								</div>
+							</div>
+
+							<?php echo do_shortcode( '[wpf_trilemma]' ); ?>
 						</div>
 						<?php
 					}
@@ -2148,6 +2255,218 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 						}
 					}
 					wp_reset_postdata();
+					?>
+				</div>
+				<?php
+			}
+			return ob_get_clean();
+		}
+
+		/**
+		 * aboutイントロダクションを出力するショートコード。
+		 *
+		 * @param array $atts ショートコード引数。
+		 * @return string
+		 */
+		public static function about_intro( $atts ) {
+			// デフォルト引数と与えられた引数を結合する
+			$atts = shortcode_atts(
+				array(),
+				$atts,
+				'wpf_about_intro'
+			);
+
+			$body     = SCF::get( '_wpf_about__intro__body' );
+			$image_id = SCF::get( '_wpf_about__intro__image' );
+
+			ob_start();
+			if ( ! empty( $body ) ) {
+				?>
+				<div class="about-intro">
+					<div class="about-intro__body">
+						<?php echo esc_html( $body ); ?>
+					</div>
+
+					<?php
+					$image = wp_get_attachment_image(
+						$image_id,
+						'medium',
+						false,
+						array()
+					);
+					if ( ! empty( $image ) ) {
+						?>
+						<div class="about-intro__image frame">
+							<?php echo $image; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+						</div>
+						<?php
+					}
+					?>
+				</div>
+				<?php
+			}
+			return ob_get_clean();
+		}
+
+		/**
+		 * Our Valuesを出力するショートコード。
+		 *
+		 * @param array $atts ショートコード引数。
+		 * @return string
+		 */
+		public static function our_values( $atts ) {
+			// デフォルト引数と与えられた引数を結合する
+			$atts = shortcode_atts(
+				array(),
+				$atts,
+				'wpf_our_values'
+			);
+
+			$our_values = SCF::get( '_wpf_about__our_values' );
+
+			ob_start();
+			if ( ! empty( $our_values ) ) {
+				?>
+				<div class="our-values-container">
+					<div class="our-values">
+						<div class="our-values__inner">
+							<div class="our-values__header">
+								<div class="syneco-overline">
+									<div class="syneco-overline__icon">
+										<?php echo WPF_Icons::get_svg( 'ui', 'syneco', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+									</div>
+									<div class="syneco-overline__text">Our Values</div>
+								</div>
+
+								<h2 class="our-values__heading">
+									<?php echo esc_html_e( '行動指針', 'wordpressfoundation' ); ?>
+								</h2>
+							</div>
+
+							<div class="our-values__main">
+								<?php
+								foreach ( $our_values as $value ) {
+									$heading = $value['_wpf_about__our_values__heading'];
+									$body    = $value['_wpf_about__our_values__body'];
+									?>
+									<div class="our-values__item">
+										<?php
+										if ( ! empty( $heading ) ) {
+											?>
+											<h2 class="our-values__item__heading">
+												<?php echo wp_kses_post( $heading ); // 見出しを出力 ?>
+											</h2>
+											<?php
+										}
+										?>
+
+										<?php
+										if ( ! empty( $body ) ) {
+											?>
+											<div class="our-values__item__body">
+												<?php echo wp_kses_post( $body ); // 本文を出力 ?>
+											</div>
+											<?php
+										}
+										?>
+									</div>
+									<?php
+								}
+								?>
+							</div>
+						</div>
+					</div>
+				</div>
+				<?php
+			}
+			return ob_get_clean();
+		}
+
+		/**
+		 * about子ページリンクリストを出力するショートコード。
+		 *
+		 * @param array $atts ショートコード引数。
+		 * @return string
+		 */
+		public static function about_child_page_links( $atts ) {
+			// デフォルト引数と与えられた引数を結合する
+			$atts = shortcode_atts(
+				array(),
+				$atts,
+				'wpf_about_child_page_links'
+			);
+
+			$links = SCF::get( '_wpf_about__child_page_links' );
+
+			ob_start();
+			if ( ! empty( $links ) ) {
+				?>
+				<div class="about-child-links">
+					<?php
+					foreach ( $links as $link ) {
+						$heading  = $link['_wpf_about__child_page_links__heading'];
+						$body     = $link['_wpf_about__child_page_links__body'];
+						$image_id = $link['_wpf_about__child_page_links__image'];
+						$link_url = $link['_wpf_about__child_page_links__link_url'];
+						if ( ! empty( $link_url ) && ! empty( $heading ) || ! empty( $body ) ) {
+							?>
+							<div class="about-child-links__item clickable-container" data-clickable-link="<?php echo esc_url( $link_url ); ?>">
+								<?php
+								if ( ! empty( $heading ) || ! empty( $body ) ) {
+									?>
+									<div class="about-child-links__item__main">
+										<div class="about-child-links__item__main__content">
+											<?php
+											if ( ! empty( $heading ) ) {
+												?>
+												<a href="<?php echo esc_url( $link_url ); ?>" class="about-child-links__item__heading" tabindex="-1">
+													<?php echo esc_html( $heading ); ?>
+												</a>
+												<?php
+											}
+											?>
+
+											<?php
+											if ( ! empty( $body ) ) {
+												?>
+												<div class="about-child-links__item__body">
+													<?php echo esc_html( $body ); ?>
+												</div>
+												<?php
+											}
+											?>
+										</div>
+
+										<a href="<?php echo esc_url( $link_url ); ?>" class="about-child-links__item__cta button:tertiary:icon">
+											<span class="screen-reader-text">
+												<?php echo esc_html_e( 'さらに詳しく', 'wordpressfoundation' ); ?>
+											</span>
+											<?php echo WPF_Icons::get_svg( 'ui', 'arrow_right' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+										</a>
+									</div>
+									<?php
+								}
+								?>
+
+								<?php
+								$image = wp_get_attachment_image(
+									$image_id,
+									'medium',
+									false,
+									array()
+								);
+								if ( ! empty( $image ) ) {
+									?>
+									<a href="<?php echo esc_url( $link_url ); ?>" class="about-child-links__item__thumbnail frame" tabindex="-1">
+										<?php echo $image; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+									</a>
+									<?php
+								}
+								?>
+							</div>
+							<?php
+						}
+					}
 					?>
 				</div>
 				<?php

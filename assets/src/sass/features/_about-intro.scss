@@ -1,0 +1,34 @@
+@use "sass:map";
+@use "../config";
+@use "../base/settings" as *;
+
+.about-intro {
+    display: flex;
+    gap: fd(48, 128);
+    align-items: flex-start;
+    padding-block: fd(64, 96);
+    padding-inline: var(--site-gutter);
+
+    @media screen and (max-width: em(map.get($breakpoints, sm))) {
+        flex-direction: column;
+    }
+}
+
+.about-intro__body {
+    font-size: fd(16, 24);
+    line-height: 2;
+}
+
+.about-intro__image {
+    --n: 1;
+    --d: 0.5625;
+
+    flex-basis: fd(200, 317);
+    flex-shrink: 0;
+    border-radius: var(--radius-lg);
+
+    @media screen and (max-width: em(map.get($breakpoints, sm))) {
+        flex-basis: 100%;
+        width: 100%;
+    }
+}

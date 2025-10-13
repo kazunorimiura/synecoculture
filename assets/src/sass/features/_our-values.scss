@@ -1,0 +1,75 @@
+@use "sass:map";
+@use "../config";
+@use "../base/settings" as *;
+
+.our-values {
+    padding-inline: var(--site-gutter-slat);
+}
+
+.our-values__inner {
+    padding: fd(24, 64);
+    background-color: var(--color-background-secondary);
+    border-radius: var(--radius-lg);
+}
+
+.our-values__header > * + * {
+    margin-block-start: fd(64, 128);
+}
+
+.our-values__heading {
+    font: var(--font-headline-1);
+}
+
+.our-values__main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: fd(24, 48) fd(32, 128);
+    margin-block-start: fd(32, 64);
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        gap: fd(32, 64) fd(32, 128);
+        margin-block-start: fd(64, 72);
+    }
+
+    @media screen and (max-width: em(map.get($breakpoints, sm))) {
+        gap: fd(24, 48) fd(32, 128);
+        margin-block-start: fd(32, 64);
+    }
+}
+
+.our-values__item {
+    display: flex;
+    flex-basis: calc(50% - #{fd(32, 128)} / 2);
+    align-items: center;
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        flex-basis: 100%;
+    }
+
+    @media screen and (max-width: em(map.get($breakpoints, sm))) {
+        flex-direction: column;
+    }
+}
+
+.our-values__item__heading {
+    flex-basis: fd(120, 186);
+    flex-shrink: 0;
+
+    @media screen and (max-width: em(map.get($breakpoints, sm))) {
+        flex-basis: auto;
+        padding-block: fd(18, 24) fd(24, 32);
+    }
+}
+
+.our-values__item__body {
+    position: relative;
+    padding-inline-start: fd(48, 56);
+    border-left: 1px solid var(--color-border-opaque);
+
+    @media screen and (max-width: em(map.get($breakpoints, sm))) {
+        padding-block-start: fd(24, 56);
+        padding-inline-start: 0;
+        border-top: 1px solid var(--color-border-opaque);
+        border-left: none;
+    }
+}

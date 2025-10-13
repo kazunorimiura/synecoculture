@@ -10,7 +10,7 @@ class LottieButtonController {
             containerSelector: '#trilemmaImage',
             buttonsSelector: '.trilemma-explain',
             buttonsContainerSelector: '.trilemma-explains',
-            jsonPath: `wp-content/themes/synecoculture/assets/json/${jsonFileName}`,
+            jsonPath: `/wp-content/themes/synecoculture/assets/json/${jsonFileName}`,
             stepDuration: 3,
             totalSteps: 3,
             monitorInterval: 100,

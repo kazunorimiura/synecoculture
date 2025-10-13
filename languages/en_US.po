@@ -283,3 +283,9 @@ msgstr "Pause trilemma diagram animation"
 
 msgid "%sのプロフィールページへ"
 msgstr "Go to %s's profile"
+
+msgid "現在のページ"
+msgstr "Current page"
+
+msgid "行動指針"
+msgstr "Code of Conduct"
