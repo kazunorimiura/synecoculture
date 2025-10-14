@@ -19,8 +19,7 @@
 // 1. サイドバーの理想的な幅。auto はコンテンツに応じる。
 // 2. 長いテキストが折り返されるようにする。
 .archive-post__sidebar {
-    flex-basis: fd(180, 249);
-    flex-grow: 1; // 1
+    flex: 1 0 fd(180, 249); // 1
     min-width: 0; // 2
 
     @media screen and (max-width: em(map.get($breakpoints, xl))) {
@@ -34,9 +33,13 @@
     margin-block-start: rem(32);
 }
 
+.archive-post__main > * + * {
+    margin-block-start: fd(48, 96);
+}
+
 // 1. 非サイドバーの理想的な幅。「0」の場合は利用可能な幅を埋める
 // 2. 長いテキストが折り返されるようにする
-.archive-post__main {
+.archive-post__items {
     display: grid;
     flex-basis: 0; // 1
     flex-grow: 999; // 1

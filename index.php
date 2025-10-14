@@ -161,14 +161,14 @@ global $wpf_template_tags;
 					the_posts_pagination(
 						array(
 							'prev_text'          => sprintf(
-								'%s <span>%s</span>',
-								WPF_Icons::get_svg( 'ui', 'angle_left' ),
+								'%s <span class="screen-reader-text">%s</span>',
+								WPF_Icons::get_svg( 'ui', 'arrow_left' ),
 								esc_html__( '前へ', 'wordpressfoundation' )
 							),
 							'next_text'          => sprintf(
-								'<span>%s</span> %s',
+								'<span class="screen-reader-text">%s</span> %s',
 								esc_html__( '次へ', 'wordpressfoundation' ),
-								WPF_Icons::get_svg( 'ui', 'angle_right' )
+								WPF_Icons::get_svg( 'ui', 'arrow_right' )
 							),
 							'before_page_number' => '<span class="screen-reader-text">' . __( '投稿', 'wordpressfoundation' ) . ' </span>',
 						)

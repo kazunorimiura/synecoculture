@@ -1,5 +1,4 @@
 @use "../../base/settings" as *;
-@use "../../utilities/cluster";
 @use "../../utilities/icon";
 @use "../../utilities/link";
 
@@ -7,23 +6,54 @@
 /// ページネーション
 ///
 
-.pagination .prev,
-.pagination .next,
-.pagination .post-page-numbers {
-    @extend %with-icon;
-}
-
 .pagination .nav-links {
-    @extend %cluster;
-
-    --cluster-space: var(--space-s0);
+    display: flex;
+    justify-content: center;
 }
 
 .pagination .nav-links a {
     @extend %link-muted;
 }
 
+.pagination .page-numbers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fd(48, 60);
+    height: fd(48, 60);
+    margin-inline-start: -1px;
+    font-weight: var(--font-weight-sign);
+}
+
+.pagination .page-numbers:first-child {
+    border-top-left-radius: var(--radius-sm);
+    border-bottom-left-radius: var(--radius-sm);
+}
+
+.pagination .page-numbers:last-child {
+    border-top-right-radius: var(--radius-sm);
+    border-bottom-right-radius: var(--radius-sm);
+}
+
 .pagination .page-numbers.current,
 .pagination .post-page-numbers.current {
+    position: relative;
+    z-index: 1;
     font-weight: var(--font-weight-bold);
+    border-color: var(--color-content-primary) !important;
+}
+
+.pagination .page-numbers:not(.dots) {
+    border: 1px solid var(--color-border-opaque);
+}
+
+.pagination a.page-numbers:hover,
+.pagination a.page-numbers:focus {
+    text-decoration: none;
+}
+
+.pagination .prev > svg,
+.pagination .next > svg {
+    width: 1.2em;
+    height: 1.2em;
 }

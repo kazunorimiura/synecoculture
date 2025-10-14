@@ -292,3 +292,6 @@ msgstr "Code of Conduct"
 
 msgid "アーカイブ"
 msgstr "Archive"
+
+msgid "記事を読む"
+msgstr "Read article"

@@ -284,3 +284,6 @@ msgstr "行为准则"
 
 msgid "アーカイブ"
 msgstr "归档"
+
+msgid "記事を読む"
+msgstr "阅读文章"

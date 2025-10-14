@@ -165,9 +165,6 @@ class WPF_Template_Functions {
 		// 管理画面のフッターメッセージ（WordPressのご利用ありがとうございます）を非表示にする。
 		add_filter( 'admin_footer_text', '__return_empty_string' );
 
-		// プロフィールにカスタム項目を追加する。
-		add_filter( 'user_contactmethods', array( $this, 'user_contactmethods' ) );
-
 		// リビジョンの保存数を制限する。
 		add_filter( 'wp_revisions_to_keep', array( $this, 'revisions_to_keep' ), 10, 2 );
 
@@ -367,14 +364,15 @@ class WPF_Template_Functions {
 			'blog_tag',
 			'blog',
 			array(
-				'hierarchical'      => false,
-				'rewrite'           => array(
+				'hierarchical'       => false,
+				'rewrite'            => array(
 					'slug'       => 'blog/tag',
 					'with_front' => false,
 				),
-				'public'            => true,
-				'show_in_rest'      => true,
-				'show_admin_column' => true,
+				'public'             => true,
+				'publicly_queryable' => false,
+				'show_in_rest'       => true,
+				'show_admin_column'  => true,
 			)
 		);
 
@@ -415,14 +413,15 @@ class WPF_Template_Functions {
 			'project_tag',
 			'project',
 			array(
-				'hierarchical'      => false,
-				'rewrite'           => array(
+				'hierarchical'       => false,
+				'rewrite'            => array(
 					'slug'       => 'project/tag',
 					'with_front' => false,
 				),
-				'public'            => true,
-				'show_in_rest'      => true,
-				'show_admin_column' => true,
+				'public'             => true,
+				'publicly_queryable' => false,
+				'show_in_rest'       => true,
+				'show_admin_column'  => true,
 			)
 		);
 
@@ -446,14 +445,15 @@ class WPF_Template_Functions {
 			'case_study_tag',
 			'case-study',
 			array(
-				'hierarchical'      => false,
-				'rewrite'           => array(
+				'hierarchical'       => false,
+				'rewrite'            => array(
 					'slug'       => 'case-study/tag',
 					'with_front' => false,
 				),
-				'public'            => true,
-				'show_in_rest'      => true,
-				'show_admin_column' => true,
+				'public'             => true,
+				'publicly_queryable' => false,
+				'show_in_rest'       => true,
+				'show_admin_column'  => true,
 			)
 		);
 
@@ -479,14 +479,15 @@ class WPF_Template_Functions {
 			'member_tag',
 			'member',
 			array(
-				'hierarchical'      => false,
-				'rewrite'           => array(
+				'hierarchical'       => false,
+				'rewrite'            => array(
 					'slug'       => 'member/tag',
 					'with_front' => false,
 				),
-				'public'            => true,
-				'show_in_rest'      => true,
-				'show_admin_column' => true,
+				'public'             => true,
+				'publicly_queryable' => false,
+				'show_in_rest'       => true,
+				'show_admin_column'  => true,
 			)
 		);
 
@@ -1439,21 +1440,6 @@ class WPF_Template_Functions {
 		}
 
 		return $search;
-	}
-
-	/**
-	 * プロフィールにカスタム項目を追加する。
-	 *
-	 * @since 0.1.0
-	 * @param string[] $methods コンタクトメソッドラベルの配列。
-	 * @return array
-	 */
-	public static function user_contactmethods( $methods ) {
-		$methods['position']  = __( '肩書き', 'wordpressfoundation' );
-		$methods['x']         = __( 'X', 'wordpressfoundation' );
-		$methods['instagram'] = __( 'Instagram', 'wordpressfoundation' );
-		$methods['facebook']  = __( 'Facebook', 'wordpressfoundation' );
-		return $methods;
 	}
 
 	/**

@@ -103,6 +103,12 @@ if ( ! is_plugin_active( 'all-in-one-seo-pack/all_in_one_seo_pack.php' ) && ! is
 		function( $taxonomies ) {
 			unset( $taxonomies['post_tag'] );
 			unset( $taxonomies['blog_tag'] );
+			unset( $taxonomies['project_tag'] );
+			unset( $taxonomies['member_cat'] );
+			unset( $taxonomies['member_tag'] );
+			unset( $taxonomies['case_study_tag'] );
+			unset( $taxonomies['glossary_tag'] );
+			unset( $taxonomies['career_tag'] );
 			return $taxonomies;
 		}
 	);

@@ -5,7 +5,7 @@
 @use "../utilities/flow";
 @use "../utilities/wrapper";
 
-.archive-project {
+.archive-blog {
     display: flex;
     gap: fd(1, 128);
 
@@ -17,7 +17,7 @@
 
 // 1. サイドバーの理想的な幅。auto はコンテンツに応じる。
 // 2. 長いテキストが折り返されるようにする。
-.archive-project__sidebar {
+.archive-blog__sidebar {
     flex: 1 0 fd(180, 249); // 1
     min-width: 0; // 2
 
@@ -28,17 +28,17 @@
     }
 }
 
-.archive-project__sidebar > * + * {
+.archive-blog__sidebar > * + * {
     margin-block-start: rem(32);
 }
 
-.archive-project__main > * + * {
+.archive-blog__main > * + * {
     margin-block-start: fd(48, 96);
 }
 
 // 1. 非サイドバーの理想的な幅。「0」の場合は利用可能な幅を埋める
 // 2. 長いテキストが折り返されるようにする
-.archive-project__items {
+.archive-blog__items {
     display: grid;
     flex-basis: 0; // 1
     flex-grow: 999; // 1
@@ -52,72 +52,71 @@
     }
 }
 
-.archive-project__item {
+.archive-blog__item {
     background-color: var(--color-background-color);
     border-radius: var(--radius-lg);
     box-shadow: 0 1px 3px rgb(0 0 0 / 25%);
 }
 
-[data-site-theme="dark"] .archive-project__item {
+[data-site-theme="dark"] .archive-blog__item {
     border: 1px solid var(--color-border-opaque);
 }
 
 @media (prefers-color-scheme: dark) {
-    .archive-project__item {
+    .archive-blog__item {
         border: 1px solid var(--color-border-opaque);
     }
 }
 
-.archive-project__item__inner {
+.archive-blog__item__inner {
     display: flex;
     flex-direction: column-reverse;
     gap: fd(24, 96);
-    padding: fd(18, 32);
+    padding: fd(18, 48);
 
     @media screen and (max-width: em(map.get($breakpoints, lg))) {
         gap: fd(24, 32);
     }
 }
 
-.archive-project__item__header {
+.archive-blog__item__header {
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-s0);
-    justify-content: space-between;
-
-    @media screen and (max-width: em(map.get($breakpoints, lg))) {
-        flex-direction: column;
-    }
+    flex-direction: column-reverse;
+    gap: fd(16, 21);
 }
 
-.archive-project__item__thubmnail {
+.archive-blog__item__date {
+    font-size: var(--font-size-article);
+    font-weight: var(--font-weight-sign);
+    line-height: var(--line-height-sign);
+    text-align: center;
+}
+
+.archive-blog__item__title {
+    text-align: center;
+}
+
+.archive-blog__item__thubmnail {
     --n: 1;
-    --d: 1;
+    --d: 0.5625;
 
     display: block;
-    width: fd(120, 150);
+    width: 100%;
 
     > img {
         border-radius: var(--radius);
     }
-
-    @media screen and (max-width: em(map.get($breakpoints, lg))) {
-        --n: 1;
-        --d: 0.5625;
-
-        width: 100%;
-    }
 }
 
-.archive-project__item__main {
+.archive-blog__item__main {
     @extend %flow;
 }
 
-.archive-project__item__excerpt {
+.archive-blog__item__excerpt {
     --flow-space: #{fd(18, 24)};
 }
 
-.archive-project__item__sub-categories {
+.archive-blog__item__sub-categories {
     --flow-space: #{fd(24, 32)};
 
     display: flex;

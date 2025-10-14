@@ -128,148 +128,153 @@ global $wpf_template_tags;
 			if ( have_posts() ) {
 				?>
 				<div class="archive-project__main">
-					<?php
-					while ( have_posts() ) {
-						the_post();
-
-						$cat_terms    = get_the_terms( get_the_ID(), 'project_cat' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-						$domain_terms = get_the_terms( get_the_ID(), 'project_domain' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-						?>
-						<article class="archive-project__item">
-							<div class="archive-project__item__inner">
-								<div class="archive-project__item__main">
-									<?php
-									/**
-									 * タイトル
-									 */
-									$wpf_title = get_the_title();
-									if ( $wpf_title ) {
-										?>
-										<h2 class="archive-project__item__title">
-											<a 
-												href="<?php the_permalink(); ?>"
-												class="link-muted">
-												<?php echo $wpf_title; // phpcs:ignore WordPress.Security.EscapeOutput ?>
-											</a>
-										</h2>
-										<?php
-									}
-									?>
-
-									<?php
-									/**
-									 * 抜粋
-									 */
-									$wpf_excerpt = get_the_excerpt();
-									if ( $wpf_excerpt ) {
-										?>
-										<p class="archive-project__item__excerpt">
-											<?php echo $wpf_excerpt; // phpcs:ignore WordPress.Security.EscapeOutput ?>
-										</p>
-										<?php
-									}
-									?>
-
-									<?php
-									/**
-									 * 選択しているタームと領域タームを出力
-									 */
-									if ( ( $cat_terms && ! is_wp_error( $cat_terms ) ) || ( $domain_terms && ! is_wp_error( $domain_terms ) ) ) {
-										?>
-										<div class="archive-project__item__sub-categories">
-											<?php
-											if ( $cat_terms && ! is_wp_error( $cat_terms ) ) {
-												foreach ( $cat_terms as $term ) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride
-													$term_link = get_term_link( $term->term_id ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-													?>
-													<a href="<?php echo esc_url( $term_link ); ?>" class="archive-project__item__sub-category pill-secondary">
-														<?php echo esc_html( $term->name ); ?>
-													</a>
-													<?php
-												}
-											}
-
-											if ( $domain_terms && ! is_wp_error( $domain_terms ) ) {
-												foreach ( $domain_terms as $term ) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride
-													$term_link = get_term_link( $term->term_id ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-													?>
-													<a href="<?php echo esc_url( $term_link ); ?>" class="archive-project__item__sub-category pill-secondary">
-														<?php echo esc_html( $term->name ); ?>
-													</a>
-													<?php
-												}
-											}
-											?>
-										</div>
-										<?php
-									}
-									?>
-								</div>
-
-								<div class="archive-project__item__header">
-									<?php
-									if ( $cat_terms && ! is_wp_error( $cat_terms ) ) {
-										?>
-										<div class="archive-project__item__main-categories">
-											<?php
-											// 選択しているタームの最祖先を出力
-											foreach ( $cat_terms as $term ) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride
-												// 祖先タームのIDを配列で取得（最も近い親から最上位の順）
-												$ancestors = get_ancestors( $term->term_id, 'project_cat', 'taxonomy' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-
-												if ( ! empty( $ancestors ) ) {
-													// 配列の最後が最上位のターム
-													$top_parent_id   = end( $ancestors ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-													$top_parent      = get_term( $top_parent_id, 'project_cat' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-													$top_parent_link = get_term_link( $top_parent ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-													?>
-													<a href="<?php echo esc_url( $top_parent_link ); ?>" class="archive-project__item__main-category pill">
-														<?php echo esc_html( $top_parent->name ); ?>
-													</a>
-													<?php
-												} else {
-													// 祖先がいない場合は自身が最上位
-													$term_link = get_term_link( $term->term_id ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-													?>
-													<a href="<?php echo esc_url( $term_link ); ?>" class="archive-project__item__main-category pill">
-														<?php echo esc_html( $term->name ); ?>
-													</a>
-													<?php
-												}
-											}
-											?>
-										</div>
-										<?php
-									}
-									?>
-
-									<a href="<?php the_permalink(); ?>" class="archive-project__item__thubmnail frame" aria-hidden="true" tabindex="-1">
-										<?php $wpf_template_tags::the_image( get_post_thumbnail_id() ); ?>
-									</a>
-								</div>
-							</div>
-						</article>
+					<div class="archive-project__items">
 						<?php
-					}
+						while ( have_posts() ) {
+							the_post();
+
+							$cat_terms    = get_the_terms( get_the_ID(), 'project_cat' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+							$domain_terms = get_the_terms( get_the_ID(), 'project_domain' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+							?>
+							<article class="archive-project__item">
+								<div class="archive-project__item__inner">
+									<div class="archive-project__item__main">
+										<?php
+										/**
+										 * タイトル
+										 */
+										$wpf_title = get_the_title();
+										if ( $wpf_title ) {
+											?>
+											<h2 class="archive-project__item__title">
+												<a 
+													href="<?php the_permalink(); ?>"
+													class="link-muted">
+													<?php echo $wpf_title; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+												</a>
+											</h2>
+											<?php
+										}
+										?>
+
+										<?php
+										/**
+										 * 抜粋
+										 */
+										$wpf_excerpt = get_the_excerpt();
+										if ( $wpf_excerpt ) {
+											?>
+											<p class="archive-project__item__excerpt">
+												<?php echo $wpf_excerpt; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+											</p>
+											<?php
+										}
+										?>
+
+										<?php
+										/**
+										 * 選択しているタームと領域タームを出力
+										 */
+										if ( ( $cat_terms && ! is_wp_error( $cat_terms ) ) || ( $domain_terms && ! is_wp_error( $domain_terms ) ) ) {
+											?>
+											<div class="archive-project__item__sub-categories">
+												<?php
+												if ( $cat_terms && ! is_wp_error( $cat_terms ) ) {
+													foreach ( $cat_terms as $term ) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride
+														$term_link = get_term_link( $term->term_id ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+														?>
+														<a href="<?php echo esc_url( $term_link ); ?>" class="archive-project__item__sub-category pill-secondary">
+															<?php echo esc_html( $term->name ); ?>
+														</a>
+														<?php
+													}
+												}
+
+												if ( $domain_terms && ! is_wp_error( $domain_terms ) ) {
+													foreach ( $domain_terms as $term ) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride
+														$term_link = get_term_link( $term->term_id ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+														?>
+														<a href="<?php echo esc_url( $term_link ); ?>" class="archive-project__item__sub-category pill-secondary">
+															<?php echo esc_html( $term->name ); ?>
+														</a>
+														<?php
+													}
+												}
+												?>
+											</div>
+											<?php
+										}
+										?>
+									</div>
+
+									<div class="archive-project__item__header">
+										<?php
+										if ( $cat_terms && ! is_wp_error( $cat_terms ) ) {
+											?>
+											<div class="archive-project__item__main-categories">
+												<?php
+												// 選択しているタームの最祖先を出力
+												foreach ( $cat_terms as $term ) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride
+													// 祖先タームのIDを配列で取得（最も近い親から最上位の順）
+													$ancestors = get_ancestors( $term->term_id, 'project_cat', 'taxonomy' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+
+													if ( ! empty( $ancestors ) ) {
+														// 配列の最後が最上位のターム
+														$top_parent_id   = end( $ancestors ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+														$top_parent      = get_term( $top_parent_id, 'project_cat' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+														$top_parent_link = get_term_link( $top_parent ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+														?>
+														<a href="<?php echo esc_url( $top_parent_link ); ?>" class="archive-project__item__main-category pill">
+															<?php echo esc_html( $top_parent->name ); ?>
+														</a>
+														<?php
+													} else {
+														// 祖先がいない場合は自身が最上位
+														$term_link = get_term_link( $term->term_id ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+														?>
+														<a href="<?php echo esc_url( $term_link ); ?>" class="archive-project__item__main-category pill">
+															<?php echo esc_html( $term->name ); ?>
+														</a>
+														<?php
+													}
+												}
+												?>
+											</div>
+											<?php
+										}
+										?>
+
+										<a href="<?php the_permalink(); ?>" class="archive-project__item__thubmnail frame" aria-hidden="true" tabindex="-1">
+											<?php $wpf_template_tags::the_image( get_post_thumbnail_id() ); ?>
+										</a>
+									</div>
+								</div>
+							</article>
+							<?php
+						}
+						?>
+					</div>
+
+					<?php
+					the_posts_pagination(
+						array(
+							'prev_text'          => sprintf(
+								'%s <span class="screen-reader-text">%s</span>',
+								WPF_Icons::get_svg( 'ui', 'arrow_left' ),
+								esc_html__( '前へ', 'wordpressfoundation' )
+							),
+							'next_text'          => sprintf(
+								'<span class="screen-reader-text">%s</span> %s',
+								esc_html__( '次へ', 'wordpressfoundation' ),
+								WPF_Icons::get_svg( 'ui', 'arrow_right' )
+							),
+							'before_page_number' => '<span class="screen-reader-text">' . __( '投稿', 'wordpressfoundation' ) . ' </span>',
+						)
+					);
 					?>
 				</div>
 
 				<?php
-				the_posts_pagination(
-					array(
-						'prev_text'          => sprintf(
-							'%s <span>%s</span>',
-							WPF_Icons::get_svg( 'ui', 'angle_left' ),
-							esc_html__( '前へ', 'wordpressfoundation' )
-						),
-						'next_text'          => sprintf(
-							'<span>%s</span> %s',
-							esc_html__( '次へ', 'wordpressfoundation' ),
-							WPF_Icons::get_svg( 'ui', 'angle_right' )
-						),
-						'before_page_number' => '<span class="screen-reader-text">' . __( '投稿', 'wordpressfoundation' ) . ' </span>',
-					)
-				);
 			} else {
 				?>
 				<p><?php esc_html_e( '投稿が見つかりませんでした。', 'wordpressfoundation' ); ?></p>
