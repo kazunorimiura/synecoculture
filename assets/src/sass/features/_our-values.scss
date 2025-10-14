@@ -21,25 +21,28 @@
 }
 
 .our-values__main {
+    --our-values__main-column-gap: #{fd(32, 128)};
+    --our-values__main-row-gap: #{fd(24, 48)};
+
     display: flex;
     flex-wrap: wrap;
-    gap: fd(24, 48) fd(32, 128);
+    gap: var(--our-values__main-row-gap) var(--our-values__main-column-gap);
     margin-block-start: fd(32, 64);
 
     @media screen and (max-width: em(map.get($breakpoints, lg))) {
-        gap: fd(32, 64) fd(32, 128);
+        gap: fd(32, 64) var(--our-values__main-column-gap);
         margin-block-start: fd(64, 72);
     }
 
     @media screen and (max-width: em(map.get($breakpoints, sm))) {
-        gap: fd(24, 48) fd(32, 128);
+        gap: var(--our-values__main-row-gap) var(--our-values__main-column-gap);
         margin-block-start: fd(32, 64);
     }
 }
 
 .our-values__item {
     display: flex;
-    flex-basis: calc(50% - #{fd(32, 128)} / 2);
+    flex-basis: calc(50% - var(--our-values__main-column-gap) / 2);
     align-items: center;
 
     @media screen and (max-width: em(map.get($breakpoints, lg))) {

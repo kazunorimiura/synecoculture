@@ -3,9 +3,11 @@
 @use "../base/settings" as *;
 
 .about-child-links {
+    --about-child-links-gap: #{rem(16)};
+
     display: flex;
     flex-wrap: wrap;
-    gap: rem(16);
+    gap: var(--about-child-links-gap);
     align-items: flex-start;
     padding-block: fd(64, 96);
     padding-inline: var(--site-gutter);
@@ -13,7 +15,7 @@
 
 .about-child-links__item {
     display: flex;
-    flex-basis: calc(50% - #{fd(12, 16)} / 2);
+    flex-basis: calc(50% - var(--about-child-links-gap) / 2);
     flex-direction: row-reverse;
     align-items: center;
     justify-content: flex-end;
@@ -32,8 +34,10 @@
 
 .about-child-links__item__main {
     display: flex;
+    flex: 1;
     gap: fd(24, 48);
     align-items: center;
+    justify-content: space-between;
     padding-block: fd(24, 40);
     padding-inline: fd(16, 48) fd(16, 24);
 }
