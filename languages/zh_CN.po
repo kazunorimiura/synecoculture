@@ -281,3 +281,6 @@ msgstr "当前页面"
 
 msgid "行動指針"
 msgstr "行为准则"
+
+msgid "アーカイブ"
+msgstr "归档"

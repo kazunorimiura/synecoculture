@@ -1,0 +1,125 @@
+@use "sass:map";
+@use "sass:math";
+@use "../config";
+@use "../base/settings" as *;
+@use "../utilities/grid";
+@use "../utilities/flow";
+@use "../utilities/wrapper";
+
+.archive-post {
+    display: flex;
+    gap: fd(1, 128);
+
+    @media screen and (max-width: em(map.get($breakpoints, xl))) {
+        flex-direction: column-reverse;
+        gap: fd(48, 128);
+    }
+}
+
+// 1. サイドバーの理想的な幅。auto はコンテンツに応じる。
+// 2. 長いテキストが折り返されるようにする。
+.archive-post__sidebar {
+    flex-basis: fd(180, 249);
+    flex-grow: 1; // 1
+    min-width: 0; // 2
+
+    @media screen and (max-width: em(map.get($breakpoints, xl))) {
+        flex-basis: 100%;
+        padding-block-start: fd(48, 64);
+        border-top: 1px solid var(--color-border-opaque);
+    }
+}
+
+.archive-post__sidebar > * + * {
+    margin-block-start: rem(32);
+}
+
+// 1. 非サイドバーの理想的な幅。「0」の場合は利用可能な幅を埋める
+// 2. 長いテキストが折り返されるようにする
+.archive-post__main {
+    display: grid;
+    flex-basis: 0; // 1
+    flex-grow: 999; // 1
+    grid-template-columns: repeat(2, 1fr);
+    gap: fd(24, 64) fd(24, 48);
+    align-items: flex-start;
+    min-width: 0; // 2
+
+    @media screen and (max-width: em(map.get($breakpoints, md))) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.archive-post__item__inner {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: fd(24, 32);
+    align-items: flex-start;
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        gap: fd(24, 32);
+    }
+
+    @media screen and (max-width: em(map.get($breakpoints, sm))) {
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+    }
+}
+
+.archive-post__item__thubmnail {
+    --n: 1;
+    --d: 0.5625;
+
+    display: block;
+    flex-shrink: 0;
+    width: 100%;
+
+    > img {
+        width: 100%;
+        border-radius: var(--radius);
+    }
+
+    @media screen and (max-width: em(map.get($breakpoints, sm))) {
+        --n: 1;
+        --d: 1;
+
+        flex-basis: fd(120, 249);
+    }
+}
+
+.archive-post__item__main {
+    @extend %flow;
+}
+
+.archive-post__item__title {
+    // font-headline-2からfont-textへの流体サイジングに、line-height-headline-2の行高を掛けてpx値に変換
+    $min-lh-value: map.get($min-font-sizes, s0) * (math.div(math.max(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)) - math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)), 2) + math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4))) * 1px;
+    $max-lh-value: map.get($max-font-sizes, s3) * (math.div(math.max(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)) - math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)), 2) + math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4))) * 1px;
+
+    font-size: fd(rem(map.get($min-font-sizes, s0)), rem(map.get($max-font-sizes, s3)));
+    font-weight: var(--font-weight-bold);
+    line-height: fd($min-lh-value, $max-lh-value);
+}
+
+.archive-post__item__date {
+    --flow-space: #{fd(8, 16)};
+
+    font-size: fd(rem(map.get($min-font-sizes, s-2)), rem(map.get($max-font-sizes, s1)));
+    font-weight: var(--font-weight-sign);
+    line-height: var(--line-height-sign);
+    color: var(--color-content-tertiary);
+}
+
+.archive-post__item__sub-categories {
+    --flow-space: #{fd(10, 16)};
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(8);
+}
+
+.archive-post__item__sub-category {
+    padding-block: fd(6, 8);
+    font-size: fd(rem(map.get($min-font-sizes, s-3)), rem(map.get($max-font-sizes, s-1)));
+    line-height: var(--line-height-sign);
+}

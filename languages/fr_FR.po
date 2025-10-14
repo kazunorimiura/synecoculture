@@ -281,3 +281,6 @@ msgstr "Page actuelle"
 
 msgid "行動指針"
 msgstr "Code de conduite"
+
+msgid "アーカイブ"
+msgstr "Archive"

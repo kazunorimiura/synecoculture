@@ -289,3 +289,6 @@ msgstr "Current page"
 
 msgid "行動指針"
 msgstr "Code of Conduct"
+
+msgid "アーカイブ"
+msgstr "Archive"

@@ -568,6 +568,49 @@ class WPF_Smart_Cf_Register_Fields {
 				);
 				$settings[] = $_setting;
 			}
+
+			if ( 'company-profile' === $page_slug ) {
+				$_setting = SCF::add_setting( '_wpf_company_profile', '組織概要' );
+				$_setting->add_group(
+					'_wpf_company_profile',
+					true,
+					array(
+						array(
+							'name'  => '_wpf_company_profile__heading',
+							'label' => __( '見出し', 'wordpressfoundation' ),
+							'type'  => 'text',
+						),
+						array(
+							'name'  => '_wpf_company_profile__body',
+							'label' => __( '本文', 'wordpressfoundation' ),
+							'type'  => 'wysiwyg',
+						),
+					)
+				);
+				$settings[] = $_setting;
+			}
+
+			if ( 'history' === $page_slug ) {
+				$_setting = SCF::add_setting( '_wpf_history', '沿革' );
+				$_setting->add_group(
+					'_wpf_history',
+					true,
+					array(
+						array(
+							'name'  => '_wpf_history__heading',
+							'label' => __( '見出し', 'wordpressfoundation' ),
+							'type'  => 'text',
+						),
+						array(
+							'name'  => '_wpf_history__body',
+							'label' => __( '本文', 'wordpressfoundation' ),
+							'type'  => 'textarea',
+							'rows'  => 2,
+						),
+					)
+				);
+				$settings[] = $_setting;
+			}
 		}
 
 		if ( 'case-study' === $type ) {

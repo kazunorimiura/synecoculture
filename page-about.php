@@ -47,16 +47,22 @@ if ( have_posts() ) {
 			);
 
 			if ( $query->have_posts() ) {
-				while ( $query->have_posts() ) {
-					$query->the_post();
+				?>
+				<div id="our-purpose">
+					<?php
+					while ( $query->have_posts() ) {
+						$query->the_post();
 
-					// Our Purpose
-					$wpf_our_purpose_for_about = do_shortcode( '[wpf_our_purpose_for_about]' );
-					if ( ! empty( $wpf_our_purpose_for_about ) ) {
-						echo $wpf_our_purpose_for_about; // phpcs:ignore WordPress.Security.EscapeOutput
+						// Our Purpose
+						$wpf_our_purpose_for_about = do_shortcode( '[wpf_our_purpose_for_about]' );
+						if ( ! empty( $wpf_our_purpose_for_about ) ) {
+							echo $wpf_our_purpose_for_about; // phpcs:ignore WordPress.Security.EscapeOutput
+						}
 					}
-				}
-				wp_reset_postdata();
+					wp_reset_postdata();
+					?>
+				</div>
+				<?php
 			}
 			?>
 

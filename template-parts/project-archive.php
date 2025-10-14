@@ -1,6 +1,6 @@
 <?php
 /**
- * プロジェクトアーカイブテンプレート
+ * `project`投稿タイプのアーカイブテンプレート
  *
  * @package wordpressfoundation
  * @since 0.1.0
@@ -38,11 +38,14 @@ global $wpf_template_tags;
 					'parent'   => 0,  // 親がないタームのみ取得
 				)
 			);
-			$project_domain_terms        = get_terms(
+
+			// 領域
+			$project_domain_terms = get_terms(
 				array(
 					'taxonomy' => 'project_domain',
 				)
 			);
+
 			if ( $top_level_project_cat_terms && ! is_wp_error( $top_level_project_cat_terms ) || $project_domain_terms && ! is_wp_error( $project_domain_terms ) ) {
 				$current_term = WPF_Template_Tags::get_the_current_term();
 				?>
@@ -58,19 +61,23 @@ global $wpf_template_tags;
 								</summary>
 
 								<nav class="category-accordion__main" aria-label="<?php echo esc_attr_e( 'カテゴリー', 'wordpressfoundation' ); ?>">
-									<?php
-									foreach ( $top_level_project_cat_terms as $project_cat_term ) {
-										$aria_current_attr     = $current_term && $current_term->term_id === $project_cat_term->term_id ? ' aria-current="page"' : '';
-										$project_cat_term_link = get_term_link( $project_cat_term );
-										if ( ! is_wp_error( $project_cat_term_link ) ) {
-											?>
-											<a href="<?php echo esc_url( $project_cat_term_link ); ?>" class="category-accordion__item"<?php echo $aria_current_attr; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>>
-												<?php echo esc_html( $project_cat_term->name ); ?>
-											</a>
-											<?php
+									<ul>
+										<?php
+										foreach ( $top_level_project_cat_terms as $project_cat_term ) {
+											$aria_current_attr     = $current_term && $current_term->term_id === $project_cat_term->term_id ? ' aria-current="page"' : '';
+											$project_cat_term_link = get_term_link( $project_cat_term );
+											if ( ! is_wp_error( $project_cat_term_link ) ) {
+												?>
+												<li>
+													<a href="<?php echo esc_url( $project_cat_term_link ); ?>" class="category-accordion__item"<?php echo $aria_current_attr; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>>
+														<?php echo esc_html( $project_cat_term->name ); ?>
+													</a>
+												</li>
+												<?php
+											}
 										}
-									}
-									?>
+										?>
+									</ul>
 								</nav>
 							</details>
 						</div>
@@ -89,19 +96,23 @@ global $wpf_template_tags;
 								</summary>
 
 								<nav class="category-accordion__main" aria-label="<?php echo esc_attr_e( '領域', 'wordpressfoundation' ); ?>">
-									<?php
-									foreach ( $project_domain_terms as $project_domain_term ) {
-										$aria_current_attr        = $current_term && $current_term->term_id === $project_domain_term->term_id ? ' aria-current="page"' : '';
-										$project_domain_term_link = get_term_link( $project_domain_term );
-										if ( ! is_wp_error( $project_domain_term_link ) ) {
-											?>
-											<a href="<?php echo esc_url( $project_domain_term_link ); ?>" class="category-accordion__item"<?php echo $aria_current_attr; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>>
-												<?php echo esc_html( $project_domain_term->name ); ?>
-											</a>
-											<?php
+									<ul>
+										<?php
+										foreach ( $project_domain_terms as $project_domain_term ) {
+											$aria_current_attr        = $current_term && $current_term->term_id === $project_domain_term->term_id ? ' aria-current="page"' : '';
+											$project_domain_term_link = get_term_link( $project_domain_term );
+											if ( ! is_wp_error( $project_domain_term_link ) ) {
+												?>
+												<li>
+													<a href="<?php echo esc_url( $project_domain_term_link ); ?>" class="category-accordion__item"<?php echo $aria_current_attr; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>>
+														<?php echo esc_html( $project_domain_term->name ); ?>
+													</a>
+												</li>
+												<?php
+											}
 										}
-									}
-									?>
+										?>
+									</ul>
 								</nav>
 							</details>
 						</div>

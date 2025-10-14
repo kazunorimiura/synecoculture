@@ -1,6 +1,6 @@
 <?php // phpcs:ignore WordPress.Files.FileName
 /**
- * `project_domain`タクソノミーアーカイブテンプレート
+ * `project_domain`タクソノミーのアーカイブテンプレート
  *
  * @package wordpressfoundation
  * @since 0.1.0

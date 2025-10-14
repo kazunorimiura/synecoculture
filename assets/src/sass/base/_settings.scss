@@ -361,7 +361,7 @@ $max-line-height-sizes: hms(map.get(map.get(config.$hms-line-height, max), size)
     --font-size-headline-4: #{fd(rem(map.get($min-font-sizes, s1)), rem(map.get($max-font-sizes, s1)))};
     --font-size-headline-5: #{fd(rem(map.get($min-font-sizes, s0)), rem(map.get($max-font-sizes, s0)))};
     --font-size-headline-6: #{fd(rem(map.get($min-font-sizes, s0)), rem(map.get($max-font-sizes, s0)))};
-    --font-size-article: #{fd(rem(map.get($min-font-sizes, s1)), rem(map.get($max-font-sizes, s1)))};
+    --font-size-article: #{fd(rem(map.get($min-font-sizes, s0)), rem(map.get($max-font-sizes, s1)))};
     --font-size-text: #{fd(rem(map.get($min-font-sizes, s0)), rem(map.get($max-font-sizes, s0)))};
     --font-size-text--sm: #{fd(rem(map.get($min-font-sizes, s-1)), rem(map.get($max-font-sizes, s-1)))};
     --font-size-text--xs: #{fd(rem(map.get($min-font-sizes, s-2)), rem(map.get($max-font-sizes, s-2)))};

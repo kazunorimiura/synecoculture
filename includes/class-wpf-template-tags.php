@@ -52,7 +52,7 @@ class WPF_Template_Tags {
 				}
 
 				// デフォルト投稿アーカイブ、日付アーカイブの場合
-			} elseif ( is_home() || ( is_date() && ! is_post_type_archive() ) ) {
+			} elseif ( is_home() ) {
 				$page_for_posts = WPF_Utils::get_page_for_posts();
 
 				if ( $page_for_posts ) {
@@ -60,7 +60,7 @@ class WPF_Template_Tags {
 				}
 
 				// CPT投稿アーカイブ、CPT日付アーカイブの場合
-			} elseif ( ( is_post_type_archive() && ! is_date() ) || ( is_post_type_archive() && is_date() ) ) {
+			} elseif ( ( is_post_type_archive() && ! is_date() ) ) {
 				$page_for_posts = WPF_Utils::get_page_for_posts();
 
 				if ( $page_for_posts ) {
@@ -1174,23 +1174,9 @@ class WPF_Template_Tags {
 
 		if ( ! empty( $archives ) ) {
 			?>
-			<nav aria-label="<?php echo esc_attr( __( '日付', 'wordpressfoundation' ) ); ?>" class="navigation date-menu">
-				<ul class="navigation__list reel">
-				<?php
-				if ( $top_link ) {
-					?>
-					<li class="menu-item">
-						<a href="<?php echo esc_url( get_post_type_archive_link( get_post_type() ) ); ?>">
-							<?php echo esc_html_e( 'すべて', 'wordpressfoundation' ); ?>
-						</a>
-					</li>
-					<?php
-				}
-
-				echo $archives; // phpcs:ignore WordPress.Security.EscapeOutput
-				?>
-				</ul>
-			</nav>
+			<ul>
+				<?php echo $archives; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+			</ul>
 			<?php
 		}
 
