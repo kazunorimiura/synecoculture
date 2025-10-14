@@ -31,7 +31,7 @@ if ( have_posts() ) {
 			$wpf_show_toc = get_post_meta( get_the_ID(), '_wpf_show_toc', true );
 
 			$wpf_wrapper_classes   = 'page-main';
-			$wpf_wrapper_classes  .= $wpf_show_toc ? ' wrapper:wide' : '';
+			$wpf_wrapper_classes  .= $wpf_show_toc ? ' wrapper:wide' : ' wrapper';
 			$wpf_container_classes = $wpf_show_toc ? 'sidebar flex-wrap-nowrap' : 'flow';
 			$wpf_container_styles  = $wpf_show_toc ? '--sidebar-width: 18rem; --sidebar-content-width: 50%; --sidebar-gap: var(--space-s7)' : '';
 			?>

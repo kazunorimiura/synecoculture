@@ -6,18 +6,16 @@
 %button\:base {
     @extend %input-padding;
 
-    --input-padding-inline: var(--space-s1);
-
-    display: inline-flex;
-    align-items: center;
+    display: flex;
     justify-content: center;
+    min-width: fd(130, 168);
     font-size: inherit;
     font-weight: var(--font-weight-sign);
     line-height: var(--button-lh, var(--line-height-sign));
     color: var(--color-content-primary);
     text-decoration: none;
     cursor: pointer;
-    border-radius: var(--radius);
+    border-radius: var(--radius-sm);
 
     &:link,
     &:visited {
@@ -38,31 +36,30 @@
         display: none;
     }
 
-    // アイコン付きボタンの場合は間隔を設定
-    > * + * {
-        margin-inline-start: 0.4em;
-    }
+    // // アイコン付きボタンの場合は間隔を設定
+    // > * + * {
+    //     margin-inline-start: 0.4em;
+    // }
 
-    // アイコンが左側にある場合、アイコンの視覚調整分のスペース（0.2em）を相殺
-    > svg:first-child {
-        margin-inline-start: -0.2em;
-    }
+    // // アイコンが左側にある場合、アイコンの視覚調整分のスペース（0.2em）を相殺
+    // > svg:first-child {
+    //     margin-inline-start: -0.2em;
+    // }
 
-    // アイコンが右側にある場合、アイコンの視覚調整分のスペース（0.2em）を相殺
-    > svg:last-child {
-        margin-inline-end: -0.2em;
-    }
+    // // アイコンが右側にある場合、アイコンの視覚調整分のスペース（0.2em）を相殺
+    // > svg:last-child {
+    //     margin-inline-end: -0.2em;
+    // }
 }
 
 %button\:primary {
     position: relative;
     overflow: hidden;
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-sign);
     color: var(--color-content-button-primary);
     text-decoration: none;
     background-color: var(--color-background-button-primary);
     border: 1px solid var(--color-border-button-primary);
-    box-shadow: 0 1px 1px rgb(255 255 255 / 25%) inset;
 
     &:link,
     &:visited {
@@ -71,25 +68,25 @@
         background-color: var(--color-background-button-primary);
     }
 
-    &::after,
-    &:link::after,
-    &:visited::after {
-        position: absolute;
-        inset: -1px;
-        display: block;
-        content: "";
-        opacity: 0.2;
-        transition: background-color 0.2s;
-    }
+    // &::after,
+    // &:link::after,
+    // &:visited::after {
+    //     position: absolute;
+    //     inset: -1px;
+    //     display: block;
+    //     content: "";
+    //     opacity: 0.2;
+    //     transition: background-color 0.2s;
+    // }
 
-    &:hover::after {
-        background-color: rgba(0 0 0 / 100%);
-    }
+    // &:hover::after {
+    //     background-color: rgba(0 0 0 / 100%);
+    // }
 
-    &:active::after {
-        background-color: rgba(0 0 0 / 50%);
-        transition: background-color 0s;
-    }
+    // &:active::after {
+    //     background-color: rgba(0 0 0 / 50%);
+    //     transition: background-color 0s;
+    // }
 }
 
 %button\:secondary {
@@ -107,25 +104,25 @@
         background-color: var(--color-background-button-secondary);
     }
 
-    &::after,
-    &:link::after,
-    &:visited::after {
-        position: absolute;
-        inset: -1px;
-        display: block;
-        content: "";
-        opacity: 0.2;
-        transition: background-color 0.2s;
-    }
+    // &::after,
+    // &:link::after,
+    // &:visited::after {
+    //     position: absolute;
+    //     inset: -1px;
+    //     display: block;
+    //     content: "";
+    //     opacity: 0.2;
+    //     transition: background-color 0.2s;
+    // }
 
-    &:hover::after {
-        background-color: var(--color-background-inverse-secondary);
-    }
+    // &:hover::after {
+    //     background-color: var(--color-background-inverse-secondary);
+    // }
 
-    &:active::after {
-        background-color: var(--color-background-inverse-tertiary);
-        transition: background-color 0s;
-    }
+    // &:active::after {
+    //     background-color: var(--color-background-inverse-tertiary);
+    //     transition: background-color 0s;
+    // }
 }
 
 %button\:tertiary {
@@ -198,12 +195,40 @@
     }
 }
 
-%button\:icon {
-    --icon-button-size: 1.75em;
+%button\:with-icon {
+    @extend %input-padding;
 
-    width: var(--icon-button-size);
-    height: var(--icon-button-size);
     padding: 0;
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0;
+
+    > span {
+        display: block;
+        padding-block: var(--input-padding-block);
+        border-style: solid;
+        border-width: 1px;
+        border-radius: var(--radius-sm);
+    }
+
+    > span:first-child {
+        min-width: fd(130, 168);
+        padding-inline: var(--input-padding-inline);
+        text-align: center;
+    }
+
+    > span:last-child {
+        display: flex;
+        align-items: center;
+        padding-inline: var(--input-padding-block);
+        margin-inline-start: -1px;
+    }
+}
+
+%button\:icon {
+    min-width: 0;
+    padding: var(--input-padding-block);
+    border-radius: 50%;
 
     > * + *,
     > svg:first-child {
@@ -263,6 +288,18 @@
     @extend %button\:primary;
     @extend %button\:disabled;
 
+    &\:with-icon {
+        @extend %button\:base;
+        @extend %button\:primary;
+        @extend %button\:with-icon;
+        @extend %button\:disabled;
+
+        > span {
+            background-color: var(--color-background-button-primary);
+            border-color: var(--color-border-button-primary);
+        }
+    }
+
     &\:icon {
         @extend %button\:base;
         @extend %button\:primary;
@@ -282,6 +319,13 @@
     @extend %button\:base;
     @extend %button\:secondary;
     @extend %button\:disabled;
+
+    &\:with-icon {
+        @extend %button\:base;
+        @extend %button\:secondary;
+        @extend %button\:with-icon;
+        @extend %button\:disabled;
+    }
 
     &\:icon {
         @extend %button\:base;

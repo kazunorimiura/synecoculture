@@ -233,7 +233,13 @@
 }
 
 .our-approach-strategies-item__cta {
+    display: flex;
+    justify-content: flex-start;
     margin-block-start: fd(32, 48);
+
+    @media screen and (max-width: em(map.get($breakpoints, sm))) {
+        justify-content: center;
+    }
 }
 
 .our-approach-strategies-item__bg-image {

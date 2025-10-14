@@ -32,7 +32,7 @@
 
 .dive-into-synecoculture__learns {
     --gap-inline: #{fd(32, 48)};
-    --gap-block: #{fd(32, 64)};
+    --gap-block: #{fd(48, 64)};
     --learn-header-width: #{fd(70, 112)};
 
     display: flex;
@@ -112,8 +112,9 @@
 
     @media screen and (max-width: em(map.get($breakpoints, sm))) {
         flex-basis: 100%;
-        flex-direction: row-reverse;
-        align-items: flex-start;
+
+        // flex-direction: row-reverse;
+        // align-items: flex-start;
     }
 }
 
@@ -133,10 +134,6 @@
 
 .dive-into-synecoculture__learn__main {
     @extend %flow;
-
-    @media screen and (max-width: em(map.get($breakpoints, sm))) {
-        flex: 2;
-    }
 }
 
 .dive-into-synecoculture__learn--first .dive-into-synecoculture__learn__main {
@@ -165,6 +162,8 @@
 
 .dive-into-synecoculture__learn__cta {
     --flow-space: #{fd(24, 32)};
+
+    display: flex;
 }
 
 .dive-into-synecoculture__learn__image {
@@ -172,6 +171,9 @@
     --d: 1;
 
     @media screen and (max-width: em(map.get($breakpoints, sm))) {
+        --n: 1;
+        --d: 0.65;
+
         flex: 1;
         width: 100%;
     }
@@ -189,7 +191,7 @@
 
     @media screen and (max-width: em(map.get($breakpoints, lg))) {
         --n: 1;
-        --d: 0.5625;
+        --d: 0.65;
     }
 
     @media screen and (max-width: em(map.get($breakpoints, sm))) {

@@ -448,6 +448,10 @@ $max-line-height-sizes: hms(map.get(map.get(config.$hms-line-height, max), size)
     --dropdown-menu-gap: #{map.get(config.$dropdown-menu, gap)};
     --dropdown-menu-sub-menu-padding: #{map.get(config.$dropdown-menu, sub-menu-padding)};
     --dropdown-menu-sub-menu-border-width: #{map.get(config.$dropdown-menu, sub-menu-border-width)};
+
+    // input要素のパディング
+    --input-padding-block: #{fd(em(15), em(20))};
+    --input-padding-inline: #{fd(em(20), em(28))};
 }
 
 /// config設定をコピーして他の場所でも参照できるようにする。

@@ -282,8 +282,8 @@ html[data-site-theme="dark"] img {
 }
 
 %input-padding {
-    padding-block: var(--input-padding-block, var(--space-s-5));
-    padding-inline: var(--input-padding-inline, var(--space-s-3));
+    padding-block: var(--input-padding-block);
+    padding-inline: var(--input-padding-inline);
     line-height: inherit;
 }
 

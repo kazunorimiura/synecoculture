@@ -33,5 +33,21 @@
         .#{$key}\:hidden-no {
             @extend %#{$key}\:hidden-no;
         }
+
+        %#{$key}\:hidden-yes--i {
+            display: none !important;
+        }
+
+        .#{$key}\:hidden-yes--i {
+            @extend %#{$key}\:hidden-yes--i;
+        }
+
+        %#{$key}\:hidden-no--i {
+            display: revert !important;
+        }
+
+        .#{$key}\:hidden-no--i {
+            @extend %#{$key}\:hidden-no--i;
+        }
     }
 }

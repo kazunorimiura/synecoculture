@@ -552,8 +552,9 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 												if ( ! empty( $link_text ) || ! empty( $link_url ) ) {
 													?>
 													<div class="our-approach-strategies-item__cta">
-														<a href="<?php echo esc_url( $link_url ); ?>" class="button:inverse-secondary">
-															<?php echo esc_html( $link_text ); // リンクテキストを出力 ?>
+														<a href="<?php echo esc_url( $link_url ); ?>" class="button:secondary:with-icon">
+															<span><?php echo esc_html( $link_text ); // リンクテキストを出力 ?></span>
+															<span class="sm:hidden-yes--i"><?php echo WPF_Icons::get_svg( 'ui', 'arrow_right', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 														</a>
 													</div>
 													<?php
@@ -1009,8 +1010,9 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 										if ( ! empty( $link_text ) && ! empty( $link_url ) ) {
 											?>
 											<div class="our-initiatives__item__cta">
-												<a href="<?php echo esc_url( $link_url ); ?>" class="button:secondary">
-													<?php echo esc_html( $link_text ); ?>
+												<a href="<?php echo esc_url( $link_url ); ?>" class="button:secondary:with-icon">
+													<span><?php echo esc_html( $link_text ); ?></span>
+													<span><?php echo WPF_Icons::get_svg( 'ui', 'arrow_right', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 												</a>
 											</div>
 											<?php
@@ -1082,7 +1084,10 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 								$permalink = get_permalink( $projects_page->ID );
 								?>
 								<div class="featured-projects__cta">
-									<a href="<?php echo esc_url( $permalink ); ?>" class="button:primary">View All</a>
+									<a href="<?php echo esc_url( $permalink ); ?>" class="button:primary:with-icon">
+										<span>View All</span>
+										<span><?php echo WPF_Icons::get_svg( 'ui', 'arrow_right', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+									</a>
 								</div>
 								<?php
 							}
@@ -1346,8 +1351,11 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 											if ( ! empty( $link_text ) && ! empty( $link_url ) ) {
 												?>
 												<div class="dive-into-synecoculture__learn__cta">
-													<a href="<?php echo esc_url( $link_url ); ?>" class="button:secondary">
-														<?php echo esc_html( $link_text ); ?>
+													<a href="<?php echo esc_url( $link_url ); ?>" class="button:secondary:with-icon">
+														<span>
+															<?php echo esc_html( $link_text ); ?>
+														</span>
+														<span><?php echo WPF_Icons::get_svg( 'ui', 'arrow_right', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 													</a>
 												</div>
 												<?php
@@ -1442,7 +1450,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 												<?php echo wp_kses_post( $heading ); // 見出しを出力 ?>
 											</h3>
 
-											<a href="<?php echo esc_url( $link_url ); ?>" class="button:secondary:icon">
+											<a href="<?php echo esc_url( $link_url ); ?>" class="button:ghost:icon">
 												<?php echo WPF_Icons::get_svg( 'ui', 'arrow_right', 24 ); /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>
 												<span class="screen-reader-text"><?php echo esc_html_e( 'さらに詳しく', 'wordpressfoundation' ); ?></span>
 											</a>
@@ -1525,7 +1533,10 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 							?>
 
 							<div class="blog-banner__cta">
-								<a href="<?php echo esc_url( $permalink ); ?>" class="button:secondary">View More</a>
+								<a href="<?php echo esc_url( $permalink ); ?>" class="button:secondary:with-icon">
+									<span>View More</span>
+									<span><?php echo WPF_Icons::get_svg( 'ui', 'arrow_right', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+								</a>
 							</div>
 						</div>
 
@@ -1637,9 +1648,9 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 											<div class="news-slide swiper-slide">
 												<div class="news-slide__item">
 													<div class="news-slide__item__main">
-														<div class="news-slide__item__title">
+														<a href="<?php the_permalink(); ?>" class="news-slide__item__title">
 															<?php the_title(); ?>
-														</div>
+														</a>
 
 														<div class="news-slide__item__date">
 															<?php echo WPF_Template_Tags::get_the_publish_date_tag(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
@@ -1672,7 +1683,10 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 										</div>
 
 										<div class="news-slider-cta">
-											<a href="<?php echo esc_url( $permalink ); ?>" class="button:primary">View All</a>
+											<a href="<?php echo esc_url( $permalink ); ?>" class="button:primary:with-icon">
+												<span>View All</span>
+												<span><?php echo WPF_Icons::get_svg( 'ui', 'arrow_right', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+											</a>
 										</div>
 									</div>
 								</div>

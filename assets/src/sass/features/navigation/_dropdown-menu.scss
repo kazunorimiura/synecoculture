@@ -5,6 +5,7 @@
 @use "../../utilities/visual-adjust";
 @use "../../components/action-list";
 @use "../../components/button";
+@use "../../utilities/link";
 @use "navigation" as *;
 
 ///
@@ -155,13 +156,31 @@
 
 .dropdown-menu .menu-item .menu-item a,
 %dropdown-menu__menu-item__menu-item__a {
-    @extend %action-list-content;
+    @extend %link-muted;
+
+    display: block;
+    padding-block: var(--space-s-5);
+    padding-inline: var(--space-s-3);
+    border-radius: var(--radius-sm);
+
+    &:link,
+    &:visited,
+    &:hover {
+        color: var(--link-color, inherit);
+    }
+
+    &:hover {
+        text-decoration: none;
+        background-color: var(--color-background-highlight);
+    }
 }
 
+/* stylelint-disable no-descending-specificity */
 .dropdown-menu .menu-item-has-children .menu-item-has-children a,
 %dropdown-menu__menu-item-has-children__menu-item-has-children__a {
     flex: 1 1 100%;
 }
+/* stylelint-enable no-descending-specificity */
 
 .dropdown-menu .menu-item .menu-item a:hover,
 %dropdown-menu__menu-item__menu-item__a\:hover {
@@ -171,19 +190,11 @@
 /// メニュートグル
 
 .dropdown-menu .menu-item-toggle {
-    @extend %button\:base;
-    @extend %button\:ghost;
-    @extend %button\:icon;
-    @extend %button\:disabled;
-    @extend %visual-adjust\:inline-end;
-
-    --icon-button-size: 1.6em;
-    --adjust-size: -0.3em;
-
     display: inline-flex;
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
+    padding: var(--space-s-space);
 }
 
 // 1. メニュートグルの論理的な末尾側のスペースを確保

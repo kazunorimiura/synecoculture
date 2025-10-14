@@ -32,6 +32,10 @@
     }
 }
 
+[data-site-theme="dark"] .about-child-links__item {
+    border: 1px solid var(--color-border-opaque);
+}
+
 .about-child-links__item__main {
     display: flex;
     flex: 1;

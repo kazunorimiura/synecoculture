@@ -99,7 +99,7 @@
     align-items: center;
     justify-content: space-between;
     height: var(--featured-projects-header-height);
-    padding-inline: var(--site-gutter);
+    padding-inline: fd(map.get(config.$site-gutter-slat, min), map.get(config.$site-gutter, max), $min-viewport: map.get($breakpoints, lg));
 
     @media screen and (max-width: em(map.get($breakpoints, lg))) {
         padding-inline: var(--site-gutter-slat);
@@ -108,6 +108,18 @@
 
 .featured-projects.below-vh .featured-projects__header {
     padding-inline: 0;
+}
+
+.featured-projects__cta > a {
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        min-width: 0;
+    }
+}
+
+.featured-projects__cta > a > span:first-child {
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        display: none;
+    }
 }
 
 .featured-projects__item-container {

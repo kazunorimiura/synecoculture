@@ -108,7 +108,7 @@
     left: 0;
     z-index: 1;
     display: flex;
-    gap: rem(8);
+    gap: var(--space-s-space);
     align-items: center;
 }
 
