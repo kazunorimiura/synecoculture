@@ -93,7 +93,8 @@
     .tiny-head,
     .rich-link,
     .project-posts,
-    .news-posts {
+    .news-posts,
+    .embeded-privacy-policy {
         --flow-space: var(--space-s3);
     }
 
@@ -103,7 +104,8 @@
 
     .rich-link + *,
     .project-posts + *,
-    .news-posts + * {
+    .news-posts + *,
+    .embeded-privacy-policy + * {
         --flow-space: var(--space-s3);
     }
 }

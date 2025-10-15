@@ -1,14 +1,8 @@
 @use "../../components/notice";
 @use "../../components/prose";
-@use "../../utilities/region";
 
 .wp-block-group {
-    @extend %prose;
-    @extend %region;
-
-    --region-space: var(--space-s5);
-
-    > *:not(.alignwide, .alignfull) {
+    > .is-layout-constrained:not(.alignwide, .alignfull) {
         width: calc(100% - var(--site-gutter) * 2);
         max-width: var(--width-content);
         margin-inline: auto;
@@ -16,9 +10,7 @@
 }
 
 .widget_block .wp-block-group {
-    --region-space: 0;
-
-    > *:not(.alignwide, .alignfull) {
+    > .is-layout-constrained:not(.alignwide, .alignfull) {
         width: revert;
         max-width: revert;
         margin-inline: revert;

@@ -45,8 +45,8 @@
                 "bold": 700
             },
             "alignment": {
-                "width-content": "60rem",
-                "width-wide": "72rem"
+                "width-content": "45rem",
+                "width-wide": "68.5625rem"
             },
             "color": {
                 "primary-a": "rgb(8, 8, 8)",

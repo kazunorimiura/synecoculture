@@ -1,0 +1,16 @@
+@use "sass:map";
+@use "../config";
+@use "../base/settings" as *;
+@use "./prose";
+
+.embeded-privacy-policy {
+    @extend %prose;
+
+    height: fd(320px, 400px);
+    padding: fd(18, 24);
+    overflow: auto;
+    font: var(--font-text--sm);
+    background-color: var(--color-background-secondary);
+    border: 1px solid var(--color-border-opaque);
+    border-radius: var(--radius);
+}

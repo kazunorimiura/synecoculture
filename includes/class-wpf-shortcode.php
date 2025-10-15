@@ -48,6 +48,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			add_shortcode( 'wpf_our_values', array( $this, 'our_values' ) );
 			add_shortcode( 'wpf_about_intro', array( $this, 'about_intro' ) );
 			add_shortcode( 'wpf_about_child_page_links', array( $this, 'about_child_page_links' ) );
+			add_shortcode( 'wpf_embeded_privacy_policy', array( $this, 'embeded_privacy_policy' ) );
 		}
 
 		/**
@@ -2485,6 +2486,126 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 				</div>
 				<?php
 			}
+			return ob_get_clean();
+		}
+
+		/**
+		 * 個人情報保護方針のコンテンツを取得し、見出しをpタグに変換する
+		 *
+		 * @param int $root_level ルート見出しレベル（デフォルト: 2 = h2から開始）
+		 * @return string 変換後のHTML
+		 */
+		public static function get_converted_privacy_policy( $root_level = 2 ) {
+			// プライバシーポリシーページを取得
+			$privacy_policy_page_id = get_option( 'wp_page_for_privacy_policy' );
+
+			if ( ! $privacy_policy_page_id ) {
+				return '<p>個人情報保護方針が設定されていません。</p>';
+			}
+
+			$page = get_post( $privacy_policy_page_id );
+
+			if ( ! $page ) {
+				return '<p>個人情報保護方針を取得できませんでした。</p>';
+			}
+
+			// コンテンツを取得（shortcodeやフィルターを適用）
+			$content = apply_filters( 'the_content', $page->post_content ); // phpcs:ignore
+
+			// 見出しタグをpタグに変換
+			$content = self::convert_headings_to_p( $content, $root_level );
+
+			return $content;
+		}
+
+		/**
+		 * 見出しタグをpタグに変換し、独自クラスを追加
+		 *
+		 * @param string $content HTMLコンテンツ
+		 * @param int    $root_level ルート見出しレベル
+		 * @return string 変換後のHTML
+		 */
+		public static function convert_headings_to_p( $content, $root_level = 2 ) {
+			// まず、コンテンツ内の最小の見出しレベル（最も高い見出し）を見つける
+			$pattern = '/<h([1-6])([^>]*)>(.*?)<\/h[1-6]>/is';
+			preg_match_all( $pattern, $content, $all_matches, PREG_SET_ORDER );
+
+			if ( empty( $all_matches ) ) {
+				return $content; // 見出しがない場合はそのまま返す
+			}
+
+			// 最小の見出しレベルを取得（h1が最小=1、h6が最大=6）
+			$min_level = 6;
+			foreach ( $all_matches as $match ) {
+				$level = (int) $match[1];
+				if ( $level < $min_level ) {
+					$min_level = $level;
+				}
+			}
+
+			// レベル差を計算（最小レベルをroot_levelにマッピング）
+			$level_offset = $root_level - $min_level;
+
+			// h1〜h6タグを検出して変換
+			$content = preg_replace_callback(
+				$pattern,
+				function( $matches ) use ( $level_offset ) {
+					$original_level = (int) $matches[1]; // 元の見出しレベル (1-6)
+					$attributes     = $matches[2]; // 既存の属性
+					$text           = $matches[3]; // 見出しのテキスト
+
+					// 新しい見出しレベルを計算
+					$new_level = $original_level + $level_offset;
+
+					// 範囲外の場合は調整（1-6の範囲内に収める）
+					if ( $new_level < 1 ) {
+						$new_level = 1;
+					} elseif ( $new_level > 6 ) {
+						$new_level = 6;
+					}
+
+					// クラス名を生成
+					$headline_class = 'font-headline-' . $new_level;
+
+					// 既存のクラス属性を処理
+					if ( preg_match( '/class=["\']([^"\']*)["\']/', $attributes, $class_matches ) ) {
+						// 既存のクラスがある場合は追加
+						$existing_classes = $class_matches[1];
+						$new_attributes   = preg_replace(
+							'/class=["\']([^"\']*)["\']/i',
+							'class="$1 ' . $headline_class . '"',
+							$attributes
+						);
+					} else {
+						// クラス属性がない場合は新規追加
+						$new_attributes = $attributes . ' class="' . $headline_class . '"';
+					}
+
+					// pタグとして出力
+					return '<p' . $new_attributes . '>' . $text . '</p>';
+				},
+				$content
+			);
+
+			return $content;
+		}
+
+		/**
+		 * HTMLセマンティックを考慮した個人情報保護方針を出力するショートコード。
+		 *
+		 * @param array $atts ショートコード引数。
+		 * @return string
+		 */
+		public static function embeded_privacy_policy( $atts ) {
+			$atts = shortcode_atts(
+				array(
+					'root_level' => 2, // デフォルトはh2から開始
+				),
+				$atts
+			);
+
+			ob_start();
+			echo self::get_converted_privacy_policy( (int) $atts['root_level'] ); // phpcs:ignore WordPress.Security.EscapeOutput
 			return ob_get_clean();
 		}
 
