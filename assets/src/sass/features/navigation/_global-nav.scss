@@ -120,8 +120,8 @@ $global-nav-icon-line-weight: 5px;
     width: 92%;
     max-width: 500px;
     height: 100%;
-    padding-block: var(--site-header-height) var(--space-s1);
-    padding-inline: var(--space-s3);
+    padding-block: fd(120, 160) fd(64, 96);
+    padding-inline: fd(32, 40);
     overflow: scroll;
     visibility: hidden;
     background-color: var(--color-background-primary);
@@ -135,14 +135,24 @@ $global-nav-icon-line-weight: 5px;
 /// グローバルプライマリ
 
 .global-nav .global-primary {
+    padding-block-end: fd(24, 32);
     font-size: var(--font-size-headline-4);
 }
 
 /// グローバルセカンダリ
 
 .global-nav .global-secondary {
+    --flow-space: 0;
+
+    padding-block: fd(24, 32);
     font-size: var(--font-size-text);
     font-weight: var(--font-weight-sign);
+    border-top: 1px solid var(--color-border-opaque);
+}
+
+.global-nav .global-secondary .menu-item a {
+    --input-padding-block: #{fd(16, 18)};
+    --input-padding-inline: #{fd(16, 18)};
 }
 
 /// ソーシャルリンク
@@ -152,4 +162,7 @@ $global-nav-icon-line-weight: 5px;
     @extend %wrapper;
 
     --wrapper-gutter: var(--space-s-12);
+
+    padding-block: fd(24, 32);
+    border-top: 1px solid var(--color-border-opaque);
 }

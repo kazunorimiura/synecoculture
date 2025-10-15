@@ -8,7 +8,7 @@
 
 ?>
 
-<form role="search" method="get" class="sidebar search-form" style="--sidebar-gap: 1rem" action="<?php echo esc_url( home_url() ); ?>">
+<form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url() ); ?>">
 	<div class="search-form-wrapper" style="position: relative">
 		<label for="search-form" class="screen-reader-text"><?php echo esc_html_e( '検索', 'wordpressfoundation' ); ?></label>
 		<input id="search-form" type="search" placeholder="<?php echo esc_attr( /* translators: %s: サイト名 */ sprintf( __( '%sを検索', 'wordpressfoundation' ), get_bloginfo( 'name' ) ) ); ?>" value="<?php echo get_search_query(); ?>" name="s" />

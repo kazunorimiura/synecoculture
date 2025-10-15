@@ -1,9 +1,13 @@
 @use "../base/element";
+@use "../base/settings" as *;
 @use "../utilities/link";
 
 %action-list-content {
     @extend %input-padding;
     @extend %link-muted;
+
+    --input-padding-block: #{fd(18, 24)};
+    --input-padding-inline: #{fd(15, 18)};
 
     display: block;
 

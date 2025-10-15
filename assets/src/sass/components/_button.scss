@@ -7,6 +7,7 @@
     @extend %input-padding;
 
     display: flex;
+    align-items: center;
     justify-content: center;
     min-width: fd(130, 168);
     font-size: inherit;
@@ -16,40 +17,12 @@
     text-decoration: none;
     cursor: pointer;
     border-radius: var(--radius-sm);
+    transition: all 0.15s;
 
     &:link,
     &:visited {
         color: var(--color-content-primary);
     }
-
-    &:hover {
-        text-decoration: none;
-    }
-
-    &::after,
-    &:link::after,
-    &:visited::after {
-        text-decoration: none;
-    }
-
-    &[target="_blank"]::after {
-        display: none;
-    }
-
-    // // アイコン付きボタンの場合は間隔を設定
-    // > * + * {
-    //     margin-inline-start: 0.4em;
-    // }
-
-    // // アイコンが左側にある場合、アイコンの視覚調整分のスペース（0.2em）を相殺
-    // > svg:first-child {
-    //     margin-inline-start: -0.2em;
-    // }
-
-    // // アイコンが右側にある場合、アイコンの視覚調整分のスペース（0.2em）を相殺
-    // > svg:last-child {
-    //     margin-inline-end: -0.2em;
-    // }
 }
 
 %button\:primary {
@@ -67,26 +40,6 @@
         text-decoration: none;
         background-color: var(--color-background-button-primary);
     }
-
-    // &::after,
-    // &:link::after,
-    // &:visited::after {
-    //     position: absolute;
-    //     inset: -1px;
-    //     display: block;
-    //     content: "";
-    //     opacity: 0.2;
-    //     transition: background-color 0.2s;
-    // }
-
-    // &:hover::after {
-    //     background-color: rgba(0 0 0 / 100%);
-    // }
-
-    // &:active::after {
-    //     background-color: rgba(0 0 0 / 50%);
-    //     transition: background-color 0s;
-    // }
 }
 
 %button\:secondary {
@@ -103,26 +56,6 @@
         text-decoration: none;
         background-color: var(--color-background-button-secondary);
     }
-
-    // &::after,
-    // &:link::after,
-    // &:visited::after {
-    //     position: absolute;
-    //     inset: -1px;
-    //     display: block;
-    //     content: "";
-    //     opacity: 0.2;
-    //     transition: background-color 0.2s;
-    // }
-
-    // &:hover::after {
-    //     background-color: var(--color-background-inverse-secondary);
-    // }
-
-    // &:active::after {
-    //     background-color: var(--color-background-inverse-tertiary);
-    //     transition: background-color 0s;
-    // }
 }
 
 %button\:tertiary {
@@ -139,26 +72,6 @@
         text-decoration: none;
         background-color: var(--color-background-button-tertiary);
     }
-
-    &::after,
-    &:link::after,
-    &:visited::after {
-        position: absolute;
-        inset: -1px;
-        display: block;
-        content: "";
-        opacity: 0.2;
-        transition: background-color 0.2s;
-    }
-
-    &:hover::after {
-        background-color: var(--color-background-inverse-secondary);
-    }
-
-    &:active::after {
-        background-color: var(--color-background-inverse-tertiary);
-        transition: background-color 0s;
-    }
 }
 
 %button\:ghost {
@@ -174,24 +87,9 @@
         background-color: transparent;
     }
 
-    &::after,
-    &:link::after,
-    &:visited::after {
-        position: absolute;
-        inset: -1px;
-        display: block;
-        content: "";
-        opacity: 0.2;
-        transition: background-color 0.2s;
-    }
-
-    &:hover::after {
-        background-color: var(--color-background-inverse-secondary);
-    }
-
-    &:active::after {
-        background-color: var(--color-background-inverse-tertiary);
-        transition: background-color 0s;
+    &:hover {
+        color: currentcolor;
+        background-color: var(--color-background-highlight);
     }
 }
 
@@ -205,10 +103,17 @@
 
     > span {
         display: block;
+        align-self: stretch;
         padding-block: var(--input-padding-block);
         border-style: solid;
         border-width: 1px;
         border-radius: var(--radius-sm);
+        transition: all 0.15s;
+    }
+
+    &:hover > span {
+        color: var(--color-content-primary);
+        background-color: var(--color-background-highlight);
     }
 
     > span:first-child {
@@ -222,6 +127,17 @@
         align-items: center;
         padding-inline: var(--input-padding-block);
         margin-inline-start: -1px;
+
+        > svg {
+            transition: all 0.3s;
+            transform: translateX(0);
+        }
+    }
+
+    &:hover > span:last-child {
+        > svg {
+            transform: translateX(0.5em);
+        }
     }
 }
 
@@ -257,12 +173,6 @@
         user-select: none;
         background-color: var(--color-background-disabled);
         border: 1px solid var(--color-border-disabled);
-    }
-
-    &:disabled::after,
-    &:disabled:hover::after,
-    &:disabled:active::after {
-        display: none;
     }
 }
 
@@ -325,6 +235,16 @@
         @extend %button\:secondary;
         @extend %button\:with-icon;
         @extend %button\:disabled;
+
+        > span {
+            border-color: currentcolor;
+        }
+
+        &:hover > span {
+            color: currentcolor;
+            background-color: var(--color-background-highlight);
+            border-color: currentcolor;
+        }
     }
 
     &\:icon {

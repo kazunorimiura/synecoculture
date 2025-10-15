@@ -18,7 +18,7 @@ $menu-toggle-size: 2.5em;
     @extend %navigation__list;
     @extend %flow;
 
-    --flow-space: var(--space-s-12);
+    --flow-space: 0;
 }
 
 .accordion-menu .menu-item {
@@ -26,6 +26,7 @@ $menu-toggle-size: 2.5em;
     flex-grow: 1;
     flex-wrap: wrap;
     align-items: center;
+    line-height: var(--line-height-sign);
 }
 
 /// アンカー要素

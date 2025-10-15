@@ -1,17 +1,37 @@
+@use "sass:map";
+@use "../config";
+@use "../base/settings" as *;
+
+.search-form {
+    display: flex;
+    gap: var(--space-s-space);
+}
+
+.search-form-wrapper {
+    flex: 1;
+}
+
 .search-form label {
     position: relative;
 }
 
 .search-form [type="search"] {
-    padding-inline-start: calc(0.8em + 1.2em + 0.4em);
+    padding-inline-start: calc(var(--input-padding-block) + 1.2em + var(--space-s-space));
+    line-height: var(--line-height-sign);
 }
 
 .search-form .icon {
     position: absolute;
     top: 50%;
-    left: 0.8em;
+    left: var(--input-padding-block);
     width: 1.2em;
     height: 1.2em;
     color: var(--color-content-tertiary);
     transform: translateY(-50%);
+}
+
+.search-form button {
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        min-width: 0;
+    }
 }
