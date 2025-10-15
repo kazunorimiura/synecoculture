@@ -628,7 +628,7 @@ class WPF_Smart_Cf_Register_Fields {
 						'name'  => '_wpf_case_study__basic__body',
 						'label' => __( '説明', 'wordpressfoundation' ),
 						'type'  => 'textarea',
-						'rows'  => 3,
+						'rows'  => 5,
 					),
 				)
 			);
@@ -648,7 +648,7 @@ class WPF_Smart_Cf_Register_Fields {
 						'name'  => '_wpf_case_study__detail__body',
 						'label' => __( '説明', 'wordpressfoundation' ),
 						'type'  => 'textarea',
-						'rows'  => 3,
+						'rows'  => 5,
 					),
 				)
 			);
@@ -668,7 +668,7 @@ class WPF_Smart_Cf_Register_Fields {
 						'name'  => '_wpf_case_study__results__body',
 						'label' => __( '説明', 'wordpressfoundation' ),
 						'type'  => 'textarea',
-						'rows'  => 3,
+						'rows'  => 5,
 					),
 				)
 			);
@@ -689,13 +689,13 @@ class WPF_Smart_Cf_Register_Fields {
 						'label' => __( '写真', 'wordpressfoundation' ),
 						'type'  => 'image',
 						'size'  => 'thumbnail',
-						'notes' => __( '推奨画像サイズ: 幅780px', 'wordpressfoundation' ),
+						'notes' => __( '推奨画像サイズ: 幅1040px', 'wordpressfoundation' ),
 					),
 					array(
 						'name'  => '_wpf_case_study__log__body',
 						'label' => __( '説明', 'wordpressfoundation' ),
 						'type'  => 'textarea',
-						'rows'  => 3,
+						'rows'  => 5,
 					),
 				)
 			);
