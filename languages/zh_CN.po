@@ -287,3 +287,6 @@ msgstr "归档"
 
 msgid "記事を読む"
 msgstr "阅读文章"
+
+msgid "基本情報"
+msgstr "基本信息"

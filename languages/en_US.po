@@ -295,3 +295,6 @@ msgstr "Archive"
 
 msgid "記事を読む"
 msgstr "Read article"
+
+msgid "基本情報"
+msgstr "Basic Information"

@@ -83,6 +83,150 @@ if ( have_posts() ) {
 							the_content();
 						}
 						?>
+
+						<?php
+						$basic = SCF::get( '_wpf_case_study__basic' );
+						if ( ! empty( $basic ) ) {
+							?>
+							<h2>
+								<?php echo esc_html_e( '基本情報', 'wordpressfoundation' ); ?>
+							</h2>
+
+							<dl>
+								<?php
+								foreach ( $basic as $item ) {
+									$heading = $item['_wpf_case_study__basic__heading'];
+									$body    = $item['_wpf_case_study__basic__body'];
+									if ( ! empty( $heading ) && ! empty( $body ) ) {
+										?>
+										<dt>
+											<?php echo esc_html( $heading ); ?>
+										</dt>
+										<dd>
+											<?php echo wp_kses_post( $body ); ?>
+										</dd>
+										<?php
+									}
+								}
+								?>
+							</dl>
+							<?php
+						}
+						?>
+
+						<?php
+						$detail = SCF::get( '_wpf_case_study__detail' );
+						if ( ! empty( $detail ) ) {
+							?>
+							<h2>
+								<?php echo esc_html_e( '実践内容', 'wordpressfoundation' ); ?>
+							</h2>
+
+							<dl>
+								<?php
+								foreach ( $detail as $item ) {
+									$heading = $item['_wpf_case_study__detail__heading'];
+									$body    = $item['_wpf_case_study__detail__body'];
+									if ( ! empty( $heading ) && ! empty( $body ) ) {
+										?>
+										<dt>
+											<?php echo esc_html( $heading ); ?>
+										</dt>
+										<dd>
+											<?php echo wp_kses_post( $body ); ?>
+										</dd>
+										<?php
+									}
+								}
+								?>
+							</dl>
+							<?php
+						}
+						?>
+
+						<?php
+						$results = SCF::get( '_wpf_case_study__results' );
+						if ( ! empty( $results ) ) {
+							?>
+							<h2>
+								<?php echo esc_html_e( '成果・気づき', 'wordpressfoundation' ); ?>
+							</h2>
+
+							<dl>
+								<?php
+								foreach ( $results as $item ) {
+									$heading = $item['_wpf_case_study__results__heading'];
+									$body    = $item['_wpf_case_study__results__body'];
+									if ( ! empty( $heading ) && ! empty( $body ) ) {
+										?>
+										<dt>
+											<?php echo esc_html( $heading ); ?>
+										</dt>
+										<dd>
+											<?php echo wp_kses_post( $body ); ?>
+										</dd>
+										<?php
+									}
+								}
+								?>
+							</dl>
+							<?php
+						}
+						?>
+
+						<?php
+						$log = SCF::get( '_wpf_case_study__log' );
+						if ( ! empty( $log ) ) {
+							?>
+							<h2>
+								<?php echo esc_html_e( '観察記録', 'wordpressfoundation' ); ?>
+							</h2>
+
+							<div class="observe-log-container">
+								<?php
+								foreach ( $log as $item ) {
+									$date     = $item['_wpf_case_study__log__date'];
+									$image_id = $item['_wpf_top__learn__image'];
+									$body     = $item['_wpf_case_study__log__body'];
+									if ( ! empty( $date ) && ! empty( $body ) ) {
+										?>
+										<div class="observe-log">
+											<div class="observe-log__date">
+												<?php echo esc_html( $date ); ?>
+											</div>
+
+											<div class="observe-log__main">
+												<?php
+												$image = wp_get_attachment_image(
+													$image_id,
+													'large',
+													false,
+													array(
+														'loading' => 'lazy',
+													)
+												);
+												if ( ! empty( $image ) ) {
+													?>
+													<div class="observe-log__image">
+														<?php echo $image; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+													</div>
+													<?php
+												}
+												?>
+
+												<div class="observe-log__body">
+													<?php echo wp_kses_post( $body ); ?>
+												</div>
+											</div>
+										</div>
+										<?php
+									}
+								}
+								?>
+							</dl>
+							<?php
+						}
+						?>
 					</div>
 				</div>
 			</div>

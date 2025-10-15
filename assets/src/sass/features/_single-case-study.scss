@@ -1,0 +1,127 @@
+@use "sass:map";
+@use "../config";
+@use "../base/settings" as *;
+@use "../components/prose";
+
+.single-case-study .page-main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: fd(64, 128);
+    width: calc(100% - var(--site-gutter) * 2);
+    max-width: var(--width-wide);
+    margin-inline: auto;
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        flex-direction: column-reverse;
+        gap: fd(48, 128);
+    }
+}
+
+.single-case-study__sidebar {
+    flex-basis: fd(180, 249);
+    flex-grow: 1; // 1
+    min-width: 0; // 2
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        flex-basis: 100%;
+        padding-block-start: fd(48, 64);
+        border-top: 1px solid var(--color-border-opaque);
+    }
+}
+
+.single-case-study__sidebar > * + * {
+    margin-block-start: rem(32);
+}
+
+// 1. 非サイドバーの理想的な幅。「0」の場合は利用可能な幅を埋める
+// 2. 長いテキストが折り返されるようにする
+.single-case-study__main {
+    flex-basis: 0; // 1
+    flex-grow: 999; // 1
+    min-width: 0; // 2
+}
+
+.observe-log {
+    position: relative;
+    display: flex;
+    gap: fd(18, 96);
+    padding-block-end: fd(32, 64);
+
+    @media screen and (max-width: em(map.get($breakpoints, sm))) {
+        flex-direction: column;
+    }
+}
+
+.observe-log::before {
+    position: absolute;
+    top: 0;
+    left: calc(#{rem(7)} / 2);
+    display: block;
+    width: 1px;
+    height: 100%;
+    content: "";
+    background-color: var(--color-border-opaque);
+    transform: translateX(-50%);
+}
+
+.observe-log:first-child::before {
+    top: 0.5em;
+    height: calc(100% - 0.5em);
+}
+
+.observe-log:last-child::before {
+    background: linear-gradient(180deg, rgba(config.$color-border-opaque, 1) 0%, rgba(config.$color-border-opaque, 0) 100%);
+}
+
+[data-site-theme="dark"] .observe-log:last-child::before {
+    background: linear-gradient(180deg, rgba(config.$color-border-opaque-dark, 1) 0%, rgba(config.$color-border-opaque-dark, 0) 100%);
+}
+
+@media (prefers-color-scheme: dark) {
+    .observe-log:last-child::before {
+        background: linear-gradient(180deg, rgba(config.$color-border-opaque-dark, 1) 0%, rgba(config.$color-border-opaque-dark, 0) 100%);
+    }
+
+    [data-site-theme="light"] .observe-log:last-child::before {
+        background: linear-gradient(180deg, rgba(config.$color-border-opaque, 1) 0%, rgba(config.$color-border-opaque, 0) 100%);
+    }
+}
+
+.observe-log::after {
+    position: absolute;
+    top: 0.5em;
+    left: 0;
+    display: block;
+    width: rem(7);
+    height: rem(7);
+    content: "";
+    background-color: var(--color-border-opaque);
+    border-radius: 50%;
+}
+
+.observe-log__date {
+    flex-shrink: 0;
+    padding-inline-start: fd(22, 19);
+    font-weight: var(--font-weight-sign);
+    line-height: var(--line-height-sign);
+}
+
+.observe-log__main {
+    flex: 1;
+
+    @media screen and (max-width: em(map.get($breakpoints, sm))) {
+        padding-inline-start: fd(22, 19);
+    }
+}
+
+.observe-log__main > * + * {
+    margin-block-start: rem(8);
+}
+
+.observe-log__body {
+    @extend %prose;
+}
+
+.observe-log__image img {
+    border-radius: var(--radius);
+}
