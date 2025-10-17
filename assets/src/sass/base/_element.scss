@@ -760,6 +760,10 @@ dl {
     font-weight: var(--font-weight-sign);
     border-block-start: 1px solid var(--color-border-opaque);
 
+    &:last-of-type {
+        border-block-end: 1px solid var(--color-border-opaque);
+    }
+
     @media screen and (max-width: em(map.get(config.$breakpoints, sm))) {
         flex-basis: 100%;
     }
@@ -773,6 +777,10 @@ dt {
     flex-basis: calc(100% - var(--dt-basis));
     padding-block: var(--space-s5);
     border-block-start: 1px solid var(--color-border-opaque);
+
+    &:last-of-type {
+        border-block-end: 1px solid var(--color-border-opaque);
+    }
 
     @media screen and (max-width: em(map.get(config.$breakpoints, sm))) {
         flex-basis: 100%;

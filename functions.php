@@ -102,7 +102,6 @@ if ( ! is_plugin_active( 'all-in-one-seo-pack/all_in_one_seo_pack.php' ) && ! is
 		'wp_sitemaps_taxonomies',
 		function( $taxonomies ) {
 			unset( $taxonomies['post_tag'] );
-			unset( $taxonomies['blog_tag'] );
 			unset( $taxonomies['project_tag'] );
 			unset( $taxonomies['member_cat'] );
 			unset( $taxonomies['member_tag'] );
@@ -119,11 +118,6 @@ if ( ! is_plugin_active( 'all-in-one-seo-pack/all_in_one_seo_pack.php' ) && ! is
 		function( $args, $taxonomy ) {
 			if ( 'category' === $taxonomy ) {
 				$uncategorized = get_term_by( 'slug', 'uncategorized', 'category' );
-				if ( $uncategorized ) {
-					$args['exclude'] = array( $uncategorized->term_id );
-				}
-
-				$uncategorized = get_term_by( 'slug', 'uncategorized', 'blog_cat' );
 				if ( $uncategorized ) {
 					$args['exclude'] = array( $uncategorized->term_id );
 				}

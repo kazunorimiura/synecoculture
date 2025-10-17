@@ -44,6 +44,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			add_shortcode( 'wpf_rich_link', array( $this, 'rich_link' ) );
 			add_shortcode( 'wpf_project_posts', array( $this, 'project_posts' ) );
 			add_shortcode( 'wpf_news_posts', array( $this, 'news_posts' ) );
+			add_shortcode( 'wpf_news_blog_posts', array( $this, 'news_blog_posts' ) );
 			add_shortcode( 'wpf_member_posts', array( $this, 'member_posts' ) );
 			add_shortcode( 'wpf_our_values', array( $this, 'our_values' ) );
 			add_shortcode( 'wpf_about_intro', array( $this, 'about_intro' ) );
@@ -1517,6 +1518,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 							if ( ! empty( $blog_logo ) ) {
 								?>
 								<div class="blog-banner__blog-logo">
+									<span class="screen-reader-text">シネコな話</span>
 									<?php echo $blog_logo; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 								</div>
 								<?php
@@ -2082,9 +2084,137 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 					<?php
 					while ( $query->have_posts() ) {
 						$query->the_post();
+						?>
+						<div class="news-posts__item">
+							<div class="news-posts__item__inner">
+								<div class="news-posts__item__main">
+									<?php
+									$wpf_terms = WPF_Utils::get_the_terms();
+									if ( ! empty( $wpf_terms ) && 'uncategorized' !== $wpf_terms[0]->slug ) {
+										?>
+										<div class="news-posts__item__main-categories">
+											<a href="<?php echo esc_url( get_term_link( $wpf_terms[0]->term_id, $wpf_terms[0]->taxonomy ) ); ?>" class="news-posts__item__main-category pill">
+												<?php echo esc_html( $wpf_terms[0]->name ); ?>
+											</a>
+										</div>
+										<?php
+									}
+									?>
 
-						$cat_terms    = get_the_terms( get_the_ID(), 'project_cat' );
-						$domain_terms = get_the_terms( get_the_ID(), 'project_domain' );
+									<a class="news-posts__item__title" href="<?php the_permalink(); ?>">
+										<?php the_title(); ?>
+									</a>
+
+									<div class="news-posts__item__date">
+										<?php echo WPF_Template_Tags::get_the_publish_date_tag(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+									</div>
+								</div>
+
+								<a href="<?php the_permalink(); ?>" class="news-posts__item__thubmnail frame" aria-hidden="true" tabindex="-1">
+									<?php WPF_Template_Tags::the_image( get_post_thumbnail_id(), 'medium' ); ?>
+								</a>
+							</div>
+						</div>
+						<?php
+					}
+					?>
+
+					<?php
+					if ( $query->max_num_pages > 1 ) {
+						$cta_link = $atts['cta_link'];
+						$cta_text = ! empty( $atts['cta_text'] ) ? $atts['cta_text'] : __( 'View All', 'wordpressfoundation' );
+						$target   = self::strip( $atts['target'] );
+						if ( ! empty( $cta_link ) ) {
+							?>
+							<div class="news-posts__cta">
+								<a class="button:secondary" href="<?php echo esc_url( $cta_link ); ?>" target="<?php echo esc_attr( $target ); ?>">
+									<?php echo esc_html( $cta_text ); ?>
+								</a>
+							</div>
+							<?php
+						}
+					}
+					wp_reset_postdata();
+					?>
+				</div>
+				<?php
+			}
+			return ob_get_clean();
+		}
+
+		/**
+		 * `post`投稿タイプ、`blog`投稿タイプの投稿リストを出力するショートコード。
+		 *
+		 * @param array $atts ショートコード引数。
+		 * @return string
+		 */
+		public static function news_blog_posts( $atts ) {
+			// デフォルト引数と与えられた引数を結合する
+			$atts = shortcode_atts(
+				array(
+					'heading_text' => '',
+					'body_text'    => '',
+					'per_page'     => 5,
+					'taxonomy'     => '',
+					'term'         => '',
+					'cta_link'     => '',
+					'cta_text'     => '',
+					'target'       => '_self',
+				),
+				$atts,
+				'wpf_news_blog_posts'
+			);
+
+			// per_pageの値を検証（上限を100に設定）
+			$posts_per_page = intval( $atts['per_page'] );
+			if ( 100 < $posts_per_page ) {
+				$posts_per_page = 100; // 最大100件に制限
+			}
+
+			$args = array(
+				'post_type'      => array( 'post', 'blog' ),
+				'posts_per_page' => $posts_per_page,
+				'post__not_in'   => array( get_the_ID() ),
+				'paged'          => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
+			);
+
+			// タクソノミーとタームが指定されている場合
+			if ( ! empty( $atts['taxonomy'] ) && ! empty( $atts['term'] ) ) {
+				$terms             = array_map( 'trim', explode( ',', $atts['term'] ) );
+				$args['tax_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+					array(
+						'taxonomy' => $atts['taxonomy'],
+						'field'    => 'slug',
+						'terms'    => $terms,
+					),
+				);
+			}
+
+			$query = new WP_Query( $args );
+
+			ob_start();
+			if ( $query->have_posts() ) {
+				?>
+				<?php
+				if ( ! empty( $atts['heading_text'] ) ) {
+					?>
+					<h2 class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></h2>
+					<?php
+				}
+				?>
+
+				<?php
+				if ( ! empty( $atts['body_text'] ) ) {
+					?>
+					<p><?php echo esc_html( $atts['body_text'] ); ?></p>
+					<?php
+				}
+				?>
+
+				<div class="news-posts">
+					<?php
+					while ( $query->have_posts() ) {
+						$query->the_post();
 						?>
 						<div class="news-posts__item">
 							<div class="news-posts__item__inner">

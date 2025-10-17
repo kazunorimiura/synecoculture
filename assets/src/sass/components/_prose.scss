@@ -98,7 +98,8 @@
     .rich-link,
     .project-posts,
     .news-posts,
-    .embeded-privacy-policy {
+    .embeded-privacy-policy,
+    .observe-log-container {
         --flow-space: var(--space-s3);
     }
 
@@ -109,7 +110,8 @@
     .rich-link + *,
     .project-posts + *,
     .news-posts + *,
-    .embeded-privacy-policy + * {
+    .embeded-privacy-policy + *,
+    .observe-log-container + * {
         --flow-space: var(--space-s3);
     }
 }

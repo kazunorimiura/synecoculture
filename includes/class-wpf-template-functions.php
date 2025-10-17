@@ -344,39 +344,6 @@ class WPF_Template_Functions {
 	 */
 	public static function register_taxonomies() {
 		register_taxonomy(
-			'blog_cat',
-			'blog',
-			array(
-				'hierarchical'      => true,
-				'rewrite'           => array(
-					'slug'         => 'blog/category',
-					'with_front'   => false,
-					'hierarchical' => true,
-				),
-				'public'            => true,
-				'show_ui'           => true,
-				'show_admin_column' => true,
-				'show_in_rest'      => true,
-			)
-		);
-
-		register_taxonomy(
-			'blog_tag',
-			'blog',
-			array(
-				'hierarchical'       => false,
-				'rewrite'            => array(
-					'slug'       => 'blog/tag',
-					'with_front' => false,
-				),
-				'public'             => true,
-				'publicly_queryable' => false,
-				'show_in_rest'       => true,
-				'show_admin_column'  => true,
-			)
-		);
-
-		register_taxonomy(
 			'project_cat',
 			'project',
 			array(
@@ -512,14 +479,15 @@ class WPF_Template_Functions {
 			'glossary_tag',
 			'glossary',
 			array(
-				'hierarchical'      => false,
-				'rewrite'           => array(
+				'hierarchical'       => false,
+				'rewrite'            => array(
 					'slug'       => 'glossary/tag',
 					'with_front' => false,
 				),
-				'public'            => true,
-				'show_in_rest'      => true,
-				'show_admin_column' => true,
+				'public'             => true,
+				'publicly_queryable' => false,
+				'show_in_rest'       => true,
+				'show_admin_column'  => true,
 			)
 		);
 
@@ -544,14 +512,15 @@ class WPF_Template_Functions {
 			'career_tag',
 			'career',
 			array(
-				'hierarchical'      => false,
-				'rewrite'           => array(
+				'hierarchical'       => false,
+				'rewrite'            => array(
 					'slug'       => 'career/tag',
 					'with_front' => false,
 				),
-				'public'            => true,
-				'show_in_rest'      => true,
-				'show_admin_column' => true,
+				'public'             => true,
+				'publicly_queryable' => false,
+				'show_in_rest'       => true,
+				'show_admin_column'  => true,
 			)
 		);
 	}
@@ -576,10 +545,10 @@ class WPF_Template_Functions {
 					'with_front' => false,
 				),
 				'has_archive'   => true,
-				'taxonomies'    => array( 'blog_cat', 'blog_tag' ),
+				'taxonomies'    => array( 'category', 'post_tag' ),
 				'show_in_rest'  => true,
 				'wpf_cptp'      => array(
-					'permalink_structure' => '/%blog_cat%/%postname%/',
+					'permalink_structure' => '/%postname%/',
 				),
 			)
 		);
@@ -602,7 +571,7 @@ class WPF_Template_Functions {
 				'taxonomies'    => array( 'project_cat', 'project_domain', 'project_tag' ),
 				'show_in_rest'  => true,
 				'wpf_cptp'      => array(
-					'permalink_structure' => '/%project_cat%/%postname%/',
+					'permalink_structure' => '/%postname%/',
 				),
 			)
 		);
@@ -625,7 +594,7 @@ class WPF_Template_Functions {
 				'taxonomies'    => array( 'area', 'case_study_tag' ),
 				'show_in_rest'  => true,
 				'wpf_cptp'      => array(
-					'permalink_structure' => '/%area%/%postname%/',
+					'permalink_structure' => '/%postname%/',
 				),
 			)
 		);
@@ -671,7 +640,7 @@ class WPF_Template_Functions {
 				'taxonomies'    => array( 'glossary_cat', 'glossary_tag' ),
 				'show_in_rest'  => true,
 				'wpf_cptp'      => array(
-					'permalink_structure' => '/%glossary_cat%/%postname%/',
+					'permalink_structure' => '/%postname%/',
 				),
 			)
 		);
@@ -694,7 +663,7 @@ class WPF_Template_Functions {
 				'taxonomies'    => array( 'career_cat', 'career_tag' ),
 				'show_in_rest'  => true,
 				'wpf_cptp'      => array(
-					'permalink_structure' => '/%career_cat%/%postname%/',
+					'permalink_structure' => '/%postname%/',
 				),
 			)
 		);

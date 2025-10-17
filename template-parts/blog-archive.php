@@ -32,9 +32,9 @@ global $wpf_template_tags;
 			 */
 
 			// カテゴリー
-			$top_level_blog_cat_terms = get_terms(
+			$top_level_category_terms = get_terms(
 				array(
-					'taxonomy' => 'blog_cat',
+					'taxonomy' => 'category',
 					'parent'   => 0,  // 親がないタームのみ取得
 				)
 			);
@@ -42,12 +42,12 @@ global $wpf_template_tags;
 			// 日付アーカイブ
 			$date_navigation = $wpf_template_tags::get_date_navigation();
 
-			if ( $top_level_blog_cat_terms && ! is_wp_error( $top_level_blog_cat_terms ) || ! empty( $date_navigation ) ) {
+			if ( $top_level_category_terms && ! is_wp_error( $top_level_category_terms ) || ! empty( $date_navigation ) ) {
 				$current_term = WPF_Template_Tags::get_the_current_term();
 				?>
 				<div class="archive-blog__sidebar">
 					<?php
-					if ( $top_level_blog_cat_terms && ! is_wp_error( $top_level_blog_cat_terms ) ) {
+					if ( $top_level_category_terms && ! is_wp_error( $top_level_category_terms ) ) {
 						$is_open = is_date() ? '' : ' open';
 						?>
 						<div class="archive-blog__sidebar-item">
@@ -59,14 +59,14 @@ global $wpf_template_tags;
 								<nav class="category-accordion__main" aria-label="<?php echo esc_attr_e( 'カテゴリー', 'wordpressfoundation' ); ?>">
 									<ul>
 										<?php
-										foreach ( $top_level_blog_cat_terms as $blog_cat_term ) {
-											$aria_current_attr  = $current_term && $current_term->term_id === $blog_cat_term->term_id ? ' aria-current="page"' : '';
-											$blog_cat_term_link = get_term_link( $blog_cat_term );
-											if ( ! is_wp_error( $blog_cat_term_link ) ) {
+										foreach ( $top_level_category_terms as $category_term ) {
+											$aria_current_attr  = $current_term && $current_term->term_id === $category_term->term_id ? ' aria-current="page"' : '';
+											$category_term_link = get_term_link( $category_term );
+											if ( ! is_wp_error( $category_term_link ) ) {
 												?>
 												<li>
-													<a href="<?php echo esc_url( $blog_cat_term_link ); ?>" class="category-accordion__item"<?php echo $aria_current_attr; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>>
-														<?php echo esc_html( $blog_cat_term->name ); ?>
+													<a href="<?php echo esc_url( $category_term_link ); ?>" class="category-accordion__item"<?php echo $aria_current_attr; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>>
+														<?php echo esc_html( $category_term->name ); ?>
 													</a>
 												</li>
 												<?php
@@ -112,9 +112,6 @@ global $wpf_template_tags;
 						<?php
 						while ( have_posts() ) {
 							the_post();
-
-							$cat_terms    = get_the_terms( get_the_ID(), 'blog_cat' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-							$domain_terms = get_the_terms( get_the_ID(), 'blog_domain' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
 							?>
 							<article class="archive-blog__item">
 								<div class="archive-blog__item__inner">
