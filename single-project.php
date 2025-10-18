@@ -72,7 +72,7 @@ if ( have_posts() ) {
 												aria-label="<?php echo esc_attr( /* translators: %s: 投稿タイトル */ sprintf( __( '%sのプロフィールページへ', 'wordpressfoundation' ), $title ) ); ?>"
 												aria-hidden="true"
 												tabindex="-1">
-												<?php $wpf_template_tags::the_member_image( get_post_thumbnail_id() ); ?>
+												<?php $wpf_template_tags::the_member_image( get_post_thumbnail_id(), 'thumbnail' ); ?>
 											</a>
 											<div class="related-members__item__content">
 												<a class="related-members__item__title" href="<?php the_permalink(); ?>">

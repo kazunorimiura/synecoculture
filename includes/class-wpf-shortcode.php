@@ -144,7 +144,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 											$slide_image_id,
 											'1536x1536',
 											false,
-											array()
+											array( 'loading' => 'lazy' )
 										);
 										if ( ! empty( $slide_image ) ) {
 											?>
@@ -1373,7 +1373,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 											$thumbnail_id,
 											'1536x1536',
 											false,
-											array()
+											array( 'loading' => 'lazy' )
 										);
 										?>
 										<div class="dive-into-synecoculture__learn__image frame">
@@ -1549,7 +1549,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 								$bg_image_id,
 								'1536x1536',
 								false,
-								array()
+								array( 'loading' => 'lazy' )
 							);
 							if ( ! empty( $bg_image ) ) {
 								?>
@@ -2376,7 +2376,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 								</div>
 
 								<a href="<?php the_permalink(); ?>" class="member-posts__item__thubmnail frame" aria-hidden="true" tabindex="-1">
-									<?php WPF_Template_Tags::the_image( get_post_thumbnail_id(), 'medium' ); ?>
+									<?php WPF_Template_Tags::the_member_image( get_post_thumbnail_id(), 'medium' ); ?>
 								</a>
 							</div>
 						</div>
@@ -2437,7 +2437,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 						$image_id,
 						'medium',
 						false,
-						array()
+						array( 'loading' => 'lazy' )
 					);
 					if ( ! empty( $image ) ) {
 						?>
@@ -2598,7 +2598,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 									$image_id,
 									'medium',
 									false,
-									array()
+									array( 'loading' => 'lazy' )
 								);
 								if ( ! empty( $image ) ) {
 									?>

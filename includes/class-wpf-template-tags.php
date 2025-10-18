@@ -955,6 +955,10 @@ class WPF_Template_Tags {
 	public static function get_the_image( $image_id, $size = 'medium', $icon = false, $attr = array(), $use_no_image = true ) {
 		$image = false;
 
+		if ( ! empty( $attr ) ) {
+			$attr = array( 'loading' => 'lazy' );
+		}
+
 		if ( $image_id ) {
 			$image = wp_get_attachment_image(
 				$image_id,
@@ -987,6 +991,10 @@ class WPF_Template_Tags {
 	 */
 	public static function get_the_member_image( $image_id, $size = 'medium', $icon = false, $attr = array(), $use_no_image = true ) {
 		$image = false;
+
+		if ( ! empty( $attr ) ) {
+			$attr = array( 'loading' => 'lazy' );
+		}
 
 		if ( $image_id ) {
 			$image = wp_get_attachment_image(
