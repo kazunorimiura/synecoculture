@@ -28,6 +28,14 @@
     }
 }
 
+// 1. 非サイドバーの理想的な幅。「0」の場合は利用可能な幅を埋める。
+// 2. 長いテキストが折り返されるようにする。
+.archive-project__main {
+    flex-basis: 0; // 1
+    flex-grow: 999; // 1
+    min-width: 0; // 2
+}
+
 .archive-project__sidebar > * + * {
     margin-block-start: rem(32);
 }

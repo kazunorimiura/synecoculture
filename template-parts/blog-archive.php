@@ -104,10 +104,10 @@ global $wpf_template_tags;
 			}
 			?>
 
-			<?php
-			if ( have_posts() ) {
-				?>
-				<div class="archive-blog__main">
+			<div class="archive-blog__main">
+				<?php
+				if ( have_posts() ) {
+					?>
 					<div class="archive-blog__items">
 						<?php
 						while ( have_posts() ) {
@@ -186,15 +186,15 @@ global $wpf_template_tags;
 						)
 					);
 					?>
-				</div>
 
-				<?php
-			} else {
+					<?php
+				} else {
+					?>
+					<p><?php esc_html_e( '投稿が見つかりませんでした。', 'wordpressfoundation' ); ?></p>
+					<?php
+				}
 				?>
-				<p><?php esc_html_e( '投稿が見つかりませんでした。', 'wordpressfoundation' ); ?></p>
-				<?php
-			}
-			?>
+			</div>
 		</div>
 	</div>
 </main>
