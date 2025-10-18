@@ -2149,21 +2149,28 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 		 * @return string
 		 */
 		public static function news_blog_posts( $atts ) {
-			// デフォルト引数と与えられた引数を結合する
+			// デフォルト属性
+			$defaults = array(
+				'heading_text' => '',
+				'body_text'    => '',
+				'cta_link'     => '',
+				'cta_text'     => '',
+				'target'       => '_self',
+				'post_types'   => 'post,blog',
+				'per_page'     => 5,
+				'orderby'      => 'date',
+				'order'        => 'DESC',
+				'relation'     => 'OR',
+			);
+
 			$atts = shortcode_atts(
-				array(
-					'heading_text' => '',
-					'body_text'    => '',
-					'per_page'     => 5,
-					'taxonomy'     => '',
-					'term'         => '',
-					'cta_link'     => '',
-					'cta_text'     => '',
-					'target'       => '_self',
-				),
+				$defaults,
 				$atts,
 				'wpf_news_blog_posts'
 			);
+
+			// 投稿タイプを配列に変換
+			$post_types = array_map( 'trim', explode( ',', $atts['post_types'] ) );
 
 			// per_pageの値を検証（上限を100に設定）
 			$posts_per_page = intval( $atts['per_page'] );
@@ -2171,23 +2178,40 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 				$posts_per_page = 100; // 最大100件に制限
 			}
 
+			// WP_Queryの引数
 			$args = array(
-				'post_type'      => array( 'post', 'blog' ),
+				'post_type'      => $post_types,
 				'posts_per_page' => $posts_per_page,
 				'post__not_in'   => array( get_the_ID() ),
-				'paged'          => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
+				'orderby'        => $atts['orderby'],
+				'order'          => $atts['order'],
 			);
 
-			// タクソノミーとタームが指定されている場合
-			if ( ! empty( $atts['taxonomy'] ) && ! empty( $atts['term'] ) ) {
-				$terms             = array_map( 'trim', explode( ',', $atts['term'] ) );
-				$args['tax_query'] = array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
-					array(
-						'taxonomy' => $atts['taxonomy'],
+			// デフォルト属性以外をタクソノミーとして処理
+			$tax_queries = array();
+			foreach ( $atts as $key => $value ) {
+				// デフォルト属性はスキップ
+				if ( in_array( $key, array_keys( $defaults ), true ) || empty( $value ) ) {
+					continue;
+				}
+
+				// タクソノミーが存在するか確認
+				if ( taxonomy_exists( $key ) ) {
+					$terms         = array_map( 'trim', explode( ',', $value ) );
+					$tax_queries[] = array(
+						'taxonomy' => $key,
 						'field'    => 'slug',
 						'terms'    => $terms,
-					),
-				);
+					);
+				}
+			}
+
+			// tax_queryを構築
+			if ( ! empty( $tax_queries ) ) {
+				if ( count( $tax_queries ) > 1 ) {
+					$tax_queries['relation'] = strtoupper( $atts['relation'] );
+				}
+				$args['tax_query'] = $tax_queries; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 			}
 
 			$query = new WP_Query( $args );

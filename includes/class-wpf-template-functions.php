@@ -344,6 +344,39 @@ class WPF_Template_Functions {
 	 */
 	public static function register_taxonomies() {
 		register_taxonomy(
+			'blog_cat',
+			'blog',
+			array(
+				'hierarchical'      => true,
+				'rewrite'           => array(
+					'slug'         => 'blog/category',
+					'with_front'   => false,
+					'hierarchical' => true,
+				),
+				'public'            => true,
+				'show_ui'           => true,
+				'show_admin_column' => true,
+				'show_in_rest'      => true,
+			)
+		);
+
+		register_taxonomy(
+			'blog_tag',
+			'blog',
+			array(
+				'hierarchical'       => false,
+				'rewrite'            => array(
+					'slug'       => 'blog/tag',
+					'with_front' => false,
+				),
+				'public'             => true,
+				'publicly_queryable' => false,
+				'show_in_rest'       => true,
+				'show_admin_column'  => true,
+			)
+		);
+
+		register_taxonomy(
 			'project_cat',
 			'project',
 			array(
@@ -545,7 +578,7 @@ class WPF_Template_Functions {
 					'with_front' => false,
 				),
 				'has_archive'   => true,
-				'taxonomies'    => array( 'category', 'post_tag' ),
+				'taxonomies'    => array( 'blog_cat', 'blog_tag' ),
 				'show_in_rest'  => true,
 				'wpf_cptp'      => array(
 					'permalink_structure' => '/%postname%/',
