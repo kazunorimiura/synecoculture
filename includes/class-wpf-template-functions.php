@@ -1572,7 +1572,7 @@ class WPF_Template_Functions {
 	 */
 	public static function protect_rest_api( $result, $server, $request ) {
 		// リクエスト元のクライアントがホワイトリストに含まれる場合、レスポンスを返す。なお、全てのルートは /wp-json で確認できる。
-		$whitelist       = array( 'oembed', 'contact-form-7', 'akismet', 'jetpack', 'yoast', 'redirection', 'pll' );
+		$whitelist       = array( 'oembed', 'contact-form-7', 'akismet', 'jetpack', 'yoast', 'redirection', 'pll', 'post', 'blog', 'project', 'case-study', 'member', 'glossary', 'career' );
 		$requested_route = $request->get_route();
 		foreach ( $whitelist as $client ) {
 			if ( false !== strpos( $requested_route, $client ) ) {

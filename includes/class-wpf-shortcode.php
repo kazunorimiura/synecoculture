@@ -2149,6 +2149,9 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 		 * @return string
 		 */
 		public static function news_blog_posts( $atts ) {
+			// 元の属性を保存（タクソノミー用）
+			$original_atts = $atts;
+
 			// デフォルト属性
 			$defaults = array(
 				'heading_text' => '',
@@ -2156,6 +2159,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 				'cta_link'     => '',
 				'cta_text'     => '',
 				'target'       => '_self',
+				'size'         => 'medium',
 				'post_types'   => 'post,blog',
 				'per_page'     => 5,
 				'orderby'      => 'date',
@@ -2183,15 +2187,17 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 				'post_type'      => $post_types,
 				'posts_per_page' => $posts_per_page,
 				'post__not_in'   => array( get_the_ID() ),
+				'paged'          => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
 				'orderby'        => $atts['orderby'],
 				'order'          => $atts['order'],
+				'size'           => $atts['size'],
 			);
 
-			// デフォルト属性以外をタクソノミーとして処理
+			// タクソノミーを処理
 			$tax_queries = array();
-			foreach ( $atts as $key => $value ) {
+			foreach ( $original_atts as $key => $value ) {
 				// デフォルト属性はスキップ
-				if ( in_array( $key, array_keys( $defaults ), true ) || empty( $value ) ) {
+				if ( array_key_exists( $key, $defaults ) || empty( $value ) ) {
 					continue;
 				}
 
@@ -2214,10 +2220,14 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 				$args['tax_query'] = $tax_queries; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 			}
 
-			$query = new WP_Query( $args );
+			$news = WPF_Posts::get_posts(
+				'news',
+				$args,
+				true
+			);
 
 			ob_start();
-			if ( $query->have_posts() ) {
+			if ( ! empty( $news ) ) {
 				?>
 				<?php
 				if ( ! empty( $atts['heading_text'] ) ) {
@@ -2235,63 +2245,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 				}
 				?>
 
-				<div class="news-posts">
-					<?php
-					while ( $query->have_posts() ) {
-						$query->the_post();
-						?>
-						<div class="news-posts__item">
-							<div class="news-posts__item__inner">
-								<div class="news-posts__item__main">
-									<?php
-									$wpf_terms = WPF_Utils::get_the_terms();
-									if ( ! empty( $wpf_terms ) && 'uncategorized' !== $wpf_terms[0]->slug ) {
-										?>
-										<div class="news-posts__item__main-categories">
-											<a href="<?php echo esc_url( get_term_link( $wpf_terms[0]->term_id, $wpf_terms[0]->taxonomy ) ); ?>" class="news-posts__item__main-category pill">
-												<?php echo esc_html( $wpf_terms[0]->name ); ?>
-											</a>
-										</div>
-										<?php
-									}
-									?>
-
-									<a class="news-posts__item__title" href="<?php the_permalink(); ?>">
-										<?php the_title(); ?>
-									</a>
-
-									<div class="news-posts__item__date">
-										<?php echo WPF_Template_Tags::get_the_publish_date_tag(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-									</div>
-								</div>
-
-								<a href="<?php the_permalink(); ?>" class="news-posts__item__thubmnail frame" aria-hidden="true" tabindex="-1">
-									<?php WPF_Template_Tags::the_image( get_post_thumbnail_id(), 'medium' ); ?>
-								</a>
-							</div>
-						</div>
-						<?php
-					}
-					?>
-
-					<?php
-					if ( $query->max_num_pages > 1 ) {
-						$cta_link = $atts['cta_link'];
-						$cta_text = ! empty( $atts['cta_text'] ) ? $atts['cta_text'] : __( 'View All', 'wordpressfoundation' );
-						$target   = self::strip( $atts['target'] );
-						if ( ! empty( $cta_link ) ) {
-							?>
-							<div class="news-posts__cta">
-								<a class="button:secondary" href="<?php echo esc_url( $cta_link ); ?>" target="<?php echo esc_attr( $target ); ?>">
-									<?php echo esc_html( $cta_text ); ?>
-								</a>
-							</div>
-							<?php
-						}
-					}
-					wp_reset_postdata();
-					?>
-				</div>
+				<?php echo $news; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				<?php
 			}
 			return ob_get_clean();

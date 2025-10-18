@@ -40,6 +40,9 @@ new WPF_CPT_Rewrite();
 new WPF_CPT_Permalink();
 new WPF_CPT_Filters();
 
+// カスタムREST APIルート
+new WPF_Rest_API();
+
 // 目次
 $wpf_toc = new WPF_Toc();
 
