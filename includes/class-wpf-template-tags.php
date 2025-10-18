@@ -1004,7 +1004,7 @@ class WPF_Template_Tags {
 				$attr
 			);
 		} elseif ( $use_no_image ) {
-			$image = '<svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+			$image = '<svg class="no-portrait-icon" width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_9691_28496)">
             <rect width="500" height="500" fill="var(--color-background-disabled)"/>
             <path d="M249.999 288.732C333.618 288.732 401.407 356.521 401.407 440.141C401.407 441.317 401.393 442.493 401.366 443.662L401.369 500H98.5901V443.662C98.573 442.881 98.5764 442.101 98.5833 441.317L98.5901 440.141C98.5901 356.521 166.379 288.733 249.999 288.732Z" fill="var(--color-content-disabled)"/>

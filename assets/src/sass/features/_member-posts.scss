@@ -1,0 +1,55 @@
+@use "sass:map";
+@use "sass:math";
+@use "../config";
+@use "../base/settings" as *;
+
+.member-posts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: fd(18, 24);
+}
+
+.member-posts__item__inner {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: fd(14, 18);
+}
+
+.member-posts__item__thubmnail {
+    --n: 1;
+    --d: 1;
+
+    overflow: hidden;
+    border-radius: var(--radius);
+}
+
+.member-posts__item__title {
+    // font-headline-2からfont-textへの流体サイジングに、line-height-headline-2の行高を掛けてpx値に変換
+    $min-lh-value: map.get($min-font-sizes, s0) * (math.div(math.max(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)) - math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)), 2) + math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4))) * 1px;
+    $max-lh-value: map.get($max-font-sizes, s2) * (math.div(math.max(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)) - math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)), 2) + math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4))) * 1px;
+
+    display: block;
+    font-size: fd(rem(map.get($min-font-sizes, s0)), rem(map.get($max-font-sizes, s2)));
+    font-weight: var(--font-weight-bold);
+    line-height: fd($min-lh-value, $max-lh-value);
+}
+
+a.member-posts__item__title,
+a.member-posts__item__title:link,
+a.member-posts__item__title:visited,
+a.member-posts__item__position,
+a.member-posts__item__position:link,
+a.member-posts__item__position:visited {
+    color: inherit;
+    text-decoration: none;
+}
+
+.member-posts__item__position {
+    // font-textからfont-text--xsへの流体サイジングに、line-height-textの行高を掛けてpx値に変換
+    $min-lh-value: map.get($min-font-sizes, s-2) * (math.div(math.max(map.get($min-line-height-sizes, s0), map.get($max-line-height-sizes, s0)) - math.min(map.get($min-line-height-sizes, s0), map.get($max-line-height-sizes, s0)), 2) + math.min(map.get($min-line-height-sizes, s0), map.get($max-line-height-sizes, s0))) * 1px;
+    $max-lh-value: map.get($max-font-sizes, s0) * (math.div(math.max(map.get($min-line-height-sizes, s0), map.get($max-line-height-sizes, s0)) - math.min(map.get($min-line-height-sizes, s0), map.get($max-line-height-sizes, s0)), 2) + math.min(map.get($min-line-height-sizes, s0), map.get($max-line-height-sizes, s0))) * 1px;
+
+    display: block;
+    font-size: fd(rem(map.get($min-font-sizes, s-2)), rem(map.get($max-font-sizes, s0)));
+    line-height: fd($min-lh-value, $max-lh-value);
+}

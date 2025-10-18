@@ -2307,6 +2307,10 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 				'posts_per_page' => $posts_per_page,
 				'post__not_in'   => array( get_the_ID() ),
 				'paged'          => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
+				'orderby'        => array(
+					'menu_order' => 'ASC',
+					'name'       => 'ASC',
+				),
 			);
 
 			// タクソノミーとタームが指定されている場合
@@ -2353,26 +2357,20 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 						<div class="member-posts__item">
 							<div class="member-posts__item__inner">
 								<div class="member-posts__item__main">
-									<?php
-									$wpf_terms = WPF_Utils::get_the_terms();
-									if ( ! empty( $wpf_terms ) && 'uncategorized' !== $wpf_terms[0]->slug ) {
-										?>
-										<div class="member-posts__item__main-categories">
-											<a href="<?php echo esc_url( get_term_link( $wpf_terms[0]->term_id, $wpf_terms[0]->taxonomy ) ); ?>" class="member-posts__item__main-category pill">
-												<?php echo esc_html( $wpf_terms[0]->name ); ?>
-											</a>
-										</div>
-										<?php
-									}
-									?>
-
 									<a class="member-posts__item__title" href="<?php the_permalink(); ?>">
 										<?php the_title(); ?>
 									</a>
 
-									<div class="member-posts__item__date">
-										<?php echo WPF_Template_Tags::get_the_publish_date_tag(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-									</div>
+									<?php
+									$wpf_terms = WPF_Utils::get_the_terms();
+									if ( ! empty( $wpf_terms ) && 'uncategorized' !== $wpf_terms[0]->slug ) {
+										?>
+										<a href="<?php echo esc_url( get_term_link( $wpf_terms[0]->term_id, $wpf_terms[0]->taxonomy ) ); ?>" class="member-posts__item__position">
+											<?php echo esc_html( $wpf_terms[0]->name ); ?>
+										</a>
+										<?php
+									}
+									?>
 								</div>
 
 								<a href="<?php the_permalink(); ?>" class="member-posts__item__thubmnail frame" aria-hidden="true" tabindex="-1">

@@ -68,15 +68,6 @@
         --flow-space: var(--space-s3);
     }
 
-    figure,
-    img {
-        max-width: var(--width-content);
-    }
-
-    img {
-        width: 100%;
-    }
-
     :is(h2, h3, h4) {
         --flow-space: var(--space-s3em) !important;
     }
@@ -99,7 +90,8 @@
     .project-posts,
     .news-posts,
     .embeded-privacy-policy,
-    .observe-log-container {
+    .observe-log-container,
+    .member-posts {
         --flow-space: var(--space-s3);
     }
 
@@ -111,7 +103,8 @@
     .project-posts + *,
     .news-posts + *,
     .embeded-privacy-policy + *,
-    .observe-log-container + * {
+    .observe-log-container + *,
+    .member-posts + * {
         --flow-space: var(--space-s3);
     }
 }
