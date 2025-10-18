@@ -1,0 +1,22 @@
+@use "sass:map";
+@use "sass:math";
+@use "../config";
+@use "../base/settings" as *;
+
+.coming-soon {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s0);
+    align-items: center;
+    margin-block-start: 1em;
+}
+
+.coming-soon__image {
+    width: fd(200, 300);
+
+    > svg {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+}
