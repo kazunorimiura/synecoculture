@@ -12,16 +12,6 @@ html {
     @include dark-theme;
 }
 
-@media (prefers-color-scheme: dark) {
-    html {
-        @include dark-theme;
-    }
-
-    [data-site-theme="light"] {
-        @include light-theme;
-    }
-}
-
 // 1. テキストがコンテナに収まるようにする。
 body {
     font: var(--font-text);
@@ -112,16 +102,6 @@ blockquote::before {
 
 [data-site-theme="dark"] blockquote::before {
     --quote: #{escape-svg(get-data-url(quote, config.$color-content-tertiary-dark))};
-}
-
-@media (prefers-color-scheme: dark) {
-    blockquote::before {
-        --quote: #{escape-svg(get-data-url(quote, config.$color-content-tertiary-dark))};
-    }
-
-    [data-site-theme="light"] blockquote::before {
-        --quote: #{escape-svg(get-data-url(quote, config.$color-content-tertiary))};
-    }
 }
 
 // 1. スペースをリセット
@@ -273,12 +253,6 @@ svg {
 
 html[data-site-theme="dark"] img {
     filter: brightness(0.8) contrast(1.2);
-}
-
-@media (prefers-color-scheme: dark) {
-    html:not([data-site-theme="light"]) img {
-        filter: brightness(0.8) contrast(1.2);
-    }
 }
 
 %input-padding {
@@ -475,16 +449,6 @@ input[type="radio"]::after {
     --radio: #{escape-svg(get-data-url(radio, config.$color-content-on-color-dark))};
 }
 
-@media (prefers-color-scheme: dark) {
-    input[type="radio"]::after {
-        --radio: #{escape-svg(get-data-url(radio, config.$color-content-on-color-dark))};
-    }
-
-    [data-site-theme="light"] input[type="radio"]::after {
-        --radio: #{escape-svg(get-data-url(radio, config.$color-content-on-color))};
-    }
-}
-
 input[type="checkbox"]::after {
     --check: #{escape-svg(get-data-url(check, config.$color-content-on-color))};
 
@@ -505,16 +469,6 @@ input[type="checkbox"]::after {
 
 [data-site-theme="dark"] input[type="checkbox"]::after {
     --check: #{escape-svg(get-data-url(check, config.$color-content-on-color-dark))};
-}
-
-@media (prefers-color-scheme: dark) {
-    input[type="checkbox"]::after {
-        --check: #{escape-svg(get-data-url(check, config.$color-content-on-color-dark))};
-    }
-
-    [data-site-theme="light"] input[type="checkbox"]::after {
-        --check: #{escape-svg(get-data-url(check, config.$color-content-on-color))};
-    }
 }
 
 input[type="radio"] + label,
@@ -585,16 +539,6 @@ select {
 
 [data-site-theme="dark"] select {
     --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-tertiary-dark))};
-}
-
-@media (prefers-color-scheme: dark) {
-    select {
-        --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-tertiary-dark))};
-    }
-
-    [data-site-theme="light"] select {
-        --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-tertiary))};
-    }
 }
 
 select::-ms-expand {
@@ -686,16 +630,6 @@ a[target="_blank"]::after {
 
 [data-site-theme="dark"] a[target="_blank"]::after {
     --open-in-new: #{escape-svg(get-data-url(open-in-new, config.$color-content-primary-dark))};
-}
-
-@media (prefers-color-scheme: dark) {
-    a[target="_blank"]::after {
-        --open-in-new: #{escape-svg(get-data-url(open-in-new, config.$color-content-primary-dark))};
-    }
-
-    [data-site-theme="light"] a[target="_blank"]::after {
-        --open-in-new: #{escape-svg(get-data-url(open-in-new, config.$color-content-primary))};
-    }
 }
 
 a[href^="#fn:"] {
@@ -965,16 +899,6 @@ details summary::after {
 
 [data-site-theme="dark"] details summary::after {
     --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-primary-dark))};
-}
-
-@media (prefers-color-scheme: dark) {
-    details summary::after {
-        --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-primary-dark))};
-    }
-
-    [data-site-theme="light"] details summary::after {
-        --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-primary))};
-    }
 }
 
 details[open] summary::after {

@@ -70,12 +70,6 @@
     border: 1px solid var(--color-border-opaque);
 }
 
-@media (prefers-color-scheme: dark) {
-    .archive-blog__item {
-        border: 1px solid var(--color-border-opaque);
-    }
-}
-
 .archive-blog__item__inner {
     display: flex;
     flex-direction: column-reverse;

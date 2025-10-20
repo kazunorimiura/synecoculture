@@ -67,17 +67,6 @@
     background-image: escape-svg(get-data-url("radius-reverse-left", config.$color-background-primary-dark));
 }
 
-@media (prefers-color-scheme: dark) {
-    .our-purpose__main::before {
-        left: var(--site-gutter-slat);
-        background-image: escape-svg(get-data-url("radius-reverse-left", config.$color-background-primary-dark));
-    }
-
-    [data-site-theme="light"] .our-purpose__main::before {
-        background-image: escape-svg(get-data-url("radius-reverse-left", config.$color-background-primary));
-    }
-}
-
 .our-purpose__main::after {
     right: var(--site-gutter-slat);
     background-image: escape-svg(get-data-url("radius-reverse-right", config.$color-background-primary));
@@ -85,17 +74,6 @@
 
 [data-site-theme="dark"] .our-purpose__main::after {
     background-image: escape-svg(get-data-url("radius-reverse-right", config.$color-background-primary-dark));
-}
-
-@media (prefers-color-scheme: dark) {
-    .our-purpose__main::after {
-        right: var(--site-gutter-slat);
-        background-image: escape-svg(get-data-url("radius-reverse-right", config.$color-background-primary-dark));
-    }
-
-    [data-site-theme="light"] .our-purpose__main::after {
-        background-image: escape-svg(get-data-url("radius-reverse-right", config.$color-background-primary));
-    }
 }
 
 .our-purpose__main > * + * {

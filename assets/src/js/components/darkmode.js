@@ -8,8 +8,6 @@ export class Darkmode {
             return;
         }
 
-        this.prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-
         const cookieSiteTheme = getCookie('wpf_site_theme');
 
         if (cookieSiteTheme) {
@@ -21,14 +19,9 @@ export class Darkmode {
                 document.documentElement.setAttribute('data-site-theme', 'light');
             }
         } else {
-            // システムがダークモードの場合
-            if (this.prefersDarkScheme.matches) {
-                this.button.querySelector('input[type="checkbox"]').checked = true;
-                document.documentElement.setAttribute('data-site-theme', 'dark');
-            } else {
-                this.button.querySelector('input[type="checkbox"]').checked = false;
-                document.documentElement.setAttribute('data-site-theme', 'light');
-            }
+            // Cookieがない場合はデフォルトをライトモードに設定
+            this.button.querySelector('input[type="checkbox"]').checked = false;
+            document.documentElement.setAttribute('data-site-theme', 'light');
         }
 
         this.onChange = this.handleChange.bind(this);

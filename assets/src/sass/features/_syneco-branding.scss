@@ -177,24 +177,6 @@
     }
 }
 
-@media (prefers-color-scheme: dark) {
-    .syneco-slider__nav-button-prev {
-        --angle-left: #{escape-svg(get-data-url(angle-left, config.$color-content-primary-dark))};
-
-        &.swiper-button-disabled {
-            --angle-left: #{escape-svg(get-data-url(angle-left, config.$color-content-disabled-dark))};
-        }
-    }
-
-    [data-site-theme="light"] .syneco-slider__nav-button-prev {
-        --angle-left: #{escape-svg(get-data-url(angle-left, config.$color-content-primary))};
-
-        &.swiper-button-disabled {
-            --angle-left: #{escape-svg(get-data-url(angle-left, config.$color-content-disabled))};
-        }
-    }
-}
-
 .syneco-slider__nav-button-next {
     --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-primary))};
 
@@ -210,24 +192,6 @@
 
     &.swiper-button-disabled {
         --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-disabled-dark))};
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    .syneco-slider__nav-button-next {
-        --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-primary-dark))};
-
-        &.swiper-button-disabled {
-            --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-disabled-dark))};
-        }
-    }
-
-    [data-site-theme="light"] .syneco-slider__nav-button-next {
-        --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-primary))};
-
-        &.swiper-button-disabled {
-            --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-disabled))};
-        }
     }
 }
 

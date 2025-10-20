@@ -84,17 +84,6 @@
     background-image: escape-svg(get-data-url("radius-reverse-left", config.$color-background-primary-dark));
 }
 
-@media (prefers-color-scheme: dark) {
-    .our-approach__main::before {
-        left: var(--site-gutter-slat);
-        background-image: escape-svg(get-data-url("radius-reverse-left", config.$color-background-primary-dark));
-    }
-
-    [data-site-theme="light"] .our-approach__main::before {
-        background-image: escape-svg(get-data-url("radius-reverse-left", config.$color-background-primary));
-    }
-}
-
 .our-approach__main::after {
     right: var(--site-gutter-slat);
     background-image: escape-svg(get-data-url("radius-reverse-right", config.$color-background-primary));
@@ -102,17 +91,6 @@
 
 [data-site-theme="dark"] .our-approach__main::after {
     background-image: escape-svg(get-data-url("radius-reverse-right", config.$color-background-primary-dark));
-}
-
-@media (prefers-color-scheme: dark) {
-    .our-approach__main::after {
-        right: var(--site-gutter-slat);
-        background-image: escape-svg(get-data-url("radius-reverse-right", config.$color-background-primary-dark));
-    }
-
-    [data-site-theme="light"] .our-approach__main::after {
-        background-image: escape-svg(get-data-url("radius-reverse-right", config.$color-background-primary));
-    }
 }
 
 .our-approach__main > * + * {

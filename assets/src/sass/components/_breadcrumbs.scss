@@ -45,16 +45,6 @@
     --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-primary-dark))};
 }
 
-@media (prefers-color-scheme: dark) {
-    .breadcrumbs__list li + li::before {
-        --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-primary-dark))};
-    }
-
-    [data-site-theme="light"] .breadcrumbs__list li + li::before {
-        --angle-right: #{escape-svg(get-data-url(angle-right, config.$color-content-primary))};
-    }
-}
-
 .breadcrumbs__list li a {
     @extend %link-muted;
 }

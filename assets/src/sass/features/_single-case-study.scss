@@ -77,16 +77,6 @@
     background: linear-gradient(180deg, rgba(config.$color-border-opaque-dark, 1) 0%, rgba(config.$color-border-opaque-dark, 0) 100%);
 }
 
-@media (prefers-color-scheme: dark) {
-    .observe-log:last-child::before {
-        background: linear-gradient(180deg, rgba(config.$color-border-opaque-dark, 1) 0%, rgba(config.$color-border-opaque-dark, 0) 100%);
-    }
-
-    [data-site-theme="light"] .observe-log:last-child::before {
-        background: linear-gradient(180deg, rgba(config.$color-border-opaque, 1) 0%, rgba(config.$color-border-opaque, 0) 100%);
-    }
-}
-
 .observe-log::after {
     position: absolute;
     top: 0.5em;
