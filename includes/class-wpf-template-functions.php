@@ -581,7 +581,7 @@ class WPF_Template_Functions {
 				'taxonomies'    => array( 'blog_cat', 'blog_tag' ),
 				'show_in_rest'  => true,
 				'wpf_cptp'      => array(
-					'permalink_structure' => '/%postname%/',
+					'permalink_structure' => '/%post_id%/',
 				),
 			)
 		);
