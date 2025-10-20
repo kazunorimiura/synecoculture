@@ -142,6 +142,54 @@
     }
 }
 
+%button\:with-icon\:on-right {
+    @extend %input-padding;
+
+    padding: 0;
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 0;
+
+    > span {
+        display: block;
+        align-self: stretch;
+        padding-block: var(--input-padding-block);
+        border-style: solid;
+        border-width: 1px;
+        border-radius: var(--radius-sm);
+        transition: all 0.15s;
+    }
+
+    &:hover > span {
+        color: var(--color-content-primary);
+        background-color: var(--color-background-highlight);
+    }
+
+    > span:last-child {
+        min-width: fd(130, 168);
+        padding-inline: var(--input-padding-inline);
+        text-align: center;
+    }
+
+    > span:first-child {
+        display: flex;
+        align-items: center;
+        padding-inline: var(--input-padding-block);
+        margin-inline-end: -1px;
+
+        > svg {
+            transition: all 0.3s;
+            transform: translateX(0);
+        }
+    }
+
+    &:hover > span:first-child {
+        > svg {
+            transform: translateX(-0.5em);
+        }
+    }
+}
+
 %button\:icon {
     min-width: 0;
     padding: var(--input-padding-block);
@@ -211,6 +259,20 @@
         }
     }
 
+    &\:with-icon\:on-right {
+        @extend %button\:base;
+        @extend %button\:secondary;
+        @extend %button\:with-icon\:on-right;
+        @extend %button\:disabled;
+
+        /* stylelint-disable no-descending-specificity */
+        > span {
+            background-color: var(--color-background-button-primary);
+            border-color: var(--color-border-button-primary);
+        }
+        /* stylelint-enable no-descending-specificity */
+    }
+
     &\:icon {
         @extend %button\:base;
         @extend %button\:primary;
@@ -248,6 +310,25 @@
         }
     }
 
+    &\:with-icon\:on-right {
+        @extend %button\:base;
+        @extend %button\:secondary;
+        @extend %button\:with-icon\:on-right;
+        @extend %button\:disabled;
+
+        /* stylelint-disable no-descending-specificity */
+        > span {
+            border-color: currentcolor;
+        }
+        /* stylelint-enable no-descending-specificity */
+
+        &:hover > span {
+            color: currentcolor;
+            background-color: var(--color-background-highlight);
+            border-color: currentcolor;
+        }
+    }
+
     &\:icon {
         @extend %button\:base;
         @extend %button\:secondary;
@@ -267,6 +348,44 @@
     @extend %button\:base;
     @extend %button\:tertiary;
     @extend %button\:disabled;
+
+    &\:with-icon {
+        @extend %button\:base;
+        @extend %button\:secondary;
+        @extend %button\:with-icon;
+        @extend %button\:disabled;
+
+        /* stylelint-disable no-descending-specificity */
+        > span {
+            border-color: var(--color-border-opaque);
+        }
+        /* stylelint-enable no-descending-specificity */
+
+        &:hover > span {
+            color: currentcolor;
+            background-color: var(--color-background-highlight);
+            border-color: var(--color-border-opaque);
+        }
+    }
+
+    &\:with-icon\:on-right {
+        @extend %button\:base;
+        @extend %button\:secondary;
+        @extend %button\:with-icon\:on-right;
+        @extend %button\:disabled;
+
+        /* stylelint-disable no-descending-specificity */
+        > span {
+            border-color: var(--color-border-opaque);
+        }
+        /* stylelint-enable no-descending-specificity */
+
+        &:hover > span {
+            color: currentcolor;
+            background-color: var(--color-background-highlight);
+            border-color: var(--color-border-opaque);
+        }
+    }
 
     &\:icon {
         @extend %button\:base;

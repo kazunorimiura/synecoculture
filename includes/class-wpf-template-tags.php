@@ -764,9 +764,9 @@ class WPF_Template_Tags {
 
 		ob_start();
 		?>
-		<a class="button:secondary" href="<?php echo esc_url( $url ); ?>" style="--button-size: var(--font-size-text--sm)">
-			<?php echo WPF_Icons::get_svg( 'ui', 'arrow_left', 24 ); /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>
-			<span><?php echo esc_html( $text ); ?></span>
+		<a class="button:tertiary:with-icon:on-right" href="<?php echo esc_url( $url ); ?>" style="--button-size: var(--font-size-text--sm)">
+			<span><?php echo WPF_Icons::get_svg( 'ui', 'arrow_left', 24 ); /* phpcs:ignore WordPress.Security.EscapeOutput */ ?></span>
+			<span>Back to index</span>
 		</a>
 		<?php
 		return ob_get_clean();

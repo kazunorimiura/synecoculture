@@ -321,7 +321,7 @@ if ( have_posts() ) {
 									$wpf_back_link = $wpf_template_tags::get_the_back_link();
 									if ( $wpf_back_link ) {
 										?>
-										<div class="widget">
+										<div class="widget d-flex">
 											<?php echo $wpf_back_link; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>
 										</div>
 										<?php
