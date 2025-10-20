@@ -1549,7 +1549,7 @@ class WPF_Template_Tags {
 		}
 
 		$media_metadata = get_post_meta( $post_id, '_wpf_cover_media_metadata', true );
-		if ( ! empty( get_object_vars( $media_metadata ) ) ) {
+		if ( ! empty( $media_metadata ) && ! empty( get_object_vars( $media_metadata ) ) ) {
 			$args['media_metadata'] = (object) $media_metadata;
 		}
 

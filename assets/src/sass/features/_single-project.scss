@@ -17,9 +17,12 @@
 }
 
 .single-project__sidebar {
+    position: sticky;
+    top: fd(64, 96);
     flex-basis: fd(180, 249);
     flex-grow: 1; // 1
     min-width: 0; // 2
+    max-height: calc(100vh - #{fd(64, 96)});
 
     @media screen and (max-width: em(map.get($breakpoints, lg))) {
         flex-basis: 100%;
@@ -34,8 +37,10 @@
 
 // 1. 非サイドバーの理想的な幅。「0」の場合は利用可能な幅を埋める
 // 2. 長いテキストが折り返されるようにする
+// 3. 内部コンテンツ（画像など）によってオーバーフローしないようにする
 .single-project__main {
     flex-basis: 0; // 1
     flex-grow: 999; // 1
     min-width: 0; // 2
+    max-width: 100%; // 3
 }

@@ -23,7 +23,7 @@
 }
 
 .toc ul:first-of-type {
-    --flow-space: var(--space-s3);
+    --flow-space: var(--space-s5);
 }
 
 .toc ul li {
@@ -48,7 +48,9 @@
 
 .toc ul a {
     display: block;
-    padding-block: 0.35rem;
+    padding-inline-start: rem(16);
+    border-inline-start: 2px solid var(--color-border-opaque);
+    transition: all 0.6s;
 }
 
 .toc > ul > li > a {
@@ -59,12 +61,20 @@
     text-decoration: none;
 }
 
-.toc ul a:link:not(a:hover, a:active),
-.toc ul a:visited:not(a:hover, a:active) {
-    color: inherit;
+.toc ul a:hover {
+    padding-block-end: rem(16);
+    color: var(--color-content-primary);
+    text-decoration: none;
 }
 
-.toc ul a.is-active:link:not(a:hover, a:active),
-.toc ul a.is-active:visited:not(a:hover, a:active) {
-    color: var(--color-content-link);
+.toc ul a:link,
+.toc ul a:visited {
+    color: var(--color-content-primary);
+}
+
+.toc ul a.is-active:link,
+.toc ul a.is-active:visited {
+    padding-block-end: rem(16);
+    color: var(--color-content-primary);
+    border-color: var(--color-content-primary);
 }

@@ -150,3 +150,9 @@ if ( ! is_plugin_active( 'all-in-one-seo-pack/all_in_one_seo_pack.php' ) && ! is
 		}
 	);
 }
+
+/**
+ * WordPress 6.4以降で自動的に追加される画像最適化機能を無効化（旧コンテンツにおいて画像がオーバーフローするケースがあるため）
+ * https://make.wordpress.org/core/2024/10/18/auto-sizes-for-lazy-loaded-images-in-wordpress-6-7/
+ */
+add_filter( 'wp_img_tag_add_auto_sizes', '__return_false' );

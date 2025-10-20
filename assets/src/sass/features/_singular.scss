@@ -4,10 +4,64 @@
 @use "../utilities/flow";
 @use "../components/button";
 
+.single .page-main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: fd(64, 128);
+    width: calc(100% - var(--site-gutter) * 2);
+    max-width: var(--width-wide);
+    margin-inline: auto;
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        flex-direction: column-reverse;
+        gap: fd(48, 128);
+    }
+}
+
+.singular__sidebar {
+    position: sticky;
+    top: fd(64, 96);
+    flex-basis: fd(180, 249);
+    flex-grow: 1; // 1
+    min-width: 0; // 2
+    max-height: calc(100vh - #{fd(64, 96)});
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        flex-basis: 100%;
+        padding-block-start: fd(48, 64);
+        border-top: 1px solid var(--color-border-opaque);
+    }
+}
+
+.singular__sidebar > * + * {
+    margin-block-start: rem(32);
+}
+
+.singular__sidebar__item > * + * {
+    margin-block-start: rem(32);
+}
+
+// 1. 非サイドバーの理想的な幅。「0」の場合は利用可能な幅を埋める
+// 2. 長いテキストが折り返されるようにする
+// 3. 内部コンテンツ（画像など）によってオーバーフローしないようにする
+.singular__main {
+    flex-basis: 0; // 1
+    flex-grow: 999; // 1
+    min-width: 0; // 2
+    max-width: 100%; // 3
+
+    // 旧コンテンツにおいてブロックエディタでは想定していないマークアップがあり、幅がちぐはぐになるため、やむを得ず幅を制限
+    > * {
+        max-width: var(--width-content);
+        margin-inline: auto;
+    }
+}
+
 .singular__toc {
     position: sticky;
     top: calc(var(--site-header-height) + var(--space-s5));
-    max-height: calc(100vh - (var(--site-header-height) + var(--space-s5)));
+    max-height: calc(100vh - var(--space-s5));
+    padding-block: rem(16);
     font-size: 1rem;
 }
 
@@ -16,7 +70,7 @@
 }
 
 .singular__toc\:fold {
-    margin-block-end: var(--space-s1);
+    margin-block-end: var(--space-s7);
 }
 
 .singular__toc\:fold + * {

@@ -700,6 +700,11 @@ dl {
 
     @media screen and (max-width: em(map.get(config.$breakpoints, sm))) {
         flex-basis: 100%;
+        padding-block-end: var(--space-s0);
+
+        &:last-of-type {
+            border-block-end: none;
+        }
     }
 }
 
@@ -855,13 +860,7 @@ tfoot {
 }
 
 details {
-    @extend %input-padding;
-
-    padding-block: var(--space-s-1);
-    padding-inline: var(--space-s-1);
     text-align: left;
-    background-color: var(--color-background-secondary);
-    border-radius: var(--radius);
 }
 
 details summary {
@@ -869,7 +868,7 @@ details summary {
     align-items: center;
     justify-content: space-between;
     font-size: inherit;
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-sign);
     line-height: 1.2;
     color: inherit;
     list-style: none;

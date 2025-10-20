@@ -2,6 +2,14 @@
 @use "../../base/settings" as *;
 @use "../../components/prose";
 
+// 旧コンテンツのマークアップにおいて、pタグ直下にimgタグが複数並ぶようなレイアウトがあるため、レイアウトが横並びになるのを防ぐ
+.alignnone,
+.aligncenter,
+.alignleft,
+.alignlright {
+    display: block;
+}
+
 img.alignnone,
 img.aligncenter,
 img.alignleft,

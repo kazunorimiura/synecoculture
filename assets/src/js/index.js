@@ -31,7 +31,6 @@ class App {
         this.globalNav = new GlobalNav();
 
         this.anchorLinkInstances = [];
-        const siteHeaderHeight = this.siteHeader ? this.siteHeader.clientHeight : 0;
 
         // アンカーリンクのスムーススクロール
         const anchorLinkEls = document.querySelectorAll('a[href*="#"]');
@@ -45,7 +44,6 @@ class App {
                                 selector: 'a',
                                 el: el,
                             },
-                            offset: siteHeaderHeight,
                             callbackBefore: this.globalNav.close.bind(this.globalNav),
                         }),
                     );
@@ -57,7 +55,6 @@ class App {
                             selector: 'a',
                             el: el,
                         },
-                        offset: siteHeaderHeight,
                     }),
                 );
             });
