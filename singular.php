@@ -168,7 +168,6 @@ if ( have_posts() ) {
 								if ( $wpf_show_author ) {
 									$wpf_avatar           = get_avatar( get_the_author_meta( 'ID' ), 300 );
 									$wpf_display_name     = function_exists( 'pll__' ) ? pll__( get_the_author_meta( 'display_name', get_the_author_meta( 'ID' ) ), 'wordpressfoundation' ) : get_the_author_meta( 'display_name', get_the_author_meta( 'ID' ) );
-									$wpf_position         = function_exists( 'pll__' ) ? pll__( get_the_author_meta( 'position', get_the_author_meta( 'ID' ) ), 'wordpressfoundation' ) : get_the_author_meta( 'position', get_the_author_meta( 'ID' ) );
 									$wpf_description      = get_the_author_meta( 'description', get_the_author_meta( 'ID' ) );
 									$wpf_social_links     = array(
 										'x'         => get_the_author_meta( 'x', get_the_author_meta( 'ID' ) ),
@@ -193,22 +192,24 @@ if ( have_posts() ) {
 										}
 										?>
 
-										<div>
+										<div class="author-info__main">
 											<?php
 											// 著者名
 											if ( ! empty( $wpf_display_name ) ) {
 												?>
-												<a class="link-muted" href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>">
+												<a class="author-info__name link-muted" href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>">
 													<?php echo esc_html( $wpf_display_name ); ?>
 												</a>
 												<?php
 											}
+											?>
 
-											// 著者の肩書き
-											if ( ! empty( $wpf_position ) ) {
+											<?php
+											// プロフィール
+											if ( ! empty( $wpf_description ) ) {
 												?>
-												<p style="font: var(--font-text--sm)">
-													<?php echo esc_html( $wpf_position ); ?>
+												<p class="author-info__profile">
+													<?php echo esc_html( $wpf_description ); ?>
 												</p>
 												<?php
 											}

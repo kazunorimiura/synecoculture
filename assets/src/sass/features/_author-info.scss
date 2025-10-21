@@ -1,5 +1,22 @@
+@use "../base/settings" as *;
+
 .author-info {
     display: flex;
-    gap: 1em;
+    gap: fd(18, 64);
     align-items: flex-start;
+}
+
+.author-info__main > * + * {
+    margin-block-start: rem(16);
+}
+
+.author-info__name {
+    display: block;
+    font-size: var(--font-size-headline-3);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-sign);
+}
+
+.author-info__profile {
+    font: var(--font-text--sm);
 }

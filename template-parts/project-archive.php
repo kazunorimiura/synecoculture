@@ -277,7 +277,9 @@ global $wpf_template_tags;
 				<?php
 			} else {
 				?>
-				<p><?php esc_html_e( '投稿が見つかりませんでした。', 'wordpressfoundation' ); ?></p>
+				<div class="prose">
+					<p><?php esc_html_e( '投稿が見つかりませんでした。', 'wordpressfoundation' ); ?></p>
+				</div>
 				<?php
 			}
 			?>

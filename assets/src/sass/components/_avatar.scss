@@ -1,13 +1,11 @@
+@use "../base/settings" as *;
+
 .avatar,
 .avatar > img {
     flex: none;
-    width: var(--avatar-size, 4.0625rem);
+    width: var(--avatar-size, #{fd(90, 200)});
     object-fit: cover;
-    border-radius: 50%;
-}
-
-.avatar\:lg {
-    --avatar-size: 8.75rem;
+    border-radius: var(--radius-lg);
 }
 
 a[class^="avatar"]:hover {

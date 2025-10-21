@@ -1,6 +1,6 @@
 <?php
 /**
- * `blog`投稿タイプのアーカイブテンプレート
+ * `career`投稿タイプのアーカイブテンプレート
  *
  * @package wordpressfoundation
  * @since 0.1.0
@@ -25,16 +25,16 @@ global $wpf_template_tags;
 	?>
 
 	<div class="page-main wrapper:stretch">
-		<div class="archive-blog">
+		<div class="archive-career">
 			<?php
 			/**
 			 * サイドバー
 			 */
 
 			// カテゴリー
-			$top_level_blog_cat_terms = get_terms(
+			$top_level_career_cat_terms = get_terms(
 				array(
-					'taxonomy' => 'blog_cat',
+					'taxonomy' => 'career_cat',
 					'parent'   => 0,  // 親がないタームのみ取得
 				)
 			);
@@ -42,15 +42,15 @@ global $wpf_template_tags;
 			// 日付アーカイブ
 			$date_navigation = $wpf_template_tags::get_date_navigation();
 
-			if ( $top_level_blog_cat_terms && ! is_wp_error( $top_level_blog_cat_terms ) || ! empty( $date_navigation ) ) {
+			if ( $top_level_career_cat_terms && ! is_wp_error( $top_level_career_cat_terms ) || ! empty( $date_navigation ) ) {
 				$current_term = WPF_Template_Tags::get_the_current_term();
 				?>
-				<div class="archive-blog__sidebar">
+				<div class="archive-career__sidebar">
 					<?php
-					if ( $top_level_blog_cat_terms && ! is_wp_error( $top_level_blog_cat_terms ) ) {
+					if ( $top_level_career_cat_terms && ! is_wp_error( $top_level_career_cat_terms ) ) {
 						$is_open = is_date() ? '' : ' open';
 						?>
-						<div class="archive-blog__sidebar-item">
+						<div class="archive-career__sidebar-item">
 							<details class="category-accordion" aria-label="<?php esc_attr_e( 'カテゴリー', 'wordpressfoundation' ); ?>"<?php echo esc_attr( $is_open ); ?>>
 								<summary class="category-accordion__heading">
 									<?php echo esc_html_e( 'カテゴリー', 'wordpressfoundation' ); ?>
@@ -59,14 +59,14 @@ global $wpf_template_tags;
 								<nav class="category-accordion__main" aria-label="<?php echo esc_attr_e( 'カテゴリー', 'wordpressfoundation' ); ?>">
 									<ul>
 										<?php
-										foreach ( $top_level_blog_cat_terms as $blog_cat_term ) {
-											$aria_current_attr  = $current_term && $current_term->term_id === $blog_cat_term->term_id ? ' aria-current="page"' : '';
-											$blog_cat_term_link = get_term_link( $blog_cat_term );
-											if ( ! is_wp_error( $blog_cat_term_link ) ) {
+										foreach ( $top_level_career_cat_terms as $career_cat_term ) {
+											$aria_current_attr    = $current_term && $current_term->term_id === $career_cat_term->term_id ? ' aria-current="page"' : '';
+											$career_cat_term_link = get_term_link( $career_cat_term );
+											if ( ! is_wp_error( $career_cat_term_link ) ) {
 												?>
 												<li>
-													<a href="<?php echo esc_url( $blog_cat_term_link ); ?>" class="category-accordion__item"<?php echo $aria_current_attr; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>>
-														<?php echo esc_html( $blog_cat_term->name ); ?>
+													<a href="<?php echo esc_url( $career_cat_term_link ); ?>" class="category-accordion__item"<?php echo $aria_current_attr; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>>
+														<?php echo esc_html( $career_cat_term->name ); ?>
 													</a>
 												</li>
 												<?php
@@ -85,7 +85,7 @@ global $wpf_template_tags;
 					if ( ! empty( $date_navigation ) ) {
 						$is_open = is_date() ? ' open' : '';
 						?>
-						<div class="archive-blog__sidebar-item">
+						<div class="archive-career__sidebar-item">
 							<details class="category-accordion" aria-label="<?php esc_attr_e( 'アーカイブ', 'wordpressfoundation' ); ?>"<?php echo esc_attr( $is_open ); ?>>
 								<summary class="category-accordion__heading">
 									<?php echo esc_html_e( 'アーカイブ', 'wordpressfoundation' ); ?>
@@ -104,19 +104,19 @@ global $wpf_template_tags;
 			}
 			?>
 
-			<div class="archive-blog__main">
+			<div class="archive-career__main">
 				<?php
 				if ( have_posts() ) {
 					?>
-					<div class="archive-blog__items">
+					<div class="archive-career__items">
 						<?php
 						while ( have_posts() ) {
 							the_post();
 							?>
-							<article class="archive-blog__item">
-								<div class="archive-blog__item__inner">
-									<div class="archive-blog__item__main">
-										<div class="archive-blog__item__header">
+							<article class="archive-career__item">
+								<div class="archive-career__item__inner">
+									<div class="archive-career__item__main">
+										<div class="archive-career__item__header">
 											<?php
 											/**
 											 * タイトル
@@ -124,7 +124,7 @@ global $wpf_template_tags;
 											$wpf_title = get_the_title();
 											if ( $wpf_title ) {
 												?>
-												<h2 class="archive-blog__item__title">
+												<h2 class="archive-career__item__title">
 													<a 
 														href="<?php the_permalink(); ?>"
 														class="link-muted">
@@ -135,12 +135,12 @@ global $wpf_template_tags;
 											}
 											?>
 
-											<div class="archive-blog__item__date">
+											<div class="archive-career__item__date">
 												<?php echo $wpf_template_tags::get_the_publish_date_tag(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 											</div>
 										</div>
 
-										<a href="<?php the_permalink(); ?>" class="archive-blog__item__thubmnail frame" aria-hidden="true" tabindex="-1">
+										<a href="<?php the_permalink(); ?>" class="archive-career__item__thubmnail frame" aria-hidden="true" tabindex="-1">
 											<?php $wpf_template_tags::the_image( get_post_thumbnail_id() ); ?>
 										</a>
 
@@ -151,14 +151,14 @@ global $wpf_template_tags;
 										$wpf_excerpt = get_the_excerpt();
 										if ( $wpf_excerpt ) {
 											?>
-											<p class="archive-blog__item__excerpt">
+											<p class="archive-career__item__excerpt">
 												<?php echo $wpf_excerpt; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 											</p>
 											<?php
 										}
 										?>
 
-										<a href="<?php the_permalink(); ?>" class="archive-blog__item__cta button:secondary">
+										<a href="<?php the_permalink(); ?>" class="archive-career__item__cta button:secondary">
 											<?php echo esc_html_e( '記事を読む', 'wordpressfoundation' ); ?>
 										</a>
 									</div>
@@ -191,7 +191,7 @@ global $wpf_template_tags;
 				} else {
 					?>
 					<div class="prose">
-						<p><?php esc_html_e( '投稿が見つかりませんでした。', 'wordpressfoundation' ); ?></p>
+						<p><?php esc_html_e( '現在募集中の職種はありません。', 'wordpressfoundation' ); ?></p>
 					</div>
 					<?php
 				}

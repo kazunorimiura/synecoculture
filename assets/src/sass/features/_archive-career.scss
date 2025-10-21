@@ -1,0 +1,129 @@
+@use "sass:map";
+@use "../config";
+@use "../base/settings" as *;
+@use "../utilities/grid";
+@use "../utilities/flow";
+@use "../utilities/wrapper";
+
+.archive-career {
+    display: flex;
+    gap: fd(1, 128);
+
+    @media screen and (max-width: em(map.get($breakpoints, xl))) {
+        flex-direction: column-reverse;
+        gap: fd(48, 128);
+    }
+}
+
+// 1. サイドバーの理想的な幅。auto はコンテンツに応じる。
+// 2. 長いテキストが折り返されるようにする。
+.archive-career__sidebar {
+    flex: 1 0 fd(180, 249); // 1
+    min-width: 0; // 2
+
+    @media screen and (max-width: em(map.get($breakpoints, xl))) {
+        flex-basis: 100%;
+        padding-block-start: fd(48, 64);
+        border-top: 1px solid var(--color-border-opaque);
+    }
+}
+
+// 1. 非サイドバーの理想的な幅。「0」の場合は利用可能な幅を埋める。
+// 2. 長いテキストが折り返されるようにする。
+.archive-career__main {
+    flex-basis: 0; // 1
+    flex-grow: 999; // 1
+    min-width: 0; // 2
+}
+
+.archive-career__sidebar > * + * {
+    margin-block-start: rem(32);
+}
+
+.archive-career__main > * + * {
+    margin-block-start: fd(48, 96);
+}
+
+// 1. 非サイドバーの理想的な幅。「0」の場合は利用可能な幅を埋める
+// 2. 長いテキストが折り返されるようにする
+.archive-career__items {
+    display: grid;
+    flex-basis: 0; // 1
+    flex-grow: 999; // 1
+    grid-template-columns: repeat(2, 1fr);
+    gap: fd(18, 24);
+    align-items: flex-start;
+    min-width: 0; // 2
+
+    @media screen and (max-width: em(map.get($breakpoints, md))) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.archive-career__item {
+    background-color: var(--color-background-color);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 25%);
+}
+
+[data-site-theme="dark"] .archive-career__item {
+    border: 1px solid var(--color-border-opaque);
+}
+
+.archive-career__item__inner {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: fd(24, 96);
+    padding: fd(18, 48);
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        gap: fd(24, 32);
+    }
+}
+
+.archive-career__item__header {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: fd(16, 21);
+}
+
+.archive-career__item__date {
+    font-size: var(--font-size-article);
+    font-weight: var(--font-weight-sign);
+    line-height: var(--line-height-sign);
+    text-align: center;
+}
+
+.archive-career__item__title {
+    text-align: center;
+}
+
+.archive-career__item__thubmnail {
+    --n: 1;
+    --d: 0.5625;
+
+    display: block;
+    width: 100%;
+
+    > img {
+        border-radius: var(--radius);
+    }
+}
+
+.archive-career__item__main {
+    @extend %flow;
+}
+
+.archive-career__item__excerpt {
+    --flow-space: #{fd(18, 24)};
+}
+
+.archive-career__item__sub-categories {
+    --flow-space: #{fd(24, 32)};
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: rem(8);
+    padding-block-start: fd(18, 24);
+    border-top: 1px solid var(--color-border-opaque);
+}
