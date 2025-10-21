@@ -1,0 +1,12 @@
+@use "../base/settings" as *;
+
+.logo-hr {
+    display: flex;
+    justify-content: center;
+}
+
+.logo-hr > svg {
+    display: block;
+    width: rem(60);
+    height: auto;
+}

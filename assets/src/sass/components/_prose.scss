@@ -108,6 +108,14 @@
         --flow-space: var(--space-s3);
     }
 
+    .logo-hr {
+        margin-block-start: fd(48, 96);
+    }
+
+    .logo-hr + * {
+        margin-block-start: fd(48, 96);
+    }
+
     // 旧コンテンツにおけるキャプション付きイメージのwidthが固定値で指定されている場合がある
     figure.wp-caption {
         max-width: 100%;

@@ -1533,6 +1533,10 @@ class WPF_Template_Tags {
 	 * @return stdClass|null
 	 */
 	public static function get_the_cover_media( $post_id = 0 ) {
+		if ( is_home() || is_archive() ) {
+			$post_id = WPF_Utils::get_page_for_posts();
+		}
+
 		if ( 0 === $post_id ) {
 			$post_id = get_the_ID();
 		}
@@ -1541,19 +1545,20 @@ class WPF_Template_Tags {
 			return;
 		}
 
-		$args = array();
+		$args = (object) array();
 
 		$media_id = get_post_meta( $post_id, '_wpf_cover_media_id', true );
 		if ( ! empty( $media_id ) ) {
-			$args['media_id'] = $media_id;
+			$args->media_id = $media_id;
 		}
 
-		$media_metadata = get_post_meta( $post_id, '_wpf_cover_media_metadata', true );
-		if ( ! empty( $media_metadata ) && ! empty( get_object_vars( $media_metadata ) ) ) {
-			$args['media_metadata'] = (object) $media_metadata;
+		$media_metadata = (object) get_post_meta( $post_id, '_wpf_cover_media_metadata', true );
+
+		if ( ! empty( get_object_vars( $media_metadata ) ) ) {
+			$args->media_metadata = $media_metadata;
 		}
 
-		return (object) $args;
+		return $args;
 	}
 
 	/**

@@ -57,6 +57,10 @@
     }
 }
 
+.page-header--has-cover .page-header__thumbnail {
+    display: none;
+}
+
 .page-header__main__content {
     @extend %flow;
 
