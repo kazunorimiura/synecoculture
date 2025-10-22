@@ -19,8 +19,12 @@
 // 1. サイドバーの理想的な幅。auto はコンテンツに応じる。
 // 2. 長いテキストが折り返されるようにする。
 .archive-post__sidebar {
+    position: sticky;
+    top: fd(64, 96);
     flex: 1 0 fd(180, 249); // 1
     min-width: 0; // 2
+    max-height: calc(100vh - #{fd(64, 96)});
+    overflow: auto;
 
     @media screen and (max-width: em(map.get($breakpoints, xl))) {
         flex-basis: 100%;
@@ -119,6 +123,7 @@
     font-weight: var(--font-weight-sign);
     line-height: var(--line-height-sign);
     color: var(--color-content-tertiary);
+    letter-spacing: -0.03em;
 }
 
 .archive-post__item__sub-categories {

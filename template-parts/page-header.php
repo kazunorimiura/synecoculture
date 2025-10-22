@@ -130,7 +130,7 @@ $wpf_container_classes = $wpf_cover_media && ! empty( get_object_vars( $wpf_cove
 						if ( ! empty( $wpf_title ) ) {
 							?>
 							<h1 class="page-header__title">
-								<?php echo wp_kses_post( $wpf_title ); ?>
+								<?php echo $wpf_title; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 							</h1>
 							<?php
 						}

@@ -117,26 +117,28 @@ global $wpf_template_tags;
 								<div class="archive-blog__item__inner">
 									<div class="archive-blog__item__main">
 										<div class="archive-blog__item__header">
-											<?php
-											/**
-											 * タイトル
-											 */
-											$wpf_title = get_the_title();
-											if ( $wpf_title ) {
-												?>
-												<h2 class="archive-blog__item__title">
-													<a 
-														href="<?php the_permalink(); ?>"
-														class="link-muted">
-														<?php echo $wpf_title; // phpcs:ignore WordPress.Security.EscapeOutput ?>
-													</a>
-												</h2>
-												<?php
-											}
-											?>
+											<div class="archive-blog__item__header__inner">
+												<div class="archive-blog__item__date">
+													<?php echo $wpf_template_tags::get_the_publish_date_tag(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+												</div>
 
-											<div class="archive-blog__item__date">
-												<?php echo $wpf_template_tags::get_the_publish_date_tag(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+												<?php
+												/**
+												 * タイトル
+												 */
+												$wpf_title = get_the_title();
+												if ( $wpf_title ) {
+													?>
+													<h2 class="archive-blog__item__title">
+														<a 
+															href="<?php the_permalink(); ?>"
+															class="link-muted">
+															<?php echo $wpf_title; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+														</a>
+													</h2>
+													<?php
+												}
+												?>
 											</div>
 										</div>
 
@@ -158,8 +160,9 @@ global $wpf_template_tags;
 										}
 										?>
 
-										<a href="<?php the_permalink(); ?>" class="archive-blog__item__cta button:secondary">
-											<?php echo esc_html_e( '記事を読む', 'wordpressfoundation' ); ?>
+										<a href="<?php the_permalink(); ?>" class="archive-blog__item__cta button:secondary:with-icon">
+											<span><?php echo esc_html_e( '記事を読む', 'wordpressfoundation' ); ?></span>
+											<span><?php echo WPF_Icons::get_svg( 'ui', 'arrow_right', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 										</a>
 									</div>
 								</div>

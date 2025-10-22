@@ -108,10 +108,16 @@
 }
 
 .archive .page-header__title,
+.blog .page-header__title, // is_homeのページ
 .page .page-header__title,
-.blog .page-header__title,
 .error404 .page-header__title {
     font: var(--font-display);
+}
+
+.post-type-archive-blog .page-header__title > svg {
+    display: block;
+    width: fd(180, 270);
+    height: auto;
 }
 
 .page-header__subtitle {
@@ -131,6 +137,7 @@
     font-size: fd(16, 18);
     font-weight: var(--font-weight-sign);
     line-height: var(--line-height-sign);
+    letter-spacing: -0.03em;
 }
 
 .page-header .home-icon > svg {

@@ -18,8 +18,12 @@
 // 1. サイドバーの理想的な幅。auto はコンテンツに応じる。
 // 2. 長いテキストが折り返されるようにする。
 .archive-blog__sidebar {
+    position: sticky;
+    top: fd(64, 96);
     flex: 1 0 fd(180, 249); // 1
     min-width: 0; // 2
+    max-height: calc(100vh - #{fd(64, 96)});
+    overflow: auto;
 
     @media screen and (max-width: em(map.get($breakpoints, xl))) {
         flex-basis: 100%;
@@ -81,10 +85,10 @@
     }
 }
 
-.archive-blog__item__header {
-    display: flex;
-    flex-direction: column-reverse;
-    gap: fd(16, 21);
+.archive-blog__item__header__inner {
+    @extend %flow;
+
+    padding-inline: fd(0, 24);
 }
 
 .archive-blog__item__date {
@@ -92,6 +96,7 @@
     font-weight: var(--font-weight-sign);
     line-height: var(--line-height-sign);
     text-align: center;
+    letter-spacing: -0.03em;
 }
 
 .archive-blog__item__title {
@@ -101,6 +106,7 @@
 .archive-blog__item__thubmnail {
     --n: 1;
     --d: 0.5625;
+    --flow-space: #{fd(24, 48)};
 
     display: block;
     width: 100%;
@@ -115,7 +121,7 @@
 }
 
 .archive-blog__item__excerpt {
-    --flow-space: #{fd(18, 24)};
+    --flow-space: #{fd(18, 32)};
 }
 
 .archive-blog__item__sub-categories {
@@ -126,4 +132,8 @@
     gap: rem(8);
     padding-block-start: fd(18, 24);
     border-top: 1px solid var(--color-border-opaque);
+}
+
+.archive-blog__item__cta {
+    --flow-space: #{fd(24, 48)};
 }
