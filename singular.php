@@ -132,7 +132,7 @@ if ( have_posts() ) {
 						$wpf_show_author        = is_single() && ! empty( $wpf_author_name ) && ! (bool) get_option( 'wpf_disable_author_page' ) && in_array( get_post_type(), array( 'post', 'blog' ), true );
 						$wpf_show_comments      = comments_open() || get_comments_number();
 						$wpf_show_post_nav      = is_single() && ( $wpf_next_post || $wpf_prev_post );
-						$wpf_show_related_posts = isset( $wpf_related_posts_query ) && $wpf_related_posts_query->have_posts();
+						$wpf_show_related_posts = isset( $wpf_related_posts_query ) && $wpf_related_posts_query->have_posts() && in_array( get_post_type(), array( 'post', 'blog' ), true );
 						$wpf_show_back_link     = in_array( get_post_type(), array( 'post', 'blog' ), true );
 
 						if ( $wpf_show_link_pages ||

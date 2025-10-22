@@ -193,6 +193,9 @@ class WPF_Template_Functions {
 		 * 機能強化・その他
 		 */
 
+		// メインクエリのカスタマイズ
+		add_action( 'pre_get_posts', array( $this, 'custom_main_query' ) );
+
 		// モバイルにおける1ページあたりの表示件数を変更する。
 		add_action( 'pre_get_posts', array( $this, 'set_posts_per_page_on_mobile' ) );
 
@@ -988,6 +991,26 @@ class WPF_Template_Functions {
 	 */
 	public static function remove_wp_generator() {
 		remove_action( 'wp_head', 'wp_generator' );
+	}
+
+	/**
+	 * メインクエリのカスタマイズ
+	 *
+	 * @param WP_Query $query WPクエリオブジェクト
+	 * @return void
+	 */
+	public function custom_main_query( $query ) {
+		// member投稿タイプのオーダーを変更
+		if ( ! is_admin() && $query->is_main_query() && is_post_type_archive( 'member' ) ) {
+			$query->set(
+				'orderby',
+				array(
+					'menu_order' => 'ASC',
+					'name'       => 'ASC',
+				)
+			);
+			$query->set( 'posts_per_page', -1 );
+		}
 	}
 
 	/**

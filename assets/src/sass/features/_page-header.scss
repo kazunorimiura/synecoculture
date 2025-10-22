@@ -35,6 +35,14 @@
     max-width: var(--width-wide);
 }
 
+.single-member .page-header__main__inner {
+    align-items: center;
+
+    @media screen and (max-width: em(map.get($breakpoints, sm))) {
+        align-items: flex-start;
+    }
+}
+
 .page-header__thumbnail {
     --n: 1;
     --d: 1;
@@ -57,23 +65,44 @@
     }
 }
 
+.single-member .page-header__thumbnail {
+    --n: 1;
+    --d: 1;
+}
+
 .page-header--has-cover .page-header__thumbnail {
     display: none;
+}
+
+.page-header__main__content__container {
+    display: flex;
+    gap: fd(96, 128);
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        flex-direction: column;
+        gap: fd(32, 48);
+        align-items: flex-start;
+    }
 }
 
 .page-header__main__content {
     @extend %flow;
 
-    flex: 1;
-    width: 100%;
-    max-width: var(--width-wide);
+    flex-basis: auto;
+}
+
+.page .page-header__main__content,
+.archive .page-header__main__content {
+    flex-shrink: 0;
 }
 
 .page-header__title {
-    --flow-space: fd(24, 32);
+    --flow-space: #{fd(24, 32)};
 
-    max-width: 100%;
-    margin-block-start: fd(24, 32);
+    max-width: var(--width-wide);
     font: var(--font-headline-1);
     letter-spacing: -0.03em;
 }
@@ -85,8 +114,17 @@
     font: var(--font-display);
 }
 
+.page-header__subtitle {
+    // font-textからfont-text--smへの流体サイジングに、line-height-textの行高を掛けてpx値に変換
+    $min-lh-value: map.get($min-font-sizes, s-1) * (math.div(math.max(map.get($min-line-height-sizes, s1), map.get($max-line-height-sizes, s1)) - math.min(map.get($min-line-height-sizes, s1), map.get($max-line-height-sizes, s1)), 2) + math.min(map.get($min-line-height-sizes, s1), map.get($max-line-height-sizes, s1))) * 1px;
+    $max-lh-value: map.get($max-font-sizes, s0) * (math.div(math.max(map.get($min-line-height-sizes, s0), map.get($max-line-height-sizes, s0)) - math.min(map.get($min-line-height-sizes, s0), map.get($max-line-height-sizes, s0)), 2) + math.min(map.get($min-line-height-sizes, s0), map.get($max-line-height-sizes, s0))) * 1px;
+
+    font-size: fd(rem(map.get($min-font-sizes, s-2)), rem(map.get($max-font-sizes, s0)));
+    line-height: fd($min-lh-value, $max-lh-value);
+}
+
 .page-header__footer-meta {
-    margin-block-start: fd(12, 16);
+    --flow-space: #{fd(12, 16)};
 }
 
 .page-header__date {

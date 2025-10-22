@@ -1,0 +1,64 @@
+@use "sass:map";
+@use "../config";
+@use "../base/settings" as *;
+@use "../utilities/flow";
+
+.single-member .page-main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: fd(64, 128);
+    width: calc(100% - var(--site-gutter) * 2);
+    max-width: var(--width-wide);
+    margin-inline: auto;
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        flex-direction: column-reverse;
+        gap: fd(48, 128);
+    }
+}
+
+// 1. 非サイドバーの理想的な幅。「0」の場合は利用可能な幅を埋める
+// 2. 長いテキストが折り返されるようにする
+// 3. 内部コンテンツ（画像など）によってオーバーフローしないようにする
+.single-member__main {
+    @extend %flow;
+
+    flex-basis: 0; // 1
+    flex-grow: 999; // 1
+    min-width: 0; // 2
+    max-width: 100%; // 3
+}
+
+.single-member__item {
+    display: flex;
+    gap: fd(32, 64);
+
+    @media screen and (max-width: em(map.get($breakpoints, xl))) {
+        flex-direction: column;
+    }
+}
+
+.single-member__item__header__container {
+    position: sticky;
+    top: fd(64, 96);
+    height: 100%;
+}
+
+// 1. サイドバーの理想的な幅。auto はコンテンツに応じる。
+// 2. 長いテキストが折り返されるようにする。
+.single-member__item__header {
+    flex: 1 0 fd(180, 249); // 1
+    min-width: 0; // 2
+
+    @media screen and (max-width: em(map.get($breakpoints, xl))) {
+        flex-basis: 100%;
+    }
+}
+
+// 1. 非サイドバーの理想的な幅。「0」の場合は利用可能な幅を埋める。
+// 2. 長いテキストが折り返されるようにする。
+.single-member__item__main {
+    flex-basis: 0; // 1
+    flex-grow: 999; // 1
+    min-width: 0; // 2
+}

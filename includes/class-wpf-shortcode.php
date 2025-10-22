@@ -1897,8 +1897,9 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 					while ( $query->have_posts() ) {
 						$query->the_post();
 
-						$cat_terms    = get_the_terms( get_the_ID(), 'project_cat' );
-						$domain_terms = get_the_terms( get_the_ID(), 'project_domain' );
+						$cat_terms           = get_the_terms( get_the_ID(), 'project_cat' );
+						$cat_term_has_parent = true;
+						$domain_terms        = get_the_terms( get_the_ID(), 'project_domain' );
 						?>
 						<div class="project-posts__item">
 							<div class="project-posts__item__inner">
@@ -1925,7 +1926,8 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 													<?php
 												} else {
 													// 祖先がいない場合は自身が最上位
-													$term_link = get_term_link( $term->term_id );
+													$term_link           = get_term_link( $term->term_id );
+													$cat_term_has_parent = false;
 													?>
 													<a href="<?php echo esc_url( $term_link ); ?>" class="project-posts__item__main-category pill">
 														<?php echo esc_html( $term->name ); ?>
@@ -1947,11 +1949,11 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 									/**
 									 * 選択しているタームと領域タームを出力
 									 */
-									if ( ( $cat_terms && ! is_wp_error( $cat_terms ) ) || ( $domain_terms && ! is_wp_error( $domain_terms ) ) ) {
+									if ( ( $cat_terms && ! is_wp_error( $cat_terms ) && $cat_term_has_parent ) || ( $domain_terms && ! is_wp_error( $domain_terms ) ) ) {
 										?>
 										<div class="project-posts__item__sub-categories">
 											<?php
-											if ( $cat_terms && ! is_wp_error( $cat_terms ) ) {
+											if ( $cat_terms && ! is_wp_error( $cat_terms ) && $cat_term_has_parent ) {
 												foreach ( $cat_terms as $term ) {
 													$term_link = get_term_link( $term->term_id );
 													?>
@@ -2006,6 +2008,116 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 					wp_reset_postdata();
 					?>
 				</div>
+				<?php
+			}
+			return ob_get_clean();
+		}
+
+		/**
+		 * `project`投稿タイプの投稿リストを出力するショートコード
+		 * project_postsメソッドと異なるのは、MoreボタンローダーによるCTAかどうか
+		 *
+		 * @param array $atts ショートコード引数。
+		 * @return string
+		 */
+		public static function projects( $atts ) {
+			// 元の属性を保存（タクソノミー用）
+			$original_atts = $atts;
+
+			// デフォルト属性
+			$defaults = array(
+				'heading_text' => '',
+				'body_text'    => '',
+				'cta_link'     => '',
+				'cta_text'     => '',
+				'target'       => '_self',
+				'size'         => 'medium',
+				'post_types'   => 'project',
+				'per_page'     => 5,
+				'orderby'      => 'date',
+				'order'        => 'DESC',
+				'relation'     => 'OR',
+			);
+
+			$atts = shortcode_atts(
+				$defaults,
+				$atts,
+				'wpf_projects'
+			);
+
+			// 投稿タイプを配列に変換
+			$post_types = array_map( 'trim', explode( ',', $atts['post_types'] ) );
+
+			// per_pageの値を検証（上限を100に設定）
+			$posts_per_page = intval( $atts['per_page'] );
+			if ( 100 < $posts_per_page ) {
+				$posts_per_page = 100; // 最大100件に制限
+			}
+
+			// WP_Queryの引数
+			$args = array(
+				'post_type'      => $post_types,
+				'posts_per_page' => $posts_per_page,
+				'post__not_in'   => array( get_the_ID() ),
+				'paged'          => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
+				'orderby'        => $atts['orderby'],
+				'order'          => $atts['order'],
+				'size'           => $atts['size'],
+			);
+
+			// タクソノミーを処理
+			$tax_queries = array();
+			foreach ( $original_atts as $key => $value ) {
+				// デフォルト属性はスキップ
+				if ( array_key_exists( $key, $defaults ) || empty( $value ) ) {
+					continue;
+				}
+
+				// タクソノミーが存在するか確認
+				if ( taxonomy_exists( $key ) ) {
+					$terms         = array_map( 'trim', explode( ',', $value ) );
+					$tax_queries[] = array(
+						'taxonomy' => $key,
+						'field'    => 'slug',
+						'terms'    => $terms,
+					);
+				}
+			}
+
+			// tax_queryを構築
+			if ( ! empty( $tax_queries ) ) {
+				if ( count( $tax_queries ) > 1 ) {
+					$tax_queries['relation'] = strtoupper( $atts['relation'] );
+				}
+				$args['tax_query'] = $tax_queries; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+			}
+
+			$news = WPF_Posts::get_posts(
+				'projects',
+				$args,
+				true
+			);
+
+			ob_start();
+			if ( ! empty( $news ) ) {
+				?>
+				<?php
+				if ( ! empty( $atts['heading_text'] ) ) {
+					?>
+					<h2 class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></h2>
+					<?php
+				}
+				?>
+
+				<?php
+				if ( ! empty( $atts['body_text'] ) ) {
+					?>
+					<p><?php echo esc_html( $atts['body_text'] ); ?></p>
+					<?php
+				}
+				?>
+
+				<?php echo $news; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				<?php
 			}
 			return ob_get_clean();
@@ -2221,7 +2333,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			}
 
 			$news = WPF_Posts::get_posts(
-				'news',
+				'news_blog',
 				$args,
 				true
 			);

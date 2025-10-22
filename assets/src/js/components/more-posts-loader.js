@@ -189,14 +189,14 @@ class MorePostsLoader {
     }
 
     /**
-     * `news` テンプレートのHTMLを生成する。
+     * `news_blog` テンプレートのHTMLを生成する。
      * このメソッドで構築されるHTMLは `includes/class-wpf-posts.php` で定義された各テンプレートの構造に倣っている。
      *
      * @param {{[key: string]: any}} args テンプレートに使用する固有データのオブジェクト。HTML属性値、テキストコンテンツなどが含まれる。
-     * @return {HTMLElement} `news` テンプレートスラッグのHTMLテンプレート。
+     * @return {HTMLElement} `news_blog` テンプレートスラッグのHTMLテンプレート。
      * @memberof MorePostsLoader
      */
-    template__news(args) {
+    template__news_blog(args) {
         // container
         const containerEl = document.createElement('article');
         containerEl.setAttribute('class', 'news-posts__item');

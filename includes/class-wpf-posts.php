@@ -51,14 +51,15 @@ class WPF_Posts {
 	}
 
 	/**
-	 * `news` テンプレートHTMLの出力バッファを取得
+	 * `news_blog` テンプレートHTMLの出力バッファを取得
+	 * ※postだけでなく、blogも出力できる（日付などの構造が同様であるため、柔軟性を持たせている）
 	 *
 	 * @param WP_Query $query WP_Queryオブジェクト
 	 * @param string   $rest_url REST URL
 	 * @param string[] $args 元の引数
 	 * @return string
 	 */
-	private static function news( $query, $rest_url, $args = array() ) {
+	private static function news_blog( $query, $rest_url, $args = array() ) {
 		ob_start();
 		if ( $query->have_posts() ) {
 			$container_id = self::create_uid( 'wpf-' . __FUNCTION__ );
@@ -101,6 +102,134 @@ class WPF_Posts {
 								}
 								?>
 								<a data-post-elment-id="<?php echo esc_attr( 'thumbnail-' . get_the_ID() ); ?>" href="<?php the_permalink(); ?>" class="news-posts__item__thubmnail frame" title="<?php the_title(); ?>" aria-hidden="true" tabindex="-1">
+									<?php WPF_Template_Tags::the_image( get_post_thumbnail_id(), $size ); ?>
+								</a>
+							</div>
+						</article>
+						<?php
+					}
+					wp_reset_postdata();
+					?>
+				</div>
+
+				<?php echo self::more_button( $query, __FUNCTION__, $container_id, $rest_url ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+			</div>
+			<?php
+		}
+		return ob_get_clean();
+	}
+
+	/**
+	 * `projects` テンプレートHTMLの出力バッファを取得
+	 * ※blogも出力される可能性がある（日付などの構造が同様であるため、柔軟性を持たせている）
+	 *
+	 * @param WP_Query $query WP_Queryオブジェクト
+	 * @param string   $rest_url REST URL
+	 * @param string[] $args 元の引数
+	 * @return string
+	 */
+	private static function projects( $query, $rest_url, $args = array() ) {
+		ob_start();
+		if ( $query->have_posts() ) {
+			$container_id = self::create_uid( 'wpf-' . __FUNCTION__ );
+			?>
+			<div class="project-posts-container">
+				<div class="project-posts" id="<?php echo esc_attr( $container_id ); ?>">
+					<?php
+					while ( $query->have_posts() ) {
+						$query->the_post();
+
+						$cat_terms           = get_the_terms( get_the_ID(), 'project_cat' );
+						$cat_term_has_parent = true;
+						$domain_terms        = get_the_terms( get_the_ID(), 'project_domain' );
+						?>
+						<article class="project-posts__item">
+							<div class="project-posts__item__inner">
+								<div class="project-posts__item__main">
+									<?php
+									if ( $cat_terms && ! is_wp_error( $cat_terms ) ) {
+										?>
+										<div class="project-posts__item__main-categories">
+											<?php
+											// 選択しているタームの最祖先を出力
+											foreach ( $cat_terms as $term ) {
+												// 祖先タームのIDを配列で取得（最も近い親から最上位の順）
+												$ancestors = get_ancestors( $term->term_id, 'project_cat', 'taxonomy' );
+
+												if ( ! empty( $ancestors ) ) {
+													// 配列の最後が最上位のターム
+													$top_parent_id   = end( $ancestors );
+													$top_parent      = get_term( $top_parent_id, 'project_cat' );
+													$top_parent_link = get_term_link( $top_parent );
+													?>
+													<a href="<?php echo esc_url( $top_parent_link ); ?>" class="project-posts__item__main-category pill">
+														<?php echo esc_html( $top_parent->name ); ?>
+													</a>
+													<?php
+												} else {
+													// 祖先がいない場合は自身が最上位
+													$term_link           = get_term_link( $term->term_id );
+													$cat_term_has_parent = false;
+													?>
+													<a href="<?php echo esc_url( $term_link ); ?>" class="project-posts__item__main-category pill">
+														<?php echo esc_html( $term->name ); ?>
+													</a>
+													<?php
+												}
+											}
+											?>
+										</div>
+										<?php
+									}
+									?>
+
+									<a class="project-posts__item__title" href="<?php the_permalink(); ?>">
+										<?php the_title(); ?>
+									</a>
+
+									<?php
+									/**
+									 * 選択しているタームと領域タームを出力
+									 */
+									if ( ( $cat_terms && ! is_wp_error( $cat_terms ) && $cat_term_has_parent ) || ( $domain_terms && ! is_wp_error( $domain_terms ) ) ) {
+										?>
+										<div class="project-posts__item__sub-categories">
+											<?php
+											if ( $cat_terms && ! is_wp_error( $cat_terms ) && $cat_term_has_parent ) {
+												foreach ( $cat_terms as $term ) {
+													$term_link = get_term_link( $term->term_id );
+													?>
+													<a href="<?php echo esc_url( $term_link ); ?>" class="project-posts__item__sub-category pill-secondary">
+														<?php echo esc_html( $term->name ); ?>
+													</a>
+													<?php
+												}
+											}
+
+											if ( $domain_terms && ! is_wp_error( $domain_terms ) ) {
+												foreach ( $domain_terms as $term ) {
+													$term_link = get_term_link( $term->term_id );
+													?>
+													<a href="<?php echo esc_url( $term_link ); ?>" class="project-posts__item__sub-category pill-secondary">
+														<?php echo esc_html( $term->name ); ?>
+													</a>
+													<?php
+												}
+											}
+											?>
+										</div>
+										<?php
+									}
+									?>
+								</div>
+
+								<?php
+								$size = 'medium';
+								if ( ! empty( $args ) && isset( $args['size'] ) ) {
+									$size = $args['size'];
+								}
+								?>
+								<a data-post-elment-id="<?php echo esc_attr( 'thumbnail-' . get_the_ID() ); ?>" href="<?php the_permalink(); ?>" class="project-posts__item__thubmnail frame" title="<?php the_title(); ?>" aria-hidden="true" tabindex="-1">
 									<?php WPF_Template_Tags::the_image( get_post_thumbnail_id(), $size ); ?>
 								</a>
 							</div>
