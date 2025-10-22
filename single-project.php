@@ -125,7 +125,7 @@ if ( have_posts() ) {
 						$wpf_back_link = $wpf_template_tags::get_the_back_link();
 						if ( $wpf_back_link ) {
 							?>
-							<div class="widget d-flex jc-center">
+							<div class="widget d-flex jc-center" style="--flow-space: var(--space-s6)">
 								<?php echo $wpf_back_link; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>
 							</div>
 							<?php

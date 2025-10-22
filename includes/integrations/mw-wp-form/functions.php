@@ -27,7 +27,7 @@ foreach ( $wpf_forms as $wpf_form ) {
             $Validation->set_rule( 'last-name', 'between', array( 'min' => 1, 'max' => 100, 'message' => /* translators: %d: 最大文字数 */ sprintf( __( '姓は%d文字以内で入力してください。', 'wordpressfoundation' ), 100 ) ) ); 
             $Validation->set_rule( 'first-name', 'noempty', array( 'message' => __('名を入力してください。', 'wordpressfoundation') ) ); 
             $Validation->set_rule( 'first-name', 'between', array( 'min' => 1, 'max' => 100, 'message' => /* translators: %d: 最大文字数 */ sprintf( __( '名は%d文字以内で入力してください。', 'wordpressfoundation' ), 100 ) ) ); 
-            $Validation->set_rule( 'company', 'noempty', array( 'message' => __('企業・団体名を入力してください。', 'wordpressfoundation') ) ); 
+            // $Validation->set_rule( 'company', 'noempty', array( 'message' => __('企業・団体名を入力してください。', 'wordpressfoundation') ) ); 
             $Validation->set_rule( 'company', 'between', array( 'min' => 1, 'max' => 200, 'message' => /* translators: %d: 最大文字数 */ sprintf( __( '企業・団体名は%d文字以内で入力してください。', 'wordpressfoundation' ), 200 ) ) ); 
             $Validation->set_rule( 'email', 'noempty', array( 'message' => __('メールアドレスを入力してください。', 'wordpressfoundation') ) ); 
             $Validation->set_rule( 'email', 'mail', array( 'message' => __('メールアドレスの形式が正しくありません。', 'wordpressfoundation') ) ); 

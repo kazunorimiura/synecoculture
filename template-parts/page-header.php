@@ -10,7 +10,7 @@ global $wpf_template_tags;
 
 $wpf_breadcrumbs       = WPF_Template_Tags::get_the_breadcrumbs( 'display' );
 $wpf_cover_media       = WPF_Template_Tags::get_the_cover_media();
-$wpf_container_classes = ! empty( get_object_vars( $wpf_cover_media ) ) ? 'page-header page-header--has-cover' : 'page-header';
+$wpf_container_classes = $wpf_cover_media && ! empty( get_object_vars( $wpf_cover_media ) ) ? 'page-header page-header--has-cover' : 'page-header';
 ?>
 
 <div class="<?php echo esc_attr( $wpf_container_classes ); ?>">

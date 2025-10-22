@@ -4,295 +4,289 @@
       "wordpressfoundation": {
          "": {
             "domain": "wordpressfoundation",
-            "lang": "en_US"
+            "lang": "zh_CN"
          },
          "投稿": [
-            "Post"
+            "发布"
          ],
          "ホーム": [
-            "Home"
+            "首页"
          ],
          "ニュース": [
-            "News"
+            "新闻"
          ],
          "検索": [
-            "Search"
+            "搜索"
          ],
          "目次": [
-            "Table Of Contents"
+            "目录"
          ],
          "検索する:": [
-            "Search for:"
+            "搜索："
          ],
          "%sの検索結果": [
-            "Search result for %s"
+            "%s的搜索结果"
          ],
          "前へ": [
-            "Prev"
+            "上一页"
          ],
          "次へ": [
-            "Next"
+            "下一页"
          ],
          "ページ": [
-            "Page"
+            "页面"
          ],
          "未分類": [
-            "Uncategorized"
+            "未分类"
          ],
          "すべて": [
-            "All"
+            "全部"
          ],
          "パンくずリスト": [
-            "breadcrumbs"
+            "面包屑导航"
          ],
          "この記事を書いた人": [
-            "Written by"
+            "作者"
          ],
          "この著者の記事一覧": [
-            "See all articles"
+            "查看所有文章"
          ],
          "%sの記事一覧": [
-            "Articles by %s"
+            "%s的文章列表"
          ],
          "関連記事": [
-            "Related articles"
+            "相关文章"
          ],
          "%s一覧": [
-            "View all %s"
+            "查看所有%s"
          ],
          "一覧へ": [
-            "View all"
+            "查看全部"
          ],
          "%sに戻る": [
-            "Back to %s"
+            "返回%s"
          ],
          "さらに詳しく": [
-            "Learn More"
+            "了解更多"
          ],
          "すべて見る": [
-            "View All"
+            "查看全部"
          ],
          "もっと見る": [
-            "View More"
+            "查看更多"
          ],
          "最終更新日: %s": [
-            "Last updated: %s"
+            "最后更新：%s"
          ],
          "カテゴリー": [
-            "Category"
+            "分类"
          ],
          "領域": [
-            "Domain"
+            "领域"
          ],
          "タグ": [
-            "Tag"
+            "标签"
          ],
          "日付": [
-            "Date"
+            "日期"
          ],
          "%sナビゲーション": [
-            "%s navigation"
+            "%s导航"
          ],
          "日付ナビゲーション": [
-            "Date navigation"
+            "日期导航"
          ],
          "お探しのページは見つかりませんでした。": [
-            "The page you are looking for was not found."
+            "找不到您要查找的页面。"
          ],
          "投稿が見つかりませんでした。": [
-            "Oops, looks like I haven't posted yet."
+            "哎呀，看起来我还没有发布任何内容。"
          ],
          "以下の可能性があります。": [
-            "The following possibilities exist."
+            "可能存在以下情况。"
          ],
          "コメント": [
-            "Comment"
+            "评论"
          ],
          "コメントする": [
-            "Leave a comment"
+            "发表评论"
          ],
          "コメントは閉じています。": [
-            "Comment is closed."
+            "评论已关闭。"
          ],
          "ご覧になっていたページからのリンクが無効になっている": [
-            "The link from the page you were looking at is no longer valid."
+            "您所查看页面的链接已失效"
          ],
          "アドレス（URL）のタイプミスがある": [
-            "There is a typo in the address (URL)."
+            "地址（URL）存在输入错误"
          ],
          "当該ページの公開が終了している": [
-            "The page has been closed to the public."
+            "该页面已停止公开"
          ],
          "上部（または下部）のメニューから目的のページをお探しいただくか、検索をお試しください。": [
-            "Please use the menu at the top (or bottom) to find the page you are looking for, or try searching."
+            "请通过顶部（或底部）菜单查找您要找的页面，或尝试搜索。"
          ],
          "プライマリ": [
-            "Primary"
+            "主菜单"
          ],
          "プライマリ（モバイル）": [
-            "Primary (Mobile)"
+            "主菜单（移动端）"
          ],
          "グローバルプライマリ": [
-            "Global Primary"
+            "全局主菜单"
          ],
          "グローバルセカンダリ": [
-            "Global Secondary"
+            "全局次菜单"
          ],
          "フッタープライマリ": [
-            "Footer Primary"
+            "页脚主菜单"
          ],
          "フッターセカンダリ": [
-            "Footer Secondary"
+            "页脚次菜单"
          ],
          "ソーシャルリンク": [
-            "Social links"
+            "社交链接"
          ],
          "Googleタグマネージャー": [
-            "Google Tag Manager"
+            "Google跟踪代码管理器"
          ],
          "ダークモード": [
-            "Dark mode"
+            "深色模式"
          ],
          "「GTM-」から始まるIDを入力します（例, GTM-PQPQ54K）。": [
-            "Enter an ID starting with \"GTM-\" (e.g., GTM-PQPQ54K)."
+            "请输入以\"GTM-\"开头的ID（例如：GTM-PQPQ54K）。"
          ],
          "入力内容に不備があります。": [
-            "Incomplete entry details."
+            "输入内容不完整。"
          ],
          "「%1$s」に関する記事を%2$s件掲載しています。": [
-            "%2$s articles about \"%1$s\" are available."
+            "已发布%2$s篇关于%1$s的文章。"
          ],
          "%1$sに公開した記事を%2$s件掲載しています。": [
-            "%1$s articles published in %2$s."
+            "已发布%2$s篇于%1$s公开的文章。"
          ],
          "すべての投稿を見る": [
-            "View all posts"
+            "查看所有投稿"
          ],
          "%sのプロフィールを見る": [
-            "View %s's profile"
+            "查看%s的个人资料"
          ],
          "お問い合わせ種別を選択してください。": [
-            "Please select an inquiry type."
+            "请选择咨询类型。"
          ],
          "氏名を入力してください。": [
-            "Please enter your name."
+            "请输入姓名。"
          ],
          "姓を入力してください。": [
-            "Please enter your last name."
+            "请输入姓氏。"
          ],
          "名を入力してください。": [
-            "Please enter your first name."
+            "请输入名字。"
          ],
          "会社名を入力してください。": [
-            "Please enter your company name."
+            "请输入公司名称。"
          ],
          "企業・団体名を入力してください。": [
-            "Please enter your company name."
+            "请输入企业/团体名称。"
          ],
          "メールアドレスを入力してください。": [
-            "Please enter your email address."
+            "请输入邮箱地址。"
          ],
          "メールアドレスの形式が正しくありません。": [
-            "The format of the email address is incorrect."
+            "邮箱地址格式不正确。"
          ],
          "電話番号を入力してください。": [
-            "Please enter your phone number."
+            "请输入电话号码。"
          ],
          "電話番号の入力形式が正しくありません。": [
-            "Incorrect format for entering telephone numbers."
+            "电话号码输入格式不正确。"
          ],
          "件名を選択してください。": [
-            "Please select a subject."
+            "请选择主题。"
          ],
          "お問い合わせ内容を入力してください。": [
-            "Please enter your message."
+            "请输入您的留言。"
          ],
          "個人情報保護方針の同意が必要です。": [
-            "Privacy policy consent is required."
+            "需要同意隐私政策。"
          ],
          "Google reCAPTCHAにより、自動化されたアクセスとして検知されました。しばらく時間をおいてから再度お試しください。": [
-            "Google reCAPTCHA has detected automated access. Please wait a moment and try again."
+            "Google reCAPTCHA检测到自动化访问。请稍等片刻后重试。"
          ],
          "姓は%d文字以内で入力してください。": [
-            "Please enter your last name within %d characters."
+            "请输入%d字符以内的姓氏。"
          ],
          "名は%d文字以内で入力してください。": [
-            "Please enter your first name within %d characters."
+            "请输入%d字符以内的名字。"
          ],
          "会社名は%d文字以内で入力してください。": [
-            "Please enter your company name within %d characters."
+            "请输入%d字符以内的公司名称。"
          ],
          "企業・団体名は%d文字以内で入力してください。": [
-            "Please enter your company name within %d characters."
+            "请输入%d字符以内的企业·团体名称。"
          ],
          "メールアドレスは%d文字以内で入力してください。": [
-            "Please enter your email address within %d characters."
+            "请输入%d字符以内的邮箱地址。"
          ],
          "お問い合わせ内容は%d文字以内で入力してください。": [
-            "Please enter your message within %d characters."
+            "请输入%d字符以内的咨询内容。"
          ],
          "このページは%sで提供されています。": [
-            "This page is available in %s."
+            "本页面提供%s版本。"
          ],
          "このページは%sでのみ提供されています。": [
-            "This page is available only in %s."
+            "本页面仅提供%s版本。"
          ],
          "食・環境・健康のトリレンマのイメージ図": [
-            "Conceptual Diagram of the Diet-Environment-Health Trilemma"
+            "饮食-环境-健康三难困境示意图"
          ],
          "トリレンマ図のアニメーションを再生": [
-            "Play trilemma diagram animation"
+            "播放三难困境图动画"
          ],
          "トリレンマ図のアニメーションを一時停止": [
-            "Pause trilemma diagram animation"
+            "暂停三难困境图动画"
          ],
          "%sのプロフィールページへ": [
-            "Go to %s's profile"
+            "前往%s的个人主页"
          ],
          "現在のページ": [
-            "Current page"
+            "当前页面"
          ],
          "行動指針": [
-            "Code of Conduct"
+            "行为准则"
          ],
          "アーカイブ": [
-            "Archive"
+            "归档"
          ],
          "記事を読む": [
-            "Read article"
+            "阅读文章"
          ],
          "基本情報": [
-            "Basic Information"
+            "基本信息"
          ],
          "terms\u0004ターム": [
-            "Terms"
+            "术语"
          ],
          "authors\u0004著者": [
-            "Authors"
+            "作者"
          ],
          "cta text to date archive\u0004%sのすべての投稿を見る": [
-            "View all posts in %s"
+            "查看%s的所有投稿"
          ],
          "cta text to tax archive\u0004%sのすべての投稿を見る": [
-            "View all posts in %s"
+            "查看%s中的所有投稿"
          ],
          "yearly archives date format\u0004Y年": [
-            "Y"
+            "Y年"
          ],
          "monthly archives date format\u0004Y年n月": [
-            "F Y"
-         ],
-         "daily archives date format\u0004Y年n月j日": [
-            "F j, Y"
+            "Y年n月"
          ],
          "year date format\u0004Y年": [
-            "Y"
+            "Y年"
          ],
          "month date format\u0004n月": [
-            "F"
-         ],
-         "day date format\u0004j日": [
-            "j"
+            "n月"
          ]
       }
    }

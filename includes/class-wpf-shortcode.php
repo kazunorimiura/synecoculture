@@ -49,7 +49,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			add_shortcode( 'wpf_our_values', array( $this, 'our_values' ) );
 			add_shortcode( 'wpf_about_intro', array( $this, 'about_intro' ) );
 			add_shortcode( 'wpf_about_child_page_links', array( $this, 'about_child_page_links' ) );
-			add_shortcode( 'wpf_embeded_privacy_policy', array( $this, 'embeded_privacy_policy' ) );
+			add_shortcode( 'wpf_embedded_privacy_policy', array( $this, 'embedded_privacy_policy' ) );
 		}
 
 		/**
@@ -2814,7 +2814,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 		 * @param array $atts ショートコード引数。
 		 * @return string
 		 */
-		public static function embeded_privacy_policy( $atts ) {
+		public static function embedded_privacy_policy( $atts ) {
 			$atts = shortcode_atts(
 				array(
 					'root_level' => 2, // デフォルトはh2から開始

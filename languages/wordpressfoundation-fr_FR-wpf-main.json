@@ -4,85 +4,85 @@
       "wordpressfoundation": {
          "": {
             "domain": "wordpressfoundation",
-            "lang": "en_US"
+            "lang": "fr_FR"
          },
          "投稿": [
-            "Post"
+            "Article"
          ],
          "ホーム": [
-            "Home"
+            "Accueil"
          ],
          "ニュース": [
-            "News"
+            "Actualités"
          ],
          "検索": [
-            "Search"
+            "Recherche"
          ],
          "目次": [
-            "Table Of Contents"
+            "Table des matières"
          ],
          "検索する:": [
-            "Search for:"
+            "Rechercher :"
          ],
          "%sの検索結果": [
-            "Search result for %s"
+            "Résultats de recherche pour %s"
          ],
          "前へ": [
-            "Prev"
+            "Précédent"
          ],
          "次へ": [
-            "Next"
+            "Suivant"
          ],
          "ページ": [
             "Page"
          ],
          "未分類": [
-            "Uncategorized"
+            "Non classé"
          ],
          "すべて": [
-            "All"
+            "Tout"
          ],
          "パンくずリスト": [
-            "breadcrumbs"
+            "Fil d'Ariane"
          ],
          "この記事を書いた人": [
-            "Written by"
+            "Écrit par"
          ],
          "この著者の記事一覧": [
-            "See all articles"
+            "Voir tous les articles"
          ],
          "%sの記事一覧": [
-            "Articles by %s"
+            "Articles de %s"
          ],
          "関連記事": [
-            "Related articles"
+            "Articles connexes"
          ],
          "%s一覧": [
-            "View all %s"
+            "Voir tout %s"
          ],
          "一覧へ": [
-            "View all"
+            "Voir tout"
          ],
          "%sに戻る": [
-            "Back to %s"
+            "Retour à %s"
          ],
          "さらに詳しく": [
-            "Learn More"
+            "En savoir plus"
          ],
          "すべて見る": [
-            "View All"
+            "Tout voir"
          ],
          "もっと見る": [
-            "View More"
+            "Voir plus"
          ],
          "最終更新日: %s": [
-            "Last updated: %s"
+            "Dernière mise à jour : %s"
          ],
          "カテゴリー": [
-            "Category"
+            "Catégorie"
          ],
          "領域": [
-            "Domain"
+            "Domaine"
          ],
          "タグ": [
             "Tag"
@@ -91,190 +91,190 @@
             "Date"
          ],
          "%sナビゲーション": [
-            "%s navigation"
+            "Navigation %s"
          ],
          "日付ナビゲーション": [
-            "Date navigation"
+            "Navigation par date"
          ],
          "お探しのページは見つかりませんでした。": [
-            "The page you are looking for was not found."
+            "La page que vous recherchez est introuvable."
          ],
          "投稿が見つかりませんでした。": [
-            "Oops, looks like I haven't posted yet."
+            "Oups, il semblerait que je n'aie pas encore publié."
          ],
          "以下の可能性があります。": [
-            "The following possibilities exist."
+            "Les possibilités suivantes existent."
          ],
          "コメント": [
-            "Comment"
+            "Commentaire"
          ],
          "コメントする": [
-            "Leave a comment"
+            "Laisser un commentaire"
          ],
          "コメントは閉じています。": [
-            "Comment is closed."
+            "Les commentaires sont fermés."
          ],
          "ご覧になっていたページからのリンクが無効になっている": [
-            "The link from the page you were looking at is no longer valid."
+            "Le lien de la page que vous consultiez n'est plus valide."
          ],
          "アドレス（URL）のタイプミスがある": [
-            "There is a typo in the address (URL)."
+            "Il y a une erreur de frappe dans l'adresse (URL)."
          ],
          "当該ページの公開が終了している": [
-            "The page has been closed to the public."
+            "La page a été fermée au public."
          ],
          "上部（または下部）のメニューから目的のページをお探しいただくか、検索をお試しください。": [
-            "Please use the menu at the top (or bottom) to find the page you are looking for, or try searching."
+            "Veuillez utiliser le menu en haut (ou en bas) pour trouver la page que vous recherchez, ou essayez la recherche."
          ],
          "プライマリ": [
-            "Primary"
+            "Principal"
          ],
          "プライマリ（モバイル）": [
-            "Primary (Mobile)"
+            "Principal (Mobile)"
          ],
          "グローバルプライマリ": [
-            "Global Primary"
+            "Principal global"
          ],
          "グローバルセカンダリ": [
-            "Global Secondary"
+            "Secondaire global"
          ],
          "フッタープライマリ": [
-            "Footer Primary"
+            "Pied de page principal"
          ],
          "フッターセカンダリ": [
-            "Footer Secondary"
+            "Pied de page secondaire"
          ],
          "ソーシャルリンク": [
-            "Social links"
+            "Liens sociaux"
          ],
          "Googleタグマネージャー": [
             "Google Tag Manager"
          ],
          "ダークモード": [
-            "Dark mode"
+            "Mode sombre"
          ],
          "「GTM-」から始まるIDを入力します（例, GTM-PQPQ54K）。": [
-            "Enter an ID starting with \"GTM-\" (e.g., GTM-PQPQ54K)."
+            "Saisissez un ID commençant par \"GTM-\" (ex. GTM-PQPQ54K)."
          ],
          "入力内容に不備があります。": [
-            "Incomplete entry details."
+            "Les détails de saisie sont incomplets."
          ],
          "「%1$s」に関する記事を%2$s件掲載しています。": [
-            "%2$s articles about \"%1$s\" are available."
+            "%2$s articles concernant \"%1$s\" sont disponibles."
          ],
          "%1$sに公開した記事を%2$s件掲載しています。": [
-            "%1$s articles published in %2$s."
+            "%2$s articles publiés en %1$s."
          ],
          "すべての投稿を見る": [
-            "View all posts"
+            "Voir tous les articles"
          ],
          "%sのプロフィールを見る": [
-            "View %s's profile"
+            "Voir le profil de %s"
          ],
          "お問い合わせ種別を選択してください。": [
-            "Please select an inquiry type."
+            "Veuillez sélectionner un type de demande."
          ],
          "氏名を入力してください。": [
-            "Please enter your name."
+            "Veuillez saisir votre nom."
          ],
          "姓を入力してください。": [
-            "Please enter your last name."
+            "Veuillez saisir votre nom de famille."
          ],
          "名を入力してください。": [
-            "Please enter your first name."
+            "Veuillez saisir votre prénom."
          ],
          "会社名を入力してください。": [
-            "Please enter your company name."
+            "Veuillez saisir le nom de votre entreprise."
          ],
          "企業・団体名を入力してください。": [
-            "Please enter your company name."
+            "Veuillez saisir le nom de l'entreprise/organisation."
          ],
          "メールアドレスを入力してください。": [
-            "Please enter your email address."
+            "Veuillez saisir votre adresse e-mail."
          ],
          "メールアドレスの形式が正しくありません。": [
-            "The format of the email address is incorrect."
+            "Le format de l'adresse e-mail est incorrect."
          ],
          "電話番号を入力してください。": [
-            "Please enter your phone number."
+            "Veuillez saisir votre numéro de téléphone."
          ],
          "電話番号の入力形式が正しくありません。": [
-            "Incorrect format for entering telephone numbers."
+            "Le format de saisie du numéro de téléphone est incorrect."
          ],
          "件名を選択してください。": [
-            "Please select a subject."
+            "Veuillez sélectionner un sujet."
          ],
          "お問い合わせ内容を入力してください。": [
-            "Please enter your message."
+            "Veuillez saisir votre message."
          ],
          "個人情報保護方針の同意が必要です。": [
-            "Privacy policy consent is required."
+            "Le consentement à la politique de confidentialité est requis."
          ],
          "Google reCAPTCHAにより、自動化されたアクセスとして検知されました。しばらく時間をおいてから再度お試しください。": [
-            "Google reCAPTCHA has detected automated access. Please wait a moment and try again."
+            "Google reCAPTCHA a détecté un accès automatisé. Veuillez patienter un moment et réessayer."
          ],
          "姓は%d文字以内で入力してください。": [
-            "Please enter your last name within %d characters."
+            "Veuillez saisir votre nom de famille en %d caractères maximum."
          ],
          "名は%d文字以内で入力してください。": [
-            "Please enter your first name within %d characters."
+            "Veuillez saisir votre prénom en %d caractères maximum."
          ],
          "会社名は%d文字以内で入力してください。": [
-            "Please enter your company name within %d characters."
+            "Veuillez saisir le nom de votre entreprise en %d caractères maximum."
          ],
          "企業・団体名は%d文字以内で入力してください。": [
-            "Please enter your company name within %d characters."
+            "Veuillez saisir le nom de votre entreprise/organisation en %d caractères maximum."
          ],
          "メールアドレスは%d文字以内で入力してください。": [
-            "Please enter your email address within %d characters."
+            "Veuillez saisir votre adresse e-mail en %d caractères maximum."
          ],
          "お問い合わせ内容は%d文字以内で入力してください。": [
-            "Please enter your message within %d characters."
+            "Veuillez saisir votre message en %d caractères maximum."
          ],
          "このページは%sで提供されています。": [
-            "This page is available in %s."
+            "Cette page est disponible en %s."
          ],
          "このページは%sでのみ提供されています。": [
-            "This page is available only in %s."
+            "Cette page n'est disponible qu'en %s."
          ],
          "食・環境・健康のトリレンマのイメージ図": [
-            "Conceptual Diagram of the Diet-Environment-Health Trilemma"
+            "Schéma conceptuel du trilemme Alimentation-Environnement-Santé"
          ],
          "トリレンマ図のアニメーションを再生": [
-            "Play trilemma diagram animation"
+            "Lire l'animation du diagramme de trilemme"
          ],
          "トリレンマ図のアニメーションを一時停止": [
-            "Pause trilemma diagram animation"
+            "Mettre en pause l'animation du diagramme de trilemme"
          ],
          "%sのプロフィールページへ": [
-            "Go to %s's profile"
+            "Aller au profil de %s"
          ],
          "現在のページ": [
-            "Current page"
+            "Page actuelle"
          ],
          "行動指針": [
-            "Code of Conduct"
+            "Code de conduite"
          ],
          "アーカイブ": [
             "Archive"
          ],
          "記事を読む": [
-            "Read article"
+            "Lire l'article"
          ],
          "基本情報": [
-            "Basic Information"
+            "Informations de base"
          ],
          "terms\u0004ターム": [
-            "Terms"
+            "Termes"
          ],
          "authors\u0004著者": [
-            "Authors"
+            "Auteurs"
          ],
          "cta text to date archive\u0004%sのすべての投稿を見る": [
-            "View all posts in %s"
+            "Voir tous les articles de %s"
          ],
          "cta text to tax archive\u0004%sのすべての投稿を見る": [
-            "View all posts in %s"
+            "Voir tous les articles dans %s"
          ],
          "yearly archives date format\u0004Y年": [
             "Y"
@@ -282,17 +282,11 @@
          "monthly archives date format\u0004Y年n月": [
             "F Y"
          ],
-         "daily archives date format\u0004Y年n月j日": [
-            "F j, Y"
-         ],
          "year date format\u0004Y年": [
             "Y"
          ],
          "month date format\u0004n月": [
             "F"
-         ],
-         "day date format\u0004j日": [
-            "j"
          ]
       }
    }

@@ -451,7 +451,7 @@ $max-line-height-sizes: hms(map.get(map.get(config.$hms-line-height, max), size)
 
     // input要素のパディング
     --input-padding-block: #{fd(em(17), em(20))};
-    --input-padding-inline: #{fd(em(21), em(28))};
+    --input-padding-inline: #{fd(em(17), em(20))};
 }
 
 /// config設定をコピーして他の場所でも参照できるようにする。

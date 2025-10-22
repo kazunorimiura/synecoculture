@@ -83,15 +83,17 @@ if ( have_posts() ) {
 					}
 					?>
 
-					<div class="prose">
-						<?php
-						// コンテンツ
-						if ( $wpf_show_toc ) {
-							echo $wpf_content; // phpcs:ignore WordPress.Security.EscapeOutput
-						} else {
-							the_content();
-						}
-						?>
+					<div class="flow">
+						<div class="prose">
+							<?php
+							// コンテンツ
+							if ( $wpf_show_toc ) {
+								echo $wpf_content; // phpcs:ignore WordPress.Security.EscapeOutput
+							} else {
+								the_content();
+							}
+							?>
+						</div>
 
 						<?php
 						// ページ区切り
@@ -323,7 +325,7 @@ if ( have_posts() ) {
 									$wpf_back_link = $wpf_template_tags::get_the_back_link();
 									if ( $wpf_back_link ) {
 										?>
-										<div class="widget d-flex jc-center">
+										<div class="widget d-flex jc-center" style="--flow-space: var(--space-s6)">
 											<?php echo $wpf_back_link; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>
 										</div>
 										<?php

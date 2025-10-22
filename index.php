@@ -84,25 +84,22 @@ global $wpf_template_tags;
 
 				if ( have_posts() ) {
 					?>
-					<div class="flex-grid:3-2" style="--flow-space: var(--space-s5)">
+					<div class="flex-grid:3-2-1" style="--flow-space: var(--space-s5)">
 						<?php
 						while ( have_posts() ) {
 							the_post();
 							?>
-							<article class="d-flex fd-column-reverse jc-flex-end gap-s-6">
+							<article class="d-flex fd-column-reverse jc-flex-end gap-s0">
 								<div class="flow" style="--flow-space: var(--space-s-1)">
 									<?php
 									$wpf_terms = WPF_Utils::get_the_terms();
 									if ( ! empty( $wpf_terms ) && 'uncategorized' !== $wpf_terms[0]->slug ) {
 										?>
 										<p 
-											class="c-content-positive font-text--xs"
-											style="--flow-space: var(--space-s-space)">
-											<a 
-												href="<?php echo esc_url( get_term_link( $wpf_terms[0]->term_id, $wpf_terms[0]->taxonomy ) ); ?>"
-												class="pill">
+											style="--flow-space: var(--space-s-5)">
+											<span class="pill font-text--xs">
 												<?php echo esc_html( $wpf_terms[0]->name ); ?>
-											</a>
+											</span>
 										</p>
 										<?php
 									}
@@ -111,7 +108,8 @@ global $wpf_template_tags;
 									if ( $wpf_title ) {
 										?>
 										<p
-											style="--flow-space: var(--space-s-space)">
+											class="font-headline-2"
+											style="--flow-space: var(--space-s-5)">
 											<a 
 												href="<?php the_permalink(); ?>"
 												class="link-muted">
@@ -126,7 +124,7 @@ global $wpf_template_tags;
 										?>
 										<p
 											class="font-text--sm sm:hidden-yes"
-											style="--flow-space: var(--space-s-space)">
+											style="--flow-space: var(--space-s-5)">
 											<?php echo $wpf_excerpt; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 										</p>
 										<?php
@@ -136,7 +134,7 @@ global $wpf_template_tags;
 										?>
 										<p
 											class="font-text--sm c-content-tertiary"
-											style="--flow-space: var(--space-s-space)">
+											style="--flow-space: var(--space-s-5)">
 											<?php echo $wpf_template_tags::get_the_publish_date_tag(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 										</p>
 										<?php
@@ -175,7 +173,9 @@ global $wpf_template_tags;
 					);
 				} else {
 					?>
-					<p><?php esc_html_e( '投稿が見つかりませんでした。', 'wordpressfoundation' ); ?></p>
+					<div class="prose">
+						<p><?php esc_html_e( '投稿が見つかりませんでした。', 'wordpressfoundation' ); ?></p>
+					</div>
 					<?php
 				}
 			}

@@ -585,6 +585,7 @@ class WPF_Template_Functions {
 				'show_in_rest'  => true,
 				'wpf_cptp'      => array(
 					'permalink_structure' => '/%post_id%/',
+					'author_archive'      => false,
 				),
 			)
 		);
@@ -608,6 +609,7 @@ class WPF_Template_Functions {
 				'show_in_rest'  => true,
 				'wpf_cptp'      => array(
 					'permalink_structure' => '/%postname%/',
+					'author_archive'      => false,
 				),
 			)
 		);
@@ -631,6 +633,7 @@ class WPF_Template_Functions {
 				'show_in_rest'  => true,
 				'wpf_cptp'      => array(
 					'permalink_structure' => '/%post_id%/',
+					'author_archive'      => false,
 				),
 			)
 		);
@@ -654,6 +657,7 @@ class WPF_Template_Functions {
 				'show_in_rest'  => true,
 				'wpf_cptp'      => array(
 					'permalink_structure' => '/%postname%/',
+					'author_archive'      => false,
 				),
 			)
 		);
@@ -677,6 +681,7 @@ class WPF_Template_Functions {
 				'show_in_rest'  => true,
 				'wpf_cptp'      => array(
 					'permalink_structure' => '/%postname%/',
+					'author_archive'      => false,
 				),
 			)
 		);
@@ -700,6 +705,7 @@ class WPF_Template_Functions {
 				'show_in_rest'  => true,
 				'wpf_cptp'      => array(
 					'permalink_structure' => '/%postname%/',
+					'author_archive'      => false,
 				),
 			)
 		);
@@ -1000,7 +1006,7 @@ class WPF_Template_Functions {
 	 * @return void
 	 */
 	public function custom_main_query( $query ) {
-		// member投稿タイプのオーダーを変更
+		// member投稿タイプの場合
 		if ( ! is_admin() && $query->is_main_query() && is_post_type_archive( 'member' ) ) {
 			$query->set(
 				'orderby',
@@ -1010,6 +1016,11 @@ class WPF_Template_Functions {
 				)
 			);
 			$query->set( 'posts_per_page', -1 );
+		}
+
+		// 著者アーカイブページの場合
+		if ( ! is_admin() && $query->is_main_query() && is_author() ) {
+			$query->set( 'post_type', array( 'post', 'blog' ) );
 		}
 	}
 

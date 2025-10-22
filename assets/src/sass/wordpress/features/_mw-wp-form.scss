@@ -5,6 +5,10 @@
     color: var(--color-content-negative);
 }
 
+.mwform-radio-field.vertical-item:first-of-type {
+    margin-block-start: var(--space-s-space);
+}
+
 .mwform-radio-field .mwform-radio-field-text,
 .mwform-checkbox-field .mwform-checkbox-field-text {
     display: inline;
@@ -24,4 +28,24 @@ label[for^="privacy-consent"] {
     background-color: var(--color-background-opaque);
     border: 1px solid var(--color-border-content);
     border-radius: var(--radius);
+}
+
+.mw_wp_form_confirm .mwform-item {
+    min-height: 4em;
+    padding-block-end: var(--space-s-space);
+    border-block-end: 1px solid var(--color-border-opaque);
+}
+
+.mw_wp_form .form-label + * {
+    margin-block-start: var(--space-s-space);
+}
+
+.label-mark {
+    padding: 0.15em 0.4em;
+    margin-inline-start: 0.5em;
+    font-size: var(--font-size-text--sm);
+    line-height: var(--line-height-sign);
+    color: var(--color-content-tertiary);
+    background-color: var(--color-background-secondary);
+    border-radius: var(--radius-xs);
 }

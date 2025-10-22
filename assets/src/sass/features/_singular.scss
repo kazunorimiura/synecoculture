@@ -4,7 +4,8 @@
 @use "../utilities/flow";
 @use "../components/button";
 
-.single .page-main {
+.single .page-main,
+.page .page-main {
     display: flex;
     flex-wrap: wrap;
     gap: fd(64, 128);

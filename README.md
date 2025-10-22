@@ -263,6 +263,8 @@ wp import wp-cpt-test-contents.xml --authors=create
 
 ```bash
 msgfmt -o languages/en_US.mo languages/en_US.po
+msgfmt -o languages/fr_FR.mo languages/fr_FR.po
+msgfmt -o languages/zh_CN.mo languages/zh_CN.po
 ```
 
 msgfmtコマンドが実行できない場合は、gettextがインストールされていない可能性がある。
@@ -277,4 +279,6 @@ jsonファイル名は ` {textdomain}-{locale}-{handlename}.json` とする必�
 
 ```bash
 npx po2json languages/en_US.po languages/wordpressfoundation-en_US-wpf-main.json -f jed1.x -d wordpressfoundation -p
+npx po2json languages/fr_FR.po languages/wordpressfoundation-fr_FR-wpf-main.json -f jed1.x -d wordpressfoundation -p
+npx po2json languages/zh_CN.po languages/wordpressfoundation-zh_CN-wpf-main.json -f jed1.x -d wordpressfoundation -p
 ```

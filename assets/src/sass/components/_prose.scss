@@ -89,7 +89,7 @@
     .rich-link,
     .project-posts,
     .news-posts,
-    .embeded-privacy-policy,
+    .embedded-privacy-policy,
     .observe-log-container,
     .member-posts {
         --flow-space: var(--space-s3);
@@ -102,7 +102,7 @@
     .rich-link + *,
     .project-posts + *,
     .news-posts + *,
-    .embeded-privacy-policy + *,
+    .embedded-privacy-policy + *,
     .observe-log-container + *,
     .member-posts + * {
         --flow-space: var(--space-s3);

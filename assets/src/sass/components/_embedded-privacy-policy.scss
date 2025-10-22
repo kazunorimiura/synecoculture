@@ -3,7 +3,7 @@
 @use "../base/settings" as *;
 @use "./prose";
 
-.embeded-privacy-policy {
+.embedded-privacy-policy {
     @extend %prose;
 
     height: fd(320px, 400px);
@@ -13,4 +13,8 @@
     background-color: var(--color-background-secondary);
     border: 1px solid var(--color-border-opaque);
     border-radius: var(--radius);
+}
+
+.embedded-privacy-policy__heading {
+    font: var(--font-headline-3);
 }

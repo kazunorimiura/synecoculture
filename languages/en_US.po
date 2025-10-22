@@ -57,6 +57,9 @@ msgstr "Written by"
 msgid "この著者の記事一覧"
 msgstr "See all articles"
 
+msgid "%sの記事一覧"
+msgstr "Articles by %s"
+
 msgid "関連記事"
 msgstr "Related articles"
 

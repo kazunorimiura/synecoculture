@@ -71,6 +71,10 @@ class WPF_Template_Tags {
 			} elseif ( is_search() ) {
 				$title = function_exists( 'pll__' ) ? pll__( 'Search' ) : __( 'Search', 'wordpressfoundation' );
 
+				// 著者ページの場合
+			} elseif ( is_author() ) {
+				$title = /* translators: %s: 著者名 */ sprintf( __( '%sの記事一覧', 'wordpressfoundation' ), $title );
+
 				// 404ページの場合
 			} elseif ( is_404() ) {
 				$title = function_exists( 'pll__' ) ? pll__( 'Page not found' ) : __( 'Page not found', 'wordpressfoundation' );
@@ -578,6 +582,7 @@ class WPF_Template_Tags {
 		if ( is_author() ) {
 			$author_id    = (int) get_query_var( 'author' );
 			$display_name = function_exists( 'pll__' ) ? pll__( get_the_author_meta( 'display_name', $author_id ), 'wordpressfoundation' ) : get_the_author_meta( 'display_name', $author_id );
+			$display_name = /* translators: %s: 著者名 */ sprintf( __( '%sの記事一覧', 'wordpressfoundation' ), $display_name );
 			$author_link  = get_author_posts_url( $author_id );
 
 			$post_type_layer = array(
@@ -651,17 +656,19 @@ class WPF_Template_Tags {
 			}
 
 			// 現在のページのレイヤーを追加
-			$current_text = $queried_object->post_title;
-			if ( 'display' === $context && 30 <= mb_strlen( $current_text ) ) {
-				$current_text = __( '現在のページ', 'wordpressfoundation' );
-			}
+			if ( ! is_page( 'contact/confirm' ) && ! is_page( 'contact/error' ) && ! is_page( 'contact/thankyou' ) ) {
+				$current_text = $queried_object->post_title;
+				if ( 'display' === $context && 30 <= mb_strlen( $current_text ) ) {
+					$current_text = __( '現在のページ', 'wordpressfoundation' );
+				}
 
-			$current_page_layer = array(
-				'text'  => $current_text,
-				'link'  => get_permalink( $queried_object->ID ),
-				'layer' => 'current_page',
-			);
-			array_push( $breadcrumbs, $current_page_layer );
+				$current_page_layer = array(
+					'text'  => $current_text,
+					'link'  => get_permalink( $queried_object->ID ),
+					'layer' => 'current_page',
+				);
+				array_push( $breadcrumbs, $current_page_layer );
+			}
 		}
 
 		return apply_filters( 'wpf_breadcrumbs', $breadcrumbs );
@@ -1554,7 +1561,7 @@ class WPF_Template_Tags {
 
 		$media_metadata = (object) get_post_meta( $post_id, '_wpf_cover_media_metadata', true );
 
-		if ( ! empty( get_object_vars( $media_metadata ) ) ) {
+		if ( $media_metadata && ! empty( get_object_vars( $media_metadata ) ) ) {
 			$args->media_metadata = $media_metadata;
 		}
 
