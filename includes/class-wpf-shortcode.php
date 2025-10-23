@@ -1109,7 +1109,9 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 								<div class="featured-projects__item__main">
 									<div class="featured-projects__item__header">
 										<h3 class="featured-projects__item__heading">
-											<?php the_title(); ?>
+											<a href="<?php the_permalink(); ?>" class="link-muted">
+												<?php the_title(); ?>
+											</a>
 										</h3>
 
 										<?php

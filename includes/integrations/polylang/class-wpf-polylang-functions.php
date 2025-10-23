@@ -37,7 +37,9 @@ class WPF_Polylang_Functions {
 	 *
 	 * @var array
 	 */
-	public static $sync_term_meta_keys = array();
+	public static $sync_term_meta_keys = array(
+		'_wpf_term_order',
+	);
 
 	/**
 	 * コンストラクタ

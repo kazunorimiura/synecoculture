@@ -2279,7 +2279,7 @@ class WPF_Template_Functions {
 	}
 
 	/**
-	 * `member_cat` タクソノミータームを更新した時に `_wpf_term_order` 値に基づいてメンバーの `menu_order' を更新
+	 * `member_cat` タクソノミータームを更新した時に `wpf_term_order` 値に基づいてメンバーの `menu_order' を更新
 	 *
 	 * @param int    $term_id タームID。
 	 * @param int    $tt_id タームタクソノミーID。
@@ -2318,11 +2318,12 @@ class WPF_Template_Functions {
 						$ancestor_ids = get_ancestors( $term->term_id, $taxonomy );
 						if ( ! empty( $ancestor_ids ) ) {
 							foreach ( $ancestor_ids as $ancestor_id ) {
-								$ancestor_term = get_term( $ancestor_id, $taxonomy );
-								$order        += (int) $ancestor_term->order;
+								$ancestor_term_order = (int) get_term_meta( $ancestor_id, '_wpf_term_order', true );
+								$order              += $ancestor_term_order;
 							}
 						}
-						$order += (int) $term->order;
+						$term_order = (int) get_term_meta( $term->term_id, '_wpf_term_order', true );
+						$order     += $term_order;
 						array_push( $orders, $order );
 					}
 
