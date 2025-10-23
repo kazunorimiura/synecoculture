@@ -291,5 +291,45 @@ if ( ! class_exists( 'WPF_Utils' ) ) {
 
 			return get_the_terms( $post->ID, $taxonomy );
 		}
+
+		/**
+		 * 指定したスラッグの子ページかどうかを判定
+		 *
+		 * @param string $parent_slug 親ページのスラッグ
+		 * @return bool
+		 */
+		public static function is_child_of( $parent_slug ) {
+			global $post;
+
+			if ( ! is_page() || ! $post->post_parent ) {
+				return false;
+			}
+
+			$parent = get_post( $post->post_parent );
+			return ( $parent && $parent->post_name === $parent_slug );
+		}
+
+		/**
+		 * 指定したスラッグの子孫ページかどうかを判定（孫ページなども含む）
+		 *
+		 * @param string $ancestor_slug 祖先ページのスラッグ
+		 * @return bool
+		 */
+		public static function is_descendant_of( $ancestor_slug ) {
+			global $post;
+
+			if ( ! is_page() || ! $post->post_parent ) {
+				return false;
+			}
+
+			$ancestors = get_post_ancestors( $post->ID );
+			foreach ( $ancestors as $ancestor_id ) {
+				$ancestor_post = get_post( $ancestor_id );
+				if ( $ancestor_post && $ancestor_post->post_name === $ancestor_slug ) {
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 }

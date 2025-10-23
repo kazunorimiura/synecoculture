@@ -432,6 +432,8 @@ class WPF_Template_Tags {
 	 * @return array[]|null テキスト、リンク、レイヤー種類の配列の配列
 	 */
 	public static function get_the_breadcrumbs( $context = 'schema' ) {
+		global $post;
+
 		$queried_object = get_queried_object();
 
 		// フロントページまたはホームページの表示が「投稿」の場合のホームページまたは404ページの場合はパンくずリストを表示しない
@@ -662,7 +664,7 @@ class WPF_Template_Tags {
 			}
 
 			// 現在のページのレイヤーを追加
-			if ( ! is_page( 'contact/confirm' ) && ! is_page( 'contact/error' ) && ! is_page( 'contact/thankyou' ) ) {
+			if ( ! WPF_Utils::is_child_of( 'contact' ) ) {
 				$current_text = $queried_object->post_title;
 				if ( 'display' === $context && 30 <= mb_strlen( $current_text ) ) {
 					$current_text = __( '現在のページ', 'wordpressfoundation' );
