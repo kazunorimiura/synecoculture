@@ -212,7 +212,14 @@ $wpf_global_nav = has_nav_menu( 'global_primary' ) || has_nav_menu( 'global_seco
 	<?php
 	if ( class_exists( 'Polylang' ) ) {
 		global $wpf_polylang_functions;
-		$wpf_untranslated_content_notice = $wpf_polylang_functions::get_untranslated_content_notice( get_queried_object_id() );
+
+		$wpf_object_id = WPF_Utils::get_page_for_posts();
+		if ( ! $wpf_object_id ) {
+			$wpf_object_id = get_queried_object_id();
+		}
+
+		$wpf_untranslated_content_notice = $wpf_polylang_functions::get_untranslated_content_notice( $wpf_object_id );
+
 		if ( ! empty( $wpf_untranslated_content_notice ) ) {
 			?>
 			<section role="alert" aria-live="polite" class="notice:warning:subtle text-center radius-muted">
