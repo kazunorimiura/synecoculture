@@ -214,7 +214,7 @@ $wpf_global_nav = has_nav_menu( 'global_primary' ) || has_nav_menu( 'global_seco
 		global $wpf_polylang_functions;
 
 		$wpf_object_id = WPF_Utils::get_page_for_posts();
-		if ( ! $wpf_object_id ) {
+		if ( ! $wpf_object_id || ! is_archive() ) {
 			$wpf_object_id = get_queried_object_id();
 		}
 
