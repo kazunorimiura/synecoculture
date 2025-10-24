@@ -464,6 +464,7 @@ class WPF_Template_Functions {
 			'member_cat',
 			'member',
 			array(
+				'label'              => __( '肩書き', 'wordpressfoundation' ),
 				'hierarchical'       => true,
 				'rewrite'            => array(
 					'slug'         => 'member/category',

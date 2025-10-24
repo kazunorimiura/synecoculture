@@ -230,10 +230,16 @@ $wpf_container_classes = $wpf_cover_media && ! empty( get_object_vars( $wpf_cove
 				/**
 				 * シングルページにおけるサムネイル
 				 */
-				if ( is_single() ) {
+				if ( is_single() && ! is_singular( 'member' ) ) {
 					?>
 					<div class="page-header__thumbnail frame">
 						<?php echo $wpf_template_tags::the_image( get_post_thumbnail_id() ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+					</div>
+					<?php
+				} elseif ( is_single() && is_singular( 'member' ) ) {
+					?>
+					<div class="page-header__thumbnail frame">
+						<?php echo $wpf_template_tags::the_member_image( get_post_thumbnail_id() ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					</div>
 					<?php
 				}
