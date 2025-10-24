@@ -42,6 +42,12 @@
     margin-inline-end: 0.75em;
 }
 
+.comment-author .avatar,
+.comment-author .avatar > img {
+    width: var(--avatar-size, #{fd(48, 54)});
+    border-radius: 50%;
+}
+
 .comment-body {
     @extend %flow;
 
