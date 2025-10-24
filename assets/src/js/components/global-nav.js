@@ -82,6 +82,9 @@ class GlobalNavIcon {
         this.onKeydown = this.handleKeydown.bind(this);
         this.onFocus = this.handleFocus.bind(this);
 
+        // 幅を記憶
+        this.lastWidth = window.innerWidth;
+
         this.attachEvents();
 
         let timeout = false;
@@ -175,7 +178,13 @@ class GlobalNavIcon {
     }
 
     handleResize() {
-        this.calcIconDims();
+        const currentWidth = window.innerWidth;
+
+        // 幅が変わった場合のみ処理（画面回転など）
+        if (currentWidth !== this.lastWidth) {
+            this.calcIconDims();
+        }
+        // 高さだけ変わった場合は無視（アドレスバー）
     }
 
     handleFocus() {

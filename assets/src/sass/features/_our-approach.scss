@@ -8,7 +8,7 @@
     position: sticky;
     top: 0;
     z-index: -1;
-    height: 100vh;
+    height: var(--vh);
 }
 
 .our-approach__cover-inner {

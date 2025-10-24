@@ -10,7 +10,7 @@
 .page-header.page-header--has-cover {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - var(--site-header-height) - var(--site-gutter-slat));
+    height: calc(var(--vh) - var(--site-header-height) - var(--site-gutter-slat));
 }
 
 .page-header__main {

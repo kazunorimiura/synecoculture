@@ -25,7 +25,7 @@
     flex-basis: fd(180, 249);
     flex-grow: 1; // 1
     min-width: 0; // 2
-    max-height: calc(100vh - #{fd(64, 96)});
+    max-height: calc(var(--vh) - #{fd(64, 96)});
     overflow: auto;
 
     @media screen and (max-width: em(map.get($breakpoints, lg))) {
@@ -62,7 +62,7 @@
 .singular__toc {
     position: sticky;
     top: calc(var(--site-header-height) + var(--space-s5));
-    max-height: calc(100vh - var(--space-s5));
+    max-height: calc(var(--vh) - var(--space-s5));
     padding-block: rem(16);
     font-size: 1rem;
 }

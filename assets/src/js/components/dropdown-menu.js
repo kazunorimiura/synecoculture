@@ -36,6 +36,9 @@ export class DropdownMenu {
         this.onClick = this.handleClick.bind(this);
         this.onClickOutside = this.handleClickOutside.bind(this);
 
+        // 幅を記憶
+        this.lastWidth = window.innerWidth;
+
         let timeout = false;
         window.addEventListener('resize', () => {
             clearTimeout(timeout);
@@ -240,9 +243,15 @@ export class DropdownMenu {
     }
 
     handleResize() {
-        this.detachEvents();
+        const currentWidth = window.innerWidth;
 
-        this.init();
+        // 幅が変わった場合のみ処理（画面回転など）
+        if (currentWidth !== this.lastWidth) {
+            this.detachEvents();
+
+            this.init();
+        }
+        // 高さだけ変わった場合は無視（アドレスバー）
     }
 
     setMenuPosition() {

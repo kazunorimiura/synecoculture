@@ -12,7 +12,7 @@
 .syneco-branding {
     position: relative;
     width: 100%;
-    height: calc(100vh - var(--site-header-height));
+    height: calc(var(--vh) - var(--site-header-height));
 }
 
 .syneco-slider-container {

@@ -13,6 +13,7 @@ import { createNewsSlider } from './components/news-slider';
 import { createTrilemmaImage } from './components/trilemma-image';
 import { createFeaturedProjects } from './components/featured-projects';
 import { createMorePostsLoader } from './components/more-posts-loader';
+import { calcVh } from './components/calc-vh';
 
 class App {
     constructor() {
@@ -59,6 +60,11 @@ class App {
                 );
             });
         }
+
+        // 幅を記憶
+        this.lastWidth = window.innerWidth;
+
+        calcVh();
 
         this.attachEvents();
     }
@@ -195,11 +201,19 @@ class App {
     }
 
     onResize() {
-        // アンカーリンクのオフセット値を更新
-        const siteHeaderHeight = this.siteHeader ? this.siteHeader.clientHeight : 0;
-        this.anchorLinkInstances.forEach(function (anchorLink) {
-            anchorLink.updateOffset(siteHeaderHeight);
-        });
+        const currentWidth = window.innerWidth;
+
+        // 幅が変わった場合のみ処理（画面回転など）
+        if (currentWidth !== this.lastWidth) {
+            // アンカーリンクのオフセット値を更新
+            const siteHeaderHeight = this.siteHeader ? this.siteHeader.clientHeight : 0;
+            this.anchorLinkInstances.forEach(function (anchorLink) {
+                anchorLink.updateOffset(siteHeaderHeight);
+            });
+
+            calcVh();
+        }
+        // 高さだけ変わった場合は無視（アドレスバー）
     }
 }
 

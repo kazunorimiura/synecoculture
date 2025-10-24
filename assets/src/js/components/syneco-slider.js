@@ -98,6 +98,9 @@ class synecoSlider {
 
         this.setupPlayPauseButton(); // 再生・停止ボタンのセットアップ
 
+        // 幅を記憶
+        this.lastWidth = window.innerWidth;
+
         this.resize = this.resize.bind(this);
         window.addEventListener('resize', debounce(this.resize, 300));
     }
@@ -272,8 +275,14 @@ class synecoSlider {
     }
 
     resize() {
-        this.calcSize();
-        this.swiperResize;
+        const currentWidth = window.innerWidth;
+
+        // 幅が変わった場合のみ処理（画面回転など）
+        if (currentWidth !== this.lastWidth) {
+            this.calcSize();
+            this.swiperResize;
+        }
+        // 高さだけ変わった場合は無視（アドレスバー）
     }
 
     swiperResize() {

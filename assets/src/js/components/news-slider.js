@@ -39,6 +39,9 @@ class newsSlider {
         this.slides = this.el.querySelectorAll('.swiper-slide');
         this.a11y();
 
+        // 幅を記憶
+        this.lastWidth = window.innerWidth;
+
         window.addEventListener('resize', debounce(this.onResize.bind(this), 300));
     }
 
@@ -105,7 +108,13 @@ class newsSlider {
     }
 
     onResize() {
-        this.swiper.update();
+        const currentWidth = window.innerWidth;
+
+        // 幅が変わった場合のみ処理（画面回転など）
+        if (currentWidth !== this.lastWidth) {
+            this.swiper.update();
+        }
+        // 高さだけ変わった場合は無視（アドレスバー）
     }
 }
 
