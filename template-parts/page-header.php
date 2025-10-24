@@ -11,6 +11,7 @@ global $wpf_template_tags;
 $wpf_breadcrumbs       = WPF_Template_Tags::get_the_breadcrumbs( 'display' );
 $wpf_cover_media       = WPF_Template_Tags::get_the_cover_media();
 $wpf_container_classes = $wpf_cover_media && ! empty( get_object_vars( $wpf_cover_media ) ) ? 'page-header page-header--has-cover' : 'page-header';
+$wpf_subtitle          = isset( $args['subtitle'] ) ? $args['subtitle'] : '';
 ?>
 
 <div class="<?php echo esc_attr( $wpf_container_classes ); ?>">
@@ -41,84 +42,86 @@ $wpf_container_classes = $wpf_cover_media && ! empty( get_object_vars( $wpf_cove
 						 * ヘッダーメタ
 						 */
 						if ( ! is_singular( 'member' ) ) {
-							?>
-							<div class="page-header__header-meta">
-								<?php
-								/**
-								 * アーカイブページにおけるパンくずリスト
-								 */
-								if ( ! is_single() && $wpf_breadcrumbs ) {
-									?>
-									<div class="page-header__breadcrumbs-container">
-										<nav class="breadcrumbs" aria-label="<?php esc_html_e( 'パンくずリスト', 'wordpressfoundation' ); ?>">
-											<ul class="breadcrumbs__list">
-												<?php
-												foreach ( $wpf_breadcrumbs as $wpf_breadcrumb ) {
-													?>
-													<li>
-														<?php
-														if ( end( $wpf_breadcrumbs ) === $wpf_breadcrumb ) {
-															echo $wpf_breadcrumb['text']; // phpcs:ignore WordPress.Security.EscapeOutput
-														} else {
-															?>
-															<a href="<?php echo esc_url( $wpf_breadcrumb['link'] ); ?>">
-																<?php echo $wpf_breadcrumb['text']; // phpcs:ignore WordPress.Security.EscapeOutput ?>
-															</a>
-															<?php
-														}
-														?>
-													</li>
-													<?php
-												}
-												?>
-											</ul>
-										</nav>
-									</div>
-									<?php
-								}
+							$wpf_terms = WPF_Utils::get_the_terms();
+							if ( ! is_single() && $wpf_breadcrumbs || ! empty( $wpf_terms ) && 'uncategorized' !== $wpf_terms[0]->slug ) {
 								?>
+								<div class="page-header__header-meta">
+									<?php
+									/**
+									 * アーカイブページにおけるパンくずリスト
+									 */
+									if ( ! is_single() && $wpf_breadcrumbs ) {
+										?>
+										<div class="page-header__breadcrumbs-container">
+											<nav class="breadcrumbs" aria-label="<?php esc_html_e( 'パンくずリスト', 'wordpressfoundation' ); ?>">
+												<ul class="breadcrumbs__list">
+													<?php
+													foreach ( $wpf_breadcrumbs as $wpf_breadcrumb ) {
+														?>
+														<li>
+															<?php
+															if ( end( $wpf_breadcrumbs ) === $wpf_breadcrumb ) {
+																echo $wpf_breadcrumb['text']; // phpcs:ignore WordPress.Security.EscapeOutput
+															} else {
+																?>
+																<a href="<?php echo esc_url( $wpf_breadcrumb['link'] ); ?>">
+																	<?php echo $wpf_breadcrumb['text']; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+																</a>
+																<?php
+															}
+															?>
+														</li>
+														<?php
+													}
+													?>
+												</ul>
+											</nav>
+										</div>
+										<?php
+									}
+									?>
 
-								<?php
-								/**
-								 * タームリスト
-								 */
-								$wpf_terms = WPF_Utils::get_the_terms();
-								if ( is_single() && ! empty( $wpf_terms ) && 'uncategorized' !== $wpf_terms[0]->slug ) {
-									// `project` 投稿タイプの場合
-									if ( is_singular( 'project' ) ) {
-										$ancestors = get_ancestors( $wpf_terms[0]->term_id, 'project_cat', 'taxonomy' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-										if ( ! empty( $ancestors ) ) {
-											// 配列の最後が最上位のターム
-											$top_parent_id   = end( $ancestors ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-											$top_parent      = get_term( $top_parent_id, 'project_cat' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-											$top_parent_link = get_term_link( $top_parent );  // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
-											?>
-											<a href="<?php echo esc_url( $top_parent_link ); ?>" class="pill">
-												<?php echo esc_html( $top_parent->name ); ?>
-											</a>
-											<?php
+									<?php
+									/**
+									 * タームリスト
+									 */
+									if ( is_single() && ! empty( $wpf_terms ) && 'uncategorized' !== $wpf_terms[0]->slug ) {
+										// `project` 投稿タイプの場合
+										if ( is_singular( 'project' ) ) {
+											$ancestors = get_ancestors( $wpf_terms[0]->term_id, 'project_cat', 'taxonomy' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+											if ( ! empty( $ancestors ) ) {
+												// 配列の最後が最上位のターム
+												$top_parent_id   = end( $ancestors ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+												$top_parent      = get_term( $top_parent_id, 'project_cat' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+												$top_parent_link = get_term_link( $top_parent );  // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+												?>
+												<a href="<?php echo esc_url( $top_parent_link ); ?>" class="pill">
+													<?php echo esc_html( $top_parent->name ); ?>
+												</a>
+												<?php
+											} else {
+												// 祖先がいない場合は自身が最上位
+												$term_link = get_term_link( $term->term_id ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+												?>
+												<a href="<?php echo esc_url( $term_link ); ?>" class="pill">
+													<?php echo esc_html( $term->name ); ?>
+												</a>
+												<?php
+											}
+
+											// project投稿タイプ以外の場合
 										} else {
-											// 祖先がいない場合は自身が最上位
-											$term_link = get_term_link( $term->term_id ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
 											?>
-											<a href="<?php echo esc_url( $term_link ); ?>" class="pill">
-												<?php echo esc_html( $term->name ); ?>
+											<a href="<?php echo esc_url( get_term_link( $wpf_terms[0]->term_id, $wpf_terms[0]->taxonomy ) ); ?>" class="pill">
+												<?php echo esc_html( $wpf_terms[0]->name ); ?>
 											</a>
 											<?php
 										}
-
-										// project投稿タイプ以外の場合
-									} else {
-										?>
-										<a href="<?php echo esc_url( get_term_link( $wpf_terms[0]->term_id, $wpf_terms[0]->taxonomy ) ); ?>" class="pill">
-											<?php echo esc_html( $wpf_terms[0]->name ); ?>
-										</a>
-										<?php
 									}
-								}
-								?>
-							</div>
-							<?php
+									?>
+								</div>
+								<?php
+							}
 						}
 						?>
 
@@ -132,6 +135,19 @@ $wpf_container_classes = $wpf_cover_media && ! empty( get_object_vars( $wpf_cove
 							<h1 class="page-header__title">
 								<?php echo $wpf_title; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 							</h1>
+							<?php
+						}
+						?>
+
+						<?php
+						/**
+						 * サブタイトル
+						 */
+						if ( ! is_archive() && $wpf_subtitle ) {
+							?>
+							<p class="page-header__subtitle">
+								<?php echo wp_kses_post( $wpf_subtitle ); ?>
+							</p>
 							<?php
 						}
 						?>
@@ -213,10 +229,9 @@ $wpf_container_classes = $wpf_cover_media && ! empty( get_object_vars( $wpf_cove
 
 					<?php
 					/**
-					 * サブタイトル
+					 * サブタイトル（アーカイブページ）
 					 */
-					$wpf_subtitle = isset( $args['subtitle'] ) ? $args['subtitle'] : '';
-					if ( $wpf_subtitle ) {
+					if ( is_archive() && $wpf_subtitle ) {
 						?>
 						<p class="page-header__subtitle">
 							<?php echo wp_kses_post( $wpf_subtitle ); ?>
@@ -321,5 +336,4 @@ $wpf_container_classes = $wpf_cover_media && ! empty( get_object_vars( $wpf_cove
 		<?php
 	}
 	?>
-
 </div>
