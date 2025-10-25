@@ -518,6 +518,18 @@ class WPF_Smart_Cf_Register_Fields {
 
 				$_setting = SCF::add_setting( '_wpf_about__our_values', '行動指針' );
 				$_setting->add_group(
+					'_wpf_about__our_values__header',
+					false,
+					array(
+						array(
+							'name'  => '_wpf_about__our_values__header__heading',
+							'label' => __( '大見出し', 'wordpressfoundation' ),
+							'type'  => 'text',
+						),
+					)
+				);
+				$settings[] = $_setting;
+				$_setting->add_group(
 					'_wpf_about__our_values',
 					true,
 					array(

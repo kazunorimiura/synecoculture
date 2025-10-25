@@ -2573,9 +2573,16 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 									<div class="syneco-overline__text">Our Values</div>
 								</div>
 
-								<h2 class="our-values__heading">
-									<?php echo esc_html_e( '行動指針', 'wordpressfoundation' ); ?>
-								</h2>
+								<?php
+								$heading = SCF::get( '_wpf_about__our_values__header__heading' );
+								if ( ! empty( $heading ) ) {
+									?>
+									<h2 class="our-values__heading">
+										<?php echo esc_html( $heading ); ?>
+									</h2>
+									<?php
+								}
+								?>
 							</div>
 
 							<div class="our-values__main">
