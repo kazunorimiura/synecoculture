@@ -687,8 +687,8 @@ import includes from 'lodash/includes';
         const options = allPosts.map((post) => {
             return {
                 label: sprintf(__('%s', 'wordpressfoundation'), decodeEntities(post.title.rendered)),
-                value: String(post.id),
-                isChecked: includes(metaValue, String(post.id)),
+                value: post.id,
+                isChecked: includes(metaValue, post.id),
             };
         });
 
