@@ -42,6 +42,11 @@
     position: sticky;
     top: fd(64, 96);
     height: 100%;
+
+    @media screen and (max-width: em(map.get($breakpoints, xl))) {
+        position: static;
+        height: auto;
+    }
 }
 
 // 1. サイドバーの理想的な幅。auto はコンテンツに応じる。
