@@ -29,12 +29,12 @@ if ( have_posts() ) {
 			);
 			?>
 
-			<div class="page-main wrapper">
+			<div class="page-main">
 				<?php
 				$company_profile = SCF::get( '_wpf_company_profile' );
 				if ( ! empty( $company_profile ) ) {
 					?>
-					<div class="company-profile-container prose">
+					<div class="company-profile-container prose mi-s-auto">
 						<dl class="company-profile">
 							<?php
 							foreach ( $company_profile as $item ) {

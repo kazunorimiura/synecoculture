@@ -29,12 +29,12 @@ if ( have_posts() ) {
 			);
 			?>
 
-			<div class="page-main wrapper">
+			<div class="page-main">
 				<?php
 				$history = SCF::get( '_wpf_history' );
 				if ( ! empty( $history ) ) {
 					?>
-					<div class="history-container prose">
+					<div class="history-container prose mi-s-auto">
 						<dl class="history">
 							<?php
 							foreach ( $history as $item ) {
