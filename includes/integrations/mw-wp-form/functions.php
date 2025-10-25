@@ -39,11 +39,21 @@ foreach ( $wpf_forms as $wpf_form ) {
             $Validation->set_rule( 'message', 'noempty', array( 'message' => __('お問い合わせ内容を入力してください。', 'wordpressfoundation') ) ); 
             $Validation->set_rule( 'message', 'between', array( 'min' => 1, 'max' => 3000, 'message' => /* translators: %d: 最大文字数 */ sprintf( __( 'お問い合わせ内容は%d文字以内で入力してください。', 'wordpressfoundation' ), 3000 ) ) ); 
             $Validation->set_rule( 'privacy-consent', 'required', array( 'message' => __('個人情報保護方針の同意が必要です。', 'wordpressfoundation') ) );
-            if ( is_plugin_active( 'recaptcha-for-mw-wp-form/recaptcha-for-mw-wp-form.php' ) ) {
-                $Validation->set_rule( 'recaptcha-v3', 'recaptcha_v3', array( 'message' => __('Google reCAPTCHAにより、自動化されたアクセスとして検知されました。しばらく時間をおいてから再度お試しください。', 'wordpressfoundation'), 'is_reCAPTCHA' => true ) ); 
-            }
             return $Validation;
             // @codingStandardsIgnoreEnd
+		},
+		10,
+		2
+	);
+
+	// reCAPTCHAのエラーメッセージ変更
+	add_filter(
+		'mwform_error_message_mw-wp-form-' . $wpf_form->ID,
+		function ( $error, $key ) {
+			if ( 'recaptcha-v3' === $key ) {
+				$error = str_replace( 'Invalid reCAPTCHA Secret key.', __( 'Google reCAPTCHAにより、自動化されたアクセスとして検知されました。しばらく時間をおいてから再度お試しください。', 'wordpressfoundation' ), $error );
+			}
+			return $error;
 		},
 		10,
 		2
