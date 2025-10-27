@@ -643,7 +643,7 @@ import includes from 'lodash/includes';
             (select) => {
                 const query = {
                     per_page: postsPerPage,
-                    parent: 0, // 親投稿のみ取得
+                    parent: 0,
                     orderby: orderby,
                     order: order,
                     page: page,
@@ -659,7 +659,7 @@ import includes from 'lodash/includes';
                     isLoading: !select('core').hasFinishedResolution('getEntityRecords', ['postType', postType, query]),
                 };
             },
-            [searchTerm, page, metaValue],
+            [searchTerm, page], // metaValueを削除
         );
 
         useEffect(() => {
@@ -684,31 +684,34 @@ import includes from 'lodash/includes';
             return el('div', {}, __('No results', 'wordpressfoundation'));
         }
 
+        // metaValueを数値の配列として扱う
+        const normalizedMetaValue = metaValue.map((val) => Number(val));
+
         const options = allPosts.map((post) => {
             return {
                 label: sprintf(__('%s', 'wordpressfoundation'), decodeEntities(post.title.rendered)),
                 value: post.id,
-                isChecked: includes(metaValue, post.id),
+                isChecked: normalizedMetaValue.includes(post.id),
             };
         });
 
-        function onChange(index) {
-            const updatedMetaValue = [...metaValue];
-            const value = String(options[index].value);
+        function onChange(postId) {
+            const updatedMetaValue = [...normalizedMetaValue];
 
-            if (includes(updatedMetaValue, value)) {
-                const valueIndex = updatedMetaValue.indexOf(value);
+            if (updatedMetaValue.includes(postId)) {
+                const valueIndex = updatedMetaValue.indexOf(postId);
                 updatedMetaValue.splice(valueIndex, 1);
             } else {
-                updatedMetaValue.push(value);
+                updatedMetaValue.push(postId);
             }
 
-            setMetaValue(updatedMetaValue);
+            // 文字列の配列として保存
+            setMetaValue(updatedMetaValue.map(String));
         }
 
-        const checkboxes = options.map((option, index) => {
+        const checkboxes = options.map((option) => {
             return el(CheckboxControl, {
-                onChange: () => onChange(index),
+                onChange: () => onChange(option.value), // indexではなくpost.idを直接渡す
                 label: option.label,
                 key: option.value,
                 checked: option.isChecked,
@@ -727,7 +730,7 @@ import includes from 'lodash/includes';
                     {
                         isSecondary: true,
                         onClick: () => setPage(page + 1),
-                        disabled: isLoading, // ローディング中はボタンを無効化
+                        disabled: isLoading,
                     },
                     isLoading ? __('Loading...', 'wordpressfoundation') : __('Load More', 'wordpressfoundation'),
                 ),
