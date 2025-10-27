@@ -33,6 +33,15 @@ class WPF_Polylang_Functions {
 	);
 
 	/**
+	 * 新規作成時のみコピーする投稿メタキーの配列（同期はしない）
+	 *
+	 * @var array
+	 */
+	public static $copy_once_post_meta_keys = array(
+		'_wpf_subtitle',
+	);
+
+	/**
 	 * 言語間で同期するタームメタキーの配列
 	 *
 	 * @var array
@@ -60,7 +69,7 @@ class WPF_Polylang_Functions {
 		add_action( 'init', array( $this, 'register_meta' ), 10 );
 		add_filter( 'nav_menu_link_attributes', array( $this, 'a11y_menu' ), 10, 3 );
 		add_filter( 'pll_hide_archive_translation_url', array( $this, 'pll_hide_archive_translation_url' ) );
-		add_filter( 'pll_copy_post_metas', array( $this, 'pll_copy_post_metas' ), 10, 1 );
+		add_filter( 'pll_copy_post_metas', array( $this, 'pll_copy_post_metas' ), 10, 4 );
 		add_filter( 'pll_copy_term_metas', array( $this, 'pll_copy_term_metas' ), 10, 1 );
 		add_filter( 'pll_post_metas_to_export', array( $this, 'export_post_metas' ), 10 );
 		add_filter( 'pll_translate_post_meta', array( $this, 'translate_post_meta' ), 10, 3 );
@@ -223,15 +232,25 @@ class WPF_Polylang_Functions {
 	}
 
 	/**
-	 * 特定の投稿メタを言語間で同期
-	 * この設定を定義する前に保存した投稿には適用されない。
+	 * 特定の投稿メタを言語間で同期、または新規作成時のみコピー
 	 *
 	 * @since 0.1.0
 	 * @param array $metas 投稿メタの配列
-	 * @return array 同期する投稿メタスラッグの配列
+	 * @param bool  $sync  true: 同期、false: 新規作成時の複製
+	 * @param int   $from  コピー元の投稿ID
+	 * @param int   $to    コピー先の投稿ID
+	 * @return array 同期/コピーする投稿メタスラッグの配列
 	 */
-	public static function pll_copy_post_metas( $metas ) {
-		return array_merge( $metas, self::$sync_post_meta_keys );
+	public static function pll_copy_post_metas( $metas, $sync, $from, $to ) {
+		// 常に同期するメタキーを追加
+		$metas = array_merge( $metas, self::$sync_post_meta_keys );
+
+		// 新規作成時のみコピーするメタキーを追加
+		if ( ! $sync ) {
+			$metas = array_merge( $metas, self::$copy_once_post_meta_keys );
+		}
+
+		return $metas;
 	}
 
 	/**
