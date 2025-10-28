@@ -326,9 +326,11 @@ $wpf_subtitle          = isset( $args['subtitle'] ) ? $args['subtitle'] : '';
 				 */
 			} elseif ( isset( $wpf_cover_media->media_metadata ) && isset( $wpf_cover_media->media_metadata->type ) && 'video' === $wpf_cover_media->media_metadata->type ) {
 				?>
-				<video class="page-header__cover-video" autoplay muted playsinline loop>
-					<source src="<?php echo esc_url( wp_get_attachment_url( $wpf_cover_media->media_id ) ); ?>" type="<?php echo esc_attr( $wpf_cover_media->media_metadata->mime ); ?>">
-				</video>
+				<div class="page-header__cover-video">
+					<video autoplay muted playsinline loop>
+						<source src="<?php echo esc_url( wp_get_attachment_url( $wpf_cover_media->media_id ) ); ?>" type="<?php echo esc_attr( $wpf_cover_media->media_metadata->mime ); ?>">
+					</video>
+				</div>
 				<?php
 			}
 			?>

@@ -163,13 +163,15 @@
     padding-inline: var(--site-gutter-slat);
 }
 
-.page-header__cover-image {
+.page-header__cover-image,
+.page-header__cover-video {
     height: 100%;
     overflow: hidden;
     border-radius: var(--radius-lg);
 }
 
-.page-header__cover-image > img {
+.page-header__cover-image > img,
+.page-header__cover-video > video {
     width: 100%;
     height: 100%;
     object-fit: cover;
