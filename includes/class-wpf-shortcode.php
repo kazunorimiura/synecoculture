@@ -43,8 +43,10 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			add_shortcode( 'wpf_tiny_head', array( $this, 'tiny_head' ) );
 			add_shortcode( 'wpf_rich_link', array( $this, 'rich_link' ) );
 			add_shortcode( 'wpf_project_posts', array( $this, 'project_posts' ) );
+			add_shortcode( 'wpf_project_posts_ajax', array( $this, 'project_posts_ajax' ) );
 			add_shortcode( 'wpf_news_posts', array( $this, 'news_posts' ) );
 			add_shortcode( 'wpf_news_blog_posts', array( $this, 'news_blog_posts' ) );
+			add_shortcode( 'wpf_news_blog_posts_ajax', array( $this, 'news_blog_posts' ) );
 			add_shortcode( 'wpf_member_posts', array( $this, 'member_posts' ) );
 			add_shortcode( 'wpf_our_values', array( $this, 'our_values' ) );
 			add_shortcode( 'wpf_about_intro', array( $this, 'about_intro' ) );
@@ -64,8 +66,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			// デフォルト引数と与えられた引数を結合する
 			$atts = shortcode_atts(
 				array(),
-				$atts,
-				'wpf_darkmode_switch'
+				$atts
 			);
 
 			ob_start();
@@ -93,8 +94,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			// デフォルト引数と与えられた引数を結合する
 			$atts = shortcode_atts(
 				array(),
-				$atts,
-				'wpf_syneco_branding'
+				$atts
 			);
 
 			$tagline   = SCF::get( '_wpf_top__branding__tagline' );
@@ -251,8 +251,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			// デフォルト引数と与えられた引数を結合する
 			$atts = shortcode_atts(
 				array(),
-				$atts,
-				'wpf_our_story'
+				$atts
 			);
 
 			$heading    = SCF::get( '_wpf_top__our_story__heading' );
@@ -359,8 +358,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			// デフォルト引数と与えられた引数を結合する
 			$atts = shortcode_atts(
 				array(),
-				$atts,
-				'wpf_our_approach'
+				$atts
 			);
 
 			$cover_image_id = SCF::get( '_wpf_top__our_approach__cover_image' );
@@ -610,8 +608,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			// デフォルト引数と与えられた引数を結合する
 			$atts = shortcode_atts(
 				array(),
-				$atts,
-				'wpf_our_purpose'
+				$atts
 			);
 
 			$cover_image_id = SCF::get( '_wpf_top__our_purpose__cover_image' );
@@ -713,8 +710,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			// デフォルト引数と与えられた引数を結合する
 			$atts = shortcode_atts(
 				array(),
-				$atts,
-				'wpf_our_purpose_for_about'
+				$atts
 			);
 
 			$cover_image_id = SCF::get( '_wpf_top__our_purpose__cover_image' );
@@ -815,8 +811,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			// デフォルト引数と与えられた引数を結合する
 			$atts = shortcode_atts(
 				array(),
-				$atts,
-				'wpf_trilemma'
+				$atts
 			);
 
 			$trilemma = SCF::get( '_wpf_top__trilemma' );
@@ -918,8 +913,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			// デフォルト引数と与えられた引数を結合する
 			$atts = shortcode_atts(
 				array(),
-				$atts,
-				'wpf_our_initiatives'
+				$atts
 			);
 
 			$heading = SCF::get( '_wpf_top__our_initiatives__heading' );
@@ -1045,8 +1039,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			// デフォルト引数と与えられた引数を結合する
 			$atts = shortcode_atts(
 				array(),
-				$atts,
-				'wpf_featured_projects'
+				$atts
 			);
 
 			$query = new WP_Query(
@@ -1220,8 +1213,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			// デフォルト引数と与えられた引数を結合する
 			$atts = shortcode_atts(
 				array(),
-				$atts,
-				'wpf_dive_into_synecoculture'
+				$atts
 			);
 
 			$heading = SCF::get( '_wpf_top__dive_into_synecoculture__heading' );
@@ -1484,8 +1476,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			// デフォルト引数と与えられた引数を結合する
 			$atts = shortcode_atts(
 				array(),
-				$atts,
-				'wpf_blog_banner'
+				$atts
 			);
 
 			$blog_logo   = SCF::get( '_wpf_top__blog_banner__syneco_blog_logo' );
@@ -1579,8 +1570,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			// デフォルト引数と与えられた引数を結合する
 			$atts = shortcode_atts(
 				array(),
-				$atts,
-				'wpf_news_slider'
+				$atts
 			);
 
 			$heading = SCF::get( '_wpf_top__news__heading' );
@@ -1717,8 +1707,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 				array(
 					'text' => __( 'さらに詳しく', 'wordpressfoundation' ),
 				),
-				$atts,
-				'wpf_tiny_head'
+				$atts
 			);
 
 			$text = $atts['text'];
@@ -1756,8 +1745,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 					'image_url' => '',
 					'target'    => '_self',
 				),
-				$atts,
-				'wpf_rich_link'
+				$atts
 			);
 
 			$url       = self::strip( $atts['url'] );
@@ -1844,8 +1832,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 					'cta_text'     => '',
 					'target'       => '_self',
 				),
-				$atts,
-				'wpf_project_posts'
+				$atts
 			);
 
 			// per_pageの値を検証（上限を100に設定）
@@ -2022,7 +2009,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 		 * @param array $atts ショートコード引数。
 		 * @return string
 		 */
-		public static function projects( $atts ) {
+		public static function project_posts_ajax( $atts ) {
 			// 元の属性を保存（タクソノミー用）
 			$original_atts = $atts;
 
@@ -2030,9 +2017,6 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			$defaults = array(
 				'heading_text' => '',
 				'body_text'    => '',
-				'cta_link'     => '',
-				'cta_text'     => '',
-				'target'       => '_self',
 				'size'         => 'medium',
 				'post_types'   => 'project',
 				'per_page'     => 5,
@@ -2043,8 +2027,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 
 			$atts = shortcode_atts(
 				$defaults,
-				$atts,
-				'wpf_projects'
+				$atts
 			);
 
 			// 投稿タイプを配列に変換
@@ -2144,8 +2127,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 					'cta_text'     => '',
 					'target'       => '_self',
 				),
-				$atts,
-				'wpf_news_posts'
+				$atts
 			);
 
 			// per_pageの値を検証（上限を100に設定）
@@ -2257,7 +2239,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 		}
 
 		/**
-		 * `post`投稿タイプ、`blog`投稿タイプの投稿リストを出力するショートコード。
+		 * `post`投稿タイプ、`blog`投稿タイプの投稿リストを出力するショートコード（Moreボタン表示）
 		 *
 		 * @param array $atts ショートコード引数。
 		 * @return string
@@ -2270,9 +2252,6 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			$defaults = array(
 				'heading_text' => '',
 				'body_text'    => '',
-				'cta_link'     => '',
-				'cta_text'     => '',
-				'target'       => '_self',
 				'size'         => 'medium',
 				'post_types'   => 'post,blog',
 				'per_page'     => 5,
@@ -2283,8 +2262,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 
 			$atts = shortcode_atts(
 				$defaults,
-				$atts,
-				'wpf_news_blog_posts'
+				$atts
 			);
 
 			// 投稿タイプを配列に変換
@@ -2384,8 +2362,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 					'cta_text'     => '',
 					'target'       => '_self',
 				),
-				$atts,
-				'wpf_member_posts'
+				$atts
 			);
 
 			// per_pageの値を検証（上限を100に設定）
@@ -2507,8 +2484,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			// デフォルト引数と与えられた引数を結合する
 			$atts = shortcode_atts(
 				array(),
-				$atts,
-				'wpf_about_intro'
+				$atts
 			);
 
 			$body     = SCF::get( '_wpf_about__intro__body' );
@@ -2553,8 +2529,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			// デフォルト引数と与えられた引数を結合する
 			$atts = shortcode_atts(
 				array(),
-				$atts,
-				'wpf_our_values'
+				$atts
 			);
 
 			$our_values = SCF::get( '_wpf_about__our_values' );
@@ -2634,8 +2609,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			// デフォルト引数と与えられた引数を結合する
 			$atts = shortcode_atts(
 				array(),
-				$atts,
-				'wpf_about_child_page_links'
+				$atts
 			);
 
 			$links = SCF::get( '_wpf_about__child_page_links' );
