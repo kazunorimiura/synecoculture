@@ -464,6 +464,36 @@ import includes from 'lodash/includes';
         },
     });
 
+    registerPlugin('wpf-inspector-flag-settings', {
+        icon: false,
+        render: () => {
+            const allowedPostTypes = usePostTypes();
+            const postType = select('core/editor').getCurrentPostType();
+
+            if (!includes(allowedPostTypes, postType)) {
+                return el(Fragment, {});
+            }
+
+            return el(
+                Fragment,
+                {},
+                el(
+                    PluginPostStatusInfo,
+                    {
+                        name: 'wpf-inspector-flag-settings',
+                        icon: false,
+                        title: __('フラグ', 'wordpressfoundation'),
+                    },
+                    el(MetaToggleControl, {
+                        metaKey: '_wpf_pickup_flag',
+                        title: __('Pickup', 'wordpressfoundation'),
+                        help: __('この投稿をPickupコンテンツに設定する場合はONにします。', 'wordpressfoundation'),
+                    }),
+                ),
+            );
+        },
+    });
+
     registerPlugin('wpf-inspector-subtitle', {
         icon: false,
         render: function () {
