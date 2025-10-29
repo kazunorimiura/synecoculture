@@ -1,0 +1,131 @@
+@use "sass:map";
+@use "../config";
+@use "../base/settings" as *;
+@use "../utilities/grid";
+@use "../utilities/flow";
+@use "../utilities/wrapper";
+
+.archive-case-study {
+    display: flex;
+    gap: fd(1, 128);
+
+    @media screen and (max-width: em(map.get($breakpoints, xl))) {
+        flex-direction: column-reverse;
+        gap: fd(48, 128);
+    }
+}
+
+// 1. サイドバーの理想的な幅。auto はコンテンツに応じる。
+// 2. 長いテキストが折り返されるようにする。
+.archive-case-study__sidebar {
+    position: sticky;
+    top: fd(64, 96);
+    flex: 1 0 fd(180, 249); // 1
+    min-width: 0; // 2
+    max-height: calc(var(--vh) - #{fd(64, 96)});
+    overflow: auto;
+
+    @media screen and (max-width: em(map.get($breakpoints, xl))) {
+        flex-basis: 100%;
+        padding-block-start: fd(48, 64);
+        border-top: 1px solid var(--color-border-opaque);
+    }
+}
+
+// 1. 非サイドバーの理想的な幅。「0」の場合は利用可能な幅を埋める。
+// 2. 長いテキストが折り返されるようにする。
+.archive-case-study__main {
+    flex-basis: 0; // 1
+    flex-grow: 999; // 1
+    min-width: 0; // 2
+}
+
+.archive-case-study__sidebar > * + * {
+    margin-block-start: rem(32);
+}
+
+.archive-case-study__main > * + * {
+    margin-block-start: fd(48, 96);
+}
+
+// 1. 非サイドバーの理想的な幅。「0」の場合は利用可能な幅を埋める
+// 2. 長いテキストが折り返されるようにする
+.archive-case-study__items {
+    display: grid;
+    flex-basis: 0; // 1
+    flex-grow: 999; // 1
+    grid-template-columns: repeat(2, 1fr);
+    gap: fd(18, 24);
+    align-items: flex-start;
+    min-width: 0; // 2
+
+    @media screen and (max-width: em(map.get($breakpoints, md))) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.archive-case-study__item {
+    background-color: var(--color-background-color);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 25%);
+}
+
+[data-site-theme="dark"] .archive-case-study__item {
+    border: 1px solid var(--color-border-opaque);
+}
+
+.archive-case-study__item__inner {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: fd(24, 32);
+    padding: fd(18, 32);
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        gap: fd(24, 32);
+    }
+}
+
+.archive-case-study__item__thubmnail {
+    --n: 1;
+    --d: 0.5625;
+    --flow-space: #{fd(24, 48)};
+
+    display: block;
+    width: 100%;
+
+    > img {
+        border-radius: var(--radius);
+    }
+}
+
+.archive-case-study__item__main {
+    @extend %flow;
+}
+
+.archive-case-study__item__title {
+    --flow-space: #{fd(16, 18)};
+}
+
+.archive-case-study__item__excerpt {
+    --flow-space: #{fd(18, 24)};
+}
+
+.archive-case-study__item__main-category {
+    display: flex;
+    gap: var(--space-s-space);
+    align-items: center;
+    line-height: var(--line-height-sign);
+}
+
+a.archive-case-study__item__main-category,
+a.archive-case-study__item__main-category:link,
+a.archive-case-study__item__main-category:visited {
+    color: var(--color-content-primary);
+    text-decoration: none;
+}
+
+.archive-case-study__item__main-category > svg {
+    display: block;
+    width: rem(24);
+    height: rem(24);
+}
