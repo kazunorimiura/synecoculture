@@ -1,0 +1,7 @@
+@use "../base/settings" as *;
+
+.feature-icon {
+    display: flex;
+    align-items: flex-end;
+    height: rem(100);
+}
