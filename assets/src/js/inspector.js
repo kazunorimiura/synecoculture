@@ -534,7 +534,7 @@ import includes from 'lodash/includes';
             const postType = select('core/editor').getCurrentPostType();
 
             // 投稿タイプを限定
-            const keepTypes = ['post', 'blog', 'case-study'];
+            const keepTypes = ['post', 'page', 'blog', 'case-study'];
             allowedPostTypes.splice(0, allowedPostTypes.length, ...allowedPostTypes.filter((type) => keepTypes.includes(type)));
 
             if (!includes(allowedPostTypes, postType)) {
