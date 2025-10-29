@@ -130,8 +130,6 @@ if ( have_posts() ) {
 
 						$wpf_show_link_pages    = ! empty( $wpf_link_pages );
 						$wpf_show_tags          = is_single() && $wpf_terms;
-						$wpf_author_name        = get_the_author();
-						$wpf_show_author        = is_single() && ! empty( $wpf_author_name ) && ! (bool) get_option( 'wpf_disable_author_page' ) && in_array( get_post_type(), array( 'post', 'blog' ), true ) && 'dev_8sqdFoNG6UE' !== get_the_author_meta( 'user_login' );
 						$wpf_show_comments      = comments_open() || get_comments_number();
 						$wpf_show_post_nav      = is_single() && ( $wpf_next_post || $wpf_prev_post );
 						$wpf_show_related_posts = isset( $wpf_related_posts_query ) && $wpf_related_posts_query->have_posts() && in_array( get_post_type(), array( 'post', 'blog' ), true );
@@ -139,7 +137,6 @@ if ( have_posts() ) {
 
 						if ( $wpf_show_link_pages ||
 							$wpf_show_tags ||
-							$wpf_show_author ||
 							$wpf_show_comments ||
 							$wpf_show_post_nav ||
 							$wpf_show_related_posts ||
@@ -166,61 +163,6 @@ if ( have_posts() ) {
 								?>
 
 								<?php
-								// 著者プロフィール
-								if ( $wpf_show_author ) {
-									$wpf_avatar           = get_avatar( get_the_author_meta( 'ID' ), 300 );
-									$wpf_display_name     = function_exists( 'pll__' ) ? pll__( get_the_author_meta( 'display_name', get_the_author_meta( 'ID' ) ), 'wordpressfoundation' ) : get_the_author_meta( 'display_name', get_the_author_meta( 'ID' ) );
-									$wpf_description      = get_the_author_meta( 'description', get_the_author_meta( 'ID' ) );
-									$wpf_social_links     = array(
-										'x'         => get_the_author_meta( 'x', get_the_author_meta( 'ID' ) ),
-										'instagram' => get_the_author_meta( 'instagram', get_the_author_meta( 'ID' ) ),
-										'facebook'  => get_the_author_meta( 'facebook', get_the_author_meta( 'ID' ) ),
-									);
-									$wpf_social_icon_size = 36;
-									?>
-									<div class="author-info widget">
-										<?php
-										// アバター
-										if ( ! empty( $wpf_avatar ) ) {
-											?>
-											<a 
-												href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>" 
-												class="avatar" 
-												title="<?php echo esc_attr( /* translators: 著者名 */ sprintf( __( '%sのプロフィールを見る', 'wordpressfoundation' ), $wpf_display_name ) ); ?>"
-												aria-label="<?php echo esc_attr( /* translators: 著者名 */ sprintf( __( '%sのプロフィールを見る', 'wordpressfoundation' ), $wpf_display_name ) ); ?>">
-												<?php echo $wpf_avatar; // phpcs:ignore WordPress.Security.EscapeOutput ?>
-											</a>
-											<?php
-										}
-										?>
-
-										<div class="author-info__main">
-											<?php
-											// 著者名
-											if ( ! empty( $wpf_display_name ) ) {
-												?>
-												<a class="author-info__name link-muted" href="<?php echo esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ); ?>">
-													<?php echo esc_html( $wpf_display_name ); ?>
-												</a>
-												<?php
-											}
-											?>
-
-											<?php
-											// プロフィール
-											if ( ! empty( $wpf_description ) ) {
-												?>
-												<p class="author-info__profile">
-													<?php echo esc_html( $wpf_description ); ?>
-												</p>
-												<?php
-											}
-											?>
-										</div>
-									</div>
-									<?php
-								}
-
 								// コメント
 								if ( $wpf_show_comments && is_singular( 'blog' ) ) {
 									comments_template();
