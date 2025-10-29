@@ -753,23 +753,21 @@ class WPF_Template_Functions {
 		$object_type = 'post';
 		$data        = array( $object_type => array() );
 		foreach ( $post_types as $post_type ) {
-			if ( in_array( $post_type, array( 'post', 'blog', 'case-study' ), true ) ) {
-				$default = false;
-				if ( 'case-study' === $post_type ) {
-					$default = true;
-				}
-
-				$data[ $object_type ][] = array(
-					'object_subtype' => $post_type,
-					'type'           => 'boolean',
-					'default'        => $default,
-					'single'         => true,
-					'show_in_rest'   => true,
-					'auth_callback'  => function() {
-						return current_user_can( 'edit_posts' );
-					},
-				);
+			$default = false;
+			if ( 'case-study' === $post_type ) {
+				$default = true;
 			}
+
+			$data[ $object_type ][] = array(
+				'object_subtype' => $post_type,
+				'type'           => 'boolean',
+				'default'        => $default,
+				'single'         => true,
+				'show_in_rest'   => true,
+				'auth_callback'  => function() {
+					return current_user_can( 'edit_posts' );
+				},
+			);
 		}
 		$obj['_wpf_show_toc'] = $data;
 
