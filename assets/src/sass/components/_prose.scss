@@ -48,7 +48,12 @@
         margin-inline: 0 var(--space-s3);
 
         @media screen and (max-width: em(map.get($breakpoints, md))) {
+            width: 100%;
             margin-inline: auto;
+
+            > img {
+                width: 100% !important;
+            }
         }
     }
 
@@ -57,7 +62,12 @@
         margin-inline: var(--space-s3) 0;
 
         @media screen and (max-width: em(map.get($breakpoints, md))) {
+            width: 100%;
             margin-inline: auto;
+
+            > img {
+                width: 100% !important;
+            }
         }
     }
 
