@@ -130,7 +130,7 @@ global $wpf_template_tags;
 										<?php
 									}
 
-									if ( ! is_search() ) {
+									if ( ! is_search() && ! is_post_type_archive( 'manual' ) ) {
 										?>
 										<p
 											class="font-text--sm c-content-tertiary"

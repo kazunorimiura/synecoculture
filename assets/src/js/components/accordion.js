@@ -3,7 +3,8 @@ class Accordion {
         this.rootEl = domNode;
         this.buttonEl = this.rootEl.querySelector('button[aria-expanded]');
 
-        const controlsId = this.buttonEl.getAttribute('aria-controls');
+        const controlsId = this.buttonEl.getAttribute('data-acc-target');
+
         this.contentEl = document.getElementById(controlsId);
 
         this.open = this.buttonEl.getAttribute('aria-expanded') === 'true';
@@ -29,8 +30,9 @@ class Accordion {
         this.buttonEl.setAttribute('aria-expanded', `${open}`);
         if (open) {
             this.contentEl.removeAttribute('hidden');
+            this.contentEl.style.display = 'block';
         } else {
-            this.contentEl.setAttribute('hidden', '');
+            this.contentEl.style.removeProperty('display');
         }
     }
 
@@ -51,7 +53,8 @@ class Accordion {
  * @return {void}
  */
 export function createAccordion() {
-    const accordions = document.querySelectorAll('.accordion h3');
+    const accordions = document.querySelectorAll('.accordion, .manual-main__content__sidebar, .manual-nav');
+
     accordions.forEach((accordionEl) => {
         new Accordion(accordionEl);
     });

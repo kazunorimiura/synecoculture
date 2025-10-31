@@ -23,8 +23,8 @@
     position: sticky;
     top: fd(64, 96);
     flex-basis: fd(180, 249);
-    flex-grow: 1; // 1
-    min-width: 0; // 2
+    flex-grow: 1;
+    min-width: 0;
     max-height: calc(var(--vh) - #{fd(64, 96)});
     overflow: auto;
 

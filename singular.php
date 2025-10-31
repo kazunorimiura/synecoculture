@@ -172,7 +172,7 @@ if ( have_posts() ) {
 								if ( $wpf_show_post_nav && is_singular( 'post' ) || is_singular( 'blog' ) ) {
 									?>
 									<nav class="navigation post-navigation widget" aria-label="<?php esc_attr_e( '投稿ナビゲーション', 'wordpressfoundation' ); ?>">
-										<div class="nav-links switcher">
+										<div class="nav-links">
 										<?php
 										if ( $wpf_next_post ) {
 											?>

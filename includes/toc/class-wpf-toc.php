@@ -66,7 +66,7 @@ if ( ! class_exists( 'WPF_Toc' ) ) {
 		 * @param bool                   $ordered 順序付きリストにするかどうか。
 		 * @return string HTML <li> アイテム。
 		 */
-		public function get_html_menu( $markup, $top_level = 1, $depth = 2, $renderer = null, $ordered = false ) {
+		public function get_html_menu( $markup, $top_level = 1, $depth = 3, $renderer = null, $ordered = false ) {
 			return $this->toc_generator->getHtmlMenu( $markup, $top_level, $depth, $renderer, $ordered );
 		}
 

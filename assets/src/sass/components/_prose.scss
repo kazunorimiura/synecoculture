@@ -101,7 +101,8 @@
     .news-posts,
     .embedded-privacy-policy,
     .observe-log-container,
-    .member-posts {
+    .member-posts,
+    .wp-block-group {
         --flow-space: var(--space-s3);
     }
 
@@ -114,7 +115,8 @@
     .news-posts + *,
     .embedded-privacy-policy + *,
     .observe-log-container + *,
-    .member-posts + * {
+    .member-posts + *,
+    .wp-block-group * + {
         --flow-space: var(--space-s3);
     }
 

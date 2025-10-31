@@ -623,6 +623,23 @@ class WPF_Smart_Cf_Register_Fields {
 				);
 				$settings[] = $_setting;
 			}
+
+			if ( 'manual' === $page_slug ) {
+				$_setting = SCF::add_setting( '_wpf_manual', 'Synecocultureマニュアル' );
+				$_setting->add_group(
+					'_wpf_manual',
+					false,
+					array(
+						array(
+							'name'    => '_wpf_manual__copyright_text',
+							'label'   => __( 'コピーライト表示', 'wordpressfoundation' ),
+							'type'    => 'wysiwyg',
+							'default' => '<p style="text-align: right;">著者 Masatoshi Funabashi<br>&copy; Copyright 2023, Masatoshi Funabashi.</p>',
+						),
+					)
+				);
+				$settings[] = $_setting;
+			}
 		}
 
 		if ( 'case-study' === $type ) {

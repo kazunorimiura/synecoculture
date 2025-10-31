@@ -22,8 +22,12 @@ img.alignlright {
     margin-block: var(--space-s0);
 }
 
-// フローコンテナ (for editor)
+// フローコンテナ
 .is-layout-flow {
+    @extend %prose;
+}
+
+.is-layout-constrained {
     @extend %prose;
 }
 

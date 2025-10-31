@@ -41,4 +41,38 @@ wp.domReady(function () {
         name: 'notice--warning--bold',
         label: '強調注釈（警告）',
     });
+
+    // グループブロックにスタイルバリエーションを追加
+    wp.blocks.registerBlockStyle('core/group', {
+        name: 'notice--info',
+        label: '注釈（情報）',
+    });
+    wp.blocks.registerBlockStyle('core/group', {
+        name: 'notice--positive',
+        label: '注釈（ポジティブ）',
+    });
+    wp.blocks.registerBlockStyle('core/group', {
+        name: 'notice--negative',
+        label: '注釈（ネガティブ）',
+    });
+    wp.blocks.registerBlockStyle('core/group', {
+        name: 'notice--warning',
+        label: '注釈（警告）',
+    });
+    wp.blocks.registerBlockStyle('core/group', {
+        name: 'notice--info--bold',
+        label: '強調注釈（情報）',
+    });
+    wp.blocks.registerBlockStyle('core/group', {
+        name: 'notice--positive--bold',
+        label: '強調注釈（ポジティブ）',
+    });
+    wp.blocks.registerBlockStyle('core/group', {
+        name: 'notice--negative--bold',
+        label: '強調注釈（ネガティブ）',
+    });
+    wp.blocks.registerBlockStyle('core/group', {
+        name: 'notice--warning--bold',
+        label: '強調注釈（警告）',
+    });
 });

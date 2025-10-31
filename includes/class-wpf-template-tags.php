@@ -34,7 +34,15 @@ class WPF_Template_Tags {
 	public static function get_the_page_title() {
 		// 個別投稿ページ・固定ページの場合
 		if ( is_singular() ) {
-			$title = get_the_title();
+			if ( is_singular( 'manual' ) ) {
+				$page_for_posts = WPF_Utils::get_page_for_posts();
+
+				if ( $page_for_posts ) {
+					$title = get_the_title( $page_for_posts );
+				}
+			} else {
+				$title = get_the_title();
+			}
 
 			// その他のページの場合
 		} else {

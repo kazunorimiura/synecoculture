@@ -576,7 +576,7 @@ class WPF_Template_Functions {
 					'singular_name' => _x( 'ブログ', 'blog', 'wordpressfoundation' ),
 				),
 				'public'        => true,
-				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'comments', 'page-attributes' ),
+				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'comments', 'page-attributes', 'revisions' ),
 				'menu_position' => 5,
 				'rewrite'       => array(
 					'with_front' => false,
@@ -599,7 +599,7 @@ class WPF_Template_Functions {
 					'singular_name' => _x( '研究・活動', 'project', 'wordpressfoundation' ),
 				),
 				'public'        => true,
-				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes' ),
+				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes', 'revisions' ),
 				'menu_position' => 5,
 				'rewrite'       => array(
 					'slug'       => 'projects',
@@ -623,7 +623,7 @@ class WPF_Template_Functions {
 					'singular_name' => _x( '実践事例', 'case-study', 'wordpressfoundation' ),
 				),
 				'public'        => true,
-				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes' ),
+				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes', 'revisions' ),
 				'menu_position' => 5,
 				'rewrite'       => array(
 					'slug'       => 'case-studies',
@@ -647,7 +647,7 @@ class WPF_Template_Functions {
 					'singular_name' => _x( 'メンバー', 'member', 'wordpressfoundation' ),
 				),
 				'public'        => true,
-				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes' ),
+				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes', 'revisions' ),
 				'menu_position' => 5,
 				'rewrite'       => array(
 					'slug'       => 'members',
@@ -671,7 +671,7 @@ class WPF_Template_Functions {
 					'singular_name' => _x( '用語集', 'glossary', 'wordpressfoundation' ),
 				),
 				'public'        => true,
-				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes' ),
+				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes', 'revisions' ),
 				'menu_position' => 5,
 				'rewrite'       => array(
 					'slug'       => 'glossarys',
@@ -695,7 +695,7 @@ class WPF_Template_Functions {
 					'singular_name' => _x( '採用情報', 'career', 'wordpressfoundation' ),
 				),
 				'public'        => true,
-				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes' ),
+				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes', 'revisions' ),
 				'menu_position' => 5,
 				'rewrite'       => array(
 					'slug'       => 'careers',
@@ -703,6 +703,30 @@ class WPF_Template_Functions {
 				),
 				'has_archive'   => true,
 				'taxonomies'    => array( 'career_cat', 'career_tag' ),
+				'show_in_rest'  => true,
+				'wpf_cptp'      => array(
+					'permalink_structure' => '/%postname%/',
+					'author_archive'      => false,
+				),
+			)
+		);
+
+		register_post_type(
+			'manual',
+			array(
+				'labels'        => array(
+					'name'          => _x( 'Synecocultureマニュアル', 'manual', 'wordpressfoundation' ),
+					'singular_name' => _x( 'Synecocultureマニュアル', 'manual', 'wordpressfoundation' ),
+				),
+				'public'        => true,
+				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes', 'revisions' ),
+				'menu_position' => 5,
+				'rewrite'       => array(
+					'slug'       => 'manual',
+					'with_front' => false,
+				),
+				'has_archive'   => true,
+				'taxonomies'    => array(),
 				'show_in_rest'  => true,
 				'wpf_cptp'      => array(
 					'permalink_structure' => '/%postname%/',
@@ -754,7 +778,7 @@ class WPF_Template_Functions {
 		$data        = array( $object_type => array() );
 		foreach ( $post_types as $post_type ) {
 			$default = false;
-			if ( 'case-study' === $post_type ) {
+			if ( 'case-study' === $post_type || 'manual' === $post_type ) {
 				$default = true;
 			}
 

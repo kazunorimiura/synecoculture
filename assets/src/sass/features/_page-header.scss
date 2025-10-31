@@ -31,16 +31,16 @@
     }
 }
 
-.single .page-header__main__inner {
-    max-width: var(--width-wide);
-}
-
 .single-member .page-header__main__inner {
     align-items: center;
 
     @media screen and (max-width: em(map.get($breakpoints, sm))) {
         align-items: flex-start;
     }
+}
+
+.single:not(.single-manual) .page-header__main__inner {
+    max-width: var(--width-wide);
 }
 
 .page-header__thumbnail {
@@ -95,7 +95,8 @@
 }
 
 .page .page-header__main__content,
-.archive .page-header__main__content {
+.archive .page-header__main__content,
+.single-manual .page-header__main__content {
     flex-shrink: 0;
 }
 
@@ -110,7 +111,8 @@
 .archive .page-header__title,
 .blog .page-header__title, // is_homeのページ
 .page .page-header__title,
-.error404 .page-header__title {
+.error404 .page-header__title,
+.single-manual .page-header__title {
     font: var(--font-display);
 }
 
@@ -186,7 +188,7 @@
     }
 }
 
-.single .page-header__breadcrumbs-container {
+.single:not(.single-manual) .page-header__breadcrumbs-container {
     display: flex;
     justify-content: flex-end;
     padding-block-end: fd(18, 24);

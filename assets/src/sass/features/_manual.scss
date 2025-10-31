@@ -1,0 +1,272 @@
+@use "sass:map";
+@use "sass:math";
+@use "../config";
+@use "../base/settings" as *;
+@use "../utilities/flow";
+@use "../utilities/region";
+
+.manual-main {
+    --local-block-start-space: #{fd(64, 96)};
+    --local-sidebar-width: #{fd(180, 249)};
+    --local-column-gap: #{fd(48, 96)};
+    --local-row-gap: #{fd(32, 48)};
+    --local-icon-size: 1.2em;
+
+    width: calc(100% - var(--site-gutter) * 2);
+    margin-inline: auto;
+}
+
+.manual-main > * {
+    max-width: 100%;
+}
+
+.manual-title {
+    margin-block-start: calc((var(--line-height-headline-1) - 1) / 2 * -1em);
+}
+
+.manual-nav-container {
+    position: sticky;
+    top: 0;
+    flex-basis: var(--local-sidebar-width);
+    flex-shrink: 0;
+    height: 100%;
+    padding-block: var(--local-block-start-space);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-color: var(color-border-content) #0000;
+
+    @media screen and (max-width: em(map.get($breakpoints, md))) {
+        position: static;
+        flex-basis: 100%;
+        padding-block: var(--local-block-start-space) 0;
+    }
+}
+
+.manual-nav {
+    @media screen and (max-width: em(map.get($breakpoints, md))) {
+        border: 1px solid var(--color-border-opaque);
+        border-radius: var(--radius);
+    }
+}
+
+.manual-nav__toggle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%;
+    padding: 0 0.75rem 0 0;
+    background-color: initial;
+    border: none;
+
+    @media screen and (max-width: em(map.get($breakpoints, md))) {
+        display: flex;
+    }
+}
+
+.manual-nav__toggle::after {
+    --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-tertiary))};
+
+    display: block;
+    width: var(--local-icon-size);
+    height: var(--local-icon-size);
+    content: "";
+    background-color: currentcolor;
+    mask: var(--angle-down) no-repeat 50% 50%;
+    mask-size: cover;
+}
+
+[data-site-theme="dark"] .manual-nav__toggle::after {
+    --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-tertiary-dark))};
+}
+
+.manual-nav__header {
+    @media screen and (max-width: em(map.get($breakpoints, md))) {
+        position: relative;
+        padding-block: fd(18, 24);
+        padding-inline: fd(18, 24);
+    }
+}
+
+.manual-list {
+    --local-icon-size: calc(var(--line-height-text) * 1em);
+
+    padding: 0;
+    margin-block-start: rem(32);
+    list-style: none;
+
+    @media screen and (max-width: em(map.get($breakpoints, md))) {
+        display: none;
+        padding-block: fd(18, 24);
+        padding-inline: fd(18, 24);
+        margin-block-start: 0;
+    }
+}
+
+.manual-list li {
+    position: relative;
+    padding-inline-start: var(--local-icon-size);
+}
+
+.manual-list li.current-manual {
+    font-weight: var(--font-weight-bold);
+}
+
+.manual-list li::before {
+    position: absolute;
+    inset-inline-start: 0;
+    display: inline-block;
+    width: var(--local-icon-size);
+    height: var(--local-icon-size);
+    content: "";
+    background-color: var(--color-content-tertiary);
+    mask-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%274%27 height=%274%27 fill=%27none%27%3E%3Ccircle cx=%272%27 cy=%272%27 r=%271.5%27 fill=%27%23656A71%27/%3E%3C/svg%3E");
+    mask-repeat: no-repeat;
+    mask-position: center;
+}
+
+.manual-list a,
+.manual-list a:link,
+.manual-list a:visited {
+    color: var(--color-content-primary);
+    text-decoration: none;
+}
+
+.manual-main__content {
+    position: relative;
+    display: flex;
+    gap: var(--local-column-gap);
+    width: calc(100% - var(--local-sidebar-width) - var(--local-column-gap));
+
+    @media screen and (max-width: em(map.get($breakpoints, xl))) {
+        width: 100%;
+    }
+
+    @media screen and (max-width: em(map.get($breakpoints, md))) {
+        flex-direction: column;
+        gap: var(--local-row-gap);
+    }
+}
+
+.manual-main__content__body {
+    @extend %flow;
+
+    padding-block: var(--local-block-start-space);
+
+    @media screen and (max-width: em(map.get($breakpoints, md))) {
+        padding-block: 0 var(--local-block-start-space);
+    }
+}
+
+.manual-main__content__sidebar {
+    --flow-space: 0;
+    --local-nav-offset: 0;
+
+    inset-block: 0;
+    inset-inline-end: calc(var(--local-sidebar-width) * -1 - var(--local-column-gap));
+    padding-block-start: var(--local-block-start-space);
+
+    @media screen and (max-width: em(map.get($breakpoints, xl))) {
+        --flow-space: var(--local-row-gap) !important;
+
+        width: 100%;
+        padding-block-start: 0;
+        border: 1px solid var(--color-border-opaque);
+        border-radius: var(--radius);
+    }
+}
+
+.manual-main__content__sidebar.is-floating-sidebar {
+    position: absolute;
+    width: var(--local-sidebar-width);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-color: var(color-border-content) #0000;
+}
+
+.manual-main__content__sidebar.is-floating-sidebar.is-fixed-sidebar {
+    position: fixed;
+    inset-inline-end: var(--site-gutter);
+}
+
+.manual-main__content__sidebar__header {
+    @media screen and (max-width: em(map.get($breakpoints, xl))) {
+        position: relative;
+        padding-block: fd(18, 24);
+        padding-inline: fd(18, 24);
+    }
+}
+
+.manual-main__content__sidebar__toc {
+    margin-block-start: rem(32);
+
+    @media screen and (max-width: em(map.get($breakpoints, xl))) {
+        display: none;
+        padding-block: fd(18, 24);
+        padding-inline: fd(18, 24);
+        margin-block-start: 0;
+    }
+}
+
+.toc__toggle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%;
+    padding: 0 0.75rem 0 0;
+    background-color: initial;
+    border: none;
+
+    @media screen and (max-width: em(map.get($breakpoints, xl))) {
+        display: flex;
+    }
+}
+
+.toc__toggle::after {
+    --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-tertiary))};
+
+    display: block;
+    width: var(--local-icon-size);
+    height: var(--local-icon-size);
+    content: "";
+    background-color: currentcolor;
+    mask: var(--angle-down) no-repeat 50% 50%;
+    mask-size: cover;
+}
+
+[data-site-theme="dark"] .toc__toggle::after {
+    --angle-down: #{escape-svg(get-data-url(angle-down, config.$color-content-tertiary-dark))};
+}
+
+.manual-footer {
+    width: calc(100% - var(--site-gutter) * 2);
+    padding-block-start: fd(18, 24);
+    margin-inline: auto;
+    border-block-start: 1px solid var(--color-border-opaque);
+}
+
+// マニュアルは幅をストレッチしているので、prose配下の最大幅もそれに合わせる
+.manual-footer > * {
+    max-width: 100%;
+}
+
+.manual-main__content .prose > *,
+.manual-main__content .prose > p,
+.manual-main__content .prose > ul li {
+    max-width: 100%;
+}
+
+.manual-main .is-layout-flow {
+    > *,
+    > p,
+    > ul li {
+        max-width: 100%;
+    }
+}

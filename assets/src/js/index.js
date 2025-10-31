@@ -14,6 +14,7 @@ import { createTrilemmaImage } from './components/trilemma-image';
 import { createFeaturedProjects } from './components/featured-projects';
 import { createMorePostsLoader } from './components/more-posts-loader';
 import { calcVh } from './components/calc-vh';
+import { FloatingSidebar } from './components/floating-sidebar';
 
 class App {
     constructor() {
@@ -145,6 +146,9 @@ class App {
 
         // アコーディオン
         createAccordion();
+
+        // フローティングサイドバー
+        new FloatingSidebar();
 
         // MW WP Form: エラー発生時のa11y対応
         // エラー要素をすべて検索
