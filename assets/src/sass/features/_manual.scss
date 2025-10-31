@@ -167,6 +167,7 @@
 
     inset-block: 0;
     inset-inline-end: calc(var(--local-sidebar-width) * -1 - var(--local-column-gap));
+    display: none;
     padding-block-start: var(--local-block-start-space);
 
     @media screen and (max-width: em(map.get($breakpoints, xl))) {
@@ -259,14 +260,16 @@
 
 .manual-main__content .prose > *,
 .manual-main__content .prose > p,
-.manual-main__content .prose > ul li {
+.manual-main__content .prose > ul li,
+.manual-main__content .prose > ol li {
     max-width: 100%;
 }
 
 .manual-main .is-layout-flow {
     > *,
     > p,
-    > ul li {
+    > ul li,
+    > ol li {
         max-width: 100%;
     }
 }
