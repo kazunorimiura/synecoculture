@@ -53,6 +53,10 @@ class WPF_Slugifier implements SlugifyInterface {
 	 * @return string
 	 */
 	public function slugify( $string, $options = null ): string {
+        if ( ! empty( $string ) ) {
+            return self::replace_multibyte_with_uuid( $string );
+        }
+
 		$slugged = 'section'; // 接頭辞をハードコード
 
 		$count = 1;
@@ -65,4 +69,32 @@ class WPF_Slugifier implements SlugifyInterface {
 		$this->used[] = $slugged;
 		return $slugged;
 	}
+
+    /**
+     * マルチバイト文字列をUUIDに置換
+     *
+     * @param string $string 文字列
+     * @return void
+     */
+    public function replace_multibyte_with_uuid($string) {
+        // マルチバイト文字列かチェック
+        if ( strlen( $string ) !== mb_strlen( $string, 'UTF-8' )) {
+            // UUIDを生成して返す
+            return 'section-' . self::generate_uuid();
+        }
+        return $string;
+    }
+
+    /**
+     * UUID v4 生成関数
+     *
+     * @return string
+     */
+    public function generate_uuid() {
+        $data = random_bytes(16);
+        $data[6] = chr(ord($data[6]) & 0x0f | 0x40); // version 4
+        $data[8] = chr(ord($data[8]) & 0x3f | 0x80); // variant
+        
+        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+    }
 }
