@@ -54,7 +54,7 @@ class WPF_Slugifier implements SlugifyInterface {
 	 */
 	public function slugify( $string, $options = null ): string {
         if ( ! empty( $string ) ) {
-            return self::replace_multibyte_with_uuid( $string );
+            return self::replace_safe_id( $string );
         }
 
 		$slugged = 'section'; // 接頭辞をハードコード
@@ -71,17 +71,42 @@ class WPF_Slugifier implements SlugifyInterface {
 	}
 
     /**
-     * マルチバイト文字列をUUIDに置換
+     * マルチバイト文字列や無効な文字を含む場合にUUIDに置換、
+     * それ以外の場合は安全なID文字列に正規化
      *
      * @param string $string 文字列
-     * @return void
+     * @return string
      */
-    public function replace_multibyte_with_uuid($string) {
+    public function replace_safe_id($string) {
+        // 空文字列の場合
+        if (empty($string)) {
+            return 'section-' . self::generate_uuid();
+        }
+
         // マルチバイト文字列かチェック
-        if ( strlen( $string ) !== mb_strlen( $string, 'UTF-8' )) {
+        if (strlen($string) !== mb_strlen($string, 'UTF-8')) {
             // UUIDを生成して返す
             return 'section-' . self::generate_uuid();
         }
+
+        // スペースをハイフンに置き換え
+        $string = str_replace(' ', '-', $string);
+
+        // id属性として使えない文字を削除(英数字、ハイフン、アンダースコアのみ許可)
+        $string = preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
+
+        // 連続するハイフンを1つにまとめる
+        $string = preg_replace('/-+/', '-', $string);
+
+        // 先頭と末尾のハイフンを削除
+        $string = trim($string, '-');
+
+        // 空文字列になった場合、または数字で始まる場合はUUIDを使用
+        // (HTML5では数字始まりも許可されていますが、より安全にするため)
+        if (empty($string) || preg_match('/^[0-9]/', $string)) {
+            return 'section-' . self::generate_uuid();
+        }
+
         return $string;
     }
 
