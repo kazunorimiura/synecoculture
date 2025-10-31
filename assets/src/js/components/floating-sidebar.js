@@ -73,6 +73,12 @@ export class FloatingSidebar {
 
             sidebar.classList.toggle('is-floating-sidebar', isAboveBreakpoint);
 
+            // フローティング状態でない場合は、インラインスタイルをクリーンアップ
+            if (!isAboveBreakpoint) {
+                sidebar.style.removeProperty('height');
+                sidebar.classList.remove('is-fixed-sidebar');
+            }
+
             // display:noneの場合はrevertに設定
             if (window.getComputedStyle(sidebar).display === 'none') {
                 sidebar.style.setProperty('display', 'revert');
