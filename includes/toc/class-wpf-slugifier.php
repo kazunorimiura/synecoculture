@@ -53,12 +53,13 @@ class WPF_Slugifier implements SlugifyInterface {
 	 * @return string
 	 */
 	public function slugify( $string, $options = null ): string {
-        if ( ! empty( $string ) ) {
-            return self::replace_safe_id( $string );
-        }
+		if ( ! empty( $string ) ) {
+			$slugged = self::replace_safe_id( $string );
+		} else {
+			$slugged = 'section';
+		}
 
-		$slugged = 'section'; // 接頭辞をハードコード
-
+		// 重複チェックと連番追加
 		$count = 1;
 		$orig  = $slugged;
 		while ( in_array( $slugged, $this->used ) ) {
@@ -70,56 +71,54 @@ class WPF_Slugifier implements SlugifyInterface {
 		return $slugged;
 	}
 
-    /**
-     * マルチバイト文字列や無効な文字を含む場合にUUIDに置換、
-     * それ以外の場合は安全なID文字列に正規化
-     *
-     * @param string $string 文字列
-     * @return string
-     */
-    public function replace_safe_id($string) {
-        // 空文字列の場合
-        if (empty($string)) {
-            return 'section-' . self::generate_uuid();
-        }
+	/**
+	 * マルチバイト文字列や無効な文字を含む場合にハッシュベースのIDに置換、
+	 * それ以外の場合は安全なID文字列に正規化
+	 *
+	 * @param string $string 文字列
+	 * @return string
+	 */
+	public function replace_safe_id( $string ) {
+		// 空文字列の場合
+		if ( empty( $string ) ) {
+			return 'section';
+		}
 
-        // マルチバイト文字列かチェック
-        if (strlen($string) !== mb_strlen($string, 'UTF-8')) {
-            // UUIDを生成して返す
-            return 'section-' . self::generate_uuid();
-        }
+		// マルチバイト文字列かチェック
+		if ( strlen( $string ) !== mb_strlen( $string, 'UTF-8' ) ) {
+			// 文字列のハッシュベースIDを生成（同じ文字列には常に同じIDを返す）
+			return 'section-' . self::generate_hash_id( $string );
+		}
 
-        // スペースをハイフンに置き換え
-        $string = str_replace(' ', '-', $string);
+		// スペースをハイフンに置き換え
+		$string = str_replace( ' ', '-', $string );
 
-        // id属性として使えない文字を削除(英数字、ハイフン、アンダースコアのみ許可)
-        $string = preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
+		// id属性として使えない文字を削除(英数字、ハイフン、アンダースコアのみ許可)
+		$string = preg_replace( '/[^a-zA-Z0-9_-]/', '', $string );
 
-        // 連続するハイフンを1つにまとめる
-        $string = preg_replace('/-+/', '-', $string);
+		// 連続するハイフンを1つにまとめる
+		$string = preg_replace( '/-+/', '-', $string );
 
-        // 先頭と末尾のハイフンを削除
-        $string = trim($string, '-');
+		// 先頭と末尾のハイフンを削除
+		$string = trim( $string, '-' );
 
-        // 空文字列になった場合、または数字で始まる場合はUUIDを使用
-        // (HTML5では数字始まりも許可されていますが、より安全にするため)
-        if (empty($string) || preg_match('/^[0-9]/', $string)) {
-            return 'section-' . self::generate_uuid();
-        }
+		// 空文字列になった場合、または数字で始まる場合は接頭辞を追加
+		if ( empty( $string ) || preg_match( '/^[0-9]/', $string ) ) {
+			return 'section-' . $string;
+		}
 
-        return $string;
-    }
+		return $string;
+	}
 
-    /**
-     * UUID v4 生成関数
-     *
-     * @return string
-     */
-    public function generate_uuid() {
-        $data = random_bytes(16);
-        $data[6] = chr(ord($data[6]) & 0x0f | 0x40); // version 4
-        $data[8] = chr(ord($data[8]) & 0x3f | 0x80); // variant
-        
-        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
-    }
+	/**
+	 * ハッシュベースの一貫したID生成関数
+	 * 同じ入力文字列に対して常に同じIDを返す
+	 *
+	 * @param string $string 元の文字列
+	 * @return string
+	 */
+	private function generate_hash_id( $string ) {
+		// MD5ハッシュの最初の12文字を使用（十分にユニークで短い）
+		return substr( md5( $string ), 0, 12 );
+	}
 }
