@@ -314,7 +314,7 @@ class WPF_Template_Functions {
 		update_option( 'wpf_disable_date_archive', false );
 
 		// 著者アーカイブを404にするオプションを追加する。
-		update_option( 'wpf_disable_author_page', false );
+		update_option( 'wpf_disable_author_page', true );
 
 		// コメントを完全に無効化するオプションを追加する。
 		update_option( 'wpf_disable_comments', false );
