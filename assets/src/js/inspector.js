@@ -450,7 +450,7 @@ import includes from 'lodash/includes';
                             el(
                                 'a',
                                 {
-                                    href: 'https://example.com/sync-settings', // リンク先URLを指定
+                                    href: 'https://www.dropbox.com/scl/fi/bc83fpcj2u7li5rz1j5te/sync.png?rlkey=vxeg00pprzk14z9ag480zte14&st=zf6m2apm&dl=0', // リンク先URLを指定
                                     target: '_blank',
                                     rel: 'noopener noreferrer',
                                 },
