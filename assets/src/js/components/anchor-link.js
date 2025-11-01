@@ -4,6 +4,7 @@ gsap.registerPlugin(ScrollToPlugin);
 export class AnchorLink {
     constructor(options) {
         this.config = AnchorLink.mergeSettings(options);
+        this.isScrolling = false; // スクロール中フラグを追加
 
         this.aEl = !this.config.a.selector ? document.querySelector(this.config.a.selector) : this.config.a.el;
 
@@ -18,6 +19,7 @@ export class AnchorLink {
         this.iURL = new URL(this.aEl.href);
 
         this.onClick = this.handleClick.bind(this);
+        this.onTouchMove = this.handleTouchMove.bind(this); // 追加
 
         this.attachEvents();
     }
@@ -44,6 +46,13 @@ export class AnchorLink {
 
     attachEvents() {
         this.aEl.addEventListener('click', this.onClick);
+    }
+
+    // スクロール中のタッチ移動を防止
+    handleTouchMove(e) {
+        if (this.isScrolling) {
+            e.preventDefault();
+        }
     }
 
     updateOffset(value) {
@@ -86,10 +95,14 @@ export class AnchorLink {
         // 遷移先の位置を取得。
         const targetPosition = targetEl.getBoundingClientRect().top + window.scrollY - this.config.offset;
 
+        // スクロール中のタッチイベントを制御
+        this.isScrolling = true;
+        document.addEventListener('touchmove', this.onTouchMove, { passive: false });
+
         // スムーズスクロールを実行。
         gsap.to(window, {
             duration: this.config.duration,
-            scrollTo: { y: targetPosition, autoKill: true },
+            scrollTo: { y: targetPosition, autoKill: false },
             ease: Power2.easeInOut,
             onStart: () => {
                 if (this.config.callbackBefore) {
@@ -97,6 +110,10 @@ export class AnchorLink {
                 }
             },
             onComplete: () => {
+                // スクロール完了後、タッチイベントリスナーを削除
+                this.isScrolling = false;
+                document.removeEventListener('touchmove', this.onTouchMove);
+
                 if (this.config.callbackAfter) {
                     this.config.callbackAfter();
                 }
@@ -113,6 +130,11 @@ export class AnchorLink {
                     targetEl.setAttribute('tabindex', '-1');
                     targetEl.focus();
                 }
+            },
+            onInterrupt: () => {
+                // アニメーションが中断された場合もクリーンアップ
+                this.isScrolling = false;
+                document.removeEventListener('touchmove', this.onTouchMove);
             },
         });
     }
