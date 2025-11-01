@@ -96,6 +96,11 @@ global $wpf_template_tags;
 				<p style="font: var(--font-text--xs)"><?php echo esc_html( $wpf_template_tags::get_copyright() ); ?></p>
 			</div>
 		</div>
+
+		<a class="page-top link-muted" href="#page-top">
+			<span class="screen-reader-text"><?php esc_html_e( '上へ戻る', 'wordpressfoundation' ); ?></span>
+			<?php echo WPF_Icons::get_svg( 'ui', 'angle_up', 24 ); /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>
+		</a>
 	</footer>
 
 	<?php wp_footer(); ?>

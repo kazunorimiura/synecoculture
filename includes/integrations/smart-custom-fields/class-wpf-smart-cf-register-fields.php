@@ -625,14 +625,47 @@ class WPF_Smart_Cf_Register_Fields {
 			}
 
 			if ( 'manual' === $page_slug ) {
-				$_setting = SCF::add_setting( '_wpf_manual', 'Synecocultureマニュアル' );
+				$_setting = SCF::add_setting( '_wpf_manual__link_banner', 'リンクバナー' );
 				$_setting->add_group(
-					'_wpf_manual',
+					'_wpf_manual__link_banner',
+					true,
+					array(
+						array(
+							'name'  => '_wpf_manual__link_banner__image',
+							'label' => __( '画像', 'wordpressfoundation' ),
+							'type'  => 'image',
+							'size'  => 'thumbnail',
+							'notes' => __( '推奨画像サイズ: 幅1000px', 'wordpressfoundation' ),
+						),
+						array(
+							'name'  => '_wpf_manual__link_banner__url',
+							'label' => __( 'リンクURL（任意）', 'wordpressfoundation' ),
+							'type'  => 'text',
+						),
+					)
+				);
+				$settings[] = $_setting;
+
+				$_setting = SCF::add_setting( '_wpf_manual__copyright', 'メタデータ' );
+				$_setting->add_group(
+					'_wpf_manual__copyright',
 					false,
 					array(
 						array(
-							'name'    => '_wpf_manual__copyright_text',
-							'label'   => __( 'コピーライト表示', 'wordpressfoundation' ),
+							'name'    => '_wpf_manual__author',
+							'label'   => __( '著者', 'wordpressfoundation' ),
+							'type'    => 'text',
+							'default' => '編著：舩橋真俊',
+						),
+						array(
+							'name'    => '_wpf_manual__metadata',
+							'label'   => __( 'メタデータ', 'wordpressfoundation' ),
+							'type'    => 'wysiwyg',
+							'default' => '<p>ISSN 2432-3950<br>引用形式：舩橋真俊 編著 『シネコカルチャー実践マニュアル 2025年度版』 (日本語版) Research and Education material of UniTwin UNESCO Complex Systems Digital Campus, e-laboratory: Human Augmentation of Ecosystems, No.4, ver:2025.10.20<br>編著 : (株)ソニーコンピュータサイエンス研究所/一般社団法人シネコカルチャー 舩橋真俊<br>図表デザイン: 玉木明</p>',
+						),
+						array(
+							'name'    => '_wpf_manual__copyright__footer',
+							'label'   => __( 'コピーライト表示（フッター）', 'wordpressfoundation' ),
 							'type'    => 'wysiwyg',
 							'default' => '<p style="text-align: right;">著者 Masatoshi Funabashi<br>&copy; Copyright 2023, Masatoshi Funabashi.</p>',
 						),

@@ -15,6 +15,7 @@ import { createFeaturedProjects } from './components/featured-projects';
 import { createMorePostsLoader } from './components/more-posts-loader';
 import { calcVh } from './components/calc-vh';
 import { FloatingSidebar } from './components/floating-sidebar';
+import { BackToTop } from './components/back-to-top';
 
 class App {
     constructor() {
@@ -149,6 +150,8 @@ class App {
 
         // フローティングサイドバー
         new FloatingSidebar();
+
+        new BackToTop('.page-top');
 
         // MW WP Form: エラー発生時のa11y対応
         // エラー要素をすべて検索

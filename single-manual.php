@@ -232,7 +232,7 @@ if ( have_posts() ) {
 				<?php
 				$wpf_page_for_posts = WPF_Utils::get_page_for_posts();
 				if ( $wpf_page_for_posts ) {
-					$wpf_copyright = SCF::get( '_wpf_manual__copyright_text', $wpf_page_for_posts );
+					$wpf_copyright = SCF::get( '_wpf_manual__copyright__footer', $wpf_page_for_posts );
 					if ( ! empty( $wpf_copyright ) ) {
 						echo $wpf_copyright; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}

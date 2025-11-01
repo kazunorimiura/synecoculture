@@ -1,0 +1,41 @@
+@use "sass:map";
+@use "sass:math";
+@use "../base/settings" as *;
+@use "../utilities/link";
+@use "../utilities/flow";
+
+.page-top {
+    position: fixed;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    z-index: z-index(page-top);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fd(40, 56);
+    height: fd(40, 56);
+    font: var(--font-text--sm);
+    color: var(--color-content-primary);
+    visibility: hidden;
+    background-color: var(--color-background-primary);
+    border: 1px solid var(--color-border-opaque);
+    border-radius: var(--radius-sm);
+    opacity: 0;
+    transition: all 0.3s ease;
+
+    .icon {
+        width: fd(19, 24);
+        height: fd(19, 24);
+        margin: 0;
+        color: var(--color-content-primary);
+    }
+
+    &:hover {
+        background-color: var(--color-background-secondary);
+    }
+}
+
+.page-top.is-show {
+    visibility: visible;
+    opacity: 1;
+}

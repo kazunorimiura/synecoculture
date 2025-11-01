@@ -136,7 +136,7 @@ $svgs: (
 /// 識別子で重ね順を管理
 /// インデックスが若いほど上にくる
 /// @type List
-$z-index-order: ("global-nav-button", "global-nav", "dropdown-menu", "site-header", "primary-nav", "default");
+$z-index-order: ("global-nav-button", "global-nav", "dropdown-menu", "site-header", "primary-nav", "page-top", "default");
 
 /// z-index識別子をCSSプロパティ値に変換
 /// @param {string} $name z-index識別子

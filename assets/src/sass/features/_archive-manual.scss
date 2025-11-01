@@ -1,0 +1,101 @@
+@use "sass:map";
+@use "sass:math";
+@use "../config";
+@use "../base/settings" as *;
+@use "../components/prose";
+@use "../utilities/grid";
+
+.manual-link-banner {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: fd(24, 32);
+    align-items: center;
+    justify-content: center;
+}
+
+.manual-link-banner__item {
+    flex-basis: 33.3333%;
+
+    @media screen and (max-width: em(map.get($breakpoints, md))) {
+        flex-basis: 50%;
+    }
+}
+
+.manual-link-banner__item__inner {
+    display: block;
+    width: 50%;
+    margin-inline: auto;
+
+    > img {
+        display: block;
+    }
+
+    @media screen and (max-width: em(map.get($breakpoints, xl))) {
+        width: 60%;
+    }
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        width: 65%;
+    }
+
+    @media screen and (max-width: em(map.get($breakpoints, md))) {
+        width: 70%;
+    }
+
+    @media screen and (max-width: em(map.get($breakpoints, sm))) {
+        width: 75%;
+    }
+}
+
+.manual-author {
+    --flow-space: var(--space-s6);
+
+    text-align: center;
+}
+
+.manual-metadata {
+    @extend %prose;
+
+    font: var(--font-text--sm);
+}
+
+.archive-manual {
+    --grid-column-width: calc(33.3333% - (var(--grid-gap) - var(--grid-gap) / 3));
+
+    @extend %flex-grid;
+
+    > * {
+        @media screen and (max-width: em(map.get($breakpoints, lg))) {
+            --grid-column-width: calc(50% - (var(--grid-gap) - var(--grid-gap) / 2));
+        }
+
+        @media screen and (max-width: em(map.get($breakpoints, sm))) {
+            --grid-column-width: 100%;
+        }
+    }
+}
+
+.archive-manual-item {
+    display: flex;
+    background-color: var(--color-background-color);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 25%);
+}
+
+.archive-manual-item__inner {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: fd(24, 32);
+    align-items: flex-start;
+    padding: fd(18, 32);
+}
+
+.archive-manual-item__inner button {
+    width: 100%;
+    margin-block-start: auto;
+}
+
+.archive-manual-item__inner button > span:first-child {
+    flex-grow: 1;
+}
