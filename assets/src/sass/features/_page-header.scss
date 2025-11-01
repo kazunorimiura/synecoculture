@@ -92,6 +92,7 @@
     @extend %flow;
 
     flex-basis: auto;
+    width: 100%;
 }
 
 .page .page-header__main__content,
@@ -180,7 +181,7 @@
 }
 
 .page-header__breadcrumbs-container {
-    overflow: scroll;
+    overflow: auto hidden;
 
     @media screen and (max-width: em(map.get($breakpoints, md))) {
         font-size: var(--font-size-text--sm);

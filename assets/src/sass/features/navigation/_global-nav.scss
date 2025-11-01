@@ -122,7 +122,7 @@ $global-nav-icon-line-weight: 5px;
     height: 100%;
     padding-block: fd(120, 160) fd(64, 96);
     padding-inline: fd(32, 40);
-    overflow: scroll;
+    overflow: auto;
     visibility: hidden;
     background-color: var(--color-background-primary);
     box-shadow:
