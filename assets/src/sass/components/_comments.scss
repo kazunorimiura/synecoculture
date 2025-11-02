@@ -45,6 +45,7 @@
 .comment-author .avatar,
 .comment-author .avatar > img {
     width: var(--avatar-size, #{fd(48, 54)});
+    height: var(--avatar-size, #{fd(48, 54)});
     border-radius: 50%;
 }
 

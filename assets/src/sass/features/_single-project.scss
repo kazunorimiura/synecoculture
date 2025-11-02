@@ -22,7 +22,7 @@
     flex-basis: fd(180, 249);
     flex-grow: 1; // 1
     min-width: 0; // 2
-    max-height: calc(var(--vh) - #{fd(64, 96)});
+    height: 100%;
     overflow: auto;
 
     @media screen and (max-width: em(map.get($breakpoints, lg))) {

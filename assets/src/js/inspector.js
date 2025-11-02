@@ -848,10 +848,13 @@ import includes from 'lodash/includes';
     registerPlugin('related-members', {
         icon: false,
         render: () => {
+            const allowedPostTypes = usePostTypes();
             const postType = select('core/editor').getCurrentPostType();
-            if (!includes(['post', 'project'], postType)) {
+
+            if (!includes(allowedPostTypes, postType)) {
                 return el(Fragment, {});
             }
+
             return el(
                 Fragment,
                 {},

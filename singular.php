@@ -8,6 +8,8 @@
 
 get_header();
 
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals,WordPress.WP.GlobalVariablesOverride
+
 global $wpf_template_tags;
 ?>
 
@@ -28,19 +30,89 @@ if ( have_posts() ) {
 			?>
 
 			<?php
-			$wpf_show_toc = get_post_meta( get_the_ID(), '_wpf_show_toc', true );
+			$wpf_show_toc    = get_post_meta( get_the_ID(), '_wpf_show_toc', true );
+			$related_members = get_post_meta( get_the_ID(), '_wpf_related_members', true );
 			?>
 
 			<div class="page-main">
 				<?php
-				if ( $wpf_show_toc ) {
+				if ( $wpf_show_toc || ! empty( $related_members ) ) {
 					$wpf_toc      = new WPF_Toc();
 					$wpf_content  = $wpf_toc->get_the_content();
 					$wpf_toc_menu = $wpf_toc->get_html_menu( $wpf_content );
+					?>
+					<div class="singular__sidebar lg:hidden-yes">
+						<?php
+						if ( ! empty( $related_members ) ) {
+							$query = new WP_Query(
+								array(
+									'post_type'      => 'member',
+									'posts_per_page' => -1,
+									'post__in'       => $related_members,
+									'orderby'        => array(
+										'menu_order' => 'ASC',
+										'name'       => 'ASC',
+									),
+								)
+							);
+							if ( $query->have_posts() ) {
+								?>
+								<div class="singular__sidebar__item">
+									<div class="related-members">
+										<div class="related-members__header">
+											<div class="syneco-overline">
+												<div class="syneco-overline__icon">
+													<?php echo WPF_Icons::get_svg( 'ui', 'syneco', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+												</div>
+												<div class="syneco-overline__text">Related Members</div>
+											</div>
+										</div>
 
-					if ( $wpf_toc_menu ) {
+										<div class="related-members__main">
+											<?php
+											while ( $query->have_posts() ) {
+												$query->the_post();
+												?>
+												<div class="related-members__item">
+													<a 
+														href="<?php the_permalink(); ?>" 
+														class="related-members__item__avatar"
+														aria-label="<?php echo esc_attr( /* translators: %s: 投稿タイトル */ sprintf( __( '%sのプロフィールページへ', 'wordpressfoundation' ), $title ) ); ?>"
+														aria-hidden="true"
+														tabindex="-1">
+														<?php $wpf_template_tags::the_member_image( get_post_thumbnail_id(), 'thumbnail' ); ?>
+													</a>
+													<div class="related-members__item__content">
+														<a class="related-members__item__title" href="<?php the_permalink(); ?>">
+															<?php the_title(); ?>
+														</a>
+														<?php
+														$terms = WPF_Utils::get_the_terms();
+														if ( ! empty( $terms ) && 'uncategorized' !== $terms[0]->slug ) {
+															?>
+															<a class="related-members__item__position" href="<?php the_permalink(); ?>" tabindex="-1">
+																<?php echo esc_html( $terms[0]->name ); ?>
+															</a>
+															<?php
+														}
+														?>
+													</div>
+												</div>
+												<?php
+											}
+											wp_reset_postdata();
+											?>
+										</div>
+									</div>
+								</div>
+								<?php
+							}
+						}
 						?>
-						<div class="singular__sidebar lg:hidden-yes">
+
+						<?php
+						if ( $wpf_toc_menu ) {
+							?>
 							<div class="singular__sidebar__item">
 								<div class="singular__sidebar__item__header">
 									<div class="syneco-overline">
@@ -55,9 +127,11 @@ if ( have_posts() ) {
 									<?php echo $wpf_toc_menu; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 								</nav>
 							</div>
-						</div>
-						<?php
-					}
+							<?php
+						}
+						?>
+					</div>
+					<?php
 				}
 				?>
 
@@ -143,7 +217,7 @@ if ( have_posts() ) {
 							$wpf_show_back_link
 							) {
 							?>
-							<div class="flow" style="--flow-space: var(--space-s5)">
+							<div class="flow" style="--flow-space: var(--space-s6)">
 								<?php
 								// ページ区切り
 								if ( $wpf_show_link_pages ) {
@@ -159,6 +233,72 @@ if ( have_posts() ) {
 										</svg>
 									</div>
 									<?php
+								}
+								?>
+
+								<?php
+								if ( ! empty( $related_members ) ) {
+									$query = new WP_Query(
+										array(
+											'post_type' => 'member',
+											'posts_per_page' => -1,
+											'post__in'  => $related_members,
+											'orderby'   => array(
+												'menu_order' => 'ASC',
+												'name' => 'ASC',
+											),
+										)
+									);
+									if ( $query->have_posts() ) {
+										?>
+										<div class="related-members mbe-s6 pi-s4 pb-s3 bg-color-background-secondary radius border hidden-yes lg:hidden-no">
+											<div class="related-members__header">
+												<div class="syneco-overline">
+													<div class="syneco-overline__icon">
+														<?php echo WPF_Icons::get_svg( 'ui', 'syneco', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+													</div>
+													<div class="syneco-overline__text">Related Members</div>
+												</div>
+											</div>
+
+											<div class="related-members__main mbs-s1">
+												<?php
+												while ( $query->have_posts() ) {
+													$query->the_post();
+													?>
+													<div class="related-members__item">
+														<a 
+															href="<?php the_permalink(); ?>" 
+															class="related-members__item__avatar"
+															aria-label="<?php echo esc_attr( /* translators: %s: 投稿タイトル */ sprintf( __( '%sのプロフィールページへ', 'wordpressfoundation' ), $title ) ); ?>"
+															aria-hidden="true"
+															tabindex="-1">
+															<?php $wpf_template_tags::the_member_image( get_post_thumbnail_id(), 'thumbnail' ); ?>
+														</a>
+														<div class="related-members__item__content">
+															<a class="related-members__item__title" href="<?php the_permalink(); ?>">
+																<?php the_title(); ?>
+															</a>
+															<?php
+															$terms = WPF_Utils::get_the_terms();
+															if ( ! empty( $terms ) && 'uncategorized' !== $terms[0]->slug ) {
+																?>
+																<a class="related-members__item__position" href="<?php the_permalink(); ?>" tabindex="-1">
+																	<?php echo esc_html( $terms[0]->name ); ?>
+																</a>
+																<?php
+															}
+															?>
+														</div>
+													</div>
+													<?php
+												}
+												wp_reset_postdata();
+												?>
+											</div>
+										</div>
+										<?php
+									}
 								}
 								?>
 
@@ -213,7 +353,7 @@ if ( have_posts() ) {
 								if ( $wpf_show_related_posts ) {
 									?>
 									<div class="widget">
-										<div class="flow" style="--flow-space: var(--space-s0em)">
+										<div class="flow" style="--flow-space: var(--space-s4)">
 											<div class="widget-header switcher">
 												<h2 class="widget-header__title">
 													<?php esc_html_e( '関連記事', 'wordpressfoundation' ); ?>

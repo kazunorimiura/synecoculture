@@ -12,6 +12,11 @@
     list-style: none;
 }
 
+details.toc summary + * {
+    padding-block: fd(18, 24);
+    padding-inline: fd(18, 24);
+}
+
 .toc ul ul {
     padding-inline-start: 0;
     margin-block: 0;
@@ -25,6 +30,10 @@
 
 .toc ul:first-of-type {
     --flow-space: var(--space-s5);
+}
+
+details.toc ul:first-of-type {
+    --flow-space: 0;
 }
 
 .toc ul li {

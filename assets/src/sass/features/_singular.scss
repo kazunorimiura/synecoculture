@@ -25,7 +25,7 @@
     flex-basis: fd(180, 249);
     flex-grow: 1;
     min-width: 0;
-    max-height: calc(var(--vh) - #{fd(64, 96)});
+    height: 100%;
     overflow: auto;
 
     @media screen and (max-width: em(map.get($breakpoints, lg))) {
@@ -36,7 +36,7 @@
 }
 
 .singular__sidebar > * + * {
-    margin-block-start: rem(32);
+    margin-block-start: fd(48, 64);
 }
 
 .singular__sidebar__item > * + * {
@@ -63,7 +63,6 @@
     position: sticky;
     top: calc(var(--site-header-height) + var(--space-s5));
     max-height: calc(var(--vh) - var(--space-s5));
-    padding-block: rem(16);
     font-size: 1rem;
 }
 
@@ -72,7 +71,7 @@
 }
 
 .singular__toc\:fold {
-    margin-block-end: var(--space-s7);
+    margin-block-end: fd(48, 64);
 }
 
 .singular__toc\:fold + * {
