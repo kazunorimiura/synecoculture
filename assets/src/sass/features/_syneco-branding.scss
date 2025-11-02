@@ -29,16 +29,22 @@
 .syneco-slider {
     position: static;
     width: 100%;
-    max-width: rem(750);
+    max-width: fd(750, 1150, 1728px, 1729px, true);
     height: auto;
     margin-block-start: calc(var(--site-header-height) * -1);
     margin-inline: auto;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.syneco-slider.swiper-initialized {
+    opacity: 1;
 }
 
 .syneco-slider__item-image {
     display: block;
     width: 100%;
-    max-width: rem(750);
+    max-width: fd(750, 1150, 1728px, 1729px, true);
     height: auto;
     aspect-ratio: 375/326;
     margin-inline: auto;

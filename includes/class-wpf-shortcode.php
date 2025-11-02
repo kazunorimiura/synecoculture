@@ -142,7 +142,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 											if ( ! empty( $slide_image_id ) ) {
 												$slide_image = wp_get_attachment_image(
 													$slide_image_id,
-													'1536x1536',
+													'main-visual',
 													false,
 													array( 'loading' => 'lazy' )
 												);
@@ -373,7 +373,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 					 */
 					$cover_image = wp_get_attachment_image(
 						$cover_image_id,
-						'full',
+						'stretch',
 						false,
 						array( 'loading' => 'lazy' )
 					);
@@ -565,7 +565,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 											if ( ! empty( $image_id ) ) {
 												$image = wp_get_attachment_image(
 													$image_id,
-													'full',
+													'stretch',
 													false,
 													array( 'loading' => 'lazy' )
 												);
@@ -1539,7 +1539,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 						if ( ! empty( $bg_image_id ) ) {
 							$bg_image = wp_get_attachment_image(
 								$bg_image_id,
-								'1536x1536',
+								'stretch',
 								false,
 								array( 'loading' => 'lazy' )
 							);

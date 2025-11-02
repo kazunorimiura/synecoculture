@@ -51,12 +51,13 @@
     flex-grow: 999; // 1
     min-width: 0; // 2
     max-width: 100%; // 3
+}
 
-    // 旧コンテンツにおいてブロックエディタでは想定していないマークアップがあり、幅がちぐはぐになるため、やむを得ず幅を制限
-    > * {
-        max-width: var(--width-content);
-        margin-inline: auto;
-    }
+// 旧コンテンツにおいてブロックエディタでは想定していないマークアップがあり、幅がちぐはぐになるため、やむを得ず幅を制限
+.single-post .singular__main > *,
+.single-blog .singular__main > * {
+    max-width: var(--width-content);
+    margin-inline: auto;
 }
 
 .singular__toc {
@@ -74,6 +75,7 @@
     margin-block-end: fd(48, 64);
 }
 
+/* stylelint-disable-next-line no-descending-specificity */
 .singular__toc\:fold + * {
     --flow-space: 0 !important;
 }

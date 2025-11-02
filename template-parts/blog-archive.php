@@ -143,7 +143,7 @@ global $wpf_template_tags;
 										</div>
 
 										<a href="<?php the_permalink(); ?>" class="archive-blog__item__thubmnail frame" aria-hidden="true" tabindex="-1">
-											<?php $wpf_template_tags::the_image( get_post_thumbnail_id() ); ?>
+											<?php $wpf_template_tags::the_image( get_post_thumbnail_id(), 'blog-thumbnail' ); ?>
 										</a>
 
 										<?php

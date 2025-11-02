@@ -182,7 +182,7 @@ global $wpf_template_tags;
 									</div>
 
 									<a href="<?php the_permalink(); ?>" class="archive-post__item__thubmnail frame" aria-hidden="true" tabindex="-1">
-										<?php $wpf_template_tags::the_image( get_post_thumbnail_id(), 'medium-large' ); ?>
+										<?php $wpf_template_tags::the_image( get_post_thumbnail_id(), 'news-thumbnail' ); ?>
 									</a>
 								</div>
 							</article>

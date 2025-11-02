@@ -18,6 +18,10 @@
     text-decoration: none;
 }
 
+.rich-link:active {
+    filter: none;
+}
+
 [data-site-theme="dark"] .rich-link {
     border: 1px solid var(--color-border-opaque);
 }
@@ -52,6 +56,7 @@
     font-size: fd(rem(map.get($min-font-sizes, s0)), rem(map.get($max-font-sizes, s2)));
     font-weight: var(--font-weight-bold);
     line-height: fd($min-lh-value, $max-lh-value);
+    letter-spacing: -0.03em;
 }
 
 .rich-link__sub-text {
@@ -67,6 +72,7 @@
 
 .rich-link__cta {
     flex-shrink: 0;
+    padding: fd(10, 12);
     border-radius: 50%;
 }
 

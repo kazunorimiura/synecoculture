@@ -35,8 +35,11 @@
     width: 66%;
     max-width: rem(436);
     height: auto;
-    max-height: rem(435);
     transform: translate(-50%, -50%);
+
+    @media screen and (min-width: em(1728)) {
+        max-width: 25.23%;
+    }
 }
 
 .our-purpose__main {

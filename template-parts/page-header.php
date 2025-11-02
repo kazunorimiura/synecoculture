@@ -254,7 +254,7 @@ $wpf_subtitle          = isset( $args['subtitle'] ) ? $args['subtitle'] : '';
 				if ( is_single() && ! is_singular( 'member' ) && ! is_singular( 'manual' ) ) {
 					?>
 					<div class="page-header__thumbnail frame">
-						<?php echo $wpf_template_tags::the_image( get_post_thumbnail_id() ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+						<?php echo $wpf_template_tags::the_image( get_post_thumbnail_id(), 'page-header-thumbnail' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					</div>
 					<?php
 				} elseif ( is_single() && is_singular( 'member' ) ) {
@@ -315,7 +315,7 @@ $wpf_subtitle          = isset( $args['subtitle'] ) ? $args['subtitle'] : '';
 			if ( isset( $wpf_cover_media->media_metadata ) && isset( $wpf_cover_media->media_metadata->type ) && 'image' === $wpf_cover_media->media_metadata->type ) {
 				$wpf_cover_media_image = wp_get_attachment_image(
 					$wpf_cover_media->media_id,
-					'1536x1536',
+					'stretch',
 					false,
 					array()
 				);

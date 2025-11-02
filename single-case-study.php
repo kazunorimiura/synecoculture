@@ -22,7 +22,7 @@ function get_case_study_content() {
 	?>
 	<?php
 	$basic = SCF::get( '_wpf_case_study__basic' );
-	if ( ! empty( $basic ) ) {
+	if ( ! WPF_Utils::is_array_empty( $basic ) ) {
 		?>
 		<h2>
 			<?php echo esc_html_e( '基本情報', 'wordpressfoundation' ); ?>
@@ -52,7 +52,7 @@ function get_case_study_content() {
 
 	<?php
 	$detail = SCF::get( '_wpf_case_study__detail' );
-	if ( ! empty( $detail ) ) {
+	if ( ! WPF_Utils::is_array_empty( $detail ) ) {
 		?>
 		<h2>
 			<?php echo esc_html_e( '実践内容', 'wordpressfoundation' ); ?>
@@ -82,7 +82,7 @@ function get_case_study_content() {
 
 	<?php
 	$results = SCF::get( '_wpf_case_study__results' );
-	if ( ! empty( $results ) ) {
+	if ( ! WPF_Utils::is_array_empty( $results ) ) {
 		?>
 		<h2>
 			<?php echo esc_html_e( '成果・気づき', 'wordpressfoundation' ); ?>
@@ -112,7 +112,7 @@ function get_case_study_content() {
 
 	<?php
 	$log = SCF::get( '_wpf_case_study__log' );
-	if ( ! empty( $log ) ) {
+	if ( ! WPF_Utils::is_array_empty( $log ) ) {
 		?>
 		<h2>
 			<?php echo esc_html_e( '観察記録', 'wordpressfoundation' ); ?>

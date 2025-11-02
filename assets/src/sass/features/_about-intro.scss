@@ -23,7 +23,7 @@
     --n: 1;
     --d: 0.5625;
 
-    flex-basis: fd(200, 317);
+    flex-basis: fd(200, 317, $min-viewport, $max-viewport, true);
     flex-shrink: 0;
     border-radius: var(--radius-lg);
 

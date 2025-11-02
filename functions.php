@@ -156,3 +156,45 @@ if ( ! is_plugin_active( 'all-in-one-seo-pack/all_in_one_seo_pack.php' ) && ! is
  * https://make.wordpress.org/core/2024/10/18/auto-sizes-for-lazy-loaded-images-in-wordpress-6-7/
  */
 add_filter( 'wp_img_tag_add_auto_sizes', '__return_false' );
+
+/**
+ * アタッチメントのsizes属性を設定
+ *
+ * @param string[]     $attr 属性名をキーにしたイメージマークアップの属性値の配列
+ * @param WP_Post      $attachment 画像アタッチメントの投稿
+ * @param string|int[] $size 要求された画像サイズ。登録されている任意の画像サイズ名、またはピクセル単位の幅と高さの値の配列（この順番で）を指定できる
+ * @return $attr
+ * @since 0.1.0
+ */
+function wpf_child_attachment_image_attributes( $attr, $attachment, $size ) {
+	if ( in_array( $size, array( 'medium', 'blog-thumbnail', 'case-study-thumbnail' ), true ) ) {
+		$attr['sizes'] = '(max-width: 768px) 82.68vw, (max-width: 1200px) 38.33vw, 30.15vw';
+	}
+
+	if ( in_array( $size, array( 'large' ), true ) ) {
+		$attr['sizes'] = '(max-width: 720px) 89.44vw, 720px';
+	}
+
+	if ( in_array( $size, array( 'member-thumbnail' ), true ) ) {
+		$attr['sizes'] = '(max-width: 768px) 43.35vw, (max-width: 1200px) 19.9vw, 22.28vw';
+	}
+
+	if ( in_array( $size, array( 'news-thumbnail' ), true ) ) {
+		$attr['sizes'] = '(max-width: 600px) 23.57vw, (max-width: 768px) 89.71vw, (max-width: 1200px) 43.66vw, 34.95vw';
+	}
+
+	if ( in_array( $size, array( 'stretch' ), true ) ) {
+		$attr['sizes'] = '97.22vw';
+	}
+
+	if ( in_array( $size, array( 'page-header-thumbnail' ), true ) ) {
+		$attr['sizes'] = '(max-width: 600px) 89vw, 14.4vw';
+	}
+
+	if ( in_array( $size, array( 'main-visual' ), true ) ) {
+		$attr['sizes'] = '(max-width: 750px) 89.6vw, 45.71vw';
+	}
+
+	return $attr;
+}
+add_filter( 'wp_get_attachment_image_attributes', 'wpf_child_attachment_image_attributes', 10, 3 );

@@ -331,5 +331,39 @@ if ( ! class_exists( 'WPF_Utils' ) ) {
 			}
 			return false;
 		}
+
+		/**
+		 * 配列が実質的に空かどうかを再帰的にチェックする
+		 *
+		 * すべての要素が空（empty値）の場合、または空文字列のみの場合にtrueを返します。
+		 * ネストされた配列も再帰的にチェックされます。
+		 *
+		 * @param mixed $array チェック対象の配列または値
+		 * @return bool すべての要素が空の場合true、1つでも値がある場合false
+		 *
+		 * @example
+		 * is_array_empty(['', ['', '']]) // true
+		 * is_array_empty(['test', '']) // false
+		 * is_array_empty([0 => ['key' => '']]) // true
+		 */
+		public static function is_array_empty( $array ) {
+			if ( ! is_array( $array ) ) {
+				return empty( $array );
+			}
+
+			foreach ( $array as $value ) {
+				if ( is_array( $value ) ) {
+					if ( ! self::is_array_empty( $value ) ) {
+						return false;
+					}
+				} else {
+					if ( ! empty( $value ) ) {
+						return false;
+					}
+				}
+			}
+
+			return true;
+		}
 	}
 }

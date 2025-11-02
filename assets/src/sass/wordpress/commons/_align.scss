@@ -45,6 +45,10 @@ img.alignlright {
     --flow-space: 0;
 }
 
+:where(.is-layout-grid) {
+    gap: var(--space-s0);
+}
+
 // 中央揃え
 // ※直下でない要素にWPのデフォルトスタイルが適用されるため上書きする
 // .aligncenter {

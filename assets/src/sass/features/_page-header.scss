@@ -95,12 +95,6 @@
     width: 100%;
 }
 
-.page .page-header__main__content,
-.archive .page-header__main__content,
-.single-manual .page-header__main__content {
-    flex-shrink: 0;
-}
-
 .page-header__title {
     --flow-space: #{fd(24, 32)};
 
