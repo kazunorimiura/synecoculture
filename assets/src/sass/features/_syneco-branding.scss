@@ -212,6 +212,13 @@
     align-items: center;
 }
 
+a.syneco-branding__cta,
+a.syneco-branding__cta:link,
+a.syneco-branding__cta:visited {
+    color: var(--color-content-primary);
+    text-decoration: none;
+}
+
 .syneco-branding__cta-text {
     font-weight: var(--font-weight-sign);
     line-height: var(--line-height-sign);

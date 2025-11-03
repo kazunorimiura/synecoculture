@@ -221,12 +221,12 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 									</div>
 								</div>
 
-								<div class="syneco-branding__cta">
+								<a class="syneco-branding__cta" href="#our-story-container">
 									<div class="syneco-branding__cta-icon" aria-hidden="true">
 										<?php echo WPF_Icons::get_svg( 'ui', 'arrow_down', 24 ); /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>
 									</div>
 									<div class="syneco-branding__cta-text">Scroll</div>
-								</div>
+								</a>
 							</div>
 							<?php
 						}
@@ -262,7 +262,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			ob_start();
 			if ( ! empty( $heading ) || ! empty( $body ) || ! empty( $image_1_id ) || ! empty( $image_2_id ) || ! empty( $image_3_id ) ) {
 				?>
-				<div class="our-story-container">
+				<div id="our-story-container" class="our-story-container">
 					<div class="our-story">
 						<?php
 						$image_1 = wp_get_attachment_image(
