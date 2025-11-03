@@ -56,6 +56,12 @@ class synecoSlider {
                     if (firstImage) {
                         firstImage.style.transform = 'scale(1)';
                     }
+
+                    // スライドが1つ以下の場合、ボタンを非表示
+                    const playPauseButton = document.querySelector('.syneco-slider__play-pause-button');
+                    if (this.slides.length <= 1) {
+                        playPauseButton.style.display = 'none';
+                    }
                 },
             },
         });
