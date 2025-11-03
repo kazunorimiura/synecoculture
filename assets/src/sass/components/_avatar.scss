@@ -2,6 +2,7 @@
 
 .avatar,
 .avatar > img {
+    display: block;
     flex: none;
     width: var(--avatar-size, #{fd(90, 200)});
     object-fit: cover;

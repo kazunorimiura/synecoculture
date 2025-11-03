@@ -142,7 +142,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 											if ( ! empty( $slide_image_id ) ) {
 												$slide_image = wp_get_attachment_image(
 													$slide_image_id,
-													'main-visual',
+													'syneco_slide',
 													false,
 													array( 'loading' => 'lazy' )
 												);
@@ -267,7 +267,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 						<?php
 						$image_1 = wp_get_attachment_image(
 							$image_1_id,
-							'medium_large',
+							'story_thumbnail',
 							false,
 							array( 'loading' => 'lazy' )
 						);
@@ -308,7 +308,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 						<?php
 						$image_2 = wp_get_attachment_image(
 							$image_2_id,
-							'medium_large',
+							'story_thumbnail',
 							false,
 							array( 'loading' => 'lazy' )
 						);
@@ -326,7 +326,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 						<?php
 						$image_3 = wp_get_attachment_image(
 							$image_3_id,
-							'medium_large',
+							'story_thumbnail',
 							false,
 							array( 'loading' => 'lazy' )
 						);
@@ -624,7 +624,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 					 */
 					$cover_image = wp_get_attachment_image(
 						$cover_image_id,
-						'large',
+						'trilemma',
 						false,
 						array( 'loading' => 'lazy' )
 					);
@@ -1361,10 +1361,11 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 
 									<?php
 									$thumbnail_id = $learn['_wpf_top__learn__thumbnail'];
+									$size         = 0 === $counter ? 'top_learn_feature' : 'top_learn';
 									if ( ! empty( $thumbnail_id ) ) {
 										$thumbnail = wp_get_attachment_image(
 											$thumbnail_id,
-											'1536x1536',
+											$size,
 											false,
 											array( 'loading' => 'lazy' )
 										);
@@ -1656,7 +1657,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 														href="<?php the_permalink(); ?>" 
 														aria-hidden="true"
 														tabindex="-1">
-														<?php WPF_Template_Tags::the_image( get_post_thumbnail_id() ); ?>
+														<?php WPF_Template_Tags::the_image( get_post_thumbnail_id(), 'news_slide' ); ?>
 													</a>
 												</div>
 											</div>
@@ -1794,14 +1795,14 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 							if ( ! empty( $image_url ) ) {
 								$media_id = attachment_url_to_postid( $image_url );
 								if ( ! empty( $media_id ) ) {
-									WPF_Template_Tags::the_image( $media_id, 'medium' );
+									WPF_Template_Tags::the_image( $media_id, 'rich_link' );
 								} else {
 									?>
 									<img src="<?php echo esc_url( $image_url ); ?>" alt="">
 									<?php
 								}
 							} else {
-								WPF_Template_Tags::the_image( 0, 'medium' );
+								WPF_Template_Tags::the_image( 0, 'rich_link' );
 							}
 							?>
 						</div>
@@ -1970,7 +1971,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 								</div>
 
 								<a href="<?php the_permalink(); ?>" class="project-posts__item__thubmnail frame" aria-hidden="true" tabindex="-1">
-									<?php WPF_Template_Tags::the_image( get_post_thumbnail_id(), 'medium' ); ?>
+									<?php WPF_Template_Tags::the_image( get_post_thumbnail_id(), 'post_list' ); ?>
 								</a>
 							</div>
 						</div>
@@ -2016,7 +2017,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			$defaults = array(
 				'heading_text' => '',
 				'body_text'    => '',
-				'size'         => 'medium',
+				'size'         => 'post_list',
 				'post_types'   => 'project',
 				'per_page'     => 5,
 				'orderby'      => 'date',
@@ -2500,7 +2501,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 					<?php
 					$image = wp_get_attachment_image(
 						$image_id,
-						'medium',
+						'about_intro',
 						false,
 						array( 'loading' => 'lazy' )
 					);
@@ -2666,7 +2667,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 								<?php
 								$image = wp_get_attachment_image(
 									$image_id,
-									'medium',
+									'about_child_link',
 									false,
 									array( 'loading' => 'lazy' )
 								);

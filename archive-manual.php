@@ -102,7 +102,7 @@ global $wpf_template_tags;
 									if ( ! empty( $image_id ) ) {
 										$image = wp_get_attachment_image(
 											$image_id,
-											'large',
+											'manual_link_banner',
 											false,
 											array(
 												'loading' => 'lazy',

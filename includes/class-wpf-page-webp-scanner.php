@@ -771,6 +771,7 @@ class WPF_Page_WebP_Scanner {
 		.webp-image-preview img {
 			max-width: 100%;
 			max-height: 100%;
+			display: block;
 			object-fit: cover;
 			border: none;
 			transition: opacity 0.3s ease;

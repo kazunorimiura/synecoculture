@@ -168,7 +168,7 @@ global $wpf_template_tags;
 									</div>
 
 									<a href="<?php the_permalink(); ?>" class="archive-case-study__item__thubmnail frame" aria-hidden="true" tabindex="-1">
-										<?php $wpf_template_tags::the_image( get_post_thumbnail_id(), 'case-study-thumbnail' ); ?>
+										<?php $wpf_template_tags::the_image( get_post_thumbnail_id(), 'case_study_thumbnail' ); ?>
 									</a>
 								</div>
 							</article>

@@ -71,7 +71,7 @@ global $wpf_template_tags;
 								</div>
 
 								<a href="<?php the_permalink(); ?>" class="archive-member__item__thubmnail frame" aria-hidden="true" tabindex="-1">
-									<?php $wpf_template_tags::the_member_image( get_post_thumbnail_id(), 'member-thumbnail' ); ?>
+									<?php $wpf_template_tags::the_member_image( get_post_thumbnail_id(), 'member_thumbnail' ); ?>
 								</a>
 							</article>
 							<?php

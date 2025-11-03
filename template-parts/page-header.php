@@ -254,7 +254,7 @@ $wpf_subtitle          = isset( $args['subtitle'] ) ? $args['subtitle'] : '';
 				if ( is_single() && ! is_singular( 'member' ) && ! is_singular( 'manual' ) ) {
 					?>
 					<div class="page-header__thumbnail frame">
-						<?php echo $wpf_template_tags::the_image( get_post_thumbnail_id(), 'page-header-thumbnail' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+						<?php echo $wpf_template_tags::the_image( get_post_thumbnail_id(), 'page_header_thumbnail' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					</div>
 					<?php
 				} elseif ( is_single() && is_singular( 'member' ) ) {
