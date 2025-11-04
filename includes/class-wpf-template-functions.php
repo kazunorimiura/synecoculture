@@ -776,7 +776,8 @@ class WPF_Template_Functions {
 		// `_wpf_show_toc` メタをパブリック投稿タイプに登録
 		$object_type = 'post';
 		$data        = array( $object_type => array() );
-		foreach ( $post_types as $post_type ) {
+		$_post_types = array( 'post', 'page', 'blog', 'manual', 'case-study' );
+		foreach ( $_post_types as $post_type ) {
 			$default = false;
 			if ( 'case-study' === $post_type || 'manual' === $post_type ) {
 				$default = true;
