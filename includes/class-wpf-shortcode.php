@@ -2250,14 +2250,16 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 
 			// デフォルト属性
 			$defaults = array(
-				'heading_text' => '',
-				'body_text'    => '',
-				'size'         => 'medium',
-				'post_types'   => 'post,blog',
-				'per_page'     => 5,
-				'orderby'      => 'date',
-				'order'        => 'DESC',
-				'relation'     => 'OR',
+				'heading_text'  => '',
+				'heading_level' => 'h2',
+				'heading_id'    => '',
+				'body_text'     => '',
+				'size'          => 'medium',
+				'post_types'    => 'post,blog',
+				'per_page'      => 5,
+				'orderby'       => 'date',
+				'order'         => 'DESC',
+				'relation'      => 'OR',
 			);
 
 			$atts = shortcode_atts(
@@ -2323,8 +2325,9 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 				?>
 				<?php
 				if ( ! empty( $atts['heading_text'] ) ) {
+					$heading_id = ! empty( $atts['heading_id'] ) ? ' id="' . $atts['heading_id'] . '"' : '';
 					?>
-					<h2 class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></h2>
+					<<?php echo esc_attr( $atts['heading_level'] ); ?><?php echo esc_attr( $heading_id ); ?> class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></<?php echo esc_attr( $atts['heading_level'] ); ?>>
 					<?php
 				}
 				?>
