@@ -46,6 +46,19 @@ foreach ( $wpf_forms as $wpf_form ) {
 		2
 	);
 
+	add_filter(
+		'mwform_value_mw-wp-form-' . $wpf_form->ID,
+		function( $value, $name ) {
+			// 問い合わせ種別を選択する（例, ?inquiry-type=collabo）
+			if ( 'inquiry-type' === $name && isset( $_GET['inquiry-type'] ) ) { // phpcs:ignore
+				return sanitize_text_field( $_GET['inquiry-type'] ); // phpcs:ignore
+			}
+			return $value;
+		},
+		10,
+		2
+	);
+
 	// reCAPTCHAのエラーメッセージ変更
 	add_filter(
 		'mwform_error_message_mw-wp-form-' . $wpf_form->ID,
