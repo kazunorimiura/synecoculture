@@ -107,14 +107,20 @@ foreach ( $categories as $cat ) {
 				$args = array(
 					'post_type'      => 'glossary',
 					'posts_per_page' => -1,
-					'orderby'        => 'title',
-					'order'          => 'ASC',
 					'tax_query'      => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 						array(
 							'taxonomy' => 'glossary_cat',
 							'field'    => 'slug',
 							'terms'    => $cat,
 						),
+					),
+					'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+						array(
+							'key' => '_wpf_char_for_sort',
+						),
+					),
+					'orderby'        => array(
+						'_wpf_char_for_sort' => 'ASC',
 					),
 					'lang'           => $current_lang,
 				);

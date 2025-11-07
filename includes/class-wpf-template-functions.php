@@ -675,7 +675,7 @@ class WPF_Template_Functions {
 				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes', 'revisions' ),
 				'menu_position' => 5,
 				'rewrite'       => array(
-					'slug'       => 'glossary',
+					'slug'       => 'resources/glossary',
 					'with_front' => false,
 				),
 				'has_archive'   => true,
@@ -777,6 +777,27 @@ class WPF_Template_Functions {
 			);
 		}
 		$obj['_wpf_term_reading'] = $data;
+
+		// `_wpf_char_for_sort` メタをパブリック投稿タイプに登録
+		$object_type = 'post';
+		$data        = array( $object_type => array() );
+		foreach ( $post_types as $post_type ) {
+			if ( 'glossary' !== $post_type ) {
+				continue;
+			}
+
+			$data[ $object_type ][] = array(
+				'object_subtype' => $post_type,
+				'type'           => 'string',
+				'default'        => '',
+				'single'         => true,
+				'show_in_rest'   => true,
+				'auth_callback'  => function() {
+					return current_user_can( 'edit_posts' );
+				},
+			);
+		}
+		$obj['_wpf_char_for_sort'] = $data;
 
 		// `_wpf_subtitle` メタをパブリック投稿タイプに登録
 		$object_type = 'post';

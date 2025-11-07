@@ -41,7 +41,7 @@ $wpf_subtitle          = isset( $args['subtitle'] ) ? $args['subtitle'] : '';
 						/**
 						 * ヘッダーメタ
 						 */
-						if ( ! is_singular( 'member' ) ) {
+						if ( ! is_singular( 'member' ) && ! is_singular( 'glossary' ) ) {
 							$wpf_terms = WPF_Utils::get_the_terms();
 							if ( ! is_single() && $wpf_breadcrumbs || is_singular( 'manual' ) && $wpf_breadcrumbs || is_single() && ! empty( $wpf_terms ) && 'uncategorized' !== $wpf_terms[0]->slug ) {
 								?>
@@ -140,6 +140,25 @@ $wpf_subtitle          = isset( $args['subtitle'] ) ? $args['subtitle'] : '';
 								<h1 class="page-header__title">
 									<?php echo $wpf_title; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 								</h1>
+								<?php
+							}
+						}
+						?>
+
+						<?php
+						/**
+						 * 読み仮名
+						 */
+						if ( is_singular( 'glossary' ) ) {
+							$wpf_term_reading = get_post_meta( get_the_ID(), '_wpf_term_reading', true );
+							if ( ! empty( $wpf_term_reading ) ) {
+								?>
+								<p class="page-header__ruby">
+									<span class="fw-sign">
+										<?php echo esc_html( __( '読み', 'wordpressfoundation' ) ); ?>:
+									</span>
+									<?php echo wp_kses_post( $wpf_term_reading ); ?>
+								</p>
 								<?php
 							}
 						}
@@ -251,7 +270,7 @@ $wpf_subtitle          = isset( $args['subtitle'] ) ? $args['subtitle'] : '';
 				/**
 				 * シングルページにおけるサムネイル
 				 */
-				if ( is_single() && ! is_singular( 'member' ) && ! is_singular( 'manual' ) ) {
+				if ( is_single() && ! is_singular( 'member' ) && ! is_singular( 'manual' ) && ! is_singular( 'glossary' ) ) {
 					?>
 					<div class="page-header__thumbnail frame">
 						<?php echo $wpf_template_tags::the_image( get_post_thumbnail_id(), 'page_header_thumbnail' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
@@ -260,9 +279,21 @@ $wpf_subtitle          = isset( $args['subtitle'] ) ? $args['subtitle'] : '';
 				} elseif ( is_single() && is_singular( 'member' ) ) {
 					?>
 					<div class="page-header__thumbnail frame">
-						<?php echo $wpf_template_tags::the_member_image( get_post_thumbnail_id() ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+						<?php echo $wpf_template_tags::the_member_image( get_post_thumbnail_id(), 'page_header_thumbnail' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
 					</div>
 					<?php
+				} elseif ( is_single() && is_singular( 'glossary' ) ) {
+					$wpf_image = wp_get_attachment_image(
+						get_post_thumbnail_id(),
+						'page_header_thumbnail'
+					);
+					if ( ! empty( $wpf_image ) ) {
+						?>
+						<div class="page-header__thumbnail frame">
+							<?php echo $wpf_image; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+						</div>
+						<?php
+					}
 				}
 			}
 			?>

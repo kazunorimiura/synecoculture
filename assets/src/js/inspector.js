@@ -25,6 +25,30 @@ import includes from 'lodash/includes';
         return postTypes.filter((type) => type.viewable && type.slug !== 'attachment').map((type) => type.slug);
     };
 
+    const MetaTextControl = compose.compose(
+        withDispatch((dispatch, props) => {
+            return {
+                setMetaValue: (metaValue) => {
+                    dispatch('core/editor').editPost({
+                        meta: { [props.metaKey]: metaValue },
+                    });
+                },
+            };
+        }),
+        withSelect((select, props) => {
+            return {
+                metaValue: select('core/editor').getEditedPostAttribute('meta')[props.metaKey],
+            };
+        }),
+    )((props) => {
+        return el(TextControl, {
+            label: props.title,
+            value: props.metaValue,
+            onChange: (content) => props.setMetaValue(content),
+            help: props.help,
+        });
+    });
+
     const MetaTextareaControl = compose.compose(
         withDispatch(function (dispatch, props) {
             return {
@@ -558,6 +582,44 @@ import includes from 'lodash/includes';
                             metaKey: '_wpf_term_reading',
                             title: __('読み仮名', 'wordpressfoundation'),
                             help: __('読み仮名は日本語のみ表示されます。', 'wordpressfoundation'),
+                        }),
+                    ),
+                ),
+            );
+        },
+    });
+
+    registerPlugin('wpf-inspector-char-for-sort', {
+        icon: false,
+        render: function () {
+            const allowedPostTypes = usePostTypes();
+            const postType = select('core/editor').getCurrentPostType();
+
+            // 投稿タイプを限定
+            const keepTypes = ['glossary'];
+            allowedPostTypes.splice(0, allowedPostTypes.length, ...allowedPostTypes.filter((type) => keepTypes.includes(type)));
+
+            if (!includes(allowedPostTypes, postType)) {
+                return el(Fragment, {});
+            }
+
+            return el(
+                Fragment,
+                {},
+                el(
+                    PluginPostStatusInfo,
+                    {},
+                    el(
+                        __experimentalVStack,
+                        {
+                            style: {
+                                flexGrow: 1,
+                            },
+                        },
+                        el(MetaTextControl, {
+                            metaKey: '_wpf_char_for_sort',
+                            title: __('ソート用文字', 'wordpressfoundation'),
+                            help: __('ソート用文字は必ず設定してください。未設定の場合、投稿が表示されません。あかさたな順またはAZ順でソートされます。', 'wordpressfoundation'),
                         }),
                     ),
                 ),
