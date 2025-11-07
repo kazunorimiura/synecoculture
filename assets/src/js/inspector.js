@@ -527,6 +527,44 @@ import includes from 'lodash/includes';
         },
     });
 
+    registerPlugin('wpf-inspector-term-reading', {
+        icon: false,
+        render: function () {
+            const allowedPostTypes = usePostTypes();
+            const postType = select('core/editor').getCurrentPostType();
+
+            // 投稿タイプを限定
+            const keepTypes = ['glossary'];
+            allowedPostTypes.splice(0, allowedPostTypes.length, ...allowedPostTypes.filter((type) => keepTypes.includes(type)));
+
+            if (!includes(allowedPostTypes, postType)) {
+                return el(Fragment, {});
+            }
+
+            return el(
+                Fragment,
+                {},
+                el(
+                    PluginPostStatusInfo,
+                    {},
+                    el(
+                        __experimentalVStack,
+                        {
+                            style: {
+                                flexGrow: 1,
+                            },
+                        },
+                        el(MetaTextareaControl, {
+                            metaKey: '_wpf_term_reading',
+                            title: __('読み仮名', 'wordpressfoundation'),
+                            help: __('読み仮名は日本語のみ表示されます。', 'wordpressfoundation'),
+                        }),
+                    ),
+                ),
+            );
+        },
+    });
+
     registerPlugin('wpf-show-toc-setting', {
         icon: false,
         render: () => {

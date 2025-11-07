@@ -1,0 +1,92 @@
+@use "sass:map";
+@use "sass:math";
+@use "../config";
+@use "../base/settings" as *;
+@use "../utilities/flow";
+
+.archive-glossary-nav-container {
+    border-block-end: 1px solid var(--color-border-opaque);
+}
+
+.archive-glossary-nav {
+    padding-block: fd(24, 32);
+}
+
+.archive-glossary-nav > ul {
+    // config
+    --grid-column-gap: 0;
+    --grid-row-gap: #{fd(12, 16)};
+    --grid-max-column-count: 23;
+    --grid-column-min-width: 60px;
+
+    // settings
+    --grid-column-max-width: calc(100% / var(--grid-max-column-count));
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--grid-column-min-width), 1fr));
+    gap: var(--grid-row-gap) var(--grid-column-gap);
+    padding: 0;
+    list-style: none;
+}
+
+.archive-glossary-nav > ul > li > a,
+.archive-glossary-nav > ul > li > span {
+    position: relative;
+    display: block;
+    text-align: center;
+}
+
+.archive-glossary-nav > ul > li > a,
+.archive-glossary-nav > ul > li > a:link,
+.archive-glossary-nav > ul > li > a:visited {
+    color: var(--color-content-primary);
+}
+
+.archive-glossary-nav > ul > li > span {
+    color: var(--color-content-disabled);
+}
+
+.archive-glossary-nav > ul > li > a::after,
+.archive-glossary-nav > ul > li > span::after {
+    position: absolute;
+    top: 0;
+    right: -1px;
+    display: block;
+    width: 1px;
+    height: 100%;
+    content: "";
+    background-color: var(--color-border-opaque);
+}
+
+.archive-glossary-nav > ul > li:last-child > a::after,
+.archive-glossary-nav > ul > li:last-child > span::after {
+    display: none;
+}
+
+.archive-glossary {
+    @extend %flow;
+}
+
+.archive-glossary__cat-section {
+    @extend %flow;
+
+    --flow-space: #{fd(48, 64)};
+}
+
+.archive-glossary__items {
+    --flow-space: #{fd(24, 32)};
+
+    // config
+    --grid-gap: var(--space-s0);
+    --grid-max-column-count: 3;
+    --grid-column-min-width: 280px;
+
+    // settings
+    --grid-gap-count: calc(var(--grid-max-column-count) - 1);
+    --grid-total-gap-width: calc(var(--grid-gap-count) * var(--grid-gap));
+    --grid-column-max-width: calc((100% - var(--grid-total-gap-width)) / var(--grid-max-column-count));
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(max(var(--grid-column-min-width), var(--grid-column-max-width)), 1fr));
+    grid-gap: var(--grid-gap);
+}

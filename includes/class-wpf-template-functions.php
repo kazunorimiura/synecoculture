@@ -499,16 +499,17 @@ class WPF_Template_Functions {
 			'glossary_cat',
 			'glossary',
 			array(
-				'hierarchical'      => true,
-				'rewrite'           => array(
+				'hierarchical'       => true,
+				'rewrite'            => array(
 					'slug'         => 'glossary/category',
 					'with_front'   => false,
 					'hierarchical' => true,
 				),
-				'public'            => true,
-				'show_ui'           => true,
-				'show_admin_column' => true,
-				'show_in_rest'      => true,
+				'public'             => true,
+				'publicly_queryable' => false,
+				'show_ui'            => true,
+				'show_admin_column'  => true,
+				'show_in_rest'       => true,
 			)
 		);
 
@@ -674,7 +675,7 @@ class WPF_Template_Functions {
 				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes', 'revisions' ),
 				'menu_position' => 5,
 				'rewrite'       => array(
-					'slug'       => 'glossarys',
+					'slug'       => 'glossary',
 					'with_front' => false,
 				),
 				'has_archive'   => true,
@@ -755,6 +756,27 @@ class WPF_Template_Functions {
 			)
 		);
 		unset( $post_types['attachment'] );
+
+		// `_wpf_term_reading` メタをパブリック投稿タイプに登録
+		$object_type = 'post';
+		$data        = array( $object_type => array() );
+		foreach ( $post_types as $post_type ) {
+			if ( 'glossary' !== $post_type ) {
+				continue;
+			}
+
+			$data[ $object_type ][] = array(
+				'object_subtype' => $post_type,
+				'type'           => 'string',
+				'default'        => '',
+				'single'         => true,
+				'show_in_rest'   => true,
+				'auth_callback'  => function() {
+					return current_user_can( 'edit_posts' );
+				},
+			);
+		}
+		$obj['_wpf_term_reading'] = $data;
 
 		// `_wpf_subtitle` メタをパブリック投稿タイプに登録
 		$object_type = 'post';

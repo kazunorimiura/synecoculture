@@ -1743,6 +1743,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 					'text'      => '',
 					'sub_text'  => '',
 					'image_url' => '',
+					'no_image'  => 'true',
 					'target'    => '_self',
 				),
 				$atts
@@ -1752,6 +1753,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			$text      = $atts['text'];
 			$sub_text  = $atts['sub_text'];
 			$image_url = self::strip( $atts['image_url'] );
+			$no_image  = 'true' === $atts['no_image'] ? true : false;
 			$target    = self::strip( $atts['target'] );
 
 			ob_start();
@@ -1790,22 +1792,28 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 							</div>
 						</div>
 
-						<div class="rich-link__thumbnail">
-							<?php
-							if ( ! empty( $image_url ) ) {
-								$media_id = attachment_url_to_postid( $image_url );
-								if ( ! empty( $media_id ) ) {
-									WPF_Template_Tags::the_image( $media_id, 'rich_link' );
-								} else {
-									?>
-									<img src="<?php echo esc_url( $image_url ); ?>" alt="">
-									<?php
-								}
-							} else {
-								WPF_Template_Tags::the_image( 0, 'rich_link' );
-							}
+						<?php
+						if ( $no_image || ! empty( $image_url ) ) {
 							?>
-						</div>
+							<div class="rich-link__thumbnail">
+								<?php
+								if ( ! empty( $image_url ) ) {
+									$media_id = attachment_url_to_postid( $image_url );
+									if ( ! empty( $media_id ) ) {
+										WPF_Template_Tags::the_image( $media_id, 'rich_link' );
+									} else {
+										?>
+										<img src="<?php echo esc_url( $image_url ); ?>" alt="">
+										<?php
+									}
+								} else {
+									WPF_Template_Tags::the_image( 0, 'rich_link' );
+								}
+								?>
+							</div>
+							<?php
+						}
+						?>
 					</div>
 				</a>
 				<?php
