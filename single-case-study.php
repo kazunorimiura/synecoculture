@@ -190,7 +190,7 @@ if ( have_posts() ) {
 				$wpf_show_toc = get_post_meta( get_the_ID(), '_wpf_show_toc', true );
 				if ( $wpf_show_toc ) {
 					$wpf_toc      = new WPF_Toc();
-					$wpf_content  = $wpf_toc->get_the_content( null, false, get_case_study_content() );
+					$wpf_content  = $wpf_toc->get_the_content( apply_filters( 'the_content', get_the_content() . get_case_study_content() ) );
 					$wpf_toc_menu = $wpf_toc->get_html_menu( $wpf_content );
 
 					if ( $wpf_toc_menu ) {

@@ -267,6 +267,24 @@
          "現在募集中の職種はありません。": [
             "Il n'y a actuellement aucun poste disponible."
          ],
+         "回答を開く": [
+            "Ouvrir la réponse"
+         ],
+         "回答を閉じる": [
+            "Fermer la réponse"
+         ],
+         "チャプターを開く": [
+            "Ouvrir le chapitre"
+         ],
+         "チャプターを閉じる": [
+            "Fermer le chapitre"
+         ],
+         "目次を開く": [
+            "Ouvrir la table des matières"
+         ],
+         "目次を閉じる": [
+            "Fermer la table des matières"
+         ],
          "terms\u0004ターム": [
             "Termes"
          ],

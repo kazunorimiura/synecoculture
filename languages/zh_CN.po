@@ -296,3 +296,21 @@ msgstr "基本信息"
 
 msgid "現在募集中の職種はありません。"
 msgstr "目前没有招聘职位。"
+
+msgid "回答を開く"
+msgstr "展开回答"
+
+msgid "回答を閉じる"
+msgstr "收起回答"
+
+msgid "チャプターを開く"
+msgstr "展开章节"
+
+msgid "チャプターを閉じる"
+msgstr "收起章节"
+
+msgid "目次を開く"
+msgstr "打开目录"
+
+msgid "目次を閉じる"
+msgstr "关闭目录"

@@ -79,19 +79,10 @@ if ( ! class_exists( 'WPF_Toc' ) ) {
 		 *
 		 * @link https://developer.wordpress.org/reference/functions/the_content/
 		 *
-		 * @param string  $more_link_text Moreテキスト。
-		 * @param boolean $strip_teaser 本文の前にティーザー・コンテンツを掲載する。
-		 * @param string  $additional_content 追加のコンテンツ
+		 * @param string $content コンテンツ
 		 * @return string
 		 */
-		public function get_the_content( $more_link_text = null, $strip_teaser = false, $additional_content = '' ) {
-			/**
-			 * ショートコードなどの展開が行われた状態のコンテンツを取得する（get_the_contentはフィルターを通過しない）
-			 *
-			 * @see https://developer.wordpress.org/reference/functions/get_the_content/
-			 */
-			$content = apply_filters( 'the_content', get_the_content( $more_link_text, $strip_teaser ) . $additional_content ); // phpcs:ignore
-
+		public function get_the_content( $content = '' ) {
 			$content = $this->markup_fixer( $content );
 			$content = str_replace( ']]>', ']]&gt;', $content );
 			return $content;

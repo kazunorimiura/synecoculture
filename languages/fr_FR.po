@@ -296,3 +296,21 @@ msgstr "Informations de base"
 
 msgid "現在募集中の職種はありません。"
 msgstr "Il n'y a actuellement aucun poste disponible."
+
+msgid "回答を開く"
+msgstr "Ouvrir la réponse"
+
+msgid "回答を閉じる"
+msgstr "Fermer la réponse"
+
+msgid "チャプターを開く"
+msgstr "Ouvrir le chapitre"
+
+msgid "チャプターを閉じる"
+msgstr "Fermer le chapitre"
+
+msgid "目次を開く"
+msgstr "Ouvrir la table des matières"
+
+msgid "目次を閉じる"
+msgstr "Fermer la table des matières"

@@ -1,24 +1,24 @@
+@use "sass:map";
+@use "sass:math";
+@use "../config";
+@use "../base/settings" as *;
+
 .accordion {
     overflow: hidden;
+    border-radius: var(--radius);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 25%);
+}
+
+[data-site-theme="dark"] .accordion {
     border: 1px solid var(--color-border-opaque);
-    border-radius: var(--radius-lg);
+    box-shadow: none;
 }
 
-.accordion > * + * {
-    border-block-start: 1px solid var(--color-border-opaque);
-}
-
-.accordion-trigger {
-    --input-padding-block: var(--space-s1);
-    --input-padding-inline: var(--space-s2);
-
+.accordion-header {
+    position: relative;
     display: block;
     width: 100%;
-}
-
-.accordion-trigger:focus,
-.accordion-trigger:hover {
-    background-color: var(--color-background-positive-opaque);
+    padding: fd(24, 32);
 }
 
 .accordion-title {
@@ -26,24 +26,31 @@
     gap: var(--space-s0);
     align-items: center;
     justify-content: space-between;
+    font-weight: var(--font-weight-sign);
     text-align: left;
 }
 
-.accordion-trigger[aria-expanded="true"] .accordion-icon {
+.accordion-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    height: 100%;
+    padding: 0 fd(24, 32) 0 0;
+    background-color: initial;
+    border: none;
+}
+
+.accordion-button[aria-expanded="true"] > .icon {
     transform: rotate(-180deg);
 }
 
-.accordion-icon > svg {
-    width: 1.2em;
-    height: 1.2em;
-}
-
-.accordion-panel {
-    padding-block: var(--space-s1);
-    padding-inline: var(--space-s2);
-    margin: 0;
-}
-
-.accordion-panel[hidden] {
+.accordion-body {
     display: none;
+    padding-block: fd(12, 16) fd(24, 32);
+    padding-inline: fd(24, 32);
+    margin: 0;
 }

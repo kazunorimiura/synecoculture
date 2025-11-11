@@ -119,6 +119,10 @@ button {
     border: none; // 5
 }
 
+[role="button"] {
+    cursor: pointer; // 3
+}
+
 cite {
     font-style: italic;
 }

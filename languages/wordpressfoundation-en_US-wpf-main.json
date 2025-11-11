@@ -267,6 +267,24 @@
          "現在募集中の職種はありません。": [
             "There are currently no open positions."
          ],
+         "回答を開く": [
+            "Open answer"
+         ],
+         "回答を閉じる": [
+            "Close answer"
+         ],
+         "チャプターを開く": [
+            "Open chapter"
+         ],
+         "チャプターを閉じる": [
+            "Close chapter"
+         ],
+         "目次を開く": [
+            "Open table of contents"
+         ],
+         "目次を閉じる": [
+            "Close table of contents"
+         ],
          "terms\u0004ターム": [
             "Terms"
          ],

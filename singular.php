@@ -38,7 +38,7 @@ if ( have_posts() ) {
 				<?php
 				if ( $wpf_show_toc || ! empty( $related_members ) ) {
 					$wpf_toc      = new WPF_Toc();
-					$wpf_content  = $wpf_toc->get_the_content();
+					$wpf_content  = $wpf_toc->get_the_content( apply_filters( 'the_content', get_the_content() ) );
 					$wpf_toc_menu = $wpf_toc->get_html_menu( $wpf_content );
 					?>
 					<div class="singular__sidebar lg:hidden-yes">

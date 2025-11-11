@@ -5,7 +5,8 @@
 @use "../components/button";
 
 .single .page-main,
-.page .page-main {
+.page .page-main,
+.post-type-archive-faq .page-main {
     display: flex;
     flex-wrap: wrap;
     gap: fd(64, 128);

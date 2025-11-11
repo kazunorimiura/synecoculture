@@ -496,6 +496,40 @@ class WPF_Template_Functions {
 		);
 
 		register_taxonomy(
+			'faq_cat',
+			'faq',
+			array(
+				'hierarchical'       => true,
+				'rewrite'            => array(
+					'slug'         => 'faq/category',
+					'with_front'   => false,
+					'hierarchical' => true,
+				),
+				'public'             => true,
+				'publicly_queryable' => false,
+				'show_ui'            => true,
+				'show_admin_column'  => true,
+				'show_in_rest'       => true,
+			)
+		);
+
+		register_taxonomy(
+			'faq_tag',
+			'faq',
+			array(
+				'hierarchical'       => false,
+				'rewrite'            => array(
+					'slug'       => 'faq/tag',
+					'with_front' => false,
+				),
+				'public'             => true,
+				'publicly_queryable' => false,
+				'show_in_rest'       => true,
+				'show_admin_column'  => true,
+			)
+		);
+
+		register_taxonomy(
 			'glossary_cat',
 			'glossary',
 			array(
@@ -612,6 +646,7 @@ class WPF_Template_Functions {
 				'wpf_cptp'      => array(
 					'permalink_structure' => '/%postname%/',
 					'author_archive'      => false,
+					'date_archive'        => false,
 				),
 			)
 		);
@@ -636,6 +671,7 @@ class WPF_Template_Functions {
 				'wpf_cptp'      => array(
 					'permalink_structure' => '/%post_id%/',
 					'author_archive'      => false,
+					'date_archive'        => false,
 				),
 			)
 		);
@@ -660,6 +696,32 @@ class WPF_Template_Functions {
 				'wpf_cptp'      => array(
 					'permalink_structure' => '/%postname%/',
 					'author_archive'      => false,
+					'date_archive'        => false,
+				),
+			)
+		);
+
+		register_post_type(
+			'faq',
+			array(
+				'labels'        => array(
+					'name'          => _x( 'FAQ', 'faq', 'wordpressfoundation' ),
+					'singular_name' => _x( 'FAQ', 'faq', 'wordpressfoundation' ),
+				),
+				'public'        => true,
+				'supports'      => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'page-attributes', 'revisions' ),
+				'menu_position' => 5,
+				'rewrite'       => array(
+					'slug'       => 'resources/faq',
+					'with_front' => false,
+				),
+				'has_archive'   => true,
+				'taxonomies'    => array( 'faq_cat', 'faq_tag' ),
+				'show_in_rest'  => true,
+				'wpf_cptp'      => array(
+					'permalink_structure' => '/%postname%/',
+					'author_archive'      => false,
+					'date_archive'        => false,
 				),
 			)
 		);
@@ -684,6 +746,7 @@ class WPF_Template_Functions {
 				'wpf_cptp'      => array(
 					'permalink_structure' => '/%postname%/',
 					'author_archive'      => false,
+					'date_archive'        => false,
 				),
 			)
 		);
@@ -708,6 +771,7 @@ class WPF_Template_Functions {
 				'wpf_cptp'      => array(
 					'permalink_structure' => '/%postname%/',
 					'author_archive'      => false,
+					'date_archive'        => false,
 				),
 			)
 		);
@@ -732,6 +796,7 @@ class WPF_Template_Functions {
 				'wpf_cptp'      => array(
 					'permalink_structure' => '/%postname%/',
 					'author_archive'      => false,
+					'date_archive'        => false,
 				),
 			)
 		);

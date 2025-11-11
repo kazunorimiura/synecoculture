@@ -304,3 +304,21 @@ msgstr "Basic Information"
 
 msgid "現在募集中の職種はありません。"
 msgstr "There are currently no open positions."
+
+msgid "回答を開く"
+msgstr "Open answer"
+
+msgid "回答を閉じる"
+msgstr "Close answer"
+
+msgid "チャプターを開く"
+msgstr "Open chapter"
+
+msgid "チャプターを閉じる"
+msgstr "Close chapter"
+
+msgid "目次を開く"
+msgstr "Open table of contents"
+
+msgid "目次を閉じる"
+msgstr "Close table of contents"

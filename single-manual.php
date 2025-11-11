@@ -32,7 +32,7 @@ if ( have_posts() ) {
 			<?php
 			$wpf_show_toc = get_post_meta( get_the_ID(), '_wpf_show_toc', true );
 			$wpf_toc      = new WPF_Toc();
-			$wpf_content  = $wpf_toc->get_the_content();
+			$wpf_content  = $wpf_toc->get_the_content( apply_filters( 'the_content', get_the_content() ) );
 			$wpf_toc_menu = $wpf_toc->get_html_menu( $wpf_content );
 			?>
 
@@ -63,8 +63,8 @@ if ( have_posts() ) {
 										<div class="syneco-overline__text">Chapters</div>
 									</div>
 
-									<button class="manual-nav__toggle" aria-expanded="false" data-acc-target="manual-list">
-										<span class="screen-reader-text">In this article</span>
+									<button class="manual-nav__toggle" aria-expanded="false" data-acc-target="manual-list" data-open-text="<?php echo esc_html_e( 'チャプターを開く', 'wordpressfoundation' ); ?>" data-close-text="<?php echo esc_html_e( 'チャプターを閉じる', 'wordpressfoundation' ); ?>">
+										<span class="screen-reader-text"><?php echo esc_html_e( 'チャプターを開く', 'wordpressfoundation' ); ?></span>
 									</button>
 								</div>
 
@@ -106,8 +106,8 @@ if ( have_posts() ) {
 											<div class="syneco-overline__text">In this article</div>
 										</div>
 
-										<button class="toc__toggle" aria-expanded="false" data-acc-target="manual-main__content__sidebar__toc">
-											<span class="screen-reader-text">In this article</span>
+										<button class="toc__toggle" aria-expanded="false" data-acc-target="manual-main__content__sidebar__toc" data-open-text="<?php echo esc_html_e( '目次を開く', 'wordpressfoundation' ); ?>" data-close-text="<?php echo esc_html_e( '目次を閉じる', 'wordpressfoundation' ); ?>">
+											<span class="screen-reader-text"><?php echo esc_html_e( '目次を開く', 'wordpressfoundation' ); ?></span>
 										</button>
 									</div>
 

@@ -1,7 +1,8 @@
 class Accordion {
     constructor(domNode) {
         this.rootEl = domNode;
-        this.buttonEl = this.rootEl.querySelector('button[aria-expanded]');
+        this.buttonEl = this.rootEl.querySelector('button[aria-expanded], [role="button"][aria-expanded]');
+        this.srTextElement = this.buttonEl.querySelector('.screen-reader-text');
 
         const controlsId = this.buttonEl.getAttribute('data-acc-target');
 
@@ -26,13 +27,24 @@ class Accordion {
         // update the internal state
         this.open = open;
 
+        const openText = this.buttonEl.dataset.openText || '開く';
+        const closeText = this.buttonEl.dataset.closeText || '閉じる';
+
         // handle DOM updates
         this.buttonEl.setAttribute('aria-expanded', `${open}`);
         if (open) {
             this.contentEl.removeAttribute('hidden');
             this.contentEl.style.display = 'block';
+
+            if (this.srTextElement) {
+                this.srTextElement.textContent = closeText;
+            }
         } else {
             this.contentEl.style.removeProperty('display');
+
+            if (this.srTextElement) {
+                this.srTextElement.textContent = openText;
+            }
         }
     }
 
