@@ -248,6 +248,54 @@ class WPF_Posts {
 	}
 
 	/**
+	 * `faq` テンプレートHTMLの出力バッファを取得
+	 *
+	 * @param WP_Query $query WP_Queryオブジェクト
+	 * @param string   $rest_url REST URL
+	 * @param string[] $args 元の引数
+	 * @return string
+	 */
+	private static function faq( $query, $rest_url, $args = array() ) {
+		ob_start();
+		if ( $query->have_posts() ) {
+			$container_id = self::create_uid( 'wpf-' . __FUNCTION__ );
+			?>
+			<div class="faq-container">
+				<div class="faq prose" id="<?php echo esc_attr( $container_id ); ?>">
+					<?php
+					while ( $query->have_posts() ) {
+						$query->the_post();
+						?>
+						<div class="accordion">
+							<div class="accordion-header">
+								<div class="accordion-title">
+									<?php the_title(); ?>
+								</div>
+
+								<button class="accordion-button" aria-expanded="false" data-acc-target="accordion-body-<?php echo esc_attr( get_the_ID() ); ?>" data-open-text="<?php echo esc_html_e( '回答を開く', 'wordpressfoundation' ); ?>" data-close-text="<?php echo esc_html_e( '回答を閉じる', 'wordpressfoundation' ); ?>">
+									<span class="screen-reader-text"><?php echo esc_html_e( '回答を開く', 'wordpressfoundation' ); ?></span>
+									<?php echo WPF_Icons::get_svg( 'ui', 'angle_down', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+								</button>
+							</div>
+
+							<div id="accordion-body-<?php echo esc_attr( get_the_ID() ); ?>" class="accordion-body">
+								<?php the_content(); ?>
+							</div>
+						</div>
+						<?php
+					}
+					wp_reset_postdata();
+					?>
+				</div>
+
+				<?php echo self::more_button( $query, __FUNCTION__, $container_id, $rest_url ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+			</div>
+			<?php
+		}
+		return ob_get_clean();
+	}
+
+	/**
 	 * Moreボタンテンプレートの出力バッファを取得する。
 	 *
 	 * @param WP_Query $query WP_Queryオブジェクト。

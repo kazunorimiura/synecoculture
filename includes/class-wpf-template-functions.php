@@ -719,7 +719,7 @@ class WPF_Template_Functions {
 				'taxonomies'    => array( 'faq_cat', 'faq_tag' ),
 				'show_in_rest'  => true,
 				'wpf_cptp'      => array(
-					'permalink_structure' => '/%postname%/',
+					'permalink_structure' => '/%post_id%/',
 					'author_archive'      => false,
 					'date_archive'        => false,
 				),
@@ -1783,7 +1783,8 @@ class WPF_Template_Functions {
 	 */
 	public static function should_redirect_301() {
 		return ( is_author() && get_option( 'wpf_disable_author_page' ) ) ||
-			( is_date() && get_option( 'wpf_disable_date_archive' ) );
+			( is_date() && get_option( 'wpf_disable_date_archive' ) ) ||
+			is_singular( 'faq' );
 	}
 
 	/**

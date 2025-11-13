@@ -45,8 +45,9 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			add_shortcode( 'wpf_project_posts', array( $this, 'project_posts' ) );
 			add_shortcode( 'wpf_project_posts_ajax', array( $this, 'project_posts_ajax' ) );
 			add_shortcode( 'wpf_news_posts', array( $this, 'news_posts' ) );
-			add_shortcode( 'wpf_news_blog_posts', array( $this, 'news_blog_posts' ) );
+			add_shortcode( 'wpf_news_blog_posts', array( $this, 'news_blog_posts' ) ); // 非推奨
 			add_shortcode( 'wpf_news_blog_posts_ajax', array( $this, 'news_blog_posts' ) );
+			add_shortcode( 'wpf_faq_posts', array( $this, 'faq_posts' ) );
 			add_shortcode( 'wpf_member_posts', array( $this, 'member_posts' ) );
 			add_shortcode( 'wpf_our_values', array( $this, 'our_values' ) );
 			add_shortcode( 'wpf_about_intro', array( $this, 'about_intro' ) );
@@ -2324,6 +2325,107 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 
 			$news = WPF_Posts::get_posts(
 				'news_blog',
+				$args,
+				true
+			);
+
+			ob_start();
+			if ( ! empty( $news ) ) {
+				?>
+				<?php
+				if ( ! empty( $atts['heading_text'] ) ) {
+					$heading_id = ! empty( $atts['heading_id'] ) ? ' id="' . $atts['heading_id'] . '"' : '';
+					?>
+					<<?php echo esc_attr( $atts['heading_level'] ); ?><?php echo esc_attr( $heading_id ); ?> class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></<?php echo esc_attr( $atts['heading_level'] ); ?>>
+					<?php
+				}
+				?>
+
+				<?php
+				if ( ! empty( $atts['body_text'] ) ) {
+					?>
+					<p><?php echo esc_html( $atts['body_text'] ); ?></p>
+					<?php
+				}
+				?>
+
+				<?php echo $news; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				<?php
+			}
+			return ob_get_clean();
+		}
+
+		/**
+		 * `faq`投稿タイプの投稿リストを出力するショートコード（Moreボタン表示）
+		 *
+		 * @param array $atts ショートコード引数。
+		 * @return string
+		 */
+		public static function faq_posts( $atts ) {
+			// 元の属性を保存（タクソノミー用）
+			$original_atts = $atts;
+
+			// デフォルト属性
+			$defaults = array(
+				'heading_text'  => '',
+				'heading_level' => 'h2',
+				'heading_id'    => '',
+				'body_text'     => '',
+				'size'          => 'medium',
+				'post_types'    => 'faq',
+				'orderby'       => 'date',
+				'order'         => 'DESC',
+				'relation'      => 'OR',
+			);
+
+			$atts = shortcode_atts(
+				$defaults,
+				$atts
+			);
+
+			// 投稿タイプを配列に変換
+			$post_types = array_map( 'trim', explode( ',', $atts['post_types'] ) );
+
+			// WP_Queryの引数
+			$args = array(
+				'post_type'      => $post_types,
+				'posts_per_page' => -1,
+				'post__not_in'   => array( get_the_ID() ),
+				'paged'          => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
+				'orderby'        => $atts['orderby'],
+				'order'          => $atts['order'],
+				'size'           => $atts['size'],
+			);
+
+			// タクソノミーを処理
+			$tax_queries = array();
+			foreach ( $original_atts as $key => $value ) {
+				// デフォルト属性はスキップ
+				if ( array_key_exists( $key, $defaults ) || empty( $value ) ) {
+					continue;
+				}
+
+				// タクソノミーが存在するか確認
+				if ( taxonomy_exists( $key ) ) {
+					$terms         = array_map( 'trim', explode( ',', $value ) );
+					$tax_queries[] = array(
+						'taxonomy' => $key,
+						'field'    => 'slug',
+						'terms'    => $terms,
+					);
+				}
+			}
+
+			// tax_queryを構築
+			if ( ! empty( $tax_queries ) ) {
+				if ( count( $tax_queries ) > 1 ) {
+					$tax_queries['relation'] = strtoupper( $atts['relation'] );
+				}
+				$args['tax_query'] = $tax_queries; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+			}
+
+			$news = WPF_Posts::get_posts(
+				'faq',
 				$args,
 				true
 			);
