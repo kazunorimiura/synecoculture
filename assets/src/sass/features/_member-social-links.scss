@@ -1,0 +1,27 @@
+@use "sass:map";
+@use "sass:math";
+@use "../config";
+@use "../base/settings" as *;
+@use "../utilities/cluster";
+
+.member-social-links {
+    @extend %cluster;
+
+    --cluster-space: var(--space-s-5);
+    --flow-space: var(--space-s5);
+}
+
+.member-social-link {
+    display: block;
+}
+
+.member-social-link > svg {
+    display: block;
+    width: 1.2em;
+    height: 1.2em;
+    fill: currentcolor;
+}
+
+a.member-social-link[target="_blank"]::after {
+    display: none;
+}

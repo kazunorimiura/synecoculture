@@ -764,6 +764,38 @@ class WPF_Smart_Cf_Register_Fields {
 			$settings[] = $_setting;
 		}
 
+		if ( 'member' === $type ) {
+			$_setting = SCF::add_setting( '_wpf_member_social_links', 'ソーシャルリンク' );
+			$_setting->add_group(
+				'_wpf_member_social_links',
+				true,
+				array(
+					array(
+						'name'  => '_wpf_member_social_links__name',
+						'label' => __( 'ブランド名', 'wordpressfoundation' ),
+						'type'  => 'text',
+					),
+					array(
+						'name'  => '_wpf_member_social_links__url',
+						'label' => __( 'URL', 'wordpressfoundation' ),
+						'type'  => 'text',
+					),
+					array(
+						'name'  => '_wpf_member_social_links__icon',
+						'label' => __( 'アイコン（任意）', 'wordpressfoundation' ),
+						'type'  => 'textarea',
+						'rows'  => 3,
+					),
+					array(
+						'name'    => '_wpf_member_social_links__message',
+						'type'    => 'message',
+						'default' => __( '※メジャーなブランドのアイコンはURLから自動設定されるようになっています。表示されなかった場合、当該ブランドアイコンの追加をご依頼いただくか、SVGアイコンのコードを入力してください。', 'wordpressfoundation' ),
+					),
+				)
+			);
+			$settings[] = $_setting;
+		}
+
 		return $settings;
 	}
 

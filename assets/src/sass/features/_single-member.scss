@@ -30,6 +30,8 @@
 }
 
 .single-member__item {
+    --flow-space: #{fd(64, 96)};
+
     display: flex;
     gap: fd(32, 64);
 

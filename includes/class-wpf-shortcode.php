@@ -2086,14 +2086,14 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 				$args['tax_query'] = $tax_queries; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
 			}
 
-			$news = WPF_Posts::get_posts(
+			$projects = WPF_Posts::get_posts(
 				'projects',
 				$args,
 				true
 			);
 
 			ob_start();
-			if ( ! empty( $news ) ) {
+			if ( ! empty( $projects ) ) {
 				?>
 				<?php
 				if ( ! empty( $atts['heading_text'] ) ) {
@@ -2111,7 +2111,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 				}
 				?>
 
-				<?php echo $news; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+				<?php echo $projects; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 				<?php
 			}
 			return ob_get_clean();

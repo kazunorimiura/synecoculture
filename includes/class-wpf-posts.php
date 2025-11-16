@@ -101,7 +101,7 @@ class WPF_Posts {
 									$size = $args['size'];
 								}
 								?>
-								<a data-post-elment-id="<?php echo esc_attr( 'thumbnail-' . get_the_ID() ); ?>" href="<?php the_permalink(); ?>" class="news-posts__item__thubmnail frame" title="<?php the_title(); ?>" aria-hidden="true" tabindex="-1">
+								<a data-post-element-id="<?php echo esc_attr( 'thumbnail-' . get_the_ID() ); ?>" href="<?php the_permalink(); ?>" class="news-posts__item__thubmnail frame" title="<?php the_title(); ?>" aria-hidden="true" tabindex="-1">
 									<?php WPF_Template_Tags::the_image( get_post_thumbnail_id(), $size ); ?>
 								</a>
 							</div>
@@ -120,8 +120,7 @@ class WPF_Posts {
 	}
 
 	/**
-	 * `projects` テンプレートHTMLの出力バッファを取得
-	 * ※blogも出力される可能性がある（日付などの構造が同様であるため、柔軟性を持たせている）
+	 * `projects`投稿タイプ用テンプレートHTMLの出力バッファを取得
 	 *
 	 * @param WP_Query $query WP_Queryオブジェクト
 	 * @param string   $rest_url REST URL
@@ -229,7 +228,7 @@ class WPF_Posts {
 									$size = $args['size'];
 								}
 								?>
-								<a data-post-elment-id="<?php echo esc_attr( 'thumbnail-' . get_the_ID() ); ?>" href="<?php the_permalink(); ?>" class="project-posts__item__thubmnail frame" title="<?php the_title(); ?>" aria-hidden="true" tabindex="-1">
+								<a data-post-element-id="<?php echo esc_attr( 'thumbnail-' . get_the_ID() ); ?>" href="<?php the_permalink(); ?>" class="project-posts__item__thubmnail frame" title="<?php the_title(); ?>" aria-hidden="true" tabindex="-1">
 									<?php WPF_Template_Tags::the_image( get_post_thumbnail_id(), $size ); ?>
 								</a>
 							</div>
@@ -309,7 +308,7 @@ class WPF_Posts {
 		if ( $query->max_num_pages > 1 && ! empty( $rest_url ) ) {
 			?>
 			<div class="paginate-posts-more-buttom pbs-s3 pbe-s0">
-				<div class="text-center">
+				<div class="d-flex jc-center">
 					<button 
 						class="button:secondary:wide" 
 						data-template="<?php echo esc_attr( $template ); ?>" 

@@ -184,34 +184,117 @@ class WPF_Rest_API {
 
 				$post_type = get_post_type();
 				if ( 'post' === $post_type ) {
-					$terms = WPF_Utils::get_the_terms();
+					$taxonomies = WPF_Utils::get_object_public_taxonomies( $post_type );
 
-					if ( ! empty( $terms ) && 'uncategorized' !== $terms[0]->slug ) {
-						$taxonomy          = $terms[0]->taxonomy;
-						$data[ $taxonomy ] = array(
-							'name' => $terms[0]->name,
-							'link' => get_term_link( $terms[0]->term_id, $terms[0]->taxonomy ),
-						);
+					foreach ( $taxonomies as $taxonomy ) {
+						$terms = get_the_terms( get_the_ID(), $taxonomy );
+
+						if ( $terms && ! is_wp_error( $terms ) ) {
+							$data[ $taxonomy ] = array();
+
+							foreach ( $terms as $term ) {
+								if ( 'uncategorized' !== $term->slug ) {
+									array_push(
+										$data[ $taxonomy ],
+										array(
+											'name' => $term->name,
+											'link' => get_term_link( $term->term_id, $taxonomy ),
+										)
+									);
+								}
+							}
+						}
 					}
 				} elseif ( 'blog' === $post_type ) {
-					$terms = WPF_Utils::get_the_terms();
+					$taxonomies = WPF_Utils::get_object_public_taxonomies( $post_type );
 
-					if ( ! empty( $terms ) && 'uncategorized' !== $terms[0]->slug ) {
-						$taxonomy          = $terms[0]->taxonomy;
-						$data[ $taxonomy ] = array(
-							'name' => $terms[0]->name,
-							'link' => get_term_link( $terms[0]->term_id, $terms[0]->taxonomy ),
-						);
+					foreach ( $taxonomies as $taxonomy ) {
+						$terms = get_the_terms( get_the_ID(), $taxonomy );
+
+						if ( $terms && ! is_wp_error( $terms ) ) {
+							$data[ $taxonomy ] = array();
+
+							foreach ( $terms as $term ) {
+								if ( 'uncategorized' !== $term->slug ) {
+									array_push(
+										$data[ $taxonomy ],
+										array(
+											'name' => $term->name,
+											'link' => get_term_link( $term->term_id, $taxonomy ),
+										)
+									);
+								}
+							}
+						}
 					}
 				} elseif ( 'project' === $post_type ) {
-					$terms = WPF_Utils::get_the_terms();
+					$cat_terms           = get_the_terms( get_the_ID(), 'project_cat' );
+					$cat_term_has_parent = true;
+					$domain_terms        = get_the_terms( get_the_ID(), 'project_domain' );
 
-					if ( ! empty( $terms ) && 'uncategorized' !== $terms[0]->slug ) {
-						$taxonomy          = $terms[0]->taxonomy;
-						$data[ $taxonomy ] = array(
-							'name' => $terms[0]->name,
-							'link' => get_term_link( $terms[0]->term_id, $terms[0]->taxonomy ),
-						);
+					// 選択しているタームの最祖先を出力
+					if ( $cat_terms && ! is_wp_error( $cat_terms ) ) {
+						$data['project_cat']['main'] = array();
+
+						foreach ( $cat_terms as $term ) {
+							// 祖先タームのIDを配列で取得（最も近い親から最上位の順）
+							$ancestors = get_ancestors( $term->term_id, 'project_cat', 'taxonomy' );
+
+							if ( ! empty( $ancestors ) ) {
+								// 配列の最後が最上位のターム
+								$top_parent_id   = end( $ancestors );
+								$top_parent      = get_term( $top_parent_id, 'project_cat' );
+								$top_parent_link = get_term_link( $top_parent );
+
+								array_push(
+									$data['project_cat']['main'],
+									array(
+										'name' => $top_parent->name,
+										'link' => $top_parent_link,
+									)
+								);
+							} else {
+								// 祖先がいない場合は自身が最上位
+								array_push(
+									$data['project_cat']['main'],
+									array(
+										'name' => $term->name,
+										'link' => get_term_link( $term->term_id ),
+									)
+								);
+
+								$cat_term_has_parent = false;
+							}
+						}
+					}
+
+					// 選択しているタームと領域タームを出力
+					if ( ( $cat_terms && ! is_wp_error( $cat_terms ) && $cat_term_has_parent ) || ( $domain_terms && ! is_wp_error( $domain_terms ) ) ) {
+						if ( $cat_terms && ! is_wp_error( $cat_terms ) && $cat_term_has_parent ) {
+							$data['project_cat']['sub'] = array();
+
+							foreach ( $cat_terms as $term ) {
+								array_push(
+									$data['project_cat']['sub'],
+									array(
+										'name' => $term->name,
+										'link' => get_term_link( $term->term_id ),
+									)
+								);
+							}
+						}
+
+						if ( $domain_terms && ! is_wp_error( $domain_terms ) ) {
+							foreach ( $domain_terms as $term ) {
+								array_push(
+									$data['project_cat']['sub'],
+									array(
+										'name' => $term->name,
+										'link' => get_term_link( $term->term_id ),
+									)
+								);
+							}
+						}
 					}
 				}
 

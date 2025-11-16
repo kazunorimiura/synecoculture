@@ -119,7 +119,7 @@ class MorePostsLoader {
             meta: item.meta,
         };
 
-        ['blog_cat', 'blog_tag', 'project_cat', 'project_domain', 'project_tag', 'area', 'case_study_tag', 'member_cat', 'member_tag', 'glossary_tag', 'career_cat', 'career_tag'].forEach((key) => {
+        ['category', 'post_tag', 'blog_cat', 'blog_tag', 'project_cat', 'project_domain', 'project_tag', 'area', 'case_study_tag', 'member_cat', 'member_tag', 'glossary_tag', 'career_cat', 'career_tag'].forEach((key) => {
             if (item[key]) {
                 args[key] = item[key];
             }
@@ -172,7 +172,7 @@ class MorePostsLoader {
 
             // プリロードが完了したらDOMに追加する
             img.onload = () => {
-                const containerElement = this.containerEl.querySelector(`[data-post-elment-id="${containerId}"]`);
+                const containerElement = this.containerEl.querySelector(`[data-post-element-id="${containerId}"]`);
                 if (containerElement) {
                     containerElement.innerHTML = '';
                     containerElement.appendChild(img);
@@ -211,6 +211,7 @@ class MorePostsLoader {
 
         // category
         const optionalElsKeys = ['category', 'blog_cat'];
+        console.log('args', args);
         if (optionalElsKeys.some((key) => hasProperty(args, key))) {
             // categories
             const catgoriesEl = document.createElement('div');
@@ -219,12 +220,27 @@ class MorePostsLoader {
             // category link
             const catEl = document.createElement('a');
             catEl.setAttribute('class', 'news-posts__item__main-category pill');
+
+            console.log('args.category', args.category);
+            console.log('args.blog_cat', args.blog_cat);
+
             if (args.category) {
-                catEl.setAttribute('href', args.category.link);
-                catEl.textContent = args.category.name;
-            } else if (args.blog_cat) {
-                catEl.setAttribute('href', args.blog_cat.link);
-                catEl.textContent = args.blog_cat.name;
+                args.category.forEach((term) => {
+                    catEl.setAttribute('href', term.link);
+                    catEl.textContent = term.name;
+
+                    // append
+                    catgoriesEl.appendChild(catEl);
+                });
+            }
+            if (args.blog_cat) {
+                args.blog_cat.forEach((term) => {
+                    catEl.setAttribute('href', term.link);
+                    catEl.textContent = term.name;
+
+                    // append
+                    catgoriesEl.appendChild(catEl);
+                });
             }
 
             // append
@@ -256,10 +272,117 @@ class MorePostsLoader {
 
         // thumbnail
         const thumbnailEl = document.createElement('a');
-        thumbnailEl.setAttribute('data-post-elment-id', `thumbnail-${args.postId}`);
+        thumbnailEl.setAttribute('data-post-element-id', `thumbnail-${args.postId}`);
         thumbnailEl.setAttribute('href', args.link);
         thumbnailEl.setAttribute('title', args.title);
         thumbnailEl.setAttribute('class', 'news-posts__item__thubmnail frame');
+        thumbnailEl.setAttribute('aria-hidden', 'true');
+        thumbnailEl.setAttribute('tabindex', '-1');
+        thumbnailEl.innerHTML = this.preloadImage(args.thumbnail, `thumbnail-${args.postId}`);
+
+        // append
+        innerEl.appendChild(thumbnailEl);
+
+        // append
+        containerEl.appendChild(innerEl);
+
+        return containerEl;
+    }
+
+    /**
+     * `projects` テンプレートのHTMLを生成する。
+     * このメソッドで構築されるHTMLは `includes/class-wpf-posts.php` で定義された各テンプレートの構造に倣っている。
+     *
+     * @param {{[key: string]: any}} args テンプレートに使用する固有データのオブジェクト。HTML属性値、テキストコンテンツなどが含まれる。
+     * @return {HTMLElement} `projects` テンプレートスラッグのHTMLテンプレート。
+     * @memberof MorePostsLoader
+     */
+    template__projects(args) {
+        // container
+        const containerEl = document.createElement('article');
+        containerEl.setAttribute('class', 'project-posts__item');
+
+        // inner
+        const innerEl = document.createElement('div');
+        innerEl.setAttribute('class', 'project-posts__item__inner');
+
+        // main
+        const mainEl = document.createElement('div');
+        mainEl.setAttribute('class', 'project-posts__item__main');
+
+        // category
+        let optionalElsKeys = ['project_cat'];
+        if (optionalElsKeys.some((key) => hasProperty(args, key))) {
+            optionalElsKeys = ['main'];
+            if (optionalElsKeys.some((key) => hasProperty(args.project_cat, key))) {
+                // categories
+                const catgoriesEl = document.createElement('div');
+                catgoriesEl.setAttribute('class', 'project-posts__item__main-categories');
+
+                // category link
+                const catEl = document.createElement('a');
+                catEl.setAttribute('class', 'project-posts__item__main-category pill');
+                if (args.project_cat.main) {
+                    args.project_cat.main.forEach((term) => {
+                        catEl.setAttribute('href', term.link);
+                        catEl.textContent = term.name;
+
+                        // append
+                        catgoriesEl.appendChild(catEl);
+                    });
+                }
+
+                // append
+                catgoriesEl.appendChild(catEl);
+
+                // append
+                mainEl.appendChild(catgoriesEl);
+            }
+        }
+
+        // title
+        const titleEl = document.createElement('a');
+        titleEl.setAttribute('href', args.link);
+        titleEl.setAttribute('class', 'project-posts__item__title');
+        titleEl.textContent = args.title;
+        mainEl.appendChild(titleEl);
+
+        // sub category
+        optionalElsKeys = ['project_cat'];
+        if (optionalElsKeys.some((key) => hasProperty(args, key))) {
+            optionalElsKeys = ['sub'];
+            if (optionalElsKeys.some((key) => hasProperty(args.project_cat, key))) {
+                // categories
+                const catgoriesEl = document.createElement('div');
+                catgoriesEl.setAttribute('class', 'project-posts__item__sub-categories');
+
+                // category links
+                if (args.project_cat.sub) {
+                    args.project_cat.sub.forEach((term) => {
+                        const catEl = document.createElement('a');
+                        catEl.setAttribute('class', 'project-posts__item__sub-category pill-secondary');
+                        catEl.setAttribute('href', term.link);
+                        catEl.textContent = term.name;
+
+                        // append
+                        catgoriesEl.appendChild(catEl);
+                    });
+                }
+
+                // append
+                mainEl.appendChild(catgoriesEl);
+            }
+        }
+
+        // append
+        innerEl.appendChild(mainEl);
+
+        // thumbnail
+        const thumbnailEl = document.createElement('a');
+        thumbnailEl.setAttribute('data-post-element-id', `thumbnail-${args.postId}`);
+        thumbnailEl.setAttribute('href', args.link);
+        thumbnailEl.setAttribute('title', args.title);
+        thumbnailEl.setAttribute('class', 'project-posts__item__thubmnail frame');
         thumbnailEl.setAttribute('aria-hidden', 'true');
         thumbnailEl.setAttribute('tabindex', '-1');
         thumbnailEl.innerHTML = this.preloadImage(args.thumbnail, `thumbnail-${args.postId}`);
