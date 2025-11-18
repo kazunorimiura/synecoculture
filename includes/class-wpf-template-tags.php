@@ -473,7 +473,22 @@ class WPF_Template_Tags {
 		 * なお、投稿用ページが設定されている場合はそれを優先する。
 		 */
 		if ( ! is_page() && ! is_author() ) {
-			$page_for_posts  = WPF_Utils::get_page_for_posts();
+			$page_for_posts = WPF_Utils::get_page_for_posts();
+
+			// 投稿タイプの投稿用ページに、親ページが設定されている場合（投稿タイプ登録時に親ページスラッグをスラッグ指定している場合）は追加
+			$page_for_post = get_post( $page_for_posts );
+			if ( $page_for_post ) {
+				$post_parent = $page_for_post->post_parent;
+				if ( $post_parent ) {
+					$post_type_parent_layer = array(
+						'text'  => get_the_title( $post_parent ),
+						'link'  => get_permalink( $post_parent ),
+						'layer' => 'post_type_parent',
+					);
+					array_push( $breadcrumbs, $post_type_parent_layer );
+				}
+			}
+
 			$post_type_layer = array(
 				'text'  => self::get_the_post_type_display_name(),
 				'link'  => $page_for_posts ? get_permalink( $page_for_posts ) : get_post_type_archive_link( $post_type ),
