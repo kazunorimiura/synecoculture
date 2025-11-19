@@ -6,7 +6,7 @@
 %button\:base {
     @extend %input-padding;
 
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     min-width: fd(130, 168);

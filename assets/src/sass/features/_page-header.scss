@@ -39,7 +39,7 @@
     }
 }
 
-.single:not(.single-manual) .page-header__main__inner {
+.single:not(.single-manual, .single-career) .page-header__main__inner {
     max-width: var(--width-wide);
 }
 
@@ -107,7 +107,8 @@
 .blog .page-header__title, // is_homeのページ
 .page .page-header__title,
 .error404 .page-header__title,
-.single-manual .page-header__title {
+.single-manual .page-header__title,
+.single-career .page-header__title {
     font: var(--font-display);
 }
 
@@ -184,7 +185,7 @@
     }
 }
 
-.single:not(.single-manual) .page-header__breadcrumbs-container {
+.single:not(.single-manual, .single-career) .page-header__breadcrumbs-container {
     display: flex;
     justify-content: flex-end;
     padding-block-end: fd(18, 24);

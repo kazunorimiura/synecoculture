@@ -43,13 +43,13 @@ $wpf_subtitle          = isset( $args['subtitle'] ) ? $args['subtitle'] : '';
 						 */
 						if ( ! is_singular( 'member' ) && ! is_singular( 'glossary' ) ) {
 							$wpf_terms = WPF_Utils::get_the_terms();
-							if ( ! is_single() && $wpf_breadcrumbs || is_singular( 'manual' ) && $wpf_breadcrumbs || is_single() && ! empty( $wpf_terms ) && 'uncategorized' !== $wpf_terms[0]->slug ) {
+							if ( ! is_single() && $wpf_breadcrumbs || is_singular( 'manual' ) && $wpf_breadcrumbs || is_singular( 'career' ) && $wpf_breadcrumbs || is_single() && ! empty( $wpf_terms ) && 'uncategorized' !== $wpf_terms[0]->slug ) {
 								?>
 								<?php
 								/**
 								 * アーカイブページにおけるパンくずリスト
 								 */
-								if ( ! is_single() && $wpf_breadcrumbs || is_singular( 'manual' ) && $wpf_breadcrumbs ) {
+								if ( ! is_single() && $wpf_breadcrumbs || is_singular( 'manual' ) && $wpf_breadcrumbs || is_singular( 'career' ) && $wpf_breadcrumbs ) {
 									?>
 									<div class="page-header__breadcrumbs-container">
 										<nav class="breadcrumbs" aria-label="<?php esc_html_e( 'パンくずリスト', 'wordpressfoundation' ); ?>">
@@ -270,7 +270,7 @@ $wpf_subtitle          = isset( $args['subtitle'] ) ? $args['subtitle'] : '';
 				/**
 				 * シングルページにおけるサムネイル
 				 */
-				if ( is_single() && ! is_singular( 'member' ) && ! is_singular( 'manual' ) && ! is_singular( 'glossary' ) ) {
+				if ( is_single() && ! is_singular( 'member' ) && ! is_singular( 'manual' ) && ! is_singular( 'career' ) && ! is_singular( 'glossary' ) ) {
 					?>
 					<div class="page-header__thumbnail frame">
 						<?php echo $wpf_template_tags::the_image( get_post_thumbnail_id(), 'page_header_thumbnail' ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
@@ -304,7 +304,7 @@ $wpf_subtitle          = isset( $args['subtitle'] ) ? $args['subtitle'] : '';
 	/**
 	 * シングルページにおけるパンくずリスト
 	 */
-	if ( is_single() && $wpf_breadcrumbs && ! is_singular( 'manual' ) ) {
+	if ( is_single() && $wpf_breadcrumbs && ! is_singular( 'manual' ) && ! is_singular( 'career' ) ) {
 		?>
 		<div class="page-header__breadcrumbs-container">
 			<nav class="breadcrumbs" aria-label="<?php esc_html_e( 'パンくずリスト', 'wordpressfoundation' ); ?>">
