@@ -18,7 +18,6 @@ if ( have_posts() ) {
 	while ( have_posts() ) {
 		the_post();
 
-		$status = SCF::get( '_wpf_career_status__status' );
 		?>
 		<main id="content">
 			<?php
@@ -34,33 +33,6 @@ if ( have_posts() ) {
 			<div class="page-main">
 				<div class="single-member__main">
 					<div class="prose">
-						<?php
-						if ( ! $status ) {
-							?>
-							<p class="notice">
-								<?php echo esc_html_e( 'この求人の募集は終了しました。', 'wordpressfoundation' ); ?>
-							</p>
-							<?php
-						}
-						?>
-
-						<?php
-						/**
-						 * 募集タイトル
-						 */
-						$title = get_the_title();
-						if ( ! empty( $title ) ) {
-							?>
-							<h2>
-								<?php
-								/* translators: 募集タイトル */
-								echo esc_html( sprintf( __( '%sの募集要項', 'wordpressfoundation' ), get_the_title() ) );
-								?>
-							</h2>
-							<?php
-						}
-						?>
-
 						<?php
 						/**
 						 * 本文
@@ -101,26 +73,24 @@ if ( have_posts() ) {
 						/**
 						 * 応募ボタン
 						 */
-						if ( $status ) {
-							$contact_page = get_page_by_path( 'contact' );
-							if ( $contact_page ) {
-								$contact_page_id = $contact_page->ID;
-								if ( function_exists( 'pll_get_post' ) ) {
-									$contact_page_id = pll_get_post( $contact_page_id );
+						$contact_page = get_page_by_path( 'contact' );
+						if ( $contact_page ) {
+							$contact_page_id = $contact_page->ID;
+							if ( function_exists( 'pll_get_post' ) ) {
+								$contact_page_id = pll_get_post( $contact_page_id );
 
-									if ( $contact_page->ID !== $contact_page_id ) {
-										$contact_page = get_post( $contact_page_id );
-									}
+								if ( $contact_page->ID !== $contact_page_id ) {
+									$contact_page = get_post( $contact_page_id );
 								}
-								$permalink = esc_url( get_permalink( $contact_page->ID ) . '?inquiry-type=careers' );
-								?>
-								<div class="text-center" style="--flow-space: var(--space-s5)">
-									<a href="<?php echo esc_url( $permalink ); ?>" class="button:primary">
-										<span><?php echo esc_html_e( '応募する', 'wordpressfoundation' ); ?></span>
-									</a>
-								</div>
-								<?php
 							}
+							$permalink = esc_url( get_permalink( $contact_page->ID ) . '?inquiry-type=careers' );
+							?>
+							<div class="text-center" style="--flow-space: var(--space-s5)">
+								<a href="<?php echo esc_url( $permalink ); ?>" class="button:primary">
+									<span><?php echo esc_html_e( '応募する', 'wordpressfoundation' ); ?></span>
+								</a>
+							</div>
+							<?php
 						}
 						?>
 					</div>

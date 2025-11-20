@@ -1150,6 +1150,18 @@ class WPF_Template_Functions {
 			$query->set( 'posts_per_page', -1 );
 		}
 
+		// career投稿タイプの場合
+		if ( ! is_admin() && $query->is_main_query() && is_post_type_archive( 'career' ) ) {
+			$query->set(
+				'orderby',
+				array(
+					'menu_order' => 'ASC',
+					'date'       => 'DESC',
+				)
+			);
+			$query->set( 'posts_per_page', -1 );
+		}
+
 		// 著者アーカイブページの場合
 		if ( ! is_admin() && $query->is_main_query() && is_author() ) {
 			$query->set( 'post_type', array( 'post', 'blog' ) );

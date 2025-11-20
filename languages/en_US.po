@@ -302,8 +302,23 @@ msgstr "Read article"
 msgid "基本情報"
 msgstr "Basic Information"
 
+msgid "実践内容"
+msgstr "Practice Content"
+
+msgid "成果・気づき"
+msgstr "Results & Insights"
+
+msgid "観察記録"
+msgstr "Observation Records"
+
 msgid "現在募集中の職種はありません。"
 msgstr "There are currently no open positions."
+
+msgid "募集中の職種一覧"
+msgstr "Available Positions"
+
+msgid "応募する"
+msgstr "Apply"
 
 msgid "回答を開く"
 msgstr "Open answer"

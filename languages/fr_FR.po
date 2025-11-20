@@ -294,8 +294,23 @@ msgstr "Lire l'article"
 msgid "基本情報"
 msgstr "Informations de base"
 
+msgid "実践内容"
+msgstr "Contenu de la pratique"
+
+msgid "成果・気づき"
+msgstr "Résultats et observations"
+
+msgid "観察記録"
+msgstr "Notes d'observation"
+
 msgid "現在募集中の職種はありません。"
 msgstr "Il n'y a actuellement aucun poste disponible."
+
+msgid "募集中の職種一覧"
+msgstr "Liste des postes ouverts"
+
+msgid "応募する"
+msgstr "Postuler"
 
 msgid "回答を開く"
 msgstr "Ouvrir la réponse"

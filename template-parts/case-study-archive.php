@@ -25,66 +25,66 @@ global $wpf_template_tags;
 	?>
 
 	<div class="page-main wrapper:stretch">
-		<div class="archive-case-study">
-			<?php
-			/**
-			 * サイドバー
-			 */
-
-			// 地域
-			$top_level_area_terms = get_terms(
-				array(
-					'taxonomy' => 'area',
-					'parent'   => 0,  // 親がないタームのみ取得
-				)
-			);
-
-			if ( $top_level_area_terms && ! is_wp_error( $top_level_area_terms ) ) {
-				$current_term = WPF_Template_Tags::get_the_current_term();
-				?>
-				<div class="archive-case-study__sidebar">
-					<?php
-					if ( $top_level_area_terms && ! is_wp_error( $top_level_area_terms ) ) {
-						$is_open = ' open';
-						?>
-						<div class="archive-case-study__sidebar-item">
-							<details class="category-accordion" aria-label="<?php esc_attr_e( '地域', 'wordpressfoundation' ); ?>"<?php echo esc_attr( $is_open ); ?>>
-								<summary class="category-accordion__heading">
-									<?php echo esc_html_e( '地域', 'wordpressfoundation' ); ?>
-								</summary>
-
-								<nav class="category-accordion__main" aria-label="<?php echo esc_attr_e( '地域', 'wordpressfoundation' ); ?>">
-									<ul>
-										<?php
-										foreach ( $top_level_area_terms as $area_term ) {
-											$aria_current_attr = $current_term && $current_term->term_id === $area_term->term_id ? ' aria-current="page"' : '';
-											$area_term_link    = get_term_link( $area_term );
-											if ( ! is_wp_error( $area_term_link ) ) {
-												?>
-												<li>
-													<a href="<?php echo esc_url( $area_term_link ); ?>" class="category-accordion__item"<?php echo $aria_current_attr; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>>
-														<?php echo esc_html( $area_term->name ); ?>
-													</a>
-												</li>
-												<?php
-											}
-										}
-										?>
-									</ul>
-								</nav>
-							</details>
-						</div>
-						<?php
-					}
-					?>
-				</div>
-				<?php
-			}
+		<?php
+		if ( have_posts() ) {
 			?>
+			<div class="archive-case-study">
+				<?php
+				/**
+				 * サイドバー
+				 */
 
-			<?php
-			if ( have_posts() ) {
+				// 地域
+				$top_level_area_terms = get_terms(
+					array(
+						'taxonomy' => 'area',
+						'parent'   => 0,  // 親がないタームのみ取得
+					)
+				);
+
+				if ( $top_level_area_terms && ! is_wp_error( $top_level_area_terms ) ) {
+					$current_term = WPF_Template_Tags::get_the_current_term();
+					?>
+					<div class="archive-case-study__sidebar">
+						<?php
+						if ( $top_level_area_terms && ! is_wp_error( $top_level_area_terms ) ) {
+							$is_open = ' open';
+							?>
+							<div class="archive-case-study__sidebar-item">
+								<details class="category-accordion" aria-label="<?php esc_attr_e( '地域', 'wordpressfoundation' ); ?>"<?php echo esc_attr( $is_open ); ?>>
+									<summary class="category-accordion__heading">
+										<?php echo esc_html_e( '地域', 'wordpressfoundation' ); ?>
+									</summary>
+
+									<nav class="category-accordion__main" aria-label="<?php echo esc_attr_e( '地域', 'wordpressfoundation' ); ?>">
+										<ul>
+											<?php
+											foreach ( $top_level_area_terms as $area_term ) {
+												$aria_current_attr = $current_term && $current_term->term_id === $area_term->term_id ? ' aria-current="page"' : '';
+												$area_term_link    = get_term_link( $area_term );
+												if ( ! is_wp_error( $area_term_link ) ) {
+													?>
+													<li>
+														<a href="<?php echo esc_url( $area_term_link ); ?>" class="category-accordion__item"<?php echo $aria_current_attr; /* phpcs:ignore WordPress.Security.EscapeOutput */ ?>>
+															<?php echo esc_html( $area_term->name ); ?>
+														</a>
+													</li>
+													<?php
+												}
+											}
+											?>
+										</ul>
+									</nav>
+								</details>
+							</div>
+							<?php
+						}
+						?>
+					</div>
+					<?php
+				}
 				?>
+
 				<div class="archive-case-study__main">
 					<div class="archive-case-study__items">
 						<?php
@@ -195,17 +195,16 @@ global $wpf_template_tags;
 					);
 					?>
 				</div>
-
-				<?php
-			} else {
-				?>
-				<div class="prose">
-					<p><?php esc_html_e( '投稿が見つかりませんでした。', 'wordpressfoundation' ); ?></p>
-				</div>
-				<?php
-			}
+			</div>
+			<?php
+		} else {
 			?>
-		</div>
+			<div class="prose">
+				<p><?php esc_html_e( '投稿が見つかりませんでした。', 'wordpressfoundation' ); ?></p>
+			</div>
+			<?php
+		}
+		?>
 	</div>
 </main>
 

@@ -797,21 +797,6 @@ class WPF_Smart_Cf_Register_Fields {
 		}
 
 		if ( 'career' === $type ) {
-			$_setting = SCF::add_setting( '_wpf_career_status', '募集ステータス' );
-			$_setting->add_group(
-				'_wpf_career_status',
-				false,
-				array(
-					array(
-						'name'    => '_wpf_career_status__status',
-						'label'   => __( '募集中', 'wordpressfoundation' ),
-						'type'    => 'boolean',
-						'default' => true,
-					),
-				)
-			);
-			$settings[] = $_setting;
-
 			$_setting = SCF::add_setting( '_wpf_career', '募集要項' );
 			$_setting->add_group(
 				'_wpf_career',

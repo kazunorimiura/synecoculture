@@ -264,8 +264,23 @@
          "基本情報": [
             "Informations de base"
          ],
+         "実践内容": [
+            "Contenu de la pratique"
+         ],
+         "成果・気づき": [
+            "Résultats et observations"
+         ],
+         "観察記録": [
+            "Notes d'observation"
+         ],
          "現在募集中の職種はありません。": [
             "Il n'y a actuellement aucun poste disponible."
+         ],
+         "募集中の職種一覧": [
+            "Liste des postes ouverts"
+         ],
+         "応募する": [
+            "Postuler"
          ],
          "回答を開く": [
             "Ouvrir la réponse"

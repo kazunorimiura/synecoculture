@@ -163,7 +163,7 @@ function get_faq_contents() {
 				if ( $wpf_show_toc ) {
 					echo $wpf_content; // phpcs:ignore WordPress.Security.EscapeOutput
 				} else {
-                    echo apply_filters( 'the_content', get_faq_contents() ); // phpcs:ignore
+					echo get_faq_contents(); // phpcs:ignore WordPress.Security.EscapeOutput
 				}
 				?>
 			</div>
