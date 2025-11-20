@@ -160,10 +160,12 @@ global $wpf_template_tags;
 										}
 										?>
 
-										<a href="<?php the_permalink(); ?>" class="archive-blog__item__cta button:secondary:with-icon">
-											<span><?php echo esc_html_e( '記事を読む', 'wordpressfoundation' ); ?></span>
-											<span><?php echo WPF_Icons::get_svg( 'ui', 'arrow_right', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-										</a>
+										<div class="archive-blog__item__cta text-center">
+											<a href="<?php the_permalink(); ?>" class="button:secondary:with-icon">
+												<span><?php echo esc_html_e( '記事を読む', 'wordpressfoundation' ); ?></span>
+												<span><?php echo WPF_Icons::get_svg( 'ui', 'arrow_right', 24 ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+											</a>
+										</div>
 									</div>
 								</div>
 							</article>
