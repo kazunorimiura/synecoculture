@@ -364,6 +364,7 @@ class WPF_Polylang_Functions {
 		return array_merge(
 			$metas,
 			array_fill_keys( self::$sync_post_meta_keys, 1 ),
+			array_fill_keys( self::$copy_once_post_meta_keys, 1 ),
 			array_fill_keys( self::$sync_term_meta_keys, 1 )
 		);
 	}
