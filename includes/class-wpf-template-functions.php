@@ -226,6 +226,9 @@ class WPF_Template_Functions {
 		// カテゴリ名・タグ名を検索対象に含める。
 		add_filter( 'posts_search', array( $this, 'search_include_terms' ), 10, 2 );
 
+		// 検索結果の抜粋文をキーワードを中心とした抜粋に変更
+		add_filter( 'get_the_excerpt', array( $this, 'search_excerpt' ), 10 );
+
 		// wp_get_archives の li, a タグに独自のクラスを追加する。
 		add_filter( 'get_archives_link', array( $this, 'add_attributes_to_archives_link' ), 10, 3 );
 
@@ -237,6 +240,9 @@ class WPF_Template_Functions {
 
 		// `member_cat` タクソノミータームを更新した時に `_wpf_term_order` 値に基づいてメンバーの `menu_order' を更新
 		add_action( 'saved_term', array( $this, 'save_term_update_member_menu_order_by_term_order' ), 11, 5 );
+
+		// 抜粋長を変更
+		add_filter( 'excerpt_length', array( $this, 'excerpt_length' ), 999 );
 	}
 
 	/**
@@ -1630,6 +1636,53 @@ class WPF_Template_Functions {
 	}
 
 	/**
+	 * 検索結果の抜粋文をキーワードを中心とした抜粋に変更
+	 *
+	 * @param string $text 抜粋文
+	 * @return string
+	 */
+	public static function search_excerpt( $text ) {
+		if ( is_search() ) {
+			global $wp_query;
+			$keys = explode( ' ', get_search_query() );
+
+			// コンテンツを取得してクリーンアップ
+			$content = get_the_content();
+			$content = strip_shortcodes( $content );
+			$content = wp_strip_all_tags( $content );
+
+			// ★ 文字数の設定
+			$before_keyword = 40;  // キーワードの前に表示する文字数
+			$total_length   = 100;    // 抽出する全体の文字数
+
+			// キーワード周辺のテキストを抽出
+			foreach ( $keys as $key ) {
+				if ( empty( $key ) ) {
+					continue;
+				}
+				$pos = mb_stripos( $content, $key );
+				if ( false !== $pos ) {
+					$start   = max( 0, $pos - $before_keyword );
+					$excerpt = mb_substr( $content, $start, $total_length );
+
+					// キーワードをハイライト
+					$excerpt = preg_replace(
+						'/(' . preg_quote( $key, '/' ) . ')/iu',
+						'<mark>$1</mark>',
+						$excerpt
+					);
+
+					// エスケープ処理
+					$excerpt = wp_kses_post( $excerpt );
+
+					return '...' . $excerpt . '...';
+				}
+			}
+		}
+		return $text;
+	}
+
+	/**
 	 * テストフレンドリーな wp_safe_redirect 関数。
 	 *
 	 * @param string $url リダイレクト先のURL。
@@ -2479,5 +2532,18 @@ class WPF_Template_Functions {
 				wp_reset_postdata();
 			}
 		}
+	}
+
+	/**
+	 * 抜粋長を変更
+	 *
+	 * @param int $length 抜粋長
+	 * @return int （場合によって）変更された抜粋長
+	 */
+	public static function excerpt_length( $length ) {
+		if ( is_search() ) {
+			return 100;
+		}
+		return $length;
 	}
 }

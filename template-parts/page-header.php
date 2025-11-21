@@ -10,7 +10,7 @@ global $wpf_template_tags;
 
 $wpf_breadcrumbs       = WPF_Template_Tags::get_the_breadcrumbs( 'display' );
 $wpf_cover_media       = WPF_Template_Tags::get_the_cover_media();
-$wpf_container_classes = $wpf_cover_media && ! empty( get_object_vars( $wpf_cover_media ) ) ? 'page-header page-header--has-cover' : 'page-header';
+$wpf_container_classes = ! is_search() && $wpf_cover_media && ! empty( get_object_vars( $wpf_cover_media ) ) ? 'page-header page-header--has-cover' : 'page-header';
 $wpf_subtitle          = isset( $args['subtitle'] ) ? $args['subtitle'] : '';
 ?>
 
@@ -21,14 +21,12 @@ $wpf_subtitle          = isset( $args['subtitle'] ) ? $args['subtitle'] : '';
 			// 検索結果ページの場合
 			if ( is_search() ) {
 				?>
-				<div class="wrapper:wide border-bottom">
-					<div class="flow">
-						<h1 class="page-header__title">
-							<?php esc_html_e( 'Search', 'wordpressfoundation' ); ?>
-						</h1>
+				<div class="page-header__main__content--search">
+					<h1 class="page-header__title">
+						<?php esc_html_e( 'Search', 'wordpressfoundation' ); ?>
+					</h1>
 
-						<?php get_search_form(); ?>
-					</div>
+					<?php get_search_form(); ?>
 				</div>
 				<?php
 
@@ -336,7 +334,7 @@ $wpf_subtitle          = isset( $args['subtitle'] ) ? $args['subtitle'] : '';
 	?>
 
 	<?php
-	if ( ! empty( $wpf_cover_media ) ) {
+	if ( ! is_search() && ! empty( $wpf_cover_media ) ) {
 		?>
 		<div class="page-header__cover">
 			<?php

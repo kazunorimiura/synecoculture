@@ -9,14 +9,13 @@
 ///
 
 // 1. ページヘッダーの潜り込みで上に重なってしまうのを防ぐ。
-// 2. グロナビボタンまでの余白を確保する
 .primary-nav {
     position: relative; // 1
     z-index: z-index("primary-nav"); // 1
     display: flex;
     align-items: center;
     height: var(--site-header-height);
-    margin-inline: auto fd(map.get(config.$site-gutter, min), 54); // 2
+    margin-inline: auto 0;
     color: inherit;
 }
 

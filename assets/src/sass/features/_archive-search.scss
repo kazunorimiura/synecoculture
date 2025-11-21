@@ -1,0 +1,90 @@
+@use "sass:map";
+@use "sass:math";
+@use "../config";
+@use "../base/settings" as *;
+@use "../utilities/flow";
+@use "../utilities/frame";
+
+.archive-search {
+    @extend %flow;
+
+    --flow-space: #{fd(32, 40)};
+}
+
+.archive-search + .pagination {
+    margin-block-start: fd(48, 64);
+}
+
+.archive-search__item > * + * {
+    margin-block-start: var(--space-s-space);
+}
+
+.archive-search__item__main {
+    display: flex;
+    flex-direction: row;
+    gap: fd(16, 24);
+    align-items: flex-start;
+}
+
+.archive-search__item__content {
+    @extend %flow;
+
+    --flow-space: var(--space-s-space);
+
+    flex: 1;
+}
+
+.archive-search__item__title {
+    // font-headline-3からfont-textへの流体サイジングに、line-height-headline-3の行高を掛けてpx値に変換
+    $min-lh-value: map.get($min-font-sizes, s0) * (math.div(math.max(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)) - math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)), 2) + math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4))) * 1px;
+    $max-lh-value: map.get($max-font-sizes, s2) * (math.div(math.max(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)) - math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4)), 2) + math.min(map.get($min-line-height-sizes, s4), map.get($max-line-height-sizes, s4))) * 1px;
+
+    font-size: fd(rem(map.get($min-font-sizes, s0)), rem(map.get($max-font-sizes, s2)));
+    font-weight: var(--font-weight-bold);
+    line-height: fd($min-lh-value, $max-lh-value);
+    letter-spacing: -0.03em;
+}
+
+.archive-search__item__excerpt {
+    font: var(--font-text--sm);
+
+    @media screen and (max-width: em(map.get($breakpoints, sm))) {
+        display: none;
+    }
+}
+
+.archive-search__item__excerpt--mobile {
+    display: none;
+    font: var(--font-text--sm);
+
+    @media screen and (max-width: em(map.get($breakpoints, sm))) {
+        display: block;
+    }
+}
+
+.archive-search__item__cat {
+    display: flex;
+}
+
+.archive-search__item__cat > span {
+    display: inline-block;
+    padding-block: fd(5, 6);
+    padding-inline: fd(8, 10);
+    font-size: fd(rem(map.get($min-font-sizes, s-3)), rem(map.get($max-font-sizes, s-2)));
+    font-weight: var(--font-weight-sign);
+    line-height: var(--line-height-sign);
+    color: var(--color-content-tertiary);
+    appearance: none;
+    background-color: var(--color-background-secondary);
+    border-radius: var(--radius-sm);
+}
+
+.archive-search__item__thumbnail {
+    --n: 1;
+    --d: 1;
+
+    display: block;
+    flex-basis: fd(80, 100);
+    flex-shrink: 0;
+    border-radius: var(--radius);
+}

@@ -927,3 +927,9 @@ details summary + * {
 hr {
     @extend %hr;
 }
+
+mark {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-content-primary);
+    background-color: var(--color-background-highlight);
+}

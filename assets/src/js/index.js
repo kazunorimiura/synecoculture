@@ -16,6 +16,7 @@ import { createMorePostsLoader } from './components/more-posts-loader';
 import { calcVh } from './components/calc-vh';
 import { FloatingSidebar } from './components/floating-sidebar';
 import { BackToTop } from './components/back-to-top';
+import { SearchIconButton } from './components/search-icon-button';
 
 class App {
     constructor() {
@@ -97,6 +98,8 @@ class App {
         createFeaturedProjects();
 
         createMorePostsLoader();
+
+        new SearchIconButton();
 
         // 埋め込み動画をレスポンシブ化
         this.intrinsicRatioVideos = new IntrinsicRatioVideos();

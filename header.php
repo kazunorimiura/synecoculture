@@ -128,6 +128,13 @@ $wpf_global_nav = has_nav_menu( 'global_primary' ) || has_nav_menu( 'global_seco
 			<?php
 			if ( $wpf_global_nav ) {
 				?>
+				<div class="search-icon-button-container">
+					<button aria-controls="searchModal" aria-expanded="false" class="search-icon-button">
+						<span class="screen-reader-text"><?php echo esc_html_e( '検索', 'wordpressfoundation' ); ?></span>
+						<?php echo WPF_Icons::get_svg( 'ui', 'search' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					</button>
+				</div>
+
 				<div class="global-nav-button-wrapper">
 					<button class="global-nav-button" aria-controls="global-nav" aria-expanded="false">
 						<span class="global-nav-icon" aria-hidden="true">

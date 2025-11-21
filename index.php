@@ -42,7 +42,9 @@ global $wpf_template_tags;
 					</ul>
 					<p><?php esc_html_e( '上部（または下部）のメニューから目的のページをお探しいただくか、検索をお試しください。', 'wordpressfoundation' ); ?></p>
 
-					<?php get_search_form(); ?>
+					<div style="--flow-space: var(--space-s3)">
+						<?php get_search_form(); ?>
+					</div>
 				</div>
 				<?php
 			} else {

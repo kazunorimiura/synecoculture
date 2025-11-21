@@ -103,6 +103,13 @@ global $wpf_template_tags;
 		</a>
 	</footer>
 
+	<div role="dialog" aria-modal="true" aria-labelledby="searchModalTitle" id="searchModal" class="search-icon-button__modal" style="display: none">
+		<span id="searchModalTitle" class="screen-reader-text"><?php echo esc_html_e( '検索', 'wordpressfoundation' ); ?></span>
+		<div class="search-icon-button__modal__content">
+			<?php get_search_form(); ?>
+		</div>
+	</div>
+
 	<?php wp_footer(); ?>
 </body>
 </html>
