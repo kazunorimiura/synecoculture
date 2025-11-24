@@ -58,13 +58,15 @@
 
 .trilemma-explains-container {
     padding-block: var(--space-s-space);
-    overflow: hidden;
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        overflow: hidden;
+    }
 }
 
 .trilemma-explains {
     display: flex;
     flex-direction: column;
-    overflow-x: auto;
     cursor: grab;
     user-select: none;
     transition: none;
@@ -79,6 +81,7 @@
         flex-direction: row;
         gap: var(--site-gutter);
         width: calc(100% * 3 + var(--site-gutter) * 2);
+        overflow-x: auto;
     }
 }
 
@@ -106,12 +109,53 @@
 }
 
 .trilemma-explain__inner {
+    position: relative;
     width: 100%;
     max-width: fd(150, 320);
     border-block-start: 1px solid var(--color-border-opaque);
 
     @media screen and (max-width: em(map.get($breakpoints, lg))) {
         max-width: 100%;
+    }
+}
+
+.trilemma-explain .trilemma-explain__inner::after {
+    position: absolute;
+    top: -1.5rem;
+    left: -1.5rem;
+    display: block;
+    width: calc(100% + 3rem);
+    height: calc(100% + 3rem);
+    visibility: hidden;
+    content: "";
+    background-color: var(--color-background-highlight);
+    border-radius: var(--radius);
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+    transform: scale(0);
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        display: none;
+    }
+}
+
+.trilemma-explain.active .trilemma-explain__inner::after {
+    position: absolute;
+    top: -1.5rem;
+    left: -1.5rem;
+    display: block;
+    width: calc(100% + 3rem);
+    height: calc(100% + 3rem);
+    visibility: visible;
+    content: "";
+    background-color: var(--color-background-highlight);
+    border-radius: var(--radius);
+    opacity: 1;
+    transition: all 1.2s cubic-bezier(0.08, 0.82, 0.17, 1);
+    transform: scale(1);
+
+    @media screen and (max-width: em(map.get($breakpoints, lg))) {
+        display: none;
     }
 }
 
