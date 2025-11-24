@@ -1832,14 +1832,16 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			// デフォルト引数と与えられた引数を結合する
 			$atts = shortcode_atts(
 				array(
-					'heading_text' => '',
-					'body_text'    => '',
-					'per_page'     => 5,
-					'taxonomy'     => '',
-					'term'         => '',
-					'cta_link'     => '',
-					'cta_text'     => '',
-					'target'       => '_self',
+					'heading_text'  => '',
+					'heading_level' => 'h2',
+					'heading_id'    => '',
+					'body_text'     => '',
+					'per_page'      => 5,
+					'taxonomy'      => '',
+					'term'          => '',
+					'cta_link'      => '',
+					'cta_text'      => '',
+					'target'        => '_self',
 				),
 				$atts
 			);
@@ -1876,8 +1878,9 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 				?>
 				<?php
 				if ( ! empty( $atts['heading_text'] ) ) {
+					$heading_id = ! empty( $atts['heading_id'] ) ? ' id="' . $atts['heading_id'] . '"' : '';
 					?>
-					<h2 class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></h2>
+					<<?php echo esc_attr( $atts['heading_level'] ); ?><?php echo $heading_id; // phpcs:ignore WordPress.Security.EscapeOutput ?> class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></<?php echo esc_attr( $atts['heading_level'] ); ?>>
 					<?php
 				}
 				?>
@@ -2024,14 +2027,16 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 
 			// デフォルト属性
 			$defaults = array(
-				'heading_text' => '',
-				'body_text'    => '',
-				'size'         => 'post_list',
-				'post_types'   => 'project',
-				'per_page'     => 5,
-				'orderby'      => 'date',
-				'order'        => 'DESC',
-				'relation'     => 'OR',
+				'heading_text'  => '',
+				'heading_level' => 'h2',
+				'heading_id'    => '',
+				'body_text'     => '',
+				'size'          => 'post_list',
+				'post_types'    => 'project',
+				'per_page'      => 5,
+				'orderby'       => 'date',
+				'order'         => 'DESC',
+				'relation'      => 'OR',
 			);
 
 			$atts = shortcode_atts(
@@ -2097,8 +2102,9 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 				?>
 				<?php
 				if ( ! empty( $atts['heading_text'] ) ) {
+					$heading_id = ! empty( $atts['heading_id'] ) ? ' id="' . $atts['heading_id'] . '"' : '';
 					?>
-					<h2 class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></h2>
+					<<?php echo esc_attr( $atts['heading_level'] ); ?><?php echo $heading_id; // phpcs:ignore WordPress.Security.EscapeOutput ?> class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></<?php echo esc_attr( $atts['heading_level'] ); ?>>
 					<?php
 				}
 				?>
@@ -2127,14 +2133,16 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			// デフォルト引数と与えられた引数を結合する
 			$atts = shortcode_atts(
 				array(
-					'heading_text' => '',
-					'body_text'    => '',
-					'per_page'     => 5,
-					'taxonomy'     => '',
-					'term'         => '',
-					'cta_link'     => '',
-					'cta_text'     => '',
-					'target'       => '_self',
+					'heading_text'  => '',
+					'heading_level' => 'h2',
+					'heading_id'    => '',
+					'body_text'     => '',
+					'per_page'      => 5,
+					'taxonomy'      => '',
+					'term'          => '',
+					'cta_link'      => '',
+					'cta_text'      => '',
+					'target'        => '_self',
 				),
 				$atts
 			);
@@ -2171,8 +2179,9 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 				?>
 				<?php
 				if ( ! empty( $atts['heading_text'] ) ) {
+					$heading_id = ! empty( $atts['heading_id'] ) ? ' id="' . $atts['heading_id'] . '"' : '';
 					?>
-					<h2 class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></h2>
+					<<?php echo esc_attr( $atts['heading_level'] ); ?><?php echo $heading_id; // phpcs:ignore WordPress.Security.EscapeOutput ?> class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></<?php echo esc_attr( $atts['heading_level'] ); ?>>
 					<?php
 				}
 				?>
@@ -2336,7 +2345,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 				if ( ! empty( $atts['heading_text'] ) ) {
 					$heading_id = ! empty( $atts['heading_id'] ) ? ' id="' . $atts['heading_id'] . '"' : '';
 					?>
-					<<?php echo esc_attr( $atts['heading_level'] ); ?><?php echo esc_attr( $heading_id ); ?> class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></<?php echo esc_attr( $atts['heading_level'] ); ?>>
+					<<?php echo esc_attr( $atts['heading_level'] ); ?><?php echo $heading_id; // phpcs:ignore WordPress.Security.EscapeOutput ?> class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></<?php echo esc_attr( $atts['heading_level'] ); ?>>
 					<?php
 				}
 				?>
@@ -2437,7 +2446,7 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 				if ( ! empty( $atts['heading_text'] ) ) {
 					$heading_id = ! empty( $atts['heading_id'] ) ? ' id="' . $atts['heading_id'] . '"' : '';
 					?>
-					<<?php echo esc_attr( $atts['heading_level'] ); ?><?php echo esc_attr( $heading_id ); ?> class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></<?php echo esc_attr( $atts['heading_level'] ); ?>>
+					<<?php echo esc_attr( $atts['heading_level'] ); ?><?php echo $heading_id; // phpcs:ignore WordPress.Security.EscapeOutput ?> class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></<?php echo esc_attr( $atts['heading_level'] ); ?>>
 					<?php
 				}
 				?>
@@ -2466,14 +2475,16 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 			// デフォルト引数と与えられた引数を結合する
 			$atts = shortcode_atts(
 				array(
-					'heading_text' => '',
-					'body_text'    => '',
-					'per_page'     => -1,
-					'taxonomy'     => '',
-					'term'         => '',
-					'cta_link'     => '',
-					'cta_text'     => '',
-					'target'       => '_self',
+					'heading_text'  => '',
+					'heading_level' => 'h2',
+					'heading_id'    => '',
+					'body_text'     => '',
+					'per_page'      => -1,
+					'taxonomy'      => '',
+					'term'          => '',
+					'cta_link'      => '',
+					'cta_text'      => '',
+					'target'        => '_self',
 				),
 				$atts
 			);
@@ -2514,8 +2525,9 @@ if ( ! class_exists( 'WPF_Shortcode' ) ) {
 				?>
 				<?php
 				if ( ! empty( $atts['heading_text'] ) ) {
+					$heading_id = ! empty( $atts['heading_id'] ) ? ' id="' . $atts['heading_id'] . '"' : '';
 					?>
-					<h2 class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></h2>
+					<<?php echo esc_attr( $atts['heading_level'] ); ?><?php echo $heading_id; // phpcs:ignore WordPress.Security.EscapeOutput ?> class="wp-block-heading"><?php echo esc_html( $atts['heading_text'] ); ?></<?php echo esc_attr( $atts['heading_level'] ); ?>>
 					<?php
 				}
 				?>
