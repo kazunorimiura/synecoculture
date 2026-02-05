@@ -111,7 +111,7 @@ if ( have_posts() ) {
 										</button>
 									</div>
 
-									<nav id="manual-main__content__sidebar__toc" class="manual-main__content__sidebar__toc toc flow over-scroll" aria-label="In this article">
+									<nav id="manual-main__content__sidebar__toc" class="manual-main__content__sidebar__toc toc flow" aria-label="In this article">
 										<?php echo $wpf_toc_menu; // phpcs:ignore WordPress.Security.EscapeOutput ?>
 									</nav>
 								</div>
