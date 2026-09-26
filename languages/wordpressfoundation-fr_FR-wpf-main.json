@@ -210,8 +210,14 @@
          "個人情報保護方針の同意が必要です。": [
             "Le consentement à la politique de confidentialité est requis."
          ],
-         "Google reCAPTCHAにより、自動化されたアクセスとして検知されました。しばらく時間をおいてから再度お試しください。": [
-            "Google reCAPTCHA a détecté un accès automatisé. Veuillez patienter un moment et réessayer."
+         "reCAPTCHAによる確認ができませんでした。お手数ですが、もう一度お試しください。": [
+            "La vérification reCAPTCHA n'a pas pu être effectuée. Veuillez réessayer."
+         ],
+         "reCAPTCHAにより送信を受け付けられませんでした。お手数ですが、時間をおいてもう一度お試しください。": [
+            "Votre envoi n'a pas été accepté par reCAPTCHA. Veuillez patienter un moment et réessayer."
+         ],
+         "reCAPTCHAのシークレットキーが設定されていないため、送信できません。": [
+            "Le formulaire ne peut pas être envoyé, car la clé secrète reCAPTCHA n'est pas configurée."
          ],
          "姓は%d文字以内で入力してください。": [
             "Veuillez saisir votre nom de famille en %d caractères maximum."

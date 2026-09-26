@@ -25,6 +25,8 @@ module.exports = {
         'assets/js/main': path.resolve(__dirname, 'assets/src/js/index.js'),
         'assets/js/editor': path.resolve(__dirname, 'assets/src/js/editor.js'),
         'assets/js/inspector': path.resolve(__dirname, 'assets/src/js/inspector.js'),
+        // reCAPTCHA を使うフォームのページでだけ読み込む（integrations/mw-wp-form/functions.php）
+        'assets/js/mw-wp-form-recaptcha': path.resolve(__dirname, 'assets/src/js/mw-wp-form-recaptcha.js'),
         'editor-style': path.resolve(__dirname, 'assets/src/sass/wordpress/editor.scss'),
         style: path.resolve(__dirname, 'assets/src/sass/index.scss'),
     },

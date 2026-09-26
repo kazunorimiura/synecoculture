@@ -58,21 +58,91 @@ foreach ( $wpf_forms as $wpf_form ) {
 		10,
 		2
 	);
-
-	// reCAPTCHAのエラーメッセージ変更
-	add_filter(
-		'mwform_error_message_mw-wp-form-' . $wpf_form->ID,
-		function ( $error, $key ) {
-			if ( 'recaptcha-v3' === $key ) {
-				$error = str_replace( 'Invalid reCAPTCHA Secret key.', __( 'Google reCAPTCHAにより、自動化されたアクセスとして検知されました。しばらく時間をおいてから再度お試しください。', 'wordpressfoundation' ), $error );
-			}
-			return $error;
-		},
-		10,
-		2
-	);
 }
 unset( $wpf_form );
+
+/**
+ * reCAPTCHA の検証エラーのメッセージを差し替える。
+ *
+ * reCAPTCHA for MW WP Form は検証エラーを英語の原文で返し、その翻訳を同梱していない（素通りすると
+ * フォーム上に英語のまま出る）。プラグインのテキストドメインの翻訳として、原文ごとにテーマの文言へ
+ * 差し替える。翻訳後の文字列ではなく原文で見分けるので、プラグインの翻訳が後から入っても外れない。
+ * フォームごとに登録しなくても、すべてのフォームに効く。
+ *
+ * 原文をそのまま訳すと実際の原因と食い違う。「Invalid reCAPTCHA Secret key.」は秘密鍵の誤りに限らず、
+ * Google がトークンを受け付けなかったとき（有効期限切れ・使用済み・空）に出る。そのため、訪問者から
+ * 見て何が起きたかと、次にどうすればよいかを書く。原因ごとに文言を分けておき、どの原因で失敗したかを
+ * 見分けられるようにする。
+ *
+ * @param string $translation 翻訳後の文言。
+ * @param string $text        翻訳前の原文。
+ * @return string
+ */
+function wpf_translate_recaptcha_messages( $translation, $text ) {
+	switch ( $text ) {
+		case 'Invalid reCAPTCHA Secret key.':
+			// Google がトークンを受け付けなかった（有効期限切れ・使用済み・空など）。送り直せば通ることが多い。
+			return __( 'reCAPTCHAによる確認ができませんでした。お手数ですが、もう一度お試しください。', 'wordpressfoundation' );
+		case 'Failed reCAPTCHA access.':
+			// スコアがしきい値を下回った、または Google に問い合わせられなかった。どちらでも通る文言にする
+			// （しきい値は施主が管理画面で設定しうるので、「ボット判定」とは断定しない）。
+			return __( 'reCAPTCHAにより送信を受け付けられませんでした。お手数ですが、時間をおいてもう一度お試しください。', 'wordpressfoundation' );
+		case 'Enter reCAPTCHA Secret key.':
+			// 管理画面でシークレットキーが設定されていない。
+			return __( 'reCAPTCHAのシークレットキーが設定されていないため、送信できません。', 'wordpressfoundation' );
+	}
+
+	return $translation;
+}
+add_filter( 'gettext_recaptcha-for-mw-wp-form', 'wpf_translate_recaptcha_messages', 10, 2 );
+
+/**
+ * 送信の直前に reCAPTCHA のトークンを取り直すスクリプトを読み込む。
+ *
+ * プラグインはページを開いた時点で一度だけトークンを取得し、フォームに入れておく。トークンの有効期限は
+ * 2 分なので、入力に 2 分以上かかると期限切れのトークンが送られ、スコアとは無関係に検証に失敗する
+ * （エラー画面を開いた時点で新しいトークンが入るため、すぐ送り直すと通る）。Google もトークンは
+ * ページを開いた時点ではなく、操作の時点で取得するよう求めている。
+ *
+ * プラグインが reCAPTCHA を読み込んだページでだけ読み込む。プラグインの読み込み（既定の優先度）が
+ * 済んでから判定するため、優先度を後ろにずらす。
+ */
+function wpf_enqueue_recaptcha_refresh() {
+	if ( ! wp_script_is( 'recaptcha-script', 'enqueued' ) ) {
+		return;
+	}
+
+	// 同じ名前のスクリプトを別のプラグインが読み込んだ場合に備え、このプラグインと MW WP Form の存在を確かめる。
+	if ( ! class_exists( 'MW_WP_Form_reCAPTCHA\Config' ) || ! class_exists( 'MWF_Config' ) ) {
+		return;
+	}
+
+	$option = get_option( \MW_WP_Form_reCAPTCHA\Config::OPTION );
+	if ( ! is_array( $option ) || empty( $option['site_key'] ) ) {
+		return;
+	}
+
+	wp_enqueue_script(
+		'wpf-mw-wp-form-recaptcha',
+		get_template_directory_uri() . '/assets/js/mw-wp-form-recaptcha.js',
+		array( 'recaptcha-script' ),
+		filemtime( get_template_directory() . '/assets/js/mw-wp-form-recaptcha.js' ),
+		true
+	);
+
+	wp_add_inline_script(
+		'wpf-mw-wp-form-recaptcha',
+		'var wpfMwWpFormRecaptcha = ' . wp_json_encode(
+			array(
+				'siteKey'        => $option['site_key'],
+				// 戻るボタンの name。プラグインはこのボタンで送られたときはトークンを検証しない。
+				'backButtonName' => MWF_Config::BACK_BUTTON,
+			)
+		) . ';',
+		'before'
+	);
+}
+add_action( 'wp_enqueue_scripts', 'wpf_enqueue_recaptcha_refresh', 20 );
 
 // フォームのデフォルトコンテンツを設定
 if ( file_exists( get_template_directory() . '/includes/integrations/mw-wp-form/default-form-contents.php' ) ) {

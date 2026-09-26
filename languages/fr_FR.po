@@ -240,8 +240,14 @@ msgstr "Veuillez saisir votre message."
 msgid "個人情報保護方針の同意が必要です。"
 msgstr "Le consentement à la politique de confidentialité est requis."
 
-msgid "Google reCAPTCHAにより、自動化されたアクセスとして検知されました。しばらく時間をおいてから再度お試しください。"
-msgstr "Google reCAPTCHA a détecté un accès automatisé. Veuillez patienter un moment et réessayer."
+msgid "reCAPTCHAによる確認ができませんでした。お手数ですが、もう一度お試しください。"
+msgstr "La vérification reCAPTCHA n'a pas pu être effectuée. Veuillez réessayer."
+
+msgid "reCAPTCHAにより送信を受け付けられませんでした。お手数ですが、時間をおいてもう一度お試しください。"
+msgstr "Votre envoi n'a pas été accepté par reCAPTCHA. Veuillez patienter un moment et réessayer."
+
+msgid "reCAPTCHAのシークレットキーが設定されていないため、送信できません。"
+msgstr "Le formulaire ne peut pas être envoyé, car la clé secrète reCAPTCHA n'est pas configurée."
 
 msgid "姓は%d文字以内で入力してください。"
 msgstr "Veuillez saisir votre nom de famille en %d caractères maximum."
